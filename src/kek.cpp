@@ -40,7 +40,7 @@ struct EventHandler {
 
 void LaunchApp() {
   X11_Display x_display;
-  X11_Window x_window(x_display, DefaultScreen(x_display.display));
+  X11_Window x_window(x_display, DefaultScreen(x_display.display), {10,10,200U,200U,1U,(255L << 16),(0L),(255L << 16)});
   EventHandler ehandler(x_display, x_window);
   
   x_window.show();
