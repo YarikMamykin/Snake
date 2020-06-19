@@ -2,9 +2,10 @@
 
 namespace xlib {
 
-  X11_Window::X11_Window(X11_Display& x_display, int screen, const WindowSettings& win_sets) 
+  X11_Window::X11_Window(X11_Display& x_display, int screen, std::unique_ptr<views::View> view, const WindowSettings& win_sets) 
     : x_display(x_display)
       , screen(screen) 
+      , view(std::move(view))
       , win_sets(win_sets)
       , msg("Hello, World!") 
       , graphical_context(DefaultGC(x_display.display, screen)) {
@@ -32,19 +33,6 @@ namespace xlib {
   }
 
   void X11_Window::expose() {
-    XSetForeground(x_display.display, graphical_context, win_sets.font_color);
-    XDrawString(x_display.display, window, graphical_context, 50, 50, msg.c_str(), msg.length());
-
-    XRectangle rectangle = {.x = 20, .y = 200, .width = 200, .height = 30};
-    XSetForeground(x_display.display, graphical_context, win_sets.border_color);
-    XFillRectangle(x_display.display, window, graphical_context, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-
-    XSetForeground(x_display.display, graphical_context, 255L);
-    XSetLineAttributes(x_display.display, graphical_context,5,0,0,0);
-    XDrawRectangle(x_display.display, window, graphical_context, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-
-    XSetForeground(x_display.display, graphical_context, ~0L);
-    XSetLineAttributes(x_display.display, graphical_context,2,0,0,0);
-    XDrawLine(x_display.display, window, graphical_context, 10,10,772,10);
+    view->activate();
   }
 }
