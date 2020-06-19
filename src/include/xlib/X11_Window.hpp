@@ -16,6 +16,7 @@ namespace xlib {
     unsigned long border_color;
     unsigned long backgnd_color;
     unsigned long font_color;
+    std::string name;
   };
 
   struct X11_Window {
