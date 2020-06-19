@@ -32,15 +32,29 @@ struct EventHandler {
           x_window.expose();
         }
         // exit on key press
-        if (event.type == KeyPress)
+        if (event.type == KeyPress) {
+          if(XLookupKeysym(&event.xkey, 0) == XK_Delete) {
             break;
+          }
+        }
     }
   }
 };
 
 void LaunchApp() {
   X11_Display x_display;
-  X11_Window x_window(x_display, DefaultScreen(x_display.display), {10,10,200U,200U,1U,(255L << 16),(0L),(255L << 16)});
+  X11_Window x_window(x_display, 
+      DefaultScreen(x_display.display), 
+      { .x = 10,
+        .y = 10,
+        .w = 200U,
+        .h = 200U,
+        .border_width = 1U,
+        .border_color = (255L << 16),
+        .backgnd_color = (0L),
+        .font_color = (255L << 8),
+        .name = "Snake"
+      });
   EventHandler ehandler(x_display, x_window);
   
   x_window.show();
