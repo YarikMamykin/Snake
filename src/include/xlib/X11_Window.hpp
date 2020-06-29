@@ -4,7 +4,7 @@
 #include "XHeaders.hpp"
 #include <string>
 #include "X11_Display.hpp"
-#include "View.hpp"
+#include "ViewID.hpp"
 #include <memory>
 
 namespace xlib {
@@ -22,7 +22,7 @@ namespace xlib {
   };
 
   struct X11_Window {
-    X11_Window(X11_Display& x_display, int screen, std::unique_ptr<views::View> view, const WindowSettings& win_sets);
+    X11_Window(X11_Display& x_display, int screen, views::ViewID viewID, const WindowSettings& win_sets);
     ~X11_Window();
     void show();
     void expose();
@@ -30,7 +30,7 @@ namespace xlib {
     Window window;
     X11_Display& x_display;
     int screen;
-    std::unique_ptr<views::View> view;
+    views::ViewID viewID;
     WindowSettings win_sets;
     std::string msg;
     GC graphical_context;

@@ -6,7 +6,6 @@
  
 #include "X11_Window.hpp"
 #include "X11_Display.hpp"
-#include "GameMenu.hpp"
 
 using namespace xlib;
 
@@ -45,11 +44,9 @@ struct EventHandler {
 void LaunchApp() {
   X11_Display x_display;
 
-  std::unique_ptr<views::View> view(new views::GameMenu());
-
   X11_Window x_window(x_display, 
       DefaultScreen(x_display.display), 
-      std::move(view),
+      views::ViewID::MENU,
       { .x = 10,
         .y = 10,
         .w = 200U,
