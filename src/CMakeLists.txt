@@ -11,6 +11,7 @@ set(XLIB_UI_SRC ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Display.cpp
 
 set(GAME_VIEW_SRC ${CMAKE_CURRENT_SOURCE_DIR}/views/GameMenu.cpp
                   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameAction.cpp
+                  ${CMAKE_CURRENT_SOURCE_DIR}/views/GameNone.cpp
 )
 
 set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
