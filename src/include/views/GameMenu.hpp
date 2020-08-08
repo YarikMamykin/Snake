@@ -13,6 +13,16 @@ namespace views {
         bool active;
         std::string name;
         XRectangle frame;
+        const unsigned int left_text_margin;
+        const unsigned int top_text_margin;
+
+        Item(bool active, const std::string& name, const XRectangle& frame = {});
+        void show_text(xlib::X11_Window* x_window);
+        void show_frame(xlib::X11_Window* x_window);
+        void show(xlib::X11_Window* x_window);
+
+        int get_width(xlib::X11_Window* x_window) const;
+        int get_height(xlib::X11_Window* x_window) const;
       };
 
     public:
@@ -23,11 +33,8 @@ namespace views {
       virtual void activate() override;
       virtual void deactivate() override;
 
-      void add_item();
-
     private:
       xlib::X11_Window* x_window;
-      bool active;
       std::list<Item> items;
   };
 }
