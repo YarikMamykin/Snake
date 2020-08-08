@@ -7,7 +7,7 @@ namespace ui {
 
   class UI_Object {
     public:
-      virtual void on_event(const XEvent& event);
+      virtual void on_event(const XEvent& event) = 0;
       virtual ~UI_Object() {};
   };
 
