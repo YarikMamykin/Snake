@@ -6,6 +6,7 @@
  
 #include "X11_Window.hpp"
 #include "X11_Display.hpp"
+#include <iostream>
 
 using namespace xlib;
 
@@ -67,5 +68,6 @@ void LaunchApp() {
 int main(void)
 {
     LaunchApp();
+    std::cout << "GOODBYE!" << std::endl;
     return 0;
 }
