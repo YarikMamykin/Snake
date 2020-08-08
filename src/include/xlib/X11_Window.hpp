@@ -19,6 +19,7 @@ namespace xlib {
     unsigned long backgnd_color;
     unsigned long font_color;
     std::string name;
+    std::string font_name;
   };
 
   struct X11_Window {
@@ -27,6 +28,11 @@ namespace xlib {
     void show();
     void expose();
 
+    int get_x();
+    int get_y();
+    int get_width();
+    int get_height();
+
     Window window;
     X11_Display& x_display;
     int screen;
@@ -34,6 +40,7 @@ namespace xlib {
     WindowSettings win_sets;
     std::string msg;
     GC graphical_context;
+    XFontStruct* font_info;
   };
 }
 

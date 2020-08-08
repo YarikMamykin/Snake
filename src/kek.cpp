@@ -55,7 +55,8 @@ void LaunchApp() {
         .border_color = (255L << 16),
         .backgnd_color = (0L),
         .font_color = (255L << 8),
-        .name = "Snake"
+        .name = "Snake",
+        .font_name = "*-courier-*-24-*"
       });
   EventHandler ehandler(x_display, x_window);
   

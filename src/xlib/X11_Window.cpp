@@ -1,7 +1,6 @@
 #include "X11_Window.hpp"
-#include "View.hpp"
-#include "GameMenu.hpp"
-#include "GameAction.hpp"
+#include "ViewFactory.hpp"
+#include <iostream>
 
 namespace xlib {
 
@@ -24,9 +23,16 @@ namespace xlib {
             win_sets.border_color, 
             win_sets.backgnd_color);
         XStoreName(x_display.display, window, win_sets.name.c_str());
+        font_info = XLoadQueryFont(x_display.display, win_sets.font_name.c_str());
+        if(!font_info) {
+          std::cerr << "FONT NOT LOADED!!!!" << std::endl;
+        } else {
+          XSetFont(x_display.display, graphical_context, font_info->fid);
+        }
       }
 
   X11_Window::~X11_Window() {
+    XFreeFont(x_display.display, font_info);
     XDestroyWindow(x_display.display, window);
   }
 
@@ -36,20 +42,31 @@ namespace xlib {
   }
 
   void X11_Window::expose() {
-    std::shared_ptr<views::View> view;
-    switch(this->viewID) {
-      case views::ViewID::MENU: {
-        view = std::make_shared<views::GameMenu>(this);
-        break;
-      } 
-      case views::ViewID::ACTION: {
-        view = std::make_shared<views::GameAction>(this);
-        break;
-      } 
-    }
-        
-    if(view.get()) {
-      view->activate();
-    }
+    auto view = views::ViewFactory::get_view(viewID, this);
+    view->activate();
+  }
+
+  int X11_Window::get_x() {
+    XWindowAttributes win_attr;
+    XGetWindowAttributes(x_display.display, this->window, &win_attr);
+    return win_attr.x;
+  }
+
+  int X11_Window::get_y() {
+    XWindowAttributes win_attr;
+    XGetWindowAttributes(x_display.display, this->window, &win_attr);
+    return win_attr.y;
+  }
+
+  int X11_Window::get_width() {
+    XWindowAttributes win_attr;
+    XGetWindowAttributes(x_display.display, this->window, &win_attr);
+    return win_attr.width;
+  }
+
+  int X11_Window::get_height() {
+    XWindowAttributes win_attr;
+    XGetWindowAttributes(x_display.display, this->window, &win_attr);
+    return win_attr.height;
   }
 }
