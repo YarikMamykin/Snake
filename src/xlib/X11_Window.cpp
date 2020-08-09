@@ -7,7 +7,6 @@ namespace xlib {
   X11_Window::X11_Window(X11_Display& x_display, int screen, views::ViewID viewID, const WindowSettings& win_sets) 
     : x_display(x_display)
       , screen(screen) 
-      , viewID(viewID)
       , win_sets(win_sets)
       , msg("Hello, World!") 
       , graphical_context(DefaultGC(x_display.display, screen)) {
@@ -29,6 +28,8 @@ namespace xlib {
         } else {
           XSetFont(x_display.display, graphical_context, font_info->fid);
         }
+
+        view = views::ViewFactory::get_view(viewID, this);
       }
 
   X11_Window::~X11_Window() {
@@ -42,8 +43,9 @@ namespace xlib {
   }
 
   void X11_Window::expose() {
-    auto view = views::ViewFactory::get_view(viewID, this);
-    view->activate();
+    if (view) {
+      view->activate();
+    }
   }
 
   int X11_Window::get_x() {
@@ -68,5 +70,32 @@ namespace xlib {
     XWindowAttributes win_attr;
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
     return win_attr.height;
+  }
+
+  void X11_Window::handle_mouse_motion(const int& x, const int& y) {
+    XWindowAttributes win_attr;
+    XGetWindowAttributes(x_display.display, this->window, &win_attr);
+
+    std::string coords_text = std::to_string(x) + std::string(" : ") + std::to_string(y);
+    const auto&& text_width = XTextWidth(this->font_info, coords_text.c_str(), coords_text.size()); 
+    const auto&& text_height = this->font_info->ascent + this->font_info->descent;
+
+    XSetForeground(this->x_display.display, this->graphical_context, 0L);
+    XFillRectangle(this->x_display.display, 
+                   this->window, 
+                   this->graphical_context, 
+                   win_attr.width - text_width - 30, 
+                   50-text_height,
+                   win_attr.width,
+                   text_height);
+
+    XSetForeground(this->x_display.display, this->graphical_context, ~0L);
+    XDrawString(this->x_display.display, 
+                this->window, 
+                this->graphical_context, 
+                win_attr.width - text_width - 10, 
+                50, 
+                coords_text.c_str(), 
+                coords_text.size()); 
   }
 }

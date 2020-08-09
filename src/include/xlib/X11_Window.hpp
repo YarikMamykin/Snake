@@ -5,6 +5,7 @@
 #include <string>
 #include "X11_Display.hpp"
 #include "ViewID.hpp"
+#include "MouseMotionHandler.hpp"
 #include <memory>
 
 namespace xlib {
@@ -22,8 +23,11 @@ namespace xlib {
     std::string font_name;
   };
 
-  struct X11_Window {
-    X11_Window(X11_Display& x_display, int screen, views::ViewID viewID, const WindowSettings& win_sets);
+  struct X11_Window : public ui::MouseMotionHandler {
+    X11_Window(X11_Display& x_display, 
+               int screen, 
+               views::ViewID viewID, 
+               const WindowSettings& win_sets);
     ~X11_Window();
     void show();
     void expose();
@@ -33,10 +37,12 @@ namespace xlib {
     int get_width();
     int get_height();
 
+    void handle_mouse_motion(const int& x, const int& y) override;
+
     Window window;
     X11_Display& x_display;
     int screen;
-    views::ViewID viewID;
+    std::shared_ptr<views::View> view;
     WindowSettings win_sets;
     std::string msg;
     GC graphical_context;

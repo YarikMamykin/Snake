@@ -7,8 +7,10 @@ namespace views {
 
   const unsigned int GameMenu::Item::left_text_margin = 10;
   const unsigned int GameMenu::Item::top_text_margin = 10;
+  const unsigned int GameMenu::Item::frame_weight = 3;
 
-  GameMenu::Item::Item(xlib::X11_Window* x_window, bool active, const std::string& name, const XRectangle& frame) {
+  GameMenu::Item::Item(xlib::X11_Window* x_window, bool active, const std::string& name, const XRectangle& frame) :
+  x_window(x_window) {
       this->active = active;
       this->name = name;
       this->frame = frame;
@@ -18,7 +20,7 @@ namespace views {
   GameMenu::Item::~Item() {
   }
 
-  void GameMenu::Item::show_text(xlib::X11_Window* x_window) const {
+  void GameMenu::Item::show_text() const {
     XSetForeground(x_window->x_display.display, 
         x_window->graphical_context, 
         x_window->win_sets.font_color);
@@ -32,8 +34,8 @@ namespace views {
         this->name.length());
   }
 
-  void GameMenu::Item::show_frame(xlib::X11_Window* x_window) const {
-    XSetLineAttributes(x_window->x_display.display, x_window->graphical_context,3,0,0,0);
+  void GameMenu::Item::show_frame() const {
+    XSetLineAttributes(x_window->x_display.display, x_window->graphical_context,frame_weight,0,0,0);
     XSetForeground(x_window->x_display.display, x_window->graphical_context, ~0L);
     XDrawRectangle(x_window->x_display.display,
         x_window->window,
@@ -44,8 +46,8 @@ namespace views {
         this->frame.height);
   }
 
-  void GameMenu::Item::hide_frame(xlib::X11_Window* x_window) const {
-    XSetLineAttributes(x_window->x_display.display, x_window->graphical_context,3,0,0,0);
+  void GameMenu::Item::hide_frame() const {
+    XSetLineAttributes(x_window->x_display.display, x_window->graphical_context,frame_weight,0,0,0);
     XSetForeground(x_window->x_display.display, x_window->graphical_context, 0L);
     XDrawRectangle(x_window->x_display.display,
         x_window->window,
@@ -56,33 +58,41 @@ namespace views {
         this->frame.height);
   }
 
-  void GameMenu::Item::show(xlib::X11_Window* x_window) const {
-    this->show_text(x_window);
-    this->hide_frame(x_window);
+  void GameMenu::Item::show() const {
+    this->show_text();
+    this->hide_frame();
   }
 
-  void GameMenu::Item::show_focus(xlib::X11_Window* x_window) const {
-    this->show_text(x_window);
-    this->show_frame(x_window);
+  void GameMenu::Item::show_focus() const {
+    this->show_text();
+    this->show_frame();
   }
 
-  void GameMenu::Item::hide_focus(xlib::X11_Window* x_window) const {
-    this->hide_frame(x_window);
+  void GameMenu::Item::hide_focus() const {
+    this->hide_frame();
+  }
+
+  bool GameMenu::Item::focused(const int& x, const int& y) const {
+    return (x >= this->frame.x && (x <= this->frame.x + this->frame.width)) &&
+           (y >= this->frame.y && (y <= this->frame.y + this->frame.height));
   }
   
-  int GameMenu::Item::get_width(xlib::X11_Window* x_window) const {
+  int GameMenu::Item::get_width() const {
     return (XTextWidth(x_window->font_info, 
           this->name.c_str(), 
           this->name.length()) + left_text_margin * 2);
   }
 
-  int GameMenu::Item::get_height(xlib::X11_Window* x_window) const {
+  int GameMenu::Item::get_height() const {
     return (x_window->font_info->ascent + 
         x_window->font_info->descent + 
         top_text_margin * 2);
   }
 
-  void GameMenu::Item::on_event(const XEvent& event) {
+  void GameMenu::Item::handle_mouse_motion(const int& x, const int& y) {
+    if(this->focused(x,y)) {
+      this->show_focus();
+    }
   }
 
   GameMenu::GameMenu(xlib::X11_Window* x_window) :
@@ -93,12 +103,14 @@ namespace views {
       [](const std::string& v1, const std::string& v2) {
         return v1.size() < v2.size();
       });
-      const auto max_item_width = XTextWidth(x_window->font_info, max_item_name->c_str(), max_item_name->size()) + GameMenu::Item::left_text_margin * 2;
 
-      for(auto i = 0, summary_height = 0; i < item_names.size(); ++i) {
-        const auto&& x_pos = x_window->get_width() / 2 - max_item_width / 2;
-        this->items.push_back(Item(x_window, false, item_names[i], { .x = x_pos, .y = x_window->get_height() / 3 + summary_height }));
-        summary_height += items.back().get_height(x_window);
+      const auto max_item_width = XTextWidth(x_window->font_info, max_item_name->c_str(), max_item_name->size()) + GameMenu::Item::left_text_margin * 2;
+      const auto&& x_pos = x_window->get_width() / 2 - max_item_width / 2;
+      auto summary_height = 0;
+
+      for(auto& item_name : item_names) {
+        this->items.push_back(Item(x_window, false, item_name, { .x = x_pos, .y = x_window->get_height() / 3 + summary_height + GameMenu::Item::frame_weight }));
+        summary_height += items.back().get_height();
         items.back().frame.width = max_item_width;
       }
     }
@@ -107,15 +119,35 @@ namespace views {
   }
 
   void GameMenu::activate() {
+    this->update();
     for(auto& item : items) {
-      item.show(x_window);
+      item.show();
+    }
+  }
+
+  void GameMenu::update() {
+    const auto&& x_pos = x_window->get_width() / 2 - items.begin()->frame.width / 2;
+    auto summary_height = 0;
+
+    for(auto& item : items) {
+      item.frame.x = x_pos;
+      item.frame.y = x_window->get_height() / 3 + summary_height + GameMenu::Item::frame_weight;
+      summary_height += item.get_height();
     }
   }
 
   void GameMenu::deactivate() {
   }
 
-  void GameMenu::on_event(const XEvent& event) {
-  }
+  void GameMenu::handle_mouse_motion(const int& x, const int& y) {
+    this->update();
 
+    for(auto& item : items) {
+      item.hide_focus();
+    }
+
+    for(auto& item : items) {
+      item.handle_mouse_motion(x,y);
+    }
+  }
 }
