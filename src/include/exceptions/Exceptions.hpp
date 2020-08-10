@@ -1,0 +1,13 @@
+#ifndef SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP
+#define SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP
+
+#include <exception>
+
+namespace exceptions {
+    struct ExitApplication : public std::exception {
+      const char* what() const noexcept override {
+        return "ExitApplication";
+      }
+    };
+}
+#endif /* SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP */
