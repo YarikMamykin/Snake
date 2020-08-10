@@ -23,6 +23,7 @@ void LaunchApp() {
   EventHandler ehandler;
   ehandler.add_mouse_motion_listener(ui::UI_Object::as_event_handler<ui::MouseMotionHandler>(x_window));
   ehandler.add_mouse_motion_listener(views::View::as_event_handler<ui::MouseMotionHandler>(x_window->view));
+  ehandler.add_mouse_button_press_listener(views::View::as_event_handler<ui::MouseButtonPressHandler>(x_window->view));
   ehandler.event_handler_loop(*x_window);
 }
 

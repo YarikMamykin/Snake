@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_EVENTS_EVENTHANDLER_HPP
 
 #include "X11_Window.hpp"
-#include <exception>
 #include <memory>
 #include <list>
 #include "MouseMotionHandler.hpp"
@@ -17,17 +16,12 @@ namespace events {
     std::list<ui::KeyPressHandler*> key_press_listeners;
     XEvent event;
 
-    struct ExitApplication : public std::exception {
-      const char* what() const noexcept override {
-        return "ExitApplication";
-      }
-    };
 
     explicit EventHandler() = default;
     void event_handler_loop(xlib::X11_Window& x_window);
 
     void handle_key_press(const KeySym&& key_sym);
-    void handle_button_press(const unsigned int& button);
+    void handle_button_press(const int& x, const int& y, const unsigned int& button);
     void handle_mouse_motion(const int& x, const int& y);
 
     void add_mouse_motion_listener(ui::MouseMotionHandler* listener);

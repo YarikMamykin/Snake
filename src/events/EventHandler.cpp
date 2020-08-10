@@ -1,5 +1,6 @@
 #include "EventHandler.hpp"
 #include <iostream>
+#include "Exceptions.hpp"
 
 namespace events {
 
@@ -12,7 +13,7 @@ namespace events {
         switch(event.type) {
           case Expose: { x_window.expose(); break; }
           case KeyPress: { handle_key_press(XLookupKeysym(&event.xkey, 0)); break; }
-          case ButtonPress: { handle_button_press(event.xbutton.button); break; }
+          case ButtonPress: { handle_button_press(event.xmotion.x, event.xmotion.y, event.xbutton.button); break; }
           case MotionNotify: { handle_mouse_motion(event.xmotion.x, event.xmotion.y); break; }
           default:break;
         }
@@ -25,7 +26,7 @@ namespace events {
   void EventHandler::handle_key_press(const KeySym&& key_sym) {
     switch(key_sym) {
       case XK_Delete: { 
-                        throw ExitApplication(); 
+                        throw exceptions::ExitApplication(); 
                         break; 
                       }
       default: {
@@ -37,7 +38,7 @@ namespace events {
     }
   }
 
-  void EventHandler::handle_button_press(const unsigned int& button) {
+  void EventHandler::handle_button_press(const int& x, const int& y, const unsigned int& button) {
     switch(button) {
       case Button1: { std::cout << "LBM PRESSED" << std::endl; break; }
       case Button2: { std::cout << "MBM PRESSED" << std::endl; break; }
@@ -46,7 +47,7 @@ namespace events {
     }
 
     for(auto& listener : mouse_button_press_listeners) {
-      listener->handle_button_press(button);
+      listener->handle_button_press(x,y,button);
     }
   }
 

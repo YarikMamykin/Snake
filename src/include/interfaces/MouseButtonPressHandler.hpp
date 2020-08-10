@@ -9,7 +9,7 @@ namespace ui {
 
   class MouseButtonPressHandler : public UI_Object {
     public:
-      virtual void handle_button_press(const unsigned int& button) = 0;
+      virtual void handle_button_press(const int& x, const int& y, const unsigned int& button) = 0;
       virtual ~MouseButtonPressHandler() {};
   };
 

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "Exceptions.hpp"
 
 namespace views {
 
@@ -95,6 +96,15 @@ namespace views {
     }
   }
 
+  void GameMenu::Item::handle_button_press(const int& x, const int& y, const unsigned int& button) {
+    if(this->focused(x,y)) {
+      this->show_focus();
+      if(button == Button1 && this->name == "Exit") {
+        throw exceptions::ExitApplication();
+      }
+    }
+  }
+
   GameMenu::GameMenu(xlib::X11_Window* x_window) :
     x_window(x_window) {
       std::vector<std::string> item_names = { "New Game", "Score", "Settings", "Other blabla", "Exit" };
@@ -148,6 +158,18 @@ namespace views {
 
     for(auto& item : items) {
       item.handle_mouse_motion(x,y);
+    }
+  }
+
+  void GameMenu::handle_button_press(const int& x, const int& y, const unsigned int& button) {
+    this->update();
+
+    for(auto& item : items) {
+      item.hide_focus();
+    }
+
+    for(auto& item : items) {
+      item.handle_button_press(x,y,button);
     }
   }
 }

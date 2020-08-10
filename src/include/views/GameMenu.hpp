@@ -5,12 +5,14 @@
 #include "UI_Object.hpp"
 #include "X11_Window.hpp"
 #include <list>
+#include "MouseMotionHandler.hpp"
+#include "MouseButtonPressHandler.hpp"
 
 namespace views {
 
-  class GameMenu final : public View, public ui::MouseMotionHandler {
+  class GameMenu final : public View, public ui::MouseMotionHandler, public ui::MouseButtonPressHandler {
     private:
-      struct Item : public ui::MouseMotionHandler {
+      struct Item : public ui::MouseMotionHandler, public ui::MouseButtonPressHandler {
         bool active;
         std::string name;
         XRectangle frame;
@@ -38,6 +40,7 @@ namespace views {
         bool focused(const int& x, const int& y) const;
 
         void handle_mouse_motion(const int& x, const int& y) override;
+        void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
       };
 
     public:
@@ -48,6 +51,7 @@ namespace views {
       void activate() override;
       void deactivate() override;
       void handle_mouse_motion(const int& x, const int& y) override;
+      void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
 
     private:
       void update();
