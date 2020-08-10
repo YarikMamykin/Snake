@@ -7,7 +7,9 @@
 #include "X11_Window.hpp"
 #include "X11_Display.hpp"
 #include "EventHandler.hpp"
+#include "Settings.hpp"
 #include <iostream>
+#include <memory>
 
 
 void LaunchApp() {
@@ -15,24 +17,13 @@ void LaunchApp() {
   using namespace events;
   X11_Display x_display;
 
-  X11_Window x_window(x_display, 
-      DefaultScreen(x_display.display), 
-      views::ViewID::MENU,
-      { .x = 10,
-      .y = 10,
-      .w = 200U,
-      .h = 200U,
-      .border_width = 1U,
-      .border_color = (255L << 16),
-      .backgnd_color = (0L),
-      .font_color = (255L << 8),
-      .name = "Snake",
-      .font_name = "*-courier-*-24-*"
-      });
-  EventHandler ehandler(x_display, x_window);
+  auto x_window = std::make_shared<X11_Window>(x_display, DefaultScreen(x_display.display), views::ViewID::MENU, settings::Settings::settings().win_sets);
+  x_window->show();
 
-  x_window.show();
-  ehandler.event_handler_loop();
+  EventHandler ehandler;
+  ehandler.add_mouse_motion_listener(ui::UI_Object::as_event_handler<ui::MouseMotionHandler>(x_window));
+  ehandler.add_mouse_motion_listener(views::View::as_event_handler<ui::MouseMotionHandler>(x_window->view));
+  ehandler.event_handler_loop(*x_window);
 }
 
 int main(void)
