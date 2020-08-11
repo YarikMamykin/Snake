@@ -102,6 +102,10 @@ namespace views {
       if(button == Button1 && this->name == "Exit") {
         throw exceptions::ExitApplication();
       }
+
+      if(button == Button1 && this->name == "New Game") {
+        throw exceptions::ChangeView();
+      }
     }
   }
 
@@ -168,8 +172,12 @@ namespace views {
       item.hide_focus();
     }
 
-    for(auto& item : items) {
-      item.handle_button_press(x,y,button);
+    try {
+      for(auto& item : items) {
+        item.handle_button_press(x,y,button);
+      }
+    } catch(const exceptions::ChangeView& e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 }

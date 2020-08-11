@@ -9,5 +9,11 @@ namespace exceptions {
         return "ExitApplication";
       }
     };
+
+    struct ChangeView : public std::exception {
+      const char* what() const noexcept override {
+        return "ChangeView";
+      }
+    };
 }
 #endif /* SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP */
