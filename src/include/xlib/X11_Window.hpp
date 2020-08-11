@@ -37,6 +37,8 @@ namespace xlib {
     int get_width();
     int get_height();
 
+    void change_view(const views::ViewID viewID);
+
     void handle_mouse_motion(const int& x, const int& y) override;
 
     Window window;

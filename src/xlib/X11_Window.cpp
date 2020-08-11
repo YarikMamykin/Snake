@@ -72,6 +72,11 @@ namespace xlib {
     return win_attr.height;
   }
 
+  void X11_Window::change_view(const views::ViewID viewID) {
+    this->view = views::ViewFactory::get_view(viewID, this);
+  }
+
+
   void X11_Window::handle_mouse_motion(const int& x, const int& y) {
     XWindowAttributes win_attr;
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
