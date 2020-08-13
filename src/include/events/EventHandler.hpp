@@ -9,6 +9,10 @@
 #include "KeyPressHandler.hpp"
 
 namespace events {
+  enum AdditionalEvents {
+    ExitApplication = LASTEvent + 1,
+    ChangeView = LASTEvent + 2
+  };
 
   struct EventHandler {
     std::list<ui::MouseMotionHandler*> mouse_motion_listeners;
@@ -23,6 +27,7 @@ namespace events {
     void handle_key_press(const KeySym&& key_sym);
     void handle_button_press(const int& x, const int& y, const unsigned int& button);
     void handle_mouse_motion(const int& x, const int& y);
+    void handle_client_message(const long* data, xlib::X11_Window& x_window);
 
     void add_mouse_motion_listener(ui::MouseMotionHandler* listener);
     void add_mouse_button_press_listener(ui::MouseButtonPressHandler* listener);

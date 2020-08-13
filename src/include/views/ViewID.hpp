@@ -4,7 +4,7 @@
 #include "View.hpp"
 
 namespace views {
-  enum class ViewID {
+  enum ViewID {
     MENU,
     ACTION
   };

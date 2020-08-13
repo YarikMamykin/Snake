@@ -5,16 +5,19 @@
 namespace events {
 
   void EventHandler::event_handler_loop(xlib::X11_Window& x_window) {
+    using namespace events;
     // select kind of events we are interested in
-    XSelectInput(x_window.x_display.display, x_window.window, ExposureMask | KeyPressMask | ButtonPressMask | PointerMotionMask);
+    XSelectInput(x_window.x_display.display, x_window.window, ExposureMask | KeyPressMask | ButtonPressMask | PointerMotionMask );
     try {
       for (;;) {
         XNextEvent(x_window.x_display.display, &event);
+        std::cout << "EVENT CODE: " << event.type << std::endl;
         switch(event.type) {
           case Expose: { x_window.expose(); break; }
           case KeyPress: { handle_key_press(XLookupKeysym(&event.xkey, 0)); break; }
           case ButtonPress: { handle_button_press(event.xmotion.x, event.xmotion.y, event.xbutton.button); break; }
           case MotionNotify: { handle_mouse_motion(event.xmotion.x, event.xmotion.y); break; }
+          case ClientMessage: { handle_client_message(event.xclient.data.l, x_window); break; }
           default:break;
         }
       }
@@ -53,7 +56,25 @@ namespace events {
 
   void EventHandler::handle_mouse_motion(const int& x, const int& y) {
     for(auto& listener : mouse_motion_listeners) {
-      listener->handle_mouse_motion(x,y);
+      if(listener) listener->handle_mouse_motion(x,y);
+    }
+  }
+
+  void EventHandler::handle_client_message(const long* data, xlib::X11_Window& x_window) {
+    switch(data[0]) {
+      case AdditionalEvents::ExitApplication: { throw exceptions::ExitApplication(); break; }
+      case AdditionalEvents::ChangeView: { x_window.change_view(static_cast<views::ViewID>(data[1])); 
+                                           switch(data[1]) {
+                                             case views::ViewID::ACTION: { this->add_key_press_listener(views::View::as_event_handler<ui::KeyPressHandler>(x_window.view)); 
+                                                                           break; 
+                                                                         }
+                                             case views::ViewID::MENU: { this->add_mouse_button_press_listener(views::View::as_event_handler<ui::MouseButtonPressHandler>(x_window.view)); 
+                                                                         this->add_mouse_motion_listener(views::View::as_event_handler<ui::MouseMotionHandler>(x_window.view));
+                                                                         break;
+                                                                       }
+                                           }
+                                           break; 
+                                         }
     }
   }
 

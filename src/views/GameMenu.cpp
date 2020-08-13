@@ -2,7 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "Exceptions.hpp"
+#include "EventHandler.hpp"
+#include "Helper.hpp"
 
 namespace views {
 
@@ -100,11 +101,13 @@ namespace views {
     if(this->focused(x,y)) {
       this->show_focus();
       if(button == Button1 && this->name == "Exit") {
-        throw exceptions::ExitApplication();
+        auto event = helpers::Helper::ConstructExitApplicationEvent(x_window);
+        XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
       }
 
       if(button == Button1 && this->name == "New Game") {
-        throw exceptions::ChangeView();
+        auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::ACTION);
+        XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
       }
     }
   }
@@ -172,12 +175,8 @@ namespace views {
       item.hide_focus();
     }
 
-    try {
-      for(auto& item : items) {
-        item.handle_button_press(x,y,button);
-      }
-    } catch(const exceptions::ChangeView& e) {
-      std::cerr << e.what() << std::endl;
+    for(auto& item : items) {
+      item.handle_button_press(x,y,button);
     }
   }
 }
