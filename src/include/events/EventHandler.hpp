@@ -8,16 +8,8 @@
 #include "MouseButtonPressHandler.hpp"
 #include "KeyPressHandler.hpp"
 
-enum class HandlerKeys {
-  WINDOW,
-  WINDOW_VIEW
-};
 
 namespace events {
-  enum AdditionalEvents {
-    ExitApplication = LASTEvent + 1,
-    ChangeView = LASTEvent + 2
-  };
 
   struct EventHandler {
     std::map<int, ui::MouseMotionHandler*> mouse_motion_listeners;

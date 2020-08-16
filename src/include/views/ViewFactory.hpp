@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP
 #define SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP
 
-#include "ViewID.hpp"
+#include "Constants.hpp"
 #include "GameMenu.hpp"
 #include "GameAction.hpp"
 #include "GameNone.hpp"

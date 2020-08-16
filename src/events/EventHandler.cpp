@@ -66,11 +66,11 @@ namespace events {
       case AdditionalEvents::ExitApplication: { throw exceptions::ExitApplication(); break; }
       case AdditionalEvents::ChangeView: { x_window.change_view(static_cast<views::ViewID>(data[1])); 
                                            switch(data[1]) {
-                                             case views::ViewID::ACTION: { this->add_key_press_listener(static_cast<int>(HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::KeyPressHandler>(x_window.view)); 
+                                             case views::ViewID::ACTION: { this->add_key_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::KeyPressHandler>(x_window.view)); 
                                                                            break; 
                                                                          }
-                                             case views::ViewID::MENU: { this->add_mouse_button_press_listener(static_cast<int>(HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::MouseButtonPressHandler>(x_window.view)); 
-                                                                         this->add_mouse_motion_listener(static_cast<int>(HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::MouseMotionHandler>(x_window.view));
+                                             case views::ViewID::MENU: { this->add_mouse_button_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::MouseButtonPressHandler>(x_window.view)); 
+                                                                         this->add_mouse_motion_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::MouseMotionHandler>(x_window.view));
                                                                          break;
                                                                        }
                                            }

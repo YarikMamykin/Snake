@@ -8,6 +8,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/events)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/settings)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/exceptions)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/helpers)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/constants)
 
 set(XLIB_UI_SRC ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Display.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Window.cpp

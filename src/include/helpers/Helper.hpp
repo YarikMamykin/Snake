@@ -2,8 +2,8 @@
 #define SRC_INCLUDE_HELPERS_HELPER_HPP
 
 #include "XHeaders.hpp"
-#include "EventHandler.hpp"
-#include "ViewID.hpp"
+#include "Constants.hpp"
+#include "X11_Window.hpp"
 
 namespace helpers {
   struct Helper {

@@ -4,9 +4,10 @@
 #include "XHeaders.hpp"
 #include <string>
 #include "X11_Display.hpp"
-#include "ViewID.hpp"
 #include "MouseMotionHandler.hpp"
 #include <memory>
+#include "View.hpp"
+#include "Constants.hpp"
 
 namespace xlib {
 
