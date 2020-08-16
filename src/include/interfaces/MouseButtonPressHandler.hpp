@@ -2,12 +2,11 @@
 #define SRC_INCLUDE_INTERFACES_MOUSEBUTTONPRESSHANDLER_HPP
 
 #include "XHeaders.hpp"
-#include "UI_Object.hpp"
 #include <memory>
 
-namespace ui {
+namespace events {
 
-  class MouseButtonPressHandler : public UI_Object {
+  class MouseButtonPressHandler {
     public:
       virtual void handle_button_press(const int& x, const int& y, const unsigned int& button) = 0;
       virtual ~MouseButtonPressHandler() {};

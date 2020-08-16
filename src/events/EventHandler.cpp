@@ -64,42 +64,43 @@ namespace events {
   void EventHandler::handle_client_message(const long* data, xlib::X11_Window& x_window) {
     switch(data[0]) {
       case AdditionalEvents::ExitApplication: { throw exceptions::ExitApplication(); break; }
-      case AdditionalEvents::ChangeView: { x_window.change_view(static_cast<views::ViewID>(data[1])); 
-                                           switch(data[1]) {
-                                             case views::ViewID::ACTION: { this->add_key_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::KeyPressHandler>(x_window.view)); 
-                                                                           break; 
-                                                                         }
-                                             case views::ViewID::MENU: { this->add_mouse_button_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::MouseButtonPressHandler>(x_window.view)); 
-                                                                         this->add_mouse_motion_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::MouseMotionHandler>(x_window.view));
-                                                                         break;
-                                                                       }
-                                           }
-                                           break; 
-                                         }
+      case AdditionalEvents::ChangeView: { 
+        x_window.change_view(static_cast<views::ViewID>(data[1])); 
+        switch(data[1]) {
+          case views::ViewID::ACTION: { this->add_key_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view); 
+                                        break; 
+                                      }
+          case views::ViewID::MENU: { this->add_mouse_button_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view); 
+                                      this->add_mouse_motion_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view);
+                                      break;
+                                    }
+          }
+        break; 
+      }
     }
   }
 
-  void EventHandler::add_mouse_motion_listener(int key, ui::MouseMotionHandler* listener) {
+  void EventHandler::add_mouse_motion_listener(int key, std::shared_ptr<ui::UI_Object> listener) {
     const auto existing_listener = mouse_motion_listeners.find(key);
     if(existing_listener != mouse_motion_listeners.end()) {
       mouse_motion_listeners.erase(key);
     }
-    mouse_motion_listeners.insert({key, listener});
+    mouse_motion_listeners.insert({key, as_event_handler<MouseMotionHandler>(listener)});
   }
 
-  void EventHandler::add_mouse_button_press_listener(int key, ui::MouseButtonPressHandler* listener) {
+  void EventHandler::add_mouse_button_press_listener(int key, std::shared_ptr<ui::UI_Object> listener) {
     const auto existing_listener = mouse_button_press_listeners.find(key);
     if(existing_listener != mouse_button_press_listeners.end()) {
       mouse_button_press_listeners.erase(key);
     }
-    mouse_button_press_listeners.insert({key, listener});
+    mouse_button_press_listeners.insert({key, as_event_handler<MouseButtonPressHandler>(listener)});
   }
 
-  void EventHandler::add_key_press_listener(int key, ui::KeyPressHandler* listener) {
+  void EventHandler::add_key_press_listener(int key, std::shared_ptr<ui::UI_Object> listener) {
     const auto existing_listener = key_press_listeners.find(key);
     if(existing_listener != key_press_listeners.end()) {
       key_press_listeners.erase(key);
     }
-    key_press_listeners.insert({key, listener});
+    key_press_listeners.insert({key, as_event_handler<KeyPressHandler>(listener)});
   }
 }

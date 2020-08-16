@@ -8,6 +8,7 @@
 #include <memory>
 #include "View.hpp"
 #include "Constants.hpp"
+#include "UI_Object.hpp"
 
 namespace xlib {
 
@@ -24,7 +25,7 @@ namespace xlib {
     std::string font_name;
   };
 
-  struct X11_Window : public ui::MouseMotionHandler {
+  struct X11_Window : public ui::UI_Object, public events::MouseMotionHandler {
     X11_Window(X11_Display& x_display, 
                int screen, 
                views::ViewID viewID, 

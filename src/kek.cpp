@@ -24,11 +24,11 @@ void LaunchApp() {
 
   EventHandler ehandler;
   ehandler.add_mouse_motion_listener(static_cast<int>(constants::HandlerKeys::WINDOW), 
-      ui::UI_Object::as_event_handler<ui::MouseMotionHandler>(x_window));
+      x_window);
   ehandler.add_mouse_motion_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), 
-      views::View::as_event_handler<ui::MouseMotionHandler>(x_window->view));
+      x_window->view);
   ehandler.add_mouse_button_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), 
-      views::View::as_event_handler<ui::MouseButtonPressHandler>(x_window->view));
+      x_window->view);
   ehandler.event_handler_loop(*x_window);
 }
 

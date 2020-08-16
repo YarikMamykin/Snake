@@ -2,12 +2,11 @@
 #define SRC_INCLUDE_INTERFACES_MOUSEMOTIONHANDLER_HPP
 
 #include "XHeaders.hpp"
-#include "UI_Object.hpp"
 #include <memory>
 
-namespace ui {
+namespace events {
 
-  class MouseMotionHandler : public UI_Object {
+  class MouseMotionHandler {
     public:
       virtual void handle_mouse_motion(const int& x, const int& y) = 0;
       virtual ~MouseMotionHandler() {};

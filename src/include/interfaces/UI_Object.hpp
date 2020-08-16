@@ -8,9 +8,6 @@ namespace ui {
 
   class UI_Object {
     public:
-      template <class EventHandlerType> static EventHandlerType* as_event_handler(std::shared_ptr<UI_Object> object) {
-        return dynamic_cast<EventHandlerType*>(object.get());
-      }
       virtual ~UI_Object() {};
   };
 

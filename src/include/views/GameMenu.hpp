@@ -10,9 +10,9 @@
 
 namespace views {
 
-  class GameMenu final : public View, public ui::MouseMotionHandler, public ui::MouseButtonPressHandler {
+  class GameMenu final : public View, public events::MouseMotionHandler, public events::MouseButtonPressHandler {
     private:
-      struct Item : public ui::MouseMotionHandler, public ui::MouseButtonPressHandler {
+      struct Item : public events::MouseMotionHandler, public events::MouseButtonPressHandler {
         bool active;
         std::string name;
         XRectangle frame;
