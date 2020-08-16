@@ -106,7 +106,7 @@ namespace views {
       }
 
       if(button == Button1 && this->name == "New Game") {
-        auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::ACTION);
+        auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::MENU);
         XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
       }
     }

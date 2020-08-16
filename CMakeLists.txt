@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(Snake)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-g")
 
 find_package(X11 REQUIRED)
 link_libraries(${X11_LIBRARIES})

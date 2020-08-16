@@ -1,5 +1,6 @@
 #include "EventHandler.hpp"
 #include <iostream>
+#include <algorithm>
 #include "Exceptions.hpp"
 
 namespace events {
@@ -34,7 +35,7 @@ namespace events {
                       }
       default: {
                  for(auto& listener : key_press_listeners) {
-                   listener->handle_key_press(std::move(key_sym));
+                   listener.second->handle_key_press(std::move(key_sym));
                  }
                  break;
                };
@@ -50,13 +51,13 @@ namespace events {
     }
 
     for(auto& listener : mouse_button_press_listeners) {
-      listener->handle_button_press(x,y,button);
+      listener.second->handle_button_press(x,y,button);
     }
   }
 
   void EventHandler::handle_mouse_motion(const int& x, const int& y) {
     for(auto& listener : mouse_motion_listeners) {
-      if(listener) listener->handle_mouse_motion(x,y);
+      listener.second->handle_mouse_motion(x,y);
     }
   }
 
@@ -65,11 +66,11 @@ namespace events {
       case AdditionalEvents::ExitApplication: { throw exceptions::ExitApplication(); break; }
       case AdditionalEvents::ChangeView: { x_window.change_view(static_cast<views::ViewID>(data[1])); 
                                            switch(data[1]) {
-                                             case views::ViewID::ACTION: { this->add_key_press_listener(views::View::as_event_handler<ui::KeyPressHandler>(x_window.view)); 
+                                             case views::ViewID::ACTION: { this->add_key_press_listener(static_cast<int>(HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::KeyPressHandler>(x_window.view)); 
                                                                            break; 
                                                                          }
-                                             case views::ViewID::MENU: { this->add_mouse_button_press_listener(views::View::as_event_handler<ui::MouseButtonPressHandler>(x_window.view)); 
-                                                                         this->add_mouse_motion_listener(views::View::as_event_handler<ui::MouseMotionHandler>(x_window.view));
+                                             case views::ViewID::MENU: { this->add_mouse_button_press_listener(static_cast<int>(HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::MouseButtonPressHandler>(x_window.view)); 
+                                                                         this->add_mouse_motion_listener(static_cast<int>(HandlerKeys::WINDOW_VIEW), views::View::as_event_handler<ui::MouseMotionHandler>(x_window.view));
                                                                          break;
                                                                        }
                                            }
@@ -78,15 +79,27 @@ namespace events {
     }
   }
 
-  void EventHandler::add_mouse_motion_listener(ui::MouseMotionHandler* listener) {
-    mouse_motion_listeners.push_back(listener);
+  void EventHandler::add_mouse_motion_listener(int key, ui::MouseMotionHandler* listener) {
+    const auto existing_listener = mouse_motion_listeners.find(key);
+    if(existing_listener != mouse_motion_listeners.end()) {
+      mouse_motion_listeners.erase(key);
+    }
+    mouse_motion_listeners.insert({key, listener});
   }
 
-  void EventHandler::add_mouse_button_press_listener(ui::MouseButtonPressHandler* listener) {
-    mouse_button_press_listeners.push_back(listener);
+  void EventHandler::add_mouse_button_press_listener(int key, ui::MouseButtonPressHandler* listener) {
+    const auto existing_listener = mouse_button_press_listeners.find(key);
+    if(existing_listener != mouse_button_press_listeners.end()) {
+      mouse_button_press_listeners.erase(key);
+    }
+    mouse_button_press_listeners.insert({key, listener});
   }
 
-  void EventHandler::add_key_press_listener(ui::KeyPressHandler* listener) {
-    key_press_listeners.push_back(listener);
+  void EventHandler::add_key_press_listener(int key, ui::KeyPressHandler* listener) {
+    const auto existing_listener = key_press_listeners.find(key);
+    if(existing_listener != key_press_listeners.end()) {
+      key_press_listeners.erase(key);
+    }
+    key_press_listeners.insert({key, listener});
   }
 }
