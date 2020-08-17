@@ -29,27 +29,22 @@ namespace events {
 
   void EventHandler::handle_key_press(const KeySym&& key_sym) {
     switch(key_sym) {
-      case XK_Delete: { 
-                        throw exceptions::ExitApplication(); 
-                        break; 
-                      }
-      default: {
-                 for(auto& listener : key_press_listeners) {
-                   listener.second->handle_key_press(std::move(key_sym));
-                 }
-                 break;
-               };
+      case XK_Delete: 
+        { 
+          throw exceptions::ExitApplication(); 
+          break; 
+        }
+      default: 
+        {
+          for(auto& listener : key_press_listeners) {
+            listener.second->handle_key_press(std::move(key_sym));
+          }
+          break;
+        };
     }
   }
 
   void EventHandler::handle_button_press(const int& x, const int& y, const unsigned int& button) {
-    switch(button) {
-      case Button1: { std::cout << "LBM PRESSED" << std::endl; break; }
-      case Button2: { std::cout << "MBM PRESSED" << std::endl; break; }
-      case Button3: { std::cout << "RBM PRESSED" << std::endl; break; }
-      default:return;
-    }
-
     for(auto& listener : mouse_button_press_listeners) {
       listener.second->handle_button_press(x,y,button);
     }
@@ -67,13 +62,15 @@ namespace events {
       case AdditionalEvents::ChangeView: { 
         x_window.change_view(static_cast<views::ViewID>(data[1])); 
         switch(data[1]) {
-          case views::ViewID::ACTION: { this->add_key_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view); 
-                                        break; 
-                                      }
-          case views::ViewID::MENU: { this->add_mouse_button_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view); 
-                                      this->add_mouse_motion_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view);
-                                      break;
-                                    }
+          case views::ViewID::ACTION: 
+            { this->add_key_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view); 
+              break; 
+            }
+          case views::ViewID::MENU: 
+            { this->add_mouse_button_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view); 
+              this->add_mouse_motion_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view);
+              break;
+            }
           }
         break; 
       }
