@@ -63,12 +63,12 @@ namespace events {
         x_window.change_view(static_cast<views::ViewID>(data[1])); 
         switch(data[1]) {
           case views::ViewID::ACTION: 
-            { this->add_key_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view); 
+            { this->add_key_press_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view); 
               break; 
             }
           case views::ViewID::MENU: 
-            { this->add_mouse_button_press_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view); 
-              this->add_mouse_motion_listener(static_cast<int>(constants::HandlerKeys::WINDOW_VIEW), x_window.view);
+            { this->add_mouse_button_press_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view); 
+              this->add_mouse_motion_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view);
               break;
             }
           }
@@ -77,7 +77,7 @@ namespace events {
     }
   }
 
-  void EventHandler::add_mouse_motion_listener(int key, std::shared_ptr<ui::UI_Object> listener) {
+  void EventHandler::add_mouse_motion_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener) {
     const auto existing_listener = mouse_motion_listeners.find(key);
     if(existing_listener != mouse_motion_listeners.end()) {
       mouse_motion_listeners.erase(key);
@@ -85,7 +85,7 @@ namespace events {
     mouse_motion_listeners.insert({key, as_event_handler<MouseMotionHandler>(listener)});
   }
 
-  void EventHandler::add_mouse_button_press_listener(int key, std::shared_ptr<ui::UI_Object> listener) {
+  void EventHandler::add_mouse_button_press_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener) {
     const auto existing_listener = mouse_button_press_listeners.find(key);
     if(existing_listener != mouse_button_press_listeners.end()) {
       mouse_button_press_listeners.erase(key);
@@ -93,7 +93,7 @@ namespace events {
     mouse_button_press_listeners.insert({key, as_event_handler<MouseButtonPressHandler>(listener)});
   }
 
-  void EventHandler::add_key_press_listener(int key, std::shared_ptr<ui::UI_Object> listener) {
+  void EventHandler::add_key_press_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener) {
     const auto existing_listener = key_press_listeners.find(key);
     if(existing_listener != key_press_listeners.end()) {
       key_press_listeners.erase(key);
