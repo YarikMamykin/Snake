@@ -17,7 +17,8 @@ namespace views {
                          public events::KeyPressHandler {
     private:
       struct Item : public events::MouseMotionHandler, 
-                    public events::MouseButtonPressHandler {
+                    public events::MouseButtonPressHandler,
+                    public events::KeyPressHandler {
         bool active;
         std::string name;
         XRectangle frame;
@@ -46,6 +47,7 @@ namespace views {
 
         void handle_mouse_motion(const int& x, const int& y) override;
         void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
+        void handle_key_press(const KeySym&& key_sym) override;
       };
 
     public:

@@ -119,6 +119,22 @@ namespace views {
     }
   }
 
+  void GameMenu::Item::handle_key_press(const KeySym&& key_sym) {
+    if(key_sym != XK_Return || !this->active) {
+      return;
+    }
+
+    if(this->name == "Exit") {
+      auto event = helpers::Helper::ConstructExitApplicationEvent(x_window);
+      XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+    }
+
+    if(this->name == "New Game") {
+      auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::MENU);
+      XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+    }
+  }
+
   GameMenu::GameMenu(xlib::X11_Window* x_window) :
     x_window(x_window) {
       std::vector<std::string> item_names = { "New Game", "Score", "Settings", "Other blabla", "Exit" };
@@ -139,26 +155,6 @@ namespace views {
       }
 
       items.begin()->show_focus();
-      // for(std::list<Item>::iterator iterator = items.begin(); iterator != items.end(); ++iterator) {
-        // auto iter_shift = iterator;
-        // if(iter_shift != items.begin()) {
-          // --iter_shift->next = &*iterator;
-          // iterator->prev = &*iter_shift;
-        // }
-      // }
-
-      // items.begin()->prev = &items.back();
-      // items.begin()->next = &*std::next(items.begin(), 1);
-      // items.back().next = &items.front();
-
-      // for(auto& item : items) {
-        // std::cout <<
-          // std::boolalpha <<
-          // (item.next ? true : false) <<
-          // " " <<
-          // (item.prev ? true : false) <<
-          // std::endl;
-      // }
     }
 
   GameMenu::~GameMenu() {
@@ -248,6 +244,13 @@ namespace views {
           std::prev(active_item, 1)->show_focus();
           break;
         }   
+      case XK_Return:
+        {
+          for(auto& item : items) {
+            item.handle_key_press(std::move(key_sym));
+          }
+          break;
+        }
     }
   }
 }
