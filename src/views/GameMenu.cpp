@@ -14,7 +14,7 @@ namespace views {
   GameMenu::Item::Item(xlib::X11_Window* x_window, 
       bool active, 
       const std::string& name, 
-      const XRectangle& frame,
+      const geometry::Rectangle& frame,
       std::function<bool(Item&)> mouse_button_press_handler,
       std::function<bool(Item&)> mouse_motion_handler,
       std::function<bool(Item&)> key_press_handler) :
