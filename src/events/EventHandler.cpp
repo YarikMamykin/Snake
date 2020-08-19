@@ -69,6 +69,7 @@ namespace events {
           case views::ViewID::MENU: 
             { this->add_mouse_button_press_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view); 
               this->add_mouse_motion_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view);
+              this->add_key_press_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view);
               break;
             }
           }

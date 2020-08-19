@@ -26,6 +26,7 @@ void LaunchApp() {
   ehandler.add_mouse_motion_listener(constants::HandlerKeys::WINDOW, x_window);
   ehandler.add_mouse_motion_listener(constants::HandlerKeys::WINDOW_VIEW, x_window->view);
   ehandler.add_mouse_button_press_listener(constants::HandlerKeys::WINDOW_VIEW, x_window->view);
+  ehandler.add_key_press_listener(constants::HandlerKeys::WINDOW_VIEW, x_window->view);
   ehandler.event_handler_loop(*x_window);
 }
 

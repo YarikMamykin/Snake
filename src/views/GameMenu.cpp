@@ -62,16 +62,23 @@ namespace views {
 
   void GameMenu::Item::show() const {
     this->show_text();
-    this->hide_frame();
-  }
-
-  void GameMenu::Item::show_focus() const {
-    this->show_text();
+    if(!active) {
+      this->hide_frame();
+      return;
+    } 
     this->show_frame();
   }
 
-  void GameMenu::Item::hide_focus() const {
+  void GameMenu::Item::show_focus() {
+    this->show_text();
+    this->show_frame();
+    this->active = true;
+  }
+
+  void GameMenu::Item::hide_focus() {
+    this->show_text();
     this->hide_frame();
+    this->active = false;
   }
 
   bool GameMenu::Item::focused(const int& x, const int& y) const {
@@ -130,6 +137,28 @@ namespace views {
         summary_height += items.back().get_height();
         items.back().frame.width = max_item_width;
       }
+
+      items.begin()->show_focus();
+      // for(std::list<Item>::iterator iterator = items.begin(); iterator != items.end(); ++iterator) {
+        // auto iter_shift = iterator;
+        // if(iter_shift != items.begin()) {
+          // --iter_shift->next = &*iterator;
+          // iterator->prev = &*iter_shift;
+        // }
+      // }
+
+      // items.begin()->prev = &items.back();
+      // items.begin()->next = &*std::next(items.begin(), 1);
+      // items.back().next = &items.front();
+
+      // for(auto& item : items) {
+        // std::cout <<
+          // std::boolalpha <<
+          // (item.next ? true : false) <<
+          // " " <<
+          // (item.prev ? true : false) <<
+          // std::endl;
+      // }
     }
 
   GameMenu::~GameMenu() {
@@ -138,7 +167,13 @@ namespace views {
   void GameMenu::activate() {
     this->update();
     for(auto& item : items) {
-      item.show();
+      item.hide_frame();
+      item.show_text();
+    }
+
+    auto item_to_show = std::find_if(items.begin(), items.end(), [](const Item& item) { return item.active; });
+    if(item_to_show != items.end()) {
+      item_to_show->show();
     }
   }
 
@@ -177,6 +212,42 @@ namespace views {
 
     for(auto& item : items) {
       item.handle_button_press(x,y,button);
+    }
+  }
+
+  void GameMenu::handle_key_press(const KeySym&& key_sym) {
+    this->update();
+    switch(key_sym) {
+      case XK_Down:
+        {
+          const auto& active_item = std::find_if(items.begin(), items.end(), [](const Item& item) { return item.active; });
+          for(auto& item : items) {
+            item.hide_focus();
+          }
+
+          if(active_item == --items.end()) {
+            items.begin()->show_focus();
+            break;
+          }
+
+          std::next(active_item, 1)->show_focus();
+          break;
+        }
+      case XK_Up:
+        {
+          auto active_item = std::find_if(items.begin(), items.end(), [](const Item& item) { return item.active; });
+          for(auto& item : items) {
+            item.hide_focus();
+          }
+
+          if(active_item == items.begin()) {
+            items.back().show_focus();
+            return;
+          }
+
+          std::prev(active_item, 1)->show_focus();
+          break;
+        }   
     }
   }
 }

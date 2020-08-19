@@ -7,12 +7,17 @@
 #include <list>
 #include "MouseMotionHandler.hpp"
 #include "MouseButtonPressHandler.hpp"
+#include "KeyPressHandler.hpp"
 
 namespace views {
 
-  class GameMenu final : public View, public events::MouseMotionHandler, public events::MouseButtonPressHandler {
+  class GameMenu final : public View, 
+                         public events::MouseMotionHandler, 
+                         public events::MouseButtonPressHandler, 
+                         public events::KeyPressHandler {
     private:
-      struct Item : public events::MouseMotionHandler, public events::MouseButtonPressHandler {
+      struct Item : public events::MouseMotionHandler, 
+                    public events::MouseButtonPressHandler {
         bool active;
         std::string name;
         XRectangle frame;
@@ -30,8 +35,8 @@ namespace views {
         void show_text() const;
         void show_frame() const;
         void hide_frame() const;
-        void show_focus() const;
-        void hide_focus() const;
+        void show_focus();
+        void hide_focus();
         void show() const;
 
         int get_width() const;
@@ -52,6 +57,7 @@ namespace views {
       void deactivate() override;
       void handle_mouse_motion(const int& x, const int& y) override;
       void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
+      void handle_key_press(const KeySym&& key_sym) override;
 
     private:
       void update();
