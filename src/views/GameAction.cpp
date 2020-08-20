@@ -22,12 +22,21 @@ namespace views {
     switch(key_sym) {
       case XK_Down:
         {
+          break;
         }
       case XK_Up:
         {
+          break;
         }   
       case XK_Return:
         {
+          break;
+        }
+      case XK_Escape:
+        {
+          auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::MENU);
+          XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+          break;
         }
     }
   }
