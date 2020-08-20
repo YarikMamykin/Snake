@@ -37,39 +37,50 @@ namespace xlib {
     XDestroyWindow(x_display.display, window);
   }
 
-  void X11_Window::show() {
+  void X11_Window::show() const {
     // map (show) the window
     XMapWindow(x_display.display, window);
   }
 
-  void X11_Window::expose() {
+  void X11_Window::expose() const {
     if (view) {
       view->activate();
     }
   }
 
-  int X11_Window::get_x() {
+  int X11_Window::get_x() const {
     XWindowAttributes win_attr;
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
     return win_attr.x;
   }
 
-  int X11_Window::get_y() {
+  int X11_Window::get_y() const {
     XWindowAttributes win_attr;
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
     return win_attr.y;
   }
 
-  int X11_Window::get_width() {
+  int X11_Window::get_width() const {
     XWindowAttributes win_attr;
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
     return win_attr.width;
   }
 
-  int X11_Window::get_height() {
+  int X11_Window::get_height() const {
     XWindowAttributes win_attr;
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
     return win_attr.height;
+  }
+
+  void X11_Window::redraw_background() const {
+    XSetForeground(x_display.display, graphical_context, win_sets.backgnd_color);
+    XFillRectangle(x_display.display,
+        window,
+        graphical_context,
+        get_x(),
+        get_y(),
+        get_width(),
+        get_height());
   }
 
   void X11_Window::change_view(const views::ViewID viewID) {
@@ -87,20 +98,20 @@ namespace xlib {
 
     XSetForeground(this->x_display.display, this->graphical_context, 0L);
     XFillRectangle(this->x_display.display, 
-                   this->window, 
-                   this->graphical_context, 
-                   win_attr.width - text_width - 30, 
-                   50-text_height,
-                   win_attr.width,
-                   text_height);
+        this->window, 
+        this->graphical_context, 
+        win_attr.width - text_width - 30, 
+        50-text_height,
+        win_attr.width,
+        text_height);
 
     XSetForeground(this->x_display.display, this->graphical_context, ~0L);
     XDrawString(this->x_display.display, 
-                this->window, 
-                this->graphical_context, 
-                win_attr.width - text_width - 10, 
-                50, 
-                coords_text.c_str(), 
-                coords_text.size()); 
+        this->window, 
+        this->graphical_context, 
+        win_attr.width - text_width - 10, 
+        50, 
+        coords_text.c_str(), 
+        coords_text.size()); 
   }
 }

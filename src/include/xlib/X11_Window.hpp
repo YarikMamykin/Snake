@@ -31,13 +31,14 @@ namespace xlib {
                views::ViewID viewID, 
                const WindowSettings& win_sets);
     ~X11_Window();
-    void show();
-    void expose();
+    void show() const;
+    void expose() const;
+    void redraw_background() const;
 
-    int get_x();
-    int get_y();
-    int get_width();
-    int get_height();
+    int get_x() const;
+    int get_y() const;
+    int get_width() const;
+    int get_height() const;
 
     void change_view(const views::ViewID viewID);
 
