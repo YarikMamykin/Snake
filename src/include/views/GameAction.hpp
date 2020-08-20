@@ -2,18 +2,20 @@
 #define SRC_INCLUDE_VIEWS_GAMEACTION_HPP
 
 #include "View.hpp"
+#include "KeyPressHandler.hpp"
 #include "X11_Window.hpp"
 
 namespace views {
 
-  class GameAction : public View {
+  class GameAction : public View, public events::KeyPressHandler {
     public:
       explicit GameAction(xlib::X11_Window* x_window);
-      virtual ~GameAction();
+      ~GameAction();
 
     public:
       virtual void activate() override;
       virtual void deactivate() override;
+      void handle_key_press(const KeySym&& key_sym) override;
 
     private:
       xlib::X11_Window* x_window;

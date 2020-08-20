@@ -63,7 +63,9 @@ namespace events {
         x_window.change_view(static_cast<views::ViewID>(data[1])); 
         switch(data[1]) {
           case views::ViewID::ACTION: 
-            { this->add_key_press_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view); 
+            { this->mouse_button_press_listeners.erase(constants::HandlerKeys::WINDOW_VIEW);
+              this->mouse_motion_listeners.erase(constants::HandlerKeys::WINDOW_VIEW);
+              this->add_key_press_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view);
               break; 
             }
           case views::ViewID::MENU: 

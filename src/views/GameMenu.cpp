@@ -135,8 +135,8 @@ namespace views {
       std::vector<std::string> item_names = { "New Game", "Score", "Settings", "Other blabla", "Exit" };
 
       std::map<std::string, std::function<bool(Item&)>> mouse_button_press_handlers;
-      mouse_button_press_handlers.emplace(item_names[0], [](Item& item) -> bool {
-        auto event = helpers::Helper::ConstructChangeViewEvent(item.x_window, views::ViewID::MENU);
+      mouse_button_press_handlers.emplace(item_names.front(), [](Item& item) -> bool {
+        auto event = helpers::Helper::ConstructChangeViewEvent(item.x_window, views::ViewID::ACTION);
         XSendEvent(item.x_window->x_display.display, item.x_window->window, true, NoEventMask, &event);
         return true;
       });

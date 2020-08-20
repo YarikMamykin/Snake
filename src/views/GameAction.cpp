@@ -16,4 +16,17 @@ namespace views {
   void GameAction::deactivate() {
   }
 
+  void GameAction::handle_key_press(const KeySym&& key_sym) {
+    switch(key_sym) {
+      case XK_Down:
+        {
+        }
+      case XK_Up:
+        {
+        }   
+      case XK_Return:
+        {
+        }
+    }
+  }
 }
