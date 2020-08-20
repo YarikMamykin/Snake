@@ -184,6 +184,7 @@ namespace views {
         items.back().frame.width = max_item_width;
       }
 
+      std::for_each(items.begin(), items.end(), [](const Item& item) { item.show(); });
       items.begin()->show_focus();
     }
 
