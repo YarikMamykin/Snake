@@ -28,19 +28,8 @@ namespace events {
   }
 
   void EventHandler::handle_key_press(const KeySym&& key_sym) {
-    switch(key_sym) {
-      case XK_Delete: 
-        { 
-          throw exceptions::ExitApplication(); 
-          break; 
-        }
-      default: 
-        {
-          for(auto& listener : key_press_listeners) {
-            listener.second->handle_key_press(std::move(key_sym));
-          }
-          break;
-        };
+    for(auto& listener : key_press_listeners) {
+      listener.second->handle_key_press(std::move(key_sym));
     }
   }
 
