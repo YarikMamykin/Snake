@@ -132,6 +132,8 @@ namespace views {
 
   GameMenu::GameMenu(xlib::X11_Window* x_window) :
     x_window(x_window) {
+      x_window->redraw_background();
+
       std::vector<std::string> item_names = { "New Game", "Score", "Settings", "Other blabla", "Exit" };
 
       std::map<std::string, std::function<bool(Item&)>> mouse_button_press_handlers;
