@@ -15,7 +15,7 @@ namespace views {
     public:
       virtual void activate() override;
       virtual void deactivate() override;
-      void handle_key_press(const KeySym&& key_sym) override;
+      virtual void handle_key_press(const KeySym&& key_sym) override;
 
     private:
       xlib::X11_Window* x_window;
