@@ -19,6 +19,7 @@ namespace timing {
     explicit Timer(const std::chrono::milliseconds&& timeout, const TimerType&& type = TimerType::Simple);
     void launch(); 
     void stop();
+    bool running() const;
   };
 }
 

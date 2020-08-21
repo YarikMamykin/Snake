@@ -18,5 +18,10 @@ namespace timing {
   void Timer::stop() {
     do_stop.store(true);
   }
+
+  bool Timer::running() const {
+    return do_stop.load();
+  }
+
 }
 
