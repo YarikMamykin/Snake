@@ -4,6 +4,7 @@
 #include "View.hpp"
 #include "KeyPressHandler.hpp"
 #include "X11_Window.hpp"
+#include "Timer.hpp"
 
 namespace views {
 
@@ -19,6 +20,8 @@ namespace views {
 
     private:
       xlib::X11_Window* x_window;
+      timing::Timer timer;
+
   };
 
 }

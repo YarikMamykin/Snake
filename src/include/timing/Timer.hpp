@@ -16,7 +16,9 @@ namespace timing {
     std::function<void()> callback;
 
     public:
-    explicit Timer(const std::chrono::milliseconds&& timeout, const TimerType&& type = TimerType::Simple);
+    explicit Timer(const std::chrono::milliseconds&& timeout, 
+                   std::function<void()> callback,
+                   const TimerType&& type = TimerType::Simple);
     void launch(); 
     void stop();
     bool running() const;

@@ -1,18 +1,27 @@
 #include "GameAction.hpp"
 #include "Helper.hpp"
 #include "Constants.hpp"
+#include <iostream>
 
 namespace views {
 
-  GameAction::GameAction(xlib::X11_Window* x_window) :
-  x_window(x_window) {
+  GameAction::GameAction(xlib::X11_Window* x_window) 
+  : x_window(x_window) 
+  , timer(std::chrono::milliseconds(500), [x_window]() {
+      std::cout << "AMMA WORKING!" << std::endl;
+  }) {
     x_window->redraw_background();
   }
 
   GameAction::~GameAction() {
+    timer.stop();
   }
 
   void GameAction::activate() {
+    std::cout << std::boolalpha << "TIMER RUNNING " << timer.running() << std::endl;
+    if(!timer.running()) {
+      timer.launch();
+    }
   }
 
   void GameAction::deactivate() {
