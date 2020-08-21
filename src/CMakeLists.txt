@@ -25,13 +25,16 @@ set(GAME_VIEW_SRC ${CMAKE_CURRENT_SOURCE_DIR}/views/GameMenu.cpp
                   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameNone.cpp
 )
 
+set(TIMER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/timing/Timer.cpp)
+
 set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 
 add_library(xlib_ui STATIC ${XLIB_UI_SRC})
 add_library(events STATIC ${EVENTS_SRC})
 add_library(game_view STATIC ${GAME_VIEW_SRC})
 add_library(helpers STATIC ${HELPERS_SRC})
+add_library(timer STATIC ${TIMER_SRC})
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(events xlib_ui)
-target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers)
+target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers timer)
