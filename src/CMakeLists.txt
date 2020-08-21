@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.0)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xlib)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/interfaces)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/views)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/events)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/settings)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/exceptions)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/helpers)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/constants)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/events)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/exceptions)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/geometry)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/helpers)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/settings)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/views)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xlib)
 
 set(XLIB_UI_SRC ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Display.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Window.cpp
