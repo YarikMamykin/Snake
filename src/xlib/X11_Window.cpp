@@ -85,6 +85,7 @@ namespace xlib {
 
   void X11_Window::change_view(const views::ViewID viewID) {
     this->view = views::ViewFactory::get_view(viewID, this);
+    this->view->activate();
   }
 
 
