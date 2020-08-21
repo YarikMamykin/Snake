@@ -23,4 +23,11 @@ namespace views {
     ACTION
   };
 }
+
+namespace timing {
+  enum class TimerType {
+    SingleShot,
+    Simple
+  };
+} 
 #endif /* SRC_INCLUDE_CONSTANTS_CONSTANTS_HPP */

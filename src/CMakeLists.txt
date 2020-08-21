@@ -8,6 +8,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/exceptions)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/geometry)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/helpers)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/settings)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/timing)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/views)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xlib)
 
