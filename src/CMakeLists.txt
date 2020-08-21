@@ -5,6 +5,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/constants)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/events)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/exceptions)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/game_objects)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/geometry)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/helpers)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/settings)
@@ -26,6 +27,7 @@ set(GAME_VIEW_SRC ${CMAKE_CURRENT_SOURCE_DIR}/views/GameMenu.cpp
 )
 
 set(TIMER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/timing/Timer.cpp)
+set(SNAKE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/game_objects/Snake.cpp)
 
 set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 

@@ -30,4 +30,14 @@ namespace timing {
     Simple
   };
 } 
+
+namespace game_objects {
+  enum class SnakeDirection {
+    Up,
+    Down,
+    Left,
+    Right
+  };
+}
+
 #endif /* SRC_INCLUDE_CONSTANTS_CONSTANTS_HPP */
