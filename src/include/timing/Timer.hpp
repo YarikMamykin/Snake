@@ -8,7 +8,7 @@
 #include "Constants.hpp"
 
 namespace timing {
-  class Timer {
+  struct Timer {
     std::chrono::milliseconds timeout;
     TimerType type;
     std::future<void> async_result;
@@ -16,6 +16,7 @@ namespace timing {
     std::function<void()> callback;
 
     public:
+    explicit Timer();
     explicit Timer(const std::chrono::milliseconds&& timeout, 
                    std::function<void()> callback,
                    const TimerType&& type = TimerType::Simple);
