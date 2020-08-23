@@ -73,6 +73,7 @@ namespace xlib {
   }
 
   void X11_Window::redraw_background() const {
+    XFlush(x_display.display);
     XSetForeground(x_display.display, graphical_context, win_sets.backgnd_color);
     XFillRectangle(x_display.display,
         window,
