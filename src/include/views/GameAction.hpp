@@ -5,6 +5,7 @@
 #include "KeyPressHandler.hpp"
 #include "X11_Window.hpp"
 #include "Timer.hpp"
+#include "Snake.hpp"
 
 namespace views {
 
@@ -18,6 +19,8 @@ namespace views {
       virtual void deactivate() override;
       virtual void handle_key_press(const KeySym&& key_sym) override;
 
+    public:
+      game_objects::Snake snake;
     private:
       xlib::X11_Window* x_window;
       timing::Timer timer;
