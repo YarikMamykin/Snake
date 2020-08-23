@@ -1,6 +1,8 @@
 #ifndef SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP
 #define SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP
 
+#include "Point.hpp"
+
 namespace geometry {
   /*
    * This structure replaces original XRectangle
@@ -9,6 +11,22 @@ namespace geometry {
   struct Rectangle {
     int x,y;
     unsigned int width, height;
+
+    Point bottom_right() {
+      return { .x = x + width, .y = y + height };
+    }
+
+    Point top_right() {
+      return { .x = x + width, .y = y };
+    }
+
+    Point bottom_left() {
+      return { .x = x , .y = y + height };
+    }
+
+    Point top_left() {
+      return { .x = x, .y = y };
+    }
   };
 }
 #endif /* SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP */
