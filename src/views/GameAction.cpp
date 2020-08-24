@@ -14,7 +14,6 @@ namespace views {
       std::cout << "AMMA WORKING!" << std::endl;
       this->snake.move(game_objects::SnakeDirection::Right);
     };
-    x_window->redraw_background();
   }
 
   GameAction::~GameAction() {
