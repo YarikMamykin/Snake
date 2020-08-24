@@ -20,7 +20,8 @@ namespace events {
 namespace views {
   enum ViewID {
     MENU,
-    ACTION
+    ACTION,
+    NONE
   };
 }
 
