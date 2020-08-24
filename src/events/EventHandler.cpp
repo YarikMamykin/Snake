@@ -47,7 +47,12 @@ namespace events {
 
   void EventHandler::handle_client_message(const long* data, xlib::X11_Window& x_window) {
     switch(data[0]) {
-      case AdditionalEvents::ExitApplication: { throw exceptions::ExitApplication(); break; }
+      case AdditionalEvents::ExitApplication: { 
+                                                UnregisterAll();
+                                                x_window.change_view(views::ViewID::NONE);
+                                                throw exceptions::ExitApplication(); 
+                                                break; 
+                                              }
       case AdditionalEvents::ChangeView: { 
         x_window.change_view(static_cast<views::ViewID>(data[1])); 
         switch(data[1]) {
@@ -91,5 +96,11 @@ namespace events {
       key_press_listeners.erase(key);
     }
     key_press_listeners.insert({key, as_event_handler<KeyPressHandler>(listener)});
+  }
+
+  void EventHandler::UnregisterAll() {
+    this->key_press_listeners.clear();
+    this->mouse_button_press_listeners.clear();
+    this->mouse_motion_listeners.clear();
   }
 }
