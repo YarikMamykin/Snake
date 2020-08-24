@@ -18,11 +18,9 @@ namespace views {
 
   GameAction::~GameAction() {
     timer.stop();
-    XFlush(x_window->x_display.display);
   }
 
   void GameAction::activate() {
-    std::cout << std::boolalpha << "TIMER RUNNING " << timer.running() << std::endl;
     if(!timer.running()) {
       timer.launch();
     }
