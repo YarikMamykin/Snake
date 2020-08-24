@@ -20,7 +20,7 @@ namespace game_objects {
     private:
       struct SnakePart {
         virtual void show(xlib::X11_Window* x_window) = 0;
-        virtual void move(const SnakeDirection& direction, const int& rotation_angle) = 0;
+        virtual void move(const SnakeDirection& direction, const RotationDirection& rotation_direction) = 0;
         virtual ~SnakePart() {}
       };
 
@@ -30,14 +30,14 @@ namespace game_objects {
         SnakeHead(geometry::Rectangle&& frame);
         void show(xlib::X11_Window* x_window) override;
         void hide(xlib::X11_Window* x_window);
-        void move(const SnakeDirection& direction, const int& rotation_angle) override;
+        void move(const SnakeDirection& direction, const RotationDirection& rotation_direction) override;
       };
 
       struct SnakeTailPart : public SnakePart {
         geometry::Rectangle frame;
         SnakeTailPart(geometry::Rectangle&& frame);
         void show(xlib::X11_Window* x_window) override;
-        void move(const SnakeDirection& direction, const int& rotation_angle) override;
+        void move(const SnakeDirection& direction, const RotationDirection& rotation_direction) override;
       };
 
       void show(xlib::X11_Window* x_window);

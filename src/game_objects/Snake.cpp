@@ -48,45 +48,53 @@ namespace game_objects {
     XFlush(x_window->x_display.display);
   }
 
-  void Snake::SnakeHead::move(const SnakeDirection& current_direction, const int& rotation_angle) { 
+  void Snake::SnakeHead::move(const SnakeDirection& current_direction, const RotationDirection& rotation_direction) { 
     switch(current_direction) {
       case SnakeDirection::Up: 
         {
           geometry::Point rotation_point;
-          if(rotation_angle == 0) {
+          if(rotation_direction == RotationDirection::NONE) {
             this->frame.y -= 10;
           } else {
-            rotation_point = rotation_angle < 0 ? this->frame.bottom_left() : this->frame.bottom_right();
+            rotation_point = rotation_direction == RotationDirection::Counterclockwize 
+              ? this->frame.bottom_left() 
+              : this->frame.bottom_right();
           }
           break;
         } 
       case SnakeDirection::Down: 
         {
           geometry::Point rotation_point;
-          if(rotation_angle == 0) {
+          if(rotation_direction == RotationDirection::NONE) {
             this->frame.y += 10;
           } else {
-            rotation_point = rotation_angle < 0 ? this->frame.top_right() : this->frame.top_left();
+            rotation_point = rotation_direction == RotationDirection::Counterclockwize 
+              ? this->frame.top_right() 
+              : this->frame.top_left();
           }
           break;
         }
       case SnakeDirection::Left: 
         {
           geometry::Point rotation_point;
-          if(rotation_angle == 0) {
+          if(rotation_direction == RotationDirection::NONE) {
             this->frame.x -= 10;
           } else {
-            rotation_point = rotation_angle < 0 ? this->frame.bottom_right() : this->frame.top_right();
+            rotation_point = rotation_direction == RotationDirection::Counterclockwize 
+              ? this->frame.bottom_right() 
+              : this->frame.top_right();
           }
           break;
         } 
       case SnakeDirection::Right: 
         {
           geometry::Point rotation_point;
-          if(rotation_angle == 0) {
+          if(rotation_direction == RotationDirection::NONE) {
             this->frame.x += 10;
           } else {
-            rotation_point = rotation_angle < 0 ? this->frame.top_left() : this->frame.bottom_left();
+            rotation_point = rotation_direction == RotationDirection::Counterclockwize 
+              ? this->frame.top_left() 
+              : this->frame.bottom_left();
           }
           break;
         }
@@ -107,14 +115,14 @@ namespace game_objects {
         frame.height);
   }
 
-  void Snake::SnakeTailPart::move(const SnakeDirection &direction, const int &rotation_angle) {
+  void Snake::SnakeTailPart::move(const SnakeDirection &direction, const RotationDirection& rotation_direction) {
   }
 
   Snake::Snake(xlib::X11_Window* x_window, const game_objects::SnakeDirection&& direction) 
   : x_window(x_window)
   , current_direction(direction) {
 
-    const unsigned int head_size = 50u;
+    const unsigned int head_size = 20u;
     const int head_pos = 50;
     parts.push_back(SnakeHead({ .x = head_pos, .y = head_pos, .width = head_size, .height = head_size }));
   }
@@ -127,19 +135,27 @@ namespace game_objects {
       return;
     }
 
-    int rotation_angle = 0;
+    RotationDirection rotation_direction = RotationDirection::NONE;
     if (direction != current_direction) {
       switch(direction) {
-        case SnakeDirection::Up: rotation_angle = (direction == SnakeDirection::Left ? -90 : 90); break;
-        case SnakeDirection::Down: rotation_angle = (direction == SnakeDirection::Left ? 90 : -90); break;
-        case SnakeDirection::Left: rotation_angle = (direction == SnakeDirection::Up ? 90 : -90); break;
-        case SnakeDirection::Right: rotation_angle = (direction == SnakeDirection::Up ? -90 : 90); break;
+        case SnakeDirection::Up: 
+          rotation_direction = (direction == SnakeDirection::Left ? RotationDirection::Counterclockwize 
+                                                              : RotationDirection::Clockwize); break;
+        case SnakeDirection::Down: 
+          rotation_direction = (direction == SnakeDirection::Left ? RotationDirection::Clockwize 
+                                                              : RotationDirection::Counterclockwize); break;
+        case SnakeDirection::Left: 
+          rotation_direction = (direction == SnakeDirection::Up ? RotationDirection::Clockwize 
+                                                            : RotationDirection::Counterclockwize); break;
+        case SnakeDirection::Right: 
+          rotation_direction = (direction == SnakeDirection::Up ? RotationDirection::Counterclockwize 
+                                                            : RotationDirection::Clockwize); break;
       }
     }
 
     this->hide(x_window);
     for(auto& part : parts) {
-      part.move(current_direction, rotation_angle);
+      part.move(current_direction, rotation_direction);
     }
     this->show(x_window);
 

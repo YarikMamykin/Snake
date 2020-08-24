@@ -39,6 +39,12 @@ namespace game_objects {
     Left,
     Right
   };
+
+  enum class RotationDirection {
+    NONE,
+    Clockwize,
+    Counterclockwize
+  };
 }
 
 #endif /* SRC_INCLUDE_CONSTANTS_CONSTANTS_HPP */
