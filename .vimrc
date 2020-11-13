@@ -1,60 +1,67 @@
 let $VIM_BUILD_FOLDER='build'
-let $VIM_BIN_FOLDER='build/src'
-let $VIM_BIN_NAME='Snake'
 let $VIM_SRC_FOLDER='..'
+let $VIM_BIN_NAME='Snake'
+let $VIM_BIN_FOLDER='build/src'
+let $VIM_COMPILE_COMMAND="cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES"
+let $VIM_BUILD_COMMAND='make'
+let $VIM_INSTALL_COMMAND='true'
 let $COMPILE_COMMANDS_JSON='compile_commands.json'
 
 function! TagIt()
-  silent !clear
-  silent !rm -frv tags project.files
-  silent !echo "Building tags and database..."
-  silent !find . -name '*.cpp' > project.files
-  silent !find /usr/include/X11/ -name '*.c' -or -name '*.h' >> project.files
-  silent !sed -i '/.*build.*/d' project.files
-  silent !sed -i '/.*ccls.*/d' project.files
+  silent !rm -frv tags 
+  silent !echo "Building tags..."
+
+  silent !find . -name '*.c' -o -name "*.cc" -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' > project.files
   silent !cat project.files | ctags --verbose=yes --sort=yes --c++-kinds=+p --fields=+iaS --extras=+q --language-force=C++ -f tags -L -
+
+  silent !find /usr/include/X11/ -name '*.c' -o -name "*.cc" -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' > x11.files
+  silent !cat x11.files | ctags --verbose=yes --sort=yes --c++-kinds=+p --fields=+iaS --extras=+q --language-force=C++ -f x11tags -L -
+  set tags+=./x11tags
+
   silent !echo "Done"
   redraw!
 endfunction
 
-function! LinkCompileCommands()
-  silent !ln -sf $(find ./${VIM_BUILD_FOLDER}/ -name "$COMPILE_COMMANDS_JSON") ./$COMPILE_COMMANDS_JSON
+function! Clean()
+  silent !clear
+  !rm -frv $VIM_BUILD_FOLDER/**
   redraw!
 endfunction
 
 function! Build()
-  silent !clear
-  silent !mkdir -p $VIM_BUILD_FOLDER
-  !cd $VIM_BUILD_FOLDER && cmake $VIM_SRC_FOLDER -DCMAKE_EXPORT_COMPILE_COMMANDS=YES && make -j${CORES};
+  !mkdir -p $VIM_BUILD_FOLDER && cd $VIM_BUILD_FOLDER && rm -frv * && $VIM_COMPILE_COMMAND $VIM_SRC_FOLDER && $VIM_BUILD_COMMAND -j$CORES && $VIM_INSTALL_COMMAND
   redraw!
 endfunction
 
-function! CleanBuild()
-  silent !clear
-  silent !mkdir -p $VIM_BUILD_FOLDER
-  !cd $VIM_BUILD_FOLDER && cmake $VIM_SRC_FOLDER -DCMAKE_EXPORT_COMPILE_COMMANDS=YES && make -j${CORES};
+function! LinkCompileCommands()
+  silent !mkdir -p $VIM_BUILD_FOLDER && cd $VIM_BUILD_FOLDER && rm -frv * && $VIM_COMPILE_COMMAND $VIM_SRC_FOLDER && $VIM_BUILD_COMMAND -j$CORES && ln -sf $(find ./${VIM_BUILD_FOLDER}/ -name "$COMPILE_COMMANDS_JSON") ./$COMPILE_COMMANDS_JSON
   redraw!
 endfunction
 
 function! Run()
-  silent! !clear
-  !cd $VIM_BIN_FOLDER && [ -f "$VIM_BIN_NAME" ] && ./$VIM_BIN_NAME;
+  !cd $VIM_BIN_FOLDER && if [ -f "$VIM_BIN_NAME" ]; then ./$VIM_BIN_NAME; fi
   redraw!
 endfunction
 
-function! CleanBuildRun()
-  silent !clear
-  silent !mkdir -p $VIM_BUILD_FOLDER
-  !cd $VIM_BUILD_FOLDER && cmake $VIM_SRC_FOLDER -DCMAKE_EXPORT_COMPILE_COMMANDS=YES && make -j${CORES} && cd $VIM_BIN_FOLDER && [ -f "$VIM_BIN_NAME" ] && ./$VIM_BIN_NAME;
+function! Debug()
+  !cd $VIM_BIN_FOLDER && if [ -f "$VIM_BIN_NAME" ]; then gdb ./$VIM_BIN_NAME; fi
   redraw!
 endfunction
 
-command! SetupProject call TagIt() | call SetupCcls()
-command! Build call Build()
-command! CleanBuild call CleanBuild()
-command! CleanBuildRun call CleanBuildRun()
-command! Run call Run()
+nmap <F4> :call TagIt()<CR>:call LinkCompileCommands()<CR>
+nmap <Leader><F4> :call Build()<CR>
+nmap <Leader><F5> :call Run()<CR>
+nmap <Leader><F6> :call Debug()<CR>
 
-nmap <Leader><F4> :CleanBuild<CR>
-nmap <Leader><F5> :Run<CR>
-nmap <Leader><F6> :CleanBuildRun<CR>
+function! Switch()
+  let filename = expand("%:t:r")
+  let fileext = expand("%:e")
+  if (fileext == "cpp")
+    find %:t:r.hpp
+  endif
+  if (fileext == "hpp")
+    find %:t:r.cpp
+  endif
+endfunction
+
+set wildignore+=*/build/*
