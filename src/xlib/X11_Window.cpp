@@ -72,6 +72,15 @@ namespace xlib {
     return win_attr.height;
   }
 
+  geometry::Rectangle X11_Window::get_frame() const {
+    XWindowAttributes win_attr;
+    XGetWindowAttributes(x_display.display, this->window, &win_attr);
+    return { .x = 0, .y = 0, 
+      .width = win_attr.width, 
+      .height = win_attr.height 
+    };
+  }
+
   void X11_Window::redraw_background() const {
     XFlushGC(x_display.display, graphical_context);
     XFlush(x_display.display);

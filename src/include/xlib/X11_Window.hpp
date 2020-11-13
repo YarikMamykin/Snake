@@ -9,6 +9,7 @@
 #include "View.hpp"
 #include "Constants.hpp"
 #include "UI_Object.hpp"
+#include "Rectangle.hpp"
 
 namespace xlib {
 
@@ -39,6 +40,7 @@ namespace xlib {
     int get_y() const;
     int get_width() const;
     int get_height() const;
+    geometry::Rectangle get_frame() const;
 
     void change_view(const views::ViewID viewID);
 
