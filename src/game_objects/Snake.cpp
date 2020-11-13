@@ -1,7 +1,11 @@
 #include "Snake.hpp"
 #include <iostream>
+#include <vector>
 
 namespace game_objects {
+  class MovementController;
+  class Snake;
+  class SnakeHead;
 
   Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame) 
   : frame(frame) {
@@ -101,26 +105,10 @@ namespace game_objects {
     }
   }
 
-  Snake::SnakeTailPart::SnakeTailPart(geometry::Rectangle&& frame) 
-  : frame(frame) {
-  }
-
-  void Snake::SnakeTailPart::show(xlib::X11_Window *x_window) {
-    XDrawRectangle(x_window->x_display.display,
-        x_window->window,
-        x_window->graphical_context,
-        frame.x,
-        frame.y,
-        frame.width,
-        frame.height);
-  }
-
-  void Snake::SnakeTailPart::move(const SnakeDirection &direction, const RotationDirection& rotation_direction) {
-  }
-
   Snake::Snake(xlib::X11_Window* x_window, const game_objects::SnakeDirection&& direction) 
   : x_window(x_window)
-  , current_direction(direction) {
+  , current_direction(direction) 
+  , window_frame(x_window->get_frame()) {
 
     const unsigned int head_size = 20u;
     const int head_pos = 50;
@@ -155,7 +143,11 @@ namespace game_objects {
 
     this->hide(x_window);
     for(auto& part : parts) {
+      auto prev_part_frame = part.frame;
       part.move(current_direction, rotation_direction);
+
+      // don't let snake to go out of window borders
+      mcontroller.validate(part.frame, prev_part_frame, window_frame);
     }
     this->show(x_window);
 
@@ -186,5 +178,16 @@ namespace game_objects {
 
 
     return up_down || down_up || left_right || right_left;
+  }
+
+  bool Snake::MovementController::validate(geometry::Rectangle& frame, 
+                                           const geometry::Rectangle& prev_frame, 
+                                           const geometry::Rectangle& x_window_frame) {
+    if(!frame.belongs_to(x_window_frame)) {
+      frame = prev_frame;
+      return false;
+    }
+
+    return true;
   }
 }

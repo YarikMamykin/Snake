@@ -18,26 +18,19 @@ namespace game_objects {
     void move(const SnakeDirection& direction);
 
     private:
-      struct SnakePart {
-        virtual void show(xlib::X11_Window* x_window) = 0;
-        virtual void move(const SnakeDirection& direction, const RotationDirection& rotation_direction) = 0;
-        virtual ~SnakePart() {}
-      };
+      struct MovementController {
+        bool validate( geometry::Rectangle& frame, 
+                       const geometry::Rectangle& prev_frame, 
+                       const geometry::Rectangle& x_window_frame);
+      } mcontroller;
 
-      struct SnakeHead : public SnakePart {
+      struct SnakeHead {
         // geometry::Triangle frame;
         geometry::Rectangle frame;
         SnakeHead(geometry::Rectangle&& frame);
-        void show(xlib::X11_Window* x_window) override;
+        void show(xlib::X11_Window* x_window);
         void hide(xlib::X11_Window* x_window);
-        void move(const SnakeDirection& direction, const RotationDirection& rotation_direction) override;
-      };
-
-      struct SnakeTailPart : public SnakePart {
-        geometry::Rectangle frame;
-        SnakeTailPart(geometry::Rectangle&& frame);
-        void show(xlib::X11_Window* x_window) override;
-        void move(const SnakeDirection& direction, const RotationDirection& rotation_direction) override;
+        void move(const SnakeDirection& direction, const RotationDirection& rotation_direction);
       };
 
       void show(xlib::X11_Window* x_window);
@@ -47,6 +40,7 @@ namespace game_objects {
       std::list<SnakeHead> parts;
       xlib::X11_Window* x_window;
       SnakeDirection current_direction;
+      geometry::Rectangle window_frame;
   };
 }
 
