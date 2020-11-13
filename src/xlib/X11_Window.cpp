@@ -49,15 +49,11 @@ namespace xlib {
   }
 
   int X11_Window::get_x() const {
-    XWindowAttributes win_attr;
-    XGetWindowAttributes(x_display.display, this->window, &win_attr);
-    return win_attr.x;
+    return 0;
   }
 
   int X11_Window::get_y() const {
-    XWindowAttributes win_attr;
-    XGetWindowAttributes(x_display.display, this->window, &win_attr);
-    return win_attr.y;
+    return 0;
   }
 
   int X11_Window::get_width() const {
