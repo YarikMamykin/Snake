@@ -12,19 +12,19 @@ namespace geometry {
     int x,y;
     unsigned int width, height;
 
-    Point bottom_right() {
+    Point bottom_right() const {
       return { .x = x + width, .y = y + height };
     }
 
-    Point top_right() {
+    Point top_right() const {
       return { .x = x + width, .y = y };
     }
 
-    Point bottom_left() {
+    Point bottom_left() const {
       return { .x = x , .y = y + height };
     }
 
-    Point top_left() {
+    Point top_left() const {
       return { .x = x, .y = y };
     }
   };
