@@ -8,6 +8,7 @@ namespace game_objects {
   class SnakeHead;
 
   const unsigned int Snake::SnakeHead::offset = 10u;
+  const unsigned int Snake::SnakeHead::spacing = 10u;
 
   Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame) 
   : frame(frame) {
@@ -55,13 +56,15 @@ namespace game_objects {
   }
 
   void Snake::SnakeHead::move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction) { 
+    geometry::Point rotation_point;
+
     switch(new_direction) {
       case SnakeDirection::Up: 
         {
-          geometry::Point rotation_point;
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.y -= offset;
+            this->frame.move(0, -offset);
           } else {
+            this->frame.move(0, -(this->frame.height + offset));
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.bottom_left() 
               : this->frame.bottom_right();
@@ -70,10 +73,10 @@ namespace game_objects {
         } 
       case SnakeDirection::Down: 
         {
-          geometry::Point rotation_point;
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.y += offset;
+            this->frame.move(0, offset);
           } else {
+            this->frame.move(0, (this->frame.height + offset));
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.top_right() 
               : this->frame.top_left();
@@ -82,10 +85,10 @@ namespace game_objects {
         }
       case SnakeDirection::Left: 
         {
-          geometry::Point rotation_point;
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.x -= offset;
+            this->frame.move(-offset, 0);
           } else {
+            this->frame.move(-(this->frame.width + offset), 0);
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.bottom_right() 
               : this->frame.top_right();
@@ -94,16 +97,20 @@ namespace game_objects {
         } 
       case SnakeDirection::Right: 
         {
-          geometry::Point rotation_point;
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.x += offset;
+            this->frame.move(offset, 0);
           } else {
+            this->frame.move((this->frame.width + offset), 0);
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.top_left() 
               : this->frame.bottom_left();
           }
           break;
         }
+    }
+
+    if(RotationDirection::NONE != rotation_direction) {
+      this->frame.rotate(std::move(rotation_direction), std::move(rotation_point));
     }
   }
 

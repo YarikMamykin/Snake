@@ -26,6 +26,7 @@ namespace game_objects {
 
       struct SnakeHead {
         static const unsigned int offset;
+        static const unsigned int spacing;
         // geometry::Triangle frame;
         geometry::Rectangle frame;
         SnakeHead(geometry::Rectangle&& frame);

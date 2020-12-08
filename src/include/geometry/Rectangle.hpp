@@ -2,6 +2,12 @@
 #define SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP
 
 #include "Point.hpp"
+#include "Constants.hpp"
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+#include <string>
 
 namespace geometry {
   /*
@@ -28,6 +34,18 @@ namespace geometry {
       return { .x = x, .y = y };
     }
 
+    void move(const int& x, const int& y) {
+      this->x += x;
+      this->y += y;
+    }
+
+    const std::string to_string() const {
+      return std::string(std::to_string(this->x) + "  " +
+          std::to_string(this->y) + "  " +
+          std::to_string(this->width) + "  " +
+          std::to_string(this->height) + "\n" );
+    }
+
     bool belongs_to(const Rectangle& rect) const {
       const auto&& tr = top_right();
       const auto&& tl = top_left();
@@ -41,6 +59,39 @@ namespace geometry {
       }
 
       return result;
+    }
+
+    void rotate(const game_objects::RotationDirection&& rotation_direction, const Point&& rotation_point) {
+      std::cout << this->to_string() << std::endl;
+
+      std::vector<Point> current_points = {top_right(), top_left(), bottom_left(), bottom_right()};
+      std::function<Point (const Point& p)> rotate_point;
+
+      switch(rotation_direction) {
+        case game_objects::RotationDirection::Counterclockwize: 
+          {
+            rotate_point = [&rotation_point](const Point& p) -> Point { return { rotation_point.x - p.y + rotation_point.y, rotation_point.y + p.x - rotation_point.x }; };
+            std::transform(current_points.begin(), current_points.end(), current_points.begin(), rotate_point);
+            break;
+          }
+        case game_objects::RotationDirection::Clockwize: 
+          {
+            rotate_point = [&rotation_point](const Point& p) -> Point { return { rotation_point.x + p.y - rotation_point.y, rotation_point.y - p.x + rotation_point.x }; };
+            std::transform(current_points.begin(), current_points.end(), current_points.begin(), rotate_point);
+            break;
+          }
+        default: break;
+      }
+
+      const auto&& new_top_left = std::min_element(current_points.cbegin(), current_points.cend());
+      const auto&& new_bottom_right = std::max_element(current_points.cbegin(), current_points.cend());
+
+      this->x = new_top_left->x;
+      this->y = new_top_left->y;
+      this->width = new_bottom_right->x - new_top_left->x;
+      this->height = new_bottom_right->y - new_top_left->y;
+
+      std::cout << this->to_string() << std::endl;
     }
   };
 }
