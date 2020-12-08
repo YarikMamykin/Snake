@@ -120,8 +120,9 @@ namespace game_objects {
   , window_frame(x_window->get_frame()) {
 
     const unsigned int head_size = 20u;
-    const int head_pos = 50;
+    const int head_pos = 100;
     parts.push_back(SnakeHead({ .x = head_pos, .y = head_pos, .width = head_size + head_size, .height = head_size }));
+    parts.push_back(SnakeHead({ .x = parts.back().frame.x - parts.back().frame.width - SnakeHead::spacing, .y = parts.back().frame.y, .width = head_size + head_size, .height = head_size }));
   }
 
   Snake::~Snake() {
