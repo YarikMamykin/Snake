@@ -114,7 +114,7 @@ namespace game_objects {
 
     const unsigned int head_size = 20u;
     const int head_pos = 50;
-    parts.push_back(SnakeHead({ .x = head_pos, .y = head_pos, .width = head_size, .height = head_size }));
+    parts.push_back(SnakeHead({ .x = head_pos, .y = head_pos, .width = head_size + head_size, .height = head_size }));
   }
 
   Snake::~Snake() {
