@@ -6,6 +6,7 @@
 #include "X11_Window.hpp"
 #include "Timer.hpp"
 #include "Snake.hpp"
+#include "Constants.hpp"
 
 namespace views {
 
@@ -24,7 +25,7 @@ namespace views {
     private:
       xlib::X11_Window* x_window;
       timing::Timer timer;
-
+      game_objects::SnakeDirection snake_direction;
   };
 
 }
