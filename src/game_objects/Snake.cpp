@@ -54,8 +54,6 @@ namespace game_objects {
     XFlush(x_window->x_display.display);
   }
 
-  void Snake::SnakeHead::move(const SnakeDirection& current_direction, const RotationDirection& rotation_direction) { 
-    switch(current_direction) {
   void Snake::SnakeHead::move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction) { 
     switch(new_direction) {
       case SnakeDirection::Up: 
@@ -123,12 +121,11 @@ namespace game_objects {
   }
 
   void Snake::move(const game_objects::SnakeDirection& direction) {
-    if(is_opposite_to_current(direction)) {
-      return;
-    }
-
+    
     RotationDirection rotation_direction = RotationDirection::NONE;
-    if (direction != current_direction) {
+    const bool direction_opposite_to_current = is_opposite_to_current(direction);
+
+    if (direction != current_direction && !direction_opposite_to_current) {
       switch(direction) {
         case SnakeDirection::Up: 
           rotation_direction = (direction == SnakeDirection::Left ? RotationDirection::Counterclockwize 
@@ -155,7 +152,9 @@ namespace game_objects {
     }
     this->show(x_window);
 
-    current_direction = direction;
+    if(!direction_opposite_to_current) {
+      current_direction = direction;
+    }
   }
 
   void Snake::hide(xlib::X11_Window* x_window) {
