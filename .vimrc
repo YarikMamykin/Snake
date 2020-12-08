@@ -34,7 +34,7 @@ function! Build()
 endfunction
 
 function! LinkCompileCommands()
-  silent !mkdir -p $VIM_BUILD_FOLDER && cd $VIM_BUILD_FOLDER && rm -frv * && $VIM_COMPILE_COMMAND $VIM_SRC_FOLDER && $VIM_BUILD_COMMAND -j$CORES && ln -sf $(find ./${VIM_BUILD_FOLDER}/ -name "$COMPILE_COMMANDS_JSON") ./$COMPILE_COMMANDS_JSON
+  !mkdir -p $VIM_BUILD_FOLDER && cd $VIM_BUILD_FOLDER && rm -frv * && $VIM_COMPILE_COMMAND $VIM_SRC_FOLDER && cd - && rm -frv $COMPILE_COMMANDS_JSON && ln -sf $(find . -name "$COMPILE_COMMANDS_JSON") ./$COMPILE_COMMANDS_JSON
   redraw!
 endfunction
 
