@@ -7,7 +7,7 @@ namespace game_objects {
   class Snake;
   class SnakeHead;
 
-  const unsigned int Snake::SnakeHead::offset = 10u;
+  const unsigned int Snake::SnakeHead::offset = 1u;
   const unsigned int Snake::SnakeHead::spacing = 10u;
 
   Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame) 

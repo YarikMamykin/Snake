@@ -9,7 +9,7 @@ namespace views {
   : x_window(x_window) 
   , snake(x_window) 
   , snake_direction(game_objects::SnakeDirection::Right) {
-    timer.timeout = std::chrono::milliseconds(50);
+    timer.timeout = std::chrono::milliseconds(5);
     timer.callback = [this]() {
       this->snake.move(this->snake_direction);
     };
