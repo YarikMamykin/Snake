@@ -25,12 +25,13 @@ namespace game_objects {
       } mcontroller;
 
       struct SnakeHead {
+        static const unsigned int offset;
         // geometry::Triangle frame;
         geometry::Rectangle frame;
         SnakeHead(geometry::Rectangle&& frame);
         void show(xlib::X11_Window* x_window);
         void hide(xlib::X11_Window* x_window);
-        void move(const SnakeDirection& direction, const RotationDirection& rotation_direction);
+        void move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction);
       };
 
       void show(xlib::X11_Window* x_window);

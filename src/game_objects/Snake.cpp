@@ -7,6 +7,8 @@ namespace game_objects {
   class Snake;
   class SnakeHead;
 
+  const unsigned int Snake::SnakeHead::offset = 10u;
+
   Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame) 
   : frame(frame) {
   }
@@ -54,11 +56,13 @@ namespace game_objects {
 
   void Snake::SnakeHead::move(const SnakeDirection& current_direction, const RotationDirection& rotation_direction) { 
     switch(current_direction) {
+  void Snake::SnakeHead::move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction) { 
+    switch(new_direction) {
       case SnakeDirection::Up: 
         {
           geometry::Point rotation_point;
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.y -= 10;
+            this->frame.y -= offset;
           } else {
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.bottom_left() 
@@ -70,7 +74,7 @@ namespace game_objects {
         {
           geometry::Point rotation_point;
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.y += 10;
+            this->frame.y += offset;
           } else {
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.top_right() 
@@ -82,7 +86,7 @@ namespace game_objects {
         {
           geometry::Point rotation_point;
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.x -= 10;
+            this->frame.x -= offset;
           } else {
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.bottom_right() 
@@ -94,7 +98,7 @@ namespace game_objects {
         {
           geometry::Point rotation_point;
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.x += 10;
+            this->frame.x += offset;
           } else {
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.top_left() 
