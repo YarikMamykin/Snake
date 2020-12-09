@@ -8,12 +8,14 @@
 #include "X11_Display.hpp"
 #include "EventHandler.hpp"
 #include "Settings.hpp"
+#include <X11/Xlib.h>
 #include <iostream>
 #include <memory>
 
 void LaunchApp() {
   using namespace xlib;
   using namespace events;
+  XInitThreads();
   X11_Display x_display;
 
   auto x_window = std::make_shared<X11_Window>(x_display, 
