@@ -7,7 +7,7 @@ namespace game_objects {
   class Snake;
   class SnakeHead;
 
-  const unsigned int Snake::SnakeHead::offset = 1u;
+  const unsigned int Snake::SnakeHead::offset = 50u; // OFFSET DEPENDS ON SNAKE PART MAX SIDE + SPACING BETWEEN PARTS
   const unsigned int Snake::SnakeHead::spacing = 10u;
 
   Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame) 
@@ -123,6 +123,11 @@ namespace game_objects {
     const int head_pos = 100;
     parts.push_back(SnakeHead({ .x = head_pos, .y = head_pos, .width = head_size + head_size, .height = head_size }));
     parts.push_back(SnakeHead({ .x = parts.back().frame.x - parts.back().frame.width - SnakeHead::spacing, .y = parts.back().frame.y, .width = head_size + head_size, .height = head_size }));
+    parts.push_back(SnakeHead({ .x = parts.back().frame.x - parts.back().frame.width - SnakeHead::spacing, .y = parts.back().frame.y, .width = head_size + head_size, .height = head_size }));
+
+    for(const auto& part : parts) {
+      movement_queue.push_back(std::pair<game_objects::SnakeDirection, RotationDirection>(current_direction, RotationDirection::NONE));
+    }
   }
 
   Snake::~Snake() {
@@ -151,18 +156,30 @@ namespace game_objects {
     }
 
     this->hide(x_window);
-    for(auto& part : parts) {
-      auto prev_part_frame = part.frame;
-      part.move(current_direction, rotation_direction);
+    auto parts_iter = parts.begin();
+    auto movements_iter = movement_queue.begin();
+
+    for(; parts_iter != parts.end() && movements_iter != movement_queue.end(); ++parts_iter, ++movements_iter) {
+      auto&& part_direction = movements_iter->first;
+      auto&& part_rotation_direction = movements_iter->second;
+      parts_iter->move(part_direction, part_rotation_direction);
 
       // don't let snake to go out of window borders
-      mcontroller.validate(part.frame, prev_part_frame, window_frame);
+      // mcontroller.validate(parts_iter->frame, window_frame);
     }
     this->show(x_window);
 
     if(!direction_opposite_to_current) {
       current_direction = direction;
     }
+
+    movement_queue.pop_back();
+    movement_queue.push_front(std::pair<SnakeDirection, RotationDirection>(current_direction, rotation_direction));
+    std::cout << "MOVEMENT QUEUE" << std::endl;
+    std::for_each(movement_queue.begin(), movement_queue.end(), [](const std::pair<SnakeDirection, RotationDirection>& item) {
+        std::cout << static_cast<int>(item.first) << " " << static_cast<int>(item.second) << std::endl;
+    });
+    std::cout << "MOVEMENT QUEUE END" << std::endl;
   }
 
   void Snake::hide(xlib::X11_Window* x_window) {
@@ -192,10 +209,9 @@ namespace game_objects {
   }
 
   bool Snake::MovementController::validate(geometry::Rectangle& frame, 
-                                           const geometry::Rectangle& prev_frame, 
                                            const geometry::Rectangle& x_window_frame) {
     if(!frame.belongs_to(x_window_frame)) {
-      frame = prev_frame;
+      frame.x = frame.y = 0;
       return false;
     }
 

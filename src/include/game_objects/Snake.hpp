@@ -2,6 +2,7 @@
 #define SRC_INCLUDE_GAME_OBJECT_SNAKE_HPP
 
 #include <list>
+#include <queue> 
 #include <memory>
 #include "X11_Window.hpp"
 #include "Constants.hpp"
@@ -20,7 +21,6 @@ namespace game_objects {
     private:
       struct MovementController {
         bool validate( geometry::Rectangle& frame, 
-                       const geometry::Rectangle& prev_frame, 
                        const geometry::Rectangle& x_window_frame);
       } mcontroller;
 
@@ -43,6 +43,7 @@ namespace game_objects {
       xlib::X11_Window* x_window;
       SnakeDirection current_direction;
       geometry::Rectangle window_frame;
+      std::deque<std::pair<SnakeDirection, RotationDirection>> movement_queue;
   };
 }
 
