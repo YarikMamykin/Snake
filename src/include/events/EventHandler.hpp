@@ -11,9 +11,7 @@ namespace events {
 
   struct EventHandler : public IEventHandler {
 
-    std::map<constants::HandlerKeys, MouseMotionHandler*> mouse_motion_listeners;
-    std::map<constants::HandlerKeys, MouseButtonPressHandler*> mouse_button_press_listeners;
-    std::map<constants::HandlerKeys, KeyPressHandler*> key_press_listeners;
+    std::map<constants::HandlerKeys, std::weak_ptr<ui::UI_Object>> listeners;
     XEvent event;
 
     explicit EventHandler() = default;
@@ -26,9 +24,7 @@ namespace events {
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data, xlib::X11_Window& x_window);
 
-    void add_mouse_motion_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener);
-    void add_mouse_button_press_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener);
-    void add_key_press_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener);
+    void add_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener);
 
     private:
       void UnregisterAll();

@@ -15,6 +15,12 @@ namespace events {
     ExitApplication = LASTEvent + 1,
     ChangeView = LASTEvent + 2
   };
+
+  enum HandlersMask {
+    KeyPressHandlerMask = 2,
+    MouseMotionHandlerMask = 2 << 1,
+    MouseButtonPressHandlerMask = 2 << 2
+  };
 }
 
 namespace views {

@@ -67,6 +67,7 @@ namespace views {
       void handle_mouse_motion(const int& x, const int& y) override;
       void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
       void handle_key_press(const KeySym&& key_sym) override;
+      const int get_event_handling_mask() const override;
 
     private:
       void update();

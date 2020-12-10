@@ -10,7 +10,7 @@
 
 namespace views {
 
-  class GameAction : public View, public events::KeyPressHandler {
+  class GameAction final : public View, public events::KeyPressHandler {
     public:
       explicit GameAction(xlib::X11_Window* x_window);
       ~GameAction();
@@ -19,6 +19,7 @@ namespace views {
       virtual void activate() override;
       virtual void deactivate() override;
       virtual void handle_key_press(const KeySym&& key_sym) override;
+      virtual const int get_event_handling_mask() const override;
 
     public:
       game_objects::Snake snake;

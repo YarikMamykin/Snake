@@ -282,4 +282,8 @@ namespace views {
         }
     }
   }
+
+  const int GameMenu::get_event_handling_mask() const {
+    return events::KeyPressHandler::mask | events::MouseMotionHandler::mask | events::MouseButtonPressHandler::mask;
+  }
 }

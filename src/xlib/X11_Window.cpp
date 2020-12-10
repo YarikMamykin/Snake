@@ -123,4 +123,8 @@ namespace xlib {
         coords_text.c_str(), 
         coords_text.size()); 
   }
+
+  const int X11_Window::get_event_handling_mask() const {
+    return events::MouseMotionHandler::mask;
+  }
 }

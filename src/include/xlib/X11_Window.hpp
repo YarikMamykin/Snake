@@ -45,6 +45,7 @@ namespace xlib {
     void change_view(const views::ViewID viewID);
 
     void handle_mouse_motion(const int& x, const int& y) override;
+    const int get_event_handling_mask() const override;
 
     Window window;
     X11_Display& x_display;

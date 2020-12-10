@@ -8,6 +8,7 @@ namespace ui {
 
   class UI_Object {
     public:
+      virtual const int get_event_handling_mask() const = 0;
       virtual ~UI_Object() {};
   };
 

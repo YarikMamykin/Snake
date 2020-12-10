@@ -5,7 +5,7 @@
 
 namespace views {
 
-  class GameNone : public View {
+  class GameNone final : public View {
     public:
       explicit GameNone();
       virtual ~GameNone();
@@ -13,6 +13,7 @@ namespace views {
     public:
       virtual void activate() override;
       virtual void deactivate() override;
+      const int get_event_handling_mask() const override;
   };
 }
 
