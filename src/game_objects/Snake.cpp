@@ -176,11 +176,6 @@ namespace game_objects {
 
     movement_queue.pop_back();
     movement_queue.push_front(std::pair<SnakeDirection, RotationDirection>(current_direction, rotation_direction));
-    std::cout << "MOVEMENT QUEUE" << std::endl;
-    std::for_each(movement_queue.begin(), movement_queue.end(), [](const std::pair<SnakeDirection, RotationDirection>& item) {
-        std::cout << static_cast<int>(item.first) << " " << static_cast<int>(item.second) << std::endl;
-    });
-    std::cout << "MOVEMENT QUEUE END" << std::endl;
   }
 
   void Snake::hide(xlib::X11_Window* x_window) {
