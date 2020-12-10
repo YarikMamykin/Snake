@@ -34,6 +34,10 @@ namespace timing {
     async_result.wait();
   }
 
+  void Timer::stop_async() {
+    do_stop.store(true);
+  }
+
   bool Timer::running() const {
     return !do_stop.load();
   }

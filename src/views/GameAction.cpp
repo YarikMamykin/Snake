@@ -9,9 +9,14 @@ namespace views {
   : x_window(x_window) 
   , snake(x_window) 
   , snake_direction(game_objects::SnakeDirection::Right) {
-    timer.timeout = std::chrono::milliseconds(5);
-    timer.callback = [this]() {
-      this->snake.move(this->snake_direction);
+    timer.timeout = std::chrono::milliseconds(120);
+    timer.callback = [this, x_window]() {
+      try { 
+        this->snake.move(this->snake_direction); 
+      }
+      catch(...) { 
+        this->deactivate();
+      }
     };
   }
 
@@ -26,6 +31,10 @@ namespace views {
   }
 
   void GameAction::deactivate() {
+    this->timer.stop_async(); 
+    auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::OVER);
+    XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+    XFlush(x_window->x_display.display); // Necessary in case of multithreading!
   }
 
   void GameAction::handle_key_press(const KeySym&& key_sym) {

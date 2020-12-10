@@ -15,5 +15,11 @@ namespace exceptions {
         return "ChangeView";
       }
     };
+
+    struct GameOver : public std::exception {
+      const char* what() const noexcept override {
+        return "GameOver";
+      }
+    };
 }
 #endif /* SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP */

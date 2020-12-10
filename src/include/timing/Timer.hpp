@@ -22,6 +22,7 @@ namespace timing {
                    const TimerType&& type = TimerType::Simple);
     void launch(); 
     void stop();
+    void stop_async();
     bool running() const;
   };
 }
