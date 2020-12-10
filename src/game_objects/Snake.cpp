@@ -208,13 +208,10 @@ namespace game_objects {
     return up_down || down_up || left_right || right_left;
   }
 
-  bool Snake::MovementController::validate(geometry::Rectangle& frame, 
+  void Snake::MovementController::validate(geometry::Rectangle& frame, 
                                            const geometry::Rectangle& x_window_frame) {
     if(!frame.belongs_to(x_window_frame)) {
-      frame.x = frame.y = 0;
-      return false;
+      throw exceptions::GameOver();
     }
-
-    return true;
   }
 }

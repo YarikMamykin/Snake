@@ -20,7 +20,7 @@ namespace game_objects {
 
     private:
       struct MovementController {
-        bool validate( geometry::Rectangle& frame, 
+        void validate( geometry::Rectangle& frame, 
                        const geometry::Rectangle& x_window_frame);
       } mcontroller;
 
