@@ -4,6 +4,7 @@
 #include "Constants.hpp"
 #include "GameMenu.hpp"
 #include "GameAction.hpp"
+#include "GameOver.hpp"
 #include "GameNone.hpp"
 
 namespace views {
@@ -13,6 +14,7 @@ namespace views {
           switch(id) {
             case ViewID::ACTION: return std::make_shared<GameAction>(parent_window); break;
             case ViewID::MENU: return std::make_shared<GameMenu>(parent_window); break;
+            case ViewID::OVER: return std::make_shared<GameOver>(parent_window); break;
             default: return std::make_shared<GameNone>(); break;
           }
         }
