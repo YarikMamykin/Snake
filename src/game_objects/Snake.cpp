@@ -1,4 +1,5 @@
 #include "Snake.hpp"
+#include "Exceptions.hpp"
 #include <iostream>
 #include <vector>
 
