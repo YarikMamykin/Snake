@@ -12,7 +12,6 @@ namespace events {
     try {
       for (;;) {
         XNextEvent(x_window.x_display.display, &event);
-        std::cout << "EVENT CODE: " << event.type << std::endl;
         switch(event.type) {
           case Expose: { 
                          x_window.expose(); 
@@ -31,7 +30,6 @@ namespace events {
                                break; 
                              }
           case ClientMessage: { 
-                                std::cout << "HANDLE CLIENT MESSAGE " << event.xclient.data.l[0] << std::endl;
                                 handle_client_message(event.xclient.data.l, x_window); 
                                 break; 
                               }
@@ -82,7 +80,6 @@ namespace events {
                                                 break; 
                                               }
       case AdditionalEvents::ChangeView: { 
-                                           std::cout << "Changing view to " << data[1] << std::endl;
                                            x_window.change_view(static_cast<views::ViewID>(data[1])); 
                                            this->add_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view); // Resubscribe view as new-created
                                          }
