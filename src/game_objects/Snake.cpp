@@ -165,7 +165,7 @@ namespace game_objects {
       parts_iter->move(part_direction, part_rotation_direction);
 
       // don't let snake to go out of window borders
-      // mcontroller.validate(parts_iter->frame, window_frame);
+      mcontroller.validate(parts_iter->frame, window_frame);
     }
     this->show(x_window);
 
