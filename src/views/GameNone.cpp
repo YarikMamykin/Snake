@@ -15,4 +15,7 @@ namespace views {
   void GameNone::deactivate() {
   }
 
+  const int GameNone::get_event_handling_mask() const {
+    return 0;
+  }
 }
