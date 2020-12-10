@@ -122,9 +122,13 @@ namespace game_objects {
 
     const unsigned int head_size = 20u;
     const int head_pos = 100;
-    parts.push_back(SnakeHead({ .x = head_pos, .y = head_pos, .width = head_size + head_size, .height = head_size }));
-    parts.push_back(SnakeHead({ .x = parts.back().frame.x - parts.back().frame.width - SnakeHead::spacing, .y = parts.back().frame.y, .width = head_size + head_size, .height = head_size }));
-    parts.push_back(SnakeHead({ .x = parts.back().frame.x - parts.back().frame.width - SnakeHead::spacing, .y = parts.back().frame.y, .width = head_size + head_size, .height = head_size }));
+    parts.push_back(SnakeHead({ .x = head_pos * 3, .y = head_pos, .width = head_size + head_size, .height = head_size }));
+    for(int i = 0; i < 4; i++) {
+      parts.push_back(SnakeHead({ .x = parts.back().frame.x - parts.back().frame.width - SnakeHead::spacing, 
+                                  .y = parts.back().frame.y, 
+                                  .width = head_size + head_size, 
+                                  .height = head_size }));
+    }
 
     for(const auto& part : parts) {
       movement_queue.push_back(std::pair<game_objects::SnakeDirection, RotationDirection>(current_direction, RotationDirection::NONE));
