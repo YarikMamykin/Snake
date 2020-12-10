@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <functional>
 #include <string>
+#include <sstream>
 
 namespace geometry {
   /*
@@ -40,10 +41,18 @@ namespace geometry {
     }
 
     const std::string to_string() const {
-      return std::string(std::to_string(this->x) + "  " +
-          std::to_string(this->y) + "  " +
-          std::to_string(this->width) + "  " +
-          std::to_string(this->height) + "\n" );
+      std::ostringstream rect_data;
+      rect_data << "Rectangle:"
+        << std::endl
+        << "X: " << this->x
+        << std::endl
+        << "Y: " << this->y
+        << std::endl
+        << "WIDTH: " << this->width
+        << std::endl
+        << "HEIGHT: " << this->height
+        << std::endl;
+      return rect_data.str();
     }
 
     bool belongs_to(const Rectangle& rect) const {
@@ -62,8 +71,6 @@ namespace geometry {
     }
 
     void rotate(const game_objects::RotationDirection&& rotation_direction, const Point&& rotation_point) {
-      std::cout << this->to_string() << std::endl;
-
       std::vector<Point> current_points = {top_right(), top_left(), bottom_left(), bottom_right()};
       std::function<Point (const Point& p)> rotate_point;
 
@@ -90,8 +97,6 @@ namespace geometry {
       this->y = new_top_left->y;
       this->width = new_bottom_right->x - new_top_left->x;
       this->height = new_bottom_right->y - new_top_left->y;
-
-      std::cout << this->to_string() << std::endl;
     }
   };
 }
