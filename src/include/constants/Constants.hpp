@@ -21,6 +21,7 @@ namespace views {
   enum ViewID {
     MENU,
     ACTION,
+    OVER,
     NONE
   };
 }

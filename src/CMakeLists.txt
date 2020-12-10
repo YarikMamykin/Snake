@@ -23,6 +23,7 @@ set(HELPERS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/helpers/Helper.cpp)
 
 set(GAME_VIEW_SRC ${CMAKE_CURRENT_SOURCE_DIR}/views/GameMenu.cpp
                   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameAction.cpp
+                  ${CMAKE_CURRENT_SOURCE_DIR}/views/GameOver.cpp
                   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameNone.cpp
 )
 
