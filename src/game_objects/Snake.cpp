@@ -2,18 +2,17 @@
 #include "Exceptions.hpp"
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 namespace game_objects {
   class MovementController;
   class Snake;
   class SnakeHead;
 
-  const unsigned int Snake::SnakeHead::offset = 50u; // OFFSET DEPENDS ON SNAKE PART MAX SIDE + SPACING BETWEEN PARTS
-  const unsigned int Snake::SnakeHead::spacing = 10u;
-
-  Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame) 
-  : frame(frame) {
-  }
+  Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame, const unsigned int& spacing) 
+  : frame(frame) 
+  , spacing(spacing) 
+  , step(std::max(frame.width, frame.height) + spacing) { }
 
   void Snake::SnakeHead::hide(xlib::X11_Window *x_window) {
     XSetLineAttributes(x_window->x_display.display, x_window->graphical_context, 3,0,0,0);
@@ -63,9 +62,9 @@ namespace game_objects {
       case SnakeDirection::Up: 
         {
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.move(0, -offset);
+            this->frame.move(0, -step);
           } else {
-            this->frame.move(0, -(this->frame.height + offset));
+            this->frame.move(0, -(this->frame.height + step));
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.bottom_left() 
               : this->frame.bottom_right();
@@ -75,9 +74,9 @@ namespace game_objects {
       case SnakeDirection::Down: 
         {
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.move(0, offset);
+            this->frame.move(0, step);
           } else {
-            this->frame.move(0, (this->frame.height + offset));
+            this->frame.move(0, (this->frame.height + step));
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.top_right() 
               : this->frame.top_left();
@@ -87,9 +86,9 @@ namespace game_objects {
       case SnakeDirection::Left: 
         {
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.move(-offset, 0);
+            this->frame.move(-step, 0);
           } else {
-            this->frame.move(-(this->frame.width + offset), 0);
+            this->frame.move(-(this->frame.width + step), 0);
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.bottom_right() 
               : this->frame.top_right();
@@ -99,9 +98,9 @@ namespace game_objects {
       case SnakeDirection::Right: 
         {
           if(rotation_direction == RotationDirection::NONE) {
-            this->frame.move(offset, 0);
+            this->frame.move(step, 0);
           } else {
-            this->frame.move((this->frame.width + offset), 0);
+            this->frame.move((this->frame.width + step), 0);
             rotation_point = rotation_direction == RotationDirection::Counterclockwize 
               ? this->frame.top_left() 
               : this->frame.bottom_left();
@@ -120,14 +119,24 @@ namespace game_objects {
   , current_direction(direction) 
   , window_frame(x_window->get_frame()) {
 
-    const unsigned int head_size = 20u;
-    const int head_pos = 100;
-    parts.push_back(SnakeHead({ .x = head_pos * 3, .y = head_pos, .width = head_size + head_size, .height = head_size }));
-    for(int i = 0; i < 4; i++) {
-      parts.push_back(SnakeHead({ .x = parts.back().frame.x - parts.back().frame.width - SnakeHead::spacing, 
-                                  .y = parts.back().frame.y, 
-                                  .width = head_size + head_size, 
-                                  .height = head_size }));
+    geometry::Rectangle head_shape = { 
+      .x = 100 * 3, 
+      .y = 100,
+      .width = 20 * 2,
+      .height = 20
+    };
+    constexpr unsigned int spacing = 10u;
+
+    parts.emplace_back(SnakeHead(std::move(head_shape), spacing));
+
+    for(auto&& i : {1,2,3}) {
+      const auto& last_frame = parts.back().frame;
+      parts.emplace_back(SnakeHead({ 
+            .x = last_frame.x - last_frame.width - spacing, 
+            .y = last_frame.y, 
+            .width = last_frame.width,
+            .height = last_frame.height }, 
+            spacing));
     }
 
     for(const auto& part : parts) {
