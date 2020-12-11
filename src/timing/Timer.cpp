@@ -20,13 +20,24 @@ namespace timing {
   void Timer::launch() {
     do_stop.store(false);
     async_result = std::async([this]() {
-      while(type != TimerType::SingleShot) {
-        std::this_thread::sleep_for(timeout);
-        if(do_stop.load()) {
-          break;
+        switch(this->type) {
+          case TimerType::Simple: { 
+            while(do_stop.load()) { 
+              std::this_thread::sleep_for(timeout); 
+              if(do_stop.load()) { 
+                break; 
+              } 
+              callback(); 
+            } 
+          }
+
+          case TimerType::SingleShot: { 
+              std::this_thread::sleep_for(timeout); 
+              callback(); 
+              do_stop.store(true);
+              break;
+          }
         }
-        callback();
-      }
     });
   }
 
