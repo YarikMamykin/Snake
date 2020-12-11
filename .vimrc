@@ -6,6 +6,8 @@ let $VIM_COMPILE_COMMAND="cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES"
 let $VIM_BUILD_COMMAND='make'
 let $VIM_INSTALL_COMMAND='true'
 let $COMPILE_COMMANDS_JSON='compile_commands.json'
+let $VIM_TESTS_BIN_NAME='runUnitTests'
+let $VIM_TESTS_BIN_FOLDER='build/test'
 
 function! TagIt()
   silent !rm -frv tags 
@@ -43,6 +45,11 @@ function! Run()
   redraw!
 endfunction
 
+function! RunTests()
+  !cd $VIM_TESTS_BIN_FOLDER && if [ -f "$VIM_TESTS_BIN_NAME" ]; then ./$VIM_TESTS_BIN_NAME; fi
+  redraw!
+endfunction
+
 function! Debug()
   !cd $VIM_BIN_FOLDER && if [ -f "$VIM_BIN_NAME" ]; then gdb ./$VIM_BIN_NAME; fi
   redraw!
@@ -52,6 +59,7 @@ nmap <F4> :call TagIt()<CR>:call LinkCompileCommands()<CR>
 nmap <Leader><F4> :call Build()<CR>
 nmap <Leader><F5> :call Run()<CR>
 nmap <Leader><F6> :call Debug()<CR>
+nmap <Leader><F7> :call RunTests()<CR>
 
 function! Switch()
   let filename = expand("%:t:r")
