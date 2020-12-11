@@ -37,7 +37,7 @@ TEST(TimerTest, LaunchSingleShot)
     ASSERT_EQ(test_value, 10);
     t.launch();
     ASSERT_TRUE(t.running());
-    std::this_thread::sleep_for(test_timeout);
+    std::this_thread::sleep_for(test_timeout + test_timeout * 0.1); // wait a little bit more than timer timeout
     EXPECT_FALSE(t.running());
     EXPECT_EQ(test_value, 20);
 }
@@ -55,7 +55,7 @@ TEST(TimerTest, LaunchSimple)
     ASSERT_EQ(test_value, 10);
     t.launch();
     ASSERT_TRUE(t.running());
-    std::this_thread::sleep_for(test_timeout * 2);
+    std::this_thread::sleep_for(test_timeout + test_timeout * 0.1); // wait a little bit more than timer timeout
     t.stop();
     EXPECT_FALSE(t.running());
     EXPECT_EQ(test_value, 20);
@@ -68,7 +68,7 @@ TEST(TimerTest, StopAsync)
     ASSERT_EQ(t.type, test_timer_type_simple);
     t.launch();
     ASSERT_TRUE(t.running());
-    std::this_thread::sleep_for(test_timeout * 2);
+    std::this_thread::sleep_for(test_timeout + test_timeout * 0.1); // wait a little bit more than timer timeout
     t.stop_async();
     EXPECT_FALSE(t.running());
 }
