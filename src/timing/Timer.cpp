@@ -2,7 +2,8 @@
 
 namespace timing {
   Timer::Timer()
-  : type(TimerType::Simple) {
+  : do_stop(true)
+  , type(TimerType::Simple) {
 
   }
 
