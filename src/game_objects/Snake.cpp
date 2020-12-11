@@ -178,9 +178,11 @@ namespace game_objects {
       auto&& part_rotation_direction = movements_iter->second;
       parts_iter->move(part_direction, part_rotation_direction);
 
-      // don't let snake to go out of window borders
-      mcontroller.validate(parts_iter->frame, window_frame);
     }
+
+    // don't let snake to go out of window borders
+    mcontroller.validate(parts.begin()->frame, window_frame);
+
     this->show(x_window);
 
     if(!direction_opposite_to_current) {
