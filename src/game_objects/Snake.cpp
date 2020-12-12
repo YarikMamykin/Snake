@@ -58,61 +58,52 @@ namespace game_objects {
   void Snake::SnakeHead::move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction) { 
     geometry::Point rotation_point;
 
-    switch(new_direction) {
-      case SnakeDirection::Up: 
+    switch(rotation_direction) {
+      case RotationDirection::Clockwize: 
         {
-          if(rotation_direction == RotationDirection::NONE) {
-            this->frame.move(0, -step);
-          } else {
-            this->frame.move(0, -(this->frame.height + step));
-            rotation_point = rotation_direction == RotationDirection::Counterclockwize 
-              ? this->frame.bottom_left() 
-              : this->frame.bottom_right();
-          }
-          break;
-        } 
-      case SnakeDirection::Down: 
-        {
-          if(rotation_direction == RotationDirection::NONE) {
-            this->frame.move(0, step);
-          } else {
-            this->frame.move(0, (this->frame.height + step));
-            rotation_point = rotation_direction == RotationDirection::Counterclockwize 
-              ? this->frame.top_right() 
-              : this->frame.top_left();
-          }
+          this->frame.rotate(std::move(rotation_direction), std::move(get_clockwize_rotation_point(new_direction)));
           break;
         }
-      case SnakeDirection::Left: 
+      case RotationDirection::Counterclockwize: 
         {
-          if(rotation_direction == RotationDirection::NONE) {
-            this->frame.move(-step, 0);
-          } else {
-            this->frame.move(-(this->frame.width + step), 0);
-            rotation_point = rotation_direction == RotationDirection::Counterclockwize 
-              ? this->frame.bottom_right() 
-              : this->frame.top_right();
-          }
-          break;
-        } 
-      case SnakeDirection::Right: 
-        {
-          if(rotation_direction == RotationDirection::NONE) {
-            this->frame.move(step, 0);
-          } else {
-            this->frame.move((this->frame.width + step), 0);
-            rotation_point = rotation_direction == RotationDirection::Counterclockwize 
-              ? this->frame.top_left() 
-              : this->frame.bottom_left();
-          }
+          this->frame.rotate(std::move(rotation_direction), std::move(get_counter_clockwize_rotation_point(new_direction)));
           break;
         }
-    }
-
-    if(RotationDirection::NONE != rotation_direction) {
-      this->frame.rotate(std::move(rotation_direction), std::move(rotation_point));
+      case RotationDirection::NONE: 
+        {
+          handle_none_rotation(new_direction); 
+          break;
+        }
     }
   }
+
+  void Snake::SnakeHead::handle_none_rotation(const SnakeDirection& new_direction) {
+      switch(new_direction) {
+        case SnakeDirection::Up:    this->frame.move(0, -step); break;
+        case SnakeDirection::Down:  this->frame.move(0, step); break;
+        case SnakeDirection::Left:  this->frame.move(-step, 0); break;
+        case SnakeDirection::Right: this->frame.move(step, 0); break;
+      }
+  }
+
+  geometry::Point Snake::SnakeHead::get_counter_clockwize_rotation_point(const SnakeDirection& new_direction) {
+      switch(new_direction) {
+        case SnakeDirection::Up:    return this->frame.bottom_left(); break;
+        case SnakeDirection::Down:  return this->frame.top_right(); break;
+        case SnakeDirection::Left:  return this->frame.bottom_right(); break;
+        case SnakeDirection::Right: return this->frame.top_left(); break;
+      }
+  }
+
+  geometry::Point Snake::SnakeHead::get_clockwize_rotation_point(const SnakeDirection& new_direction) {
+      switch(new_direction) {
+        case SnakeDirection::Up:    return this->frame.bottom_right(); break;
+        case SnakeDirection::Down:  return this->frame.top_left(); break;
+        case SnakeDirection::Left:  return this->frame.top_right(); break;
+        case SnakeDirection::Right: return this->frame.bottom_left(); break;
+      }
+  }
+
 
   Snake::Snake(xlib::X11_Window* x_window, const game_objects::SnakeDirection&& direction) 
   : x_window(x_window)
