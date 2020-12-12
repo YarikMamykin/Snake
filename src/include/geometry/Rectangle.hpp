@@ -87,7 +87,7 @@ namespace geometry {
             std::transform(current_points.begin(), current_points.end(), current_points.begin(), rotate_point);
             break;
           }
-        default: break;
+        default: return;
       }
 
       const auto&& new_top_left = std::min_element(current_points.cbegin(), current_points.cend());
