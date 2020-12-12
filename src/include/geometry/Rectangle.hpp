@@ -81,13 +81,13 @@ namespace geometry {
       std::function<Point (const Point& p)> rotate_point;
 
       switch(rotation_direction) {
-        case game_objects::RotationDirection::Counterclockwize: 
+        case game_objects::RotationDirection::Clockwize: 
           {
             rotate_point = [&rotation_point](const Point& p) -> Point { return { rotation_point.x - p.y + rotation_point.y, rotation_point.y + p.x - rotation_point.x }; };
             std::transform(current_points.begin(), current_points.end(), current_points.begin(), rotate_point);
             break;
           }
-        case game_objects::RotationDirection::Clockwize: 
+        case game_objects::RotationDirection::Counterclockwize: 
           {
             rotate_point = [&rotation_point](const Point& p) -> Point { return { rotation_point.x + p.y - rotation_point.y, rotation_point.y - p.x + rotation_point.x }; };
             std::transform(current_points.begin(), current_points.end(), current_points.begin(), rotate_point);
