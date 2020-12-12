@@ -155,17 +155,17 @@ namespace game_objects {
     if (direction != current_direction && !direction_opposite_to_current) {
       switch(direction) {
         case SnakeDirection::Up: 
-          rotation_direction = (current_direction == SnakeDirection::Left ? RotationDirection::Clockwize 
-                                                              : RotationDirection::Counterclockwize); break;
-        case SnakeDirection::Down: 
           rotation_direction = (current_direction == SnakeDirection::Left ? RotationDirection::Counterclockwize 
                                                               : RotationDirection::Clockwize); break;
+        case SnakeDirection::Down: 
+          rotation_direction = (current_direction == SnakeDirection::Left ? RotationDirection::Clockwize 
+                                                              : RotationDirection::Counterclockwize); break;
         case SnakeDirection::Left: 
-          rotation_direction = (current_direction == SnakeDirection::Up ? RotationDirection::Counterclockwize
-                                                            : RotationDirection::Clockwize); break;
-        case SnakeDirection::Right: 
-          rotation_direction = (current_direction == SnakeDirection::Up ? RotationDirection::Clockwize
+          rotation_direction = (current_direction == SnakeDirection::Up ? RotationDirection::Clockwize 
                                                             : RotationDirection::Counterclockwize); break;
+        case SnakeDirection::Right: 
+          rotation_direction = (current_direction == SnakeDirection::Up ? RotationDirection::Counterclockwize 
+                                                            : RotationDirection::Clockwize); break;
       }
     }
 
