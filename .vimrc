@@ -35,6 +35,11 @@ function! Build()
   redraw!
 endfunction
 
+function! BuildQuick()
+  !cd $VIM_BUILD_FOLDER && $VIM_BUILD_COMMAND -j$CORES && $VIM_INSTALL_COMMAND
+  redraw!
+endfunction
+
 function! LinkCompileCommands()
   !mkdir -p $VIM_BUILD_FOLDER && cd $VIM_BUILD_FOLDER && rm -frv * && $VIM_COMPILE_COMMAND $VIM_SRC_FOLDER && cd - && rm -frv $COMPILE_COMMANDS_JSON && ln -sf $(find . -name "$COMPILE_COMMANDS_JSON") ./$COMPILE_COMMANDS_JSON
   redraw!
@@ -60,6 +65,7 @@ nmap <Leader><F4> :call Build()<CR>
 nmap <Leader><F5> :call Run()<CR>
 nmap <Leader><F6> :call Debug()<CR>
 nmap <Leader><F7> :call RunTests()<CR>
+nmap <Leader><F8> :call BuildQuick()<CR>
 
 function! Switch()
   let filename = expand("%:t:r")
