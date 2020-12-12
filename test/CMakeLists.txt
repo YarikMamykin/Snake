@@ -20,7 +20,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/include/xlib)
 # Unit Tests
 ################################
 # Add test cpp file
-add_executable( runUnitTests gtestexample.cpp TimerTest.cpp )
+add_executable( runUnitTests gtestexample.cpp TimerTest.cpp RectangleTest.cpp)
 # Link test executable against gtest & gtest_main
 target_link_libraries(runUnitTests gtest gtest_main xlib_ui events game_view helpers timer snake)
 add_test( runUnitTests runUnitTests )
