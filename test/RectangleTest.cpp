@@ -58,18 +58,33 @@ TEST(Rectangle, Rotate)
 {
   geometry::Rectangle rectangle = { 
     .x = 100, 
-    .y = 100, 
-    .width = 100, 
-    .height = 100 
+    .y = 50, 
+    .width = 20, 
+    .height = 40 
+  };
+
+  geometry::Rectangle clockwize_rotated_rectangle = {
+    .x = 60,
+    .y = 50,
+    .width = 40,
+    .height = 20
+  };
+
+  geometry::Rectangle counterclockwize_rotated_rectangle = {
+    .x = 100,
+    .y = 30,
+    .width = 40,
+    .height = 20
   };
 
   std::vector<geometry::Rectangle> test_rectangles = { rectangle, rectangle, rectangle };
-
   test_rectangles[0].rotate(game_objects::RotationDirection::Counterclockwize, rectangle.top_left());
-  EXPECT_TRUE(test_rectangles[0].top_right() == rectangle.top_left());
-
   test_rectangles[1].rotate(game_objects::RotationDirection::Clockwize, rectangle.top_left());
   test_rectangles[2].rotate(game_objects::RotationDirection::NONE, rectangle.top_left());
+
+  EXPECT_EQ(counterclockwize_rotated_rectangle, test_rectangles[0]);
+  EXPECT_EQ(clockwize_rotated_rectangle, test_rectangles[1]);
+  EXPECT_EQ(rectangle, test_rectangles[2]);
 }
 
 }
