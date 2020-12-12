@@ -56,8 +56,6 @@ namespace game_objects {
   }
 
   void Snake::SnakeHead::move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction) { 
-    geometry::Point rotation_point;
-
     switch(rotation_direction) {
       case RotationDirection::Clockwize: 
         {
