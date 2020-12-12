@@ -34,9 +34,12 @@ namespace game_objects {
         void hide(xlib::X11_Window* x_window);
         void move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction);
 
-        void handle_none_rotation(const SnakeDirection& new_direction);
-        geometry::Point get_counter_clockwize_rotation_point(const SnakeDirection& new_direction);
-        geometry::Point get_clockwize_rotation_point(const SnakeDirection& new_direction);  
+        inline void handle_none_rotation(const SnakeDirection& new_direction);
+        inline geometry::Point get_counter_clockwize_rotation_point(const SnakeDirection& new_direction);
+        inline geometry::Point get_clockwize_rotation_point(const SnakeDirection& new_direction);  
+
+        inline void handle_shift_after_clockwize_rotation(const SnakeDirection& old_direction);
+        inline void handle_shift_after_counter_clockwize_rotation(const SnakeDirection& old_direction);
       };
 
       void show(xlib::X11_Window* x_window);

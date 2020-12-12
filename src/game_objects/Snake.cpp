@@ -60,11 +60,13 @@ namespace game_objects {
       case RotationDirection::Clockwize: 
         {
           this->frame.rotate(std::move(rotation_direction), std::move(get_clockwize_rotation_point(new_direction)));
+          this->handle_shift_after_clockwize_rotation(new_direction);
           break;
         }
       case RotationDirection::Counterclockwize: 
         {
           this->frame.rotate(std::move(rotation_direction), std::move(get_counter_clockwize_rotation_point(new_direction)));
+          this->handle_shift_after_counter_clockwize_rotation(new_direction);
           break;
         }
       case RotationDirection::NONE: 
@@ -81,6 +83,24 @@ namespace game_objects {
         case SnakeDirection::Down:  this->frame.move(0, step); break;
         case SnakeDirection::Left:  this->frame.move(-step, 0); break;
         case SnakeDirection::Right: this->frame.move(step, 0); break;
+      }
+  }
+
+  void Snake::SnakeHead::handle_shift_after_clockwize_rotation(const SnakeDirection& old_direction) {
+      switch(old_direction) {
+        case SnakeDirection::Up:    this->frame.move(spacing, 0); break;
+        case SnakeDirection::Down:  this->frame.move(-spacing, 0); break;
+        case SnakeDirection::Left:  this->frame.move(0, -spacing); break;
+        case SnakeDirection::Right: this->frame.move(0, spacing); break;
+      }
+  }
+
+  void Snake::SnakeHead::handle_shift_after_counter_clockwize_rotation(const SnakeDirection& old_direction) {
+      switch(old_direction) {
+        case SnakeDirection::Up:    this->frame.move(-spacing, 0); break;
+        case SnakeDirection::Down:  this->frame.move(spacing, 0); break;
+        case SnakeDirection::Left:  this->frame.move(0, spacing); break;
+        case SnakeDirection::Right: this->frame.move(0, -spacing); break;
       }
   }
 
