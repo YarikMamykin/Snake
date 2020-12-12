@@ -22,7 +22,7 @@ namespace timing {
     async_result = std::async([this]() {
         switch(this->type) {
           case TimerType::Simple: { 
-            while(do_stop.load()) { 
+            while(!do_stop.load()) { 
               std::this_thread::sleep_for(timeout); 
               if(do_stop.load()) { 
                 break; 
