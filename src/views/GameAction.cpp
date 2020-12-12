@@ -32,8 +32,7 @@ namespace views {
 
   void GameAction::deactivate() {
     this->timer.stop_async(); 
-    auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::OVER);
-    XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+    helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::OVER);
     XFlush(x_window->x_display.display); // Necessary in case of multithreading!
   }
 
@@ -41,8 +40,7 @@ namespace views {
     switch(key_sym) {
       case XK_Escape:
         {
-          auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::MENU);
-          XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+          helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU);
           break;
         }
       case XK_Down: 

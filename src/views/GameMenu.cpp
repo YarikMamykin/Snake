@@ -136,14 +136,12 @@ namespace views {
 
       std::map<std::string, std::function<bool(Item&)>> mouse_button_press_handlers;
       mouse_button_press_handlers.emplace(item_names.front(), [](Item& item) -> bool {
-        auto event = helpers::Helper::ConstructChangeViewEvent(item.x_window, views::ViewID::ACTION);
-        XSendEvent(item.x_window->x_display.display, item.x_window->window, true, NoEventMask, &event);
+        helpers::Helper::SendChangeViewEvent(item.x_window, views::ViewID::ACTION);
         return true;
       });
 
       mouse_button_press_handlers.emplace(item_names.back(), [](Item& item) -> bool {
-        auto event = helpers::Helper::ConstructExitApplicationEvent(item.x_window);
-        XSendEvent(item.x_window->x_display.display, item.x_window->window, true, NoEventMask, &event);
+        helpers::Helper::SendExitApplicationEvent(item.x_window);
         return true;
       });
 

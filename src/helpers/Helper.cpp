@@ -21,4 +21,15 @@ namespace helpers {
     event.xclient.data.l[1] = viewID;
     return event;
   }
+
+  void Helper::SendExitApplicationEvent(const xlib::X11_Window* x_window) {
+    auto event = helpers::Helper::ConstructExitApplicationEvent(x_window);
+    XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+  }
+
+  void Helper::SendChangeViewEvent(const xlib::X11_Window* x_window, const views::ViewID& viewID) {
+    auto event = helpers::Helper::ConstructChangeViewEvent(x_window, viewID);
+    XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+  }
+
 }

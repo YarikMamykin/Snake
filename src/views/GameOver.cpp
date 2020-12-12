@@ -34,8 +34,7 @@ namespace views {
   void GameOver::handle_key_press(const KeySym&& key_sym) {
     switch(key_sym) {
       case XK_Escape: {
-                        auto event = helpers::Helper::ConstructChangeViewEvent(x_window, views::ViewID::MENU);
-                        XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+                        helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU);
                         break;
                       }
     }
