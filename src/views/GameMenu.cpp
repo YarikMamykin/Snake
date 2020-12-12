@@ -148,8 +148,8 @@ namespace views {
       auto key_press_handlers = mouse_button_press_handlers;
       decltype(key_press_handlers) mouse_motion_handlers;
 
-      auto get_custom_handler = [] (const std::string& item_name, const decltype(mouse_button_press_handlers)& handlers) -> std::function<bool(Item&)> {
-        std::function<bool(Item&)> result;
+      auto get_custom_handler = [] (const std::string& item_name, const decltype(mouse_button_press_handlers)& handlers) -> decltype(mouse_button_press_handlers.begin()->second) {
+        decltype(mouse_button_press_handlers.begin()->second) result;
         const auto& handler = handlers.find(item_name);
         if(handler != handlers.end()) {
           result = handler->second;
