@@ -282,7 +282,7 @@ namespace views {
             break;
           }
 
-          std::next(active_item, 1)->show_focus();
+          std::next(active_item)->show_focus();
           break;
         }
       case XK_Up:
@@ -297,7 +297,7 @@ namespace views {
             return;
           }
 
-          std::prev(active_item, 1)->show_focus();
+          std::prev(active_item)->show_focus();
           break;
         }   
       case XK_Return:
