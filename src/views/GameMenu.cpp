@@ -2,8 +2,20 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <tuple>
 #include "EventHandler.hpp"
 #include "Helper.hpp"
+
+namespace {
+  const std::string NewGameItemName = "New Game"; 
+  const std::string ScoreItemName = "Score"; 
+  const std::string SettingsItemName = "Settings"; 
+  const std::string ExitItemName = "Exit";
+
+  auto empty_mouse_motion_handler = [](const int& x, const int& y) {};
+  auto empty_mouse_button_press_handler = [](const int& x, const int& y, const unsigned int& button) {};
+  auto empty_key_press_handler = [](const KeySym&& key_sym) {};
+}
 
 namespace views {
 
@@ -15,10 +27,10 @@ namespace views {
       bool active, 
       const std::string& name, 
       const geometry::Rectangle& frame,
-      std::function<bool(Item&)> mouse_button_press_handler,
-      std::function<bool(Item&)> mouse_motion_handler,
-      std::function<bool(Item&)> key_press_handler) :
-  x_window(x_window)
+      MOUSE_MOTION_HANDLER_TYPE mouse_motion_handler,
+      MOUSE_BUTTON_PRESS_HANDLER_TYPE mouse_button_press_handler,
+      KEY_PRESS_HANDLER_TYPE key_press_handler)
+  :x_window(x_window)
   ,mouse_button_press_handler(mouse_button_press_handler) 
   ,mouse_motion_handler(mouse_motion_handler) 
   ,key_press_handler(key_press_handler) {
@@ -110,74 +122,91 @@ namespace views {
   void GameMenu::Item::handle_mouse_motion(const int& x, const int& y) {
     if(this->focused(x,y)) {
       this->show_focus();
+      this->mouse_motion_handler(x,y);
     }
   }
 
   void GameMenu::Item::handle_button_press(const int& x, const int& y, const unsigned int& button) {
-    if(this->focused(x,y)) {
+    if(this->active) {
       this->show_focus();
       if(button == Button1) {
-        this->mouse_button_press_handler(*this);
+        this->mouse_button_press_handler(x,y,button);
       }
     }
   }
 
   void GameMenu::Item::handle_key_press(const KeySym&& key_sym) {
-    if(key_sym != XK_Return || !this->active) {
+    if(!this->active) {
       return;
     }
 
-    this->key_press_handler(*this);
+    this->key_press_handler(std::move(key_sym));
   }
 
   GameMenu::GameMenu(xlib::X11_Window* x_window) :
     x_window(x_window) {
-      std::vector<std::string> item_names = { "New Game", "Score", "Settings", "Other blabla", "Exit" };
-
-      std::map<std::string, std::function<bool(Item&)>> mouse_button_press_handlers;
-      mouse_button_press_handlers.emplace(item_names.front(), [](Item& item) -> bool {
-        helpers::Helper::SendChangeViewEvent(item.x_window, views::ViewID::ACTION);
-        return true;
-      });
-
-      mouse_button_press_handlers.emplace(item_names.back(), [](Item& item) -> bool {
-        helpers::Helper::SendExitApplicationEvent(item.x_window);
-        return true;
-      });
-
-      auto key_press_handlers = mouse_button_press_handlers;
-      decltype(key_press_handlers) mouse_motion_handlers;
-
-      auto get_custom_handler = [] (const std::string& item_name, const decltype(mouse_button_press_handlers)& handlers) -> decltype(mouse_button_press_handlers.begin()->second) {
-        decltype(mouse_button_press_handlers.begin()->second) result;
-        const auto& handler = handlers.find(item_name);
-        if(handler != handlers.end()) {
-          result = handler->second;
-        }
-
-        return result;
+      Item::ITEMS_EVENT_HANDLERS_VECTOR_TYPE items_event_handlers = {
+        {
+          NewGameItemName,
+          empty_mouse_motion_handler,
+          [](const int& x, const int& y, const unsigned int& button) {
+          },
+          [x_window](const KeySym&& key_sym) {
+            switch(key_sym) {
+              case XK_Return: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::ACTION); break;
+            }
+          }
+        },
+        {
+          ScoreItemName,
+          empty_mouse_motion_handler,
+          empty_mouse_button_press_handler,
+          empty_key_press_handler
+        },
+        {
+          SettingsItemName,
+          empty_mouse_motion_handler,
+          empty_mouse_button_press_handler,
+          empty_key_press_handler
+        },
+        {
+          ExitItemName,
+          empty_mouse_motion_handler,
+          empty_mouse_button_press_handler,
+          [x_window](const KeySym&& key_sym) {
+            switch(key_sym) {
+              case XK_Return: helpers::Helper::SendExitApplicationEvent(x_window); break;
+            }
+          }
+        },
       };
 
-
-      const auto max_item_name = std::max_element(item_names.begin(), item_names.end(), 
-      [](const std::string& v1, const std::string& v2) {
-        return v1.size() < v2.size();
+      const auto&& item_with_longest_name = std::max_element(items_event_handlers.begin(), items_event_handlers.end(), 
+      [](const Item::ITEMS_EVENT_HANDLERS_TYPE& item1, const Item::ITEMS_EVENT_HANDLERS_TYPE& item2) {
+        return std::get<0>(item1).size() < std::get<0>(item2).size();
       });
+      const auto& item_longest_name = std::get<0>(*item_with_longest_name);
 
-      const auto max_item_width = XTextWidth(x_window->font_info, max_item_name->c_str(), max_item_name->size()) + GameMenu::Item::left_text_margin * 2;
+      const auto max_item_width = XTextWidth(x_window->font_info, item_longest_name.c_str(), item_longest_name.size()) + GameMenu::Item::left_text_margin * 2;
       const auto&& x_pos = x_window->get_width() / 2 - max_item_width / 2;
-      auto summary_height = 0;
 
-      for(auto& item_name : item_names) {
-        this->items.push_back(Item(x_window, 
-                              false, 
-                              item_name, 
-                              { .x = x_pos, .y = x_window->get_height() / 3 + summary_height + GameMenu::Item::frame_weight },
-                              get_custom_handler(item_name, mouse_button_press_handlers),
-                              get_custom_handler(item_name, mouse_motion_handlers),
-                              get_custom_handler(item_name, key_press_handlers)));
+      auto summary_height = 0;
+      const bool active = false;
+      for(auto& item : items_event_handlers) {
+        this->items.emplace_back(
+            Item(x_window, 
+              active, 
+              std::get<0>(item),
+              { 
+                .x = x_pos, 
+                .y = x_window->get_height() / 3 + summary_height + GameMenu::Item::frame_weight,
+                .width = max_item_width 
+              },
+              std::get<1>(item),
+              std::get<2>(item),
+              std::get<3>(item)
+        ));
         summary_height += items.back().get_height();
-        items.back().frame.width = max_item_width;
       }
 
       std::for_each(items.begin(), items.end(), [](const Item& item) { item.show(); });

@@ -24,9 +24,19 @@ namespace views {
         geometry::Rectangle frame;
         xlib::X11_Window* x_window;
 
-        std::function<bool(Item&)> mouse_button_press_handler;
-        std::function<bool(Item&)> mouse_motion_handler;
-        std::function<bool(Item&)> key_press_handler;
+        typedef std::function<void(const int& x, const int& y, const unsigned int& button)> MOUSE_BUTTON_PRESS_HANDLER_TYPE;
+        typedef std::function<void(const int& x, const int& y)> MOUSE_MOTION_HANDLER_TYPE;
+        typedef std::function<void(const KeySym&& key_sym)> KEY_PRESS_HANDLER_TYPE;
+        typedef std::vector<std::string> ITEMS_NAMES_VECTOR_TYPE;
+        typedef std::tuple<std::string, 
+                MOUSE_MOTION_HANDLER_TYPE, 
+                MOUSE_BUTTON_PRESS_HANDLER_TYPE, 
+                KEY_PRESS_HANDLER_TYPE> ITEMS_EVENT_HANDLERS_TYPE;
+        typedef std::vector<ITEMS_EVENT_HANDLERS_TYPE> ITEMS_EVENT_HANDLERS_VECTOR_TYPE;
+
+        MOUSE_BUTTON_PRESS_HANDLER_TYPE mouse_button_press_handler;
+        MOUSE_MOTION_HANDLER_TYPE mouse_motion_handler;
+        KEY_PRESS_HANDLER_TYPE key_press_handler;
 
         static const unsigned int left_text_margin;
         static const unsigned int top_text_margin;
@@ -36,9 +46,9 @@ namespace views {
              bool active, 
              const std::string& name, 
              const geometry::Rectangle& frame,
-             std::function<bool(Item&)> mouse_button_press_handler,
-             std::function<bool(Item&)> mouse_motion_handler,
-             std::function<bool(Item&)> key_press_handler);
+             MOUSE_MOTION_HANDLER_TYPE mouse_motion_handler,
+             MOUSE_BUTTON_PRESS_HANDLER_TYPE mouse_button_press_handler,
+             KEY_PRESS_HANDLER_TYPE key_press_handler);
         ~Item();
         void show_text() const;
         void show_frame() const;
