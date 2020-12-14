@@ -34,10 +34,10 @@ namespace xlib {
     void expose();
     void redraw_background() const;
 
-    int get_x() const;
-    int get_y() const;
-    int get_width() const;
-    int get_height() const;
+    const int get_x() const;
+    const int get_y() const;
+    const unsigned int get_width() const;
+    const unsigned int get_height() const;
     geometry::Rectangle get_frame() const;
 
     void change_view(const views::ViewID viewID);

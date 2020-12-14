@@ -53,33 +53,24 @@ namespace xlib {
     }
   }
 
-  int X11_Window::get_x() const {
+  const int X11_Window::get_x() const {
     return 0;
   }
 
-  int X11_Window::get_y() const {
+  const int X11_Window::get_y() const {
     return 0;
   }
 
-  int X11_Window::get_width() const {
-    XWindowAttributes win_attr;
-    XGetWindowAttributes(x_display.display, this->window, &win_attr);
-    return win_attr.width;
+  const unsigned int X11_Window::get_width() const {
+    return this->win_sets.w;
   }
 
-  int X11_Window::get_height() const {
-    XWindowAttributes win_attr;
-    XGetWindowAttributes(x_display.display, this->window, &win_attr);
-    return win_attr.height;
+  const unsigned int X11_Window::get_height() const {
+    return this->win_sets.h;
   }
 
   geometry::Rectangle X11_Window::get_frame() const {
-    XWindowAttributes win_attr;
-    XGetWindowAttributes(x_display.display, this->window, &win_attr);
-    return { .x = 0, .y = 0, 
-      .width = win_attr.width, 
-      .height = win_attr.height 
-    };
+    return { .x = 0, .y = 0, .width = get_width(), .height = get_height() };
   }
 
   void X11_Window::redraw_background() const {
