@@ -16,12 +16,8 @@ void LaunchApp() {
   using namespace xlib;
   using namespace events;
   XInitThreads();
-  X11_Display x_display;
 
-  auto x_window = std::make_shared<X11_Window>(x_display, 
-      DefaultScreen(x_display.display), 
-      views::ViewID::MENU, 
-      settings::Settings::settings().win_sets);
+  auto x_window = std::make_shared<X11_Window>(views::ViewID::MENU, settings::Settings::settings().win_sets);
   x_window->show();
 
   EventHandler ehandler;

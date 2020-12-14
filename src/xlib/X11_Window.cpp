@@ -4,9 +4,9 @@
 
 namespace xlib {
 
-  X11_Window::X11_Window(X11_Display& x_display, int screen, views::ViewID viewID, const WindowSettings& win_sets) 
-    : x_display(x_display)
-      , screen(screen) 
+  X11_Window::X11_Window(views::ViewID viewID, const WindowSettings& win_sets) 
+    : x_display()
+      , screen(XDefaultScreen(x_display.display))
       , win_sets(win_sets)
       , msg("Hello, World!") 
       , graphical_context(DefaultGC(x_display.display, screen)) {

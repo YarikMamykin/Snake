@@ -27,9 +27,7 @@ namespace xlib {
   };
 
   struct X11_Window : public ui::UI_Object, public events::MouseMotionHandler {
-    X11_Window(X11_Display& x_display, 
-               int screen, 
-               views::ViewID viewID, 
+    X11_Window(views::ViewID viewID, 
                const WindowSettings& win_sets);
     ~X11_Window();
     void show() const;
@@ -48,7 +46,7 @@ namespace xlib {
     const int get_event_handling_mask() const override;
 
     Window window;
-    X11_Display& x_display;
+    X11_Display x_display;
     int screen;
     std::shared_ptr<views::View> view;
     WindowSettings win_sets;
