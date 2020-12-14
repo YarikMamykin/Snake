@@ -33,7 +33,7 @@ namespace xlib {
                const WindowSettings& win_sets);
     ~X11_Window();
     void show() const;
-    void expose() const;
+    void expose();
     void redraw_background() const;
 
     int get_x() const;

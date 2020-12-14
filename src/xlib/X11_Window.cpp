@@ -42,7 +42,12 @@ namespace xlib {
     XMapWindow(x_display.display, window);
   }
 
-  void X11_Window::expose() const {
+  void X11_Window::expose() {
+    XWindowAttributes win_attr;
+    XGetWindowAttributes(x_display.display, this->window, &win_attr);
+    this->win_sets.w = win_attr.width;
+    this->win_sets.h = win_attr.height;
+
     if (view) {
       view->activate();
     }
