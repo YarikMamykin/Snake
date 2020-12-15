@@ -2,19 +2,23 @@
 #include <iostream>
 #include <algorithm>
 #include "Exceptions.hpp"
+#include "X11_Window.hpp"
 
 namespace events {
 
-  void EventHandler::event_handler_loop(xlib::X11_Window& x_window) {
+  void EventHandler::event_handler_loop(interfaces::IWindow* x_window) {
     using namespace events;
     // select kind of events we are interested in
-    XSelectInput(x_window.x_display.display, x_window.window, ExposureMask | KeyPressMask | ButtonPressMask | PointerMotionMask );
+    xlib::X11_Window* x11_window = dynamic_cast<xlib::X11_Window*>(x_window); // OH YES -> FIX IT!
+    XSelectInput(x11_window->x_display.display, 
+                 x11_window->window, 
+                 ExposureMask | KeyPressMask | ButtonPressMask | PointerMotionMask );
     try {
       for (;;) {
-        XNextEvent(x_window.x_display.display, &event);
+        XNextEvent(x11_window->x_display.display, &event);
         switch(event.type) {
           case Expose: { 
-                         x_window.expose(); 
+                         x_window->expose(); 
                          break; 
                        }
           case KeyPress: { 
