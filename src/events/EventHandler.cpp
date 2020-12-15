@@ -43,6 +43,9 @@ namespace events {
 
   void EventHandler::handle_key_press(const KeySym&& key_sym) {
     for(auto& listener : listeners) {
+      if(listener.second.expired()) {
+        continue;
+      }
       auto&& listener_pointer = listener.second.lock();
       auto&& listener_as_event_handler = as_event_handler<KeyPressHandler>(listener_pointer);
       if(events::KeyPressHandler::mask & listener_pointer->get_event_handling_mask()) {
@@ -53,6 +56,9 @@ namespace events {
 
   void EventHandler::handle_button_press(const int& x, const int& y, const unsigned int& button) {
     for(auto& listener : listeners) {
+      if(listener.second.expired()) {
+        continue;
+      }
       auto&& listener_pointer = listener.second.lock();
       auto&& listener_as_event_handler = as_event_handler<MouseButtonPressHandler>(listener_pointer);
       if(events::MouseButtonPressHandler::mask & listener_pointer->get_event_handling_mask()) {
@@ -63,6 +69,9 @@ namespace events {
 
   void EventHandler::handle_mouse_motion(const int& x, const int& y) {
     for(auto& listener : listeners) {
+      if(listener.second.expired()) {
+        continue;
+      }
       auto&& listener_pointer = listener.second.lock();
       auto&& listener_as_event_handler = as_event_handler<MouseMotionHandler>(listener_pointer);
       if(events::MouseMotionHandler::mask & listener_pointer->get_event_handling_mask()) {
@@ -92,9 +101,5 @@ namespace events {
       listeners.erase(key);
     }
     listeners.insert({key, listener});
-  }
-
-  void EventHandler::UnregisterAll() {
-    this->listeners.clear();
   }
 }

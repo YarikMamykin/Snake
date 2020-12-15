@@ -27,7 +27,6 @@ namespace events {
     void add_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener);
 
     private:
-      void UnregisterAll();
       template <class EventHandlerType> static EventHandlerType* as_event_handler(std::shared_ptr<ui::UI_Object> object) {
         return dynamic_cast<EventHandlerType*>(object.get());
       }
