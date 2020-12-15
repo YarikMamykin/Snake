@@ -7,10 +7,13 @@
 #include "Timer.hpp"
 #include "Snake.hpp"
 #include "Constants.hpp"
+#include "UI_Object.hpp"
 
 namespace views {
 
-  class GameAction final : public View, public events::KeyPressHandler {
+  class GameAction final : public ui::UI_Object, 
+                           public View, 
+                           public events::KeyPressHandler {
     public:
       explicit GameAction(xlib::X11_Window* x_window);
       ~GameAction();

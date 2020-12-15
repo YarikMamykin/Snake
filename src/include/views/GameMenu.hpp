@@ -13,7 +13,8 @@
 
 namespace views {
 
-  class GameMenu final : public View, 
+  class GameMenu final : public ui::UI_Object,
+                         public View, 
                          public events::MouseMotionHandler, 
                          public events::MouseButtonPressHandler, 
                          public events::KeyPressHandler {
