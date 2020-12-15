@@ -8,7 +8,6 @@
 #include "X11_Display.hpp"
 #include "EventHandler.hpp"
 #include "Settings.hpp"
-#include <X11/Xlib.h>
 #include <iostream>
 #include <memory>
 
