@@ -7,14 +7,13 @@ namespace xlib {
 
   X11_Window::X11_Window(views::ViewID viewID, const WindowSettings& win_sets) 
     : x_display()
-      , screen(XDefaultScreen(x_display.display))
       , win_sets(win_sets)
       , msg("Hello, World!") 
-      , graphical_context(DefaultGC(x_display.display, screen)) {
+      , graphical_context(DefaultGC(x_display.display, XDefaultScreen(x_display.display))) {
 
         // create window
         window = XCreateSimpleWindow(x_display.display,
-            RootWindow(x_display.display, screen),
+            RootWindow(x_display.display, XDefaultScreen(x_display.display)),
             win_sets.x,
             win_sets.y,
             win_sets.w,

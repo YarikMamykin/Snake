@@ -50,7 +50,6 @@ namespace xlib {
 
     Window window;
     X11_Display x_display;
-    int screen;
     std::shared_ptr<views::View> view;
     WindowSettings win_sets;
     std::string msg;
