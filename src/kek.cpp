@@ -16,13 +16,15 @@ void LaunchApp() {
   using namespace events;
   XInitThreads();
 
-  auto x_window = std::make_shared<X11_Window>(views::ViewID::MENU, settings::Settings::settings().win_sets);
+  std::shared_ptr<interfaces::IWindow> x_window = std::make_shared<X11_Window>(views::ViewID::MENU, settings::Settings::settings().win_sets);
+  std::shared_ptr<ui::UI_Object> x_window_as_ui_object = std::dynamic_pointer_cast<ui::UI_Object>(x_window);
+  std::shared_ptr<ui::UI_Object> view_as_ui_object = std::dynamic_pointer_cast<ui::UI_Object>(x_window->get_view());
   x_window->show();
 
   EventHandler ehandler;
-  ehandler.add_listener(constants::HandlerKeys::WINDOW, x_window);
-  ehandler.add_listener(constants::HandlerKeys::WINDOW_VIEW, x_window->view);
-  ehandler.event_handler_loop(*x_window);
+  ehandler.add_listener(constants::HandlerKeys::WINDOW, x_window_as_ui_object);
+  ehandler.add_listener(constants::HandlerKeys::WINDOW_VIEW, view_as_ui_object);
+  ehandler.event_handler_loop(x_window.get());
 }
 
 int main(void)
