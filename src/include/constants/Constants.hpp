@@ -20,7 +20,8 @@ namespace events {
   enum HandlersMask {
     KeyPressHandlerMask = 2,
     MouseMotionHandlerMask = 2 << 1,
-    MouseButtonPressHandlerMask = 2 << 2
+    MouseButtonPressHandlerMask = 2 << 2,
+    ClientMessageHandlerMask = 2 << 3
   };
 }
 
