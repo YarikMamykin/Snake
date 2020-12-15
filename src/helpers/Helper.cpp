@@ -22,6 +22,16 @@ namespace helpers {
     return event;
   }
 
+  XEvent Helper::ConstructResubscribeViewEvent(const xlib::X11_Window* x_window) {
+    XEvent event;
+    event.xclient.type = ClientMessage; 
+    event.xclient.format = 32;
+    event.xclient.window = x_window->window;
+    event.xclient.display = x_window->x_display.display;
+    event.xclient.data.l[0] = events::AdditionalEvents::ResubscribeView;
+    return event;
+  }
+
   void Helper::SendExitApplicationEvent(const xlib::X11_Window* x_window) {
     auto event = helpers::Helper::ConstructExitApplicationEvent(x_window);
     XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
@@ -32,4 +42,8 @@ namespace helpers {
     XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
   }
 
+  void Helper::SendResubscribeViewEvent(const xlib::X11_Window* x_window) {
+    auto event = helpers::Helper::ConstructResubscribeViewEvent(x_window);
+    XSendEvent(x_window->x_display.display, x_window->window, true, NoEventMask, &event);
+  }
 }
