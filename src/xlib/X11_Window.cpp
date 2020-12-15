@@ -1,5 +1,6 @@
 #include "X11_Window.hpp"
 #include "ViewFactory.hpp"
+#include "Helper.hpp"
 #include <iostream>
 
 namespace xlib {
@@ -121,7 +122,22 @@ namespace xlib {
         coords_text.size()); 
   }
 
+  void X11_Window::handle_client_message(const long* data) {
+    switch(data[0]) {
+      case events::AdditionalEvents::ExitApplication: 
+        {
+          this->change_view(views::ViewID::NONE);
+          break;
+        }
+      case events::AdditionalEvents::ChangeView: 
+        {
+          this->change_view(data[1]);
+          helpers::Helper::SendResubscribeViewEvent(this);
+        }
+    }
+  }
+
   const int X11_Window::get_event_handling_mask() const {
-    return events::MouseMotionHandler::mask;
+    return events::MouseMotionHandler::mask | events::ClientMessageHandler::mask;
   }
 }

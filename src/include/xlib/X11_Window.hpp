@@ -5,6 +5,7 @@
 #include <string>
 #include "X11_Display.hpp"
 #include "MouseMotionHandler.hpp"
+#include "ClientMessageHandler.hpp"
 #include <memory>
 #include "View.hpp"
 #include "Constants.hpp"
@@ -32,6 +33,7 @@ namespace xlib {
     ~X11_Window();
     void show() const;
     void expose();
+                      public events::ClientMessageHandler,
     void redraw_background() const;
 
     const int get_x() const;
@@ -43,6 +45,7 @@ namespace xlib {
     void change_view(const views::ViewID viewID);
 
     void handle_mouse_motion(const int& x, const int& y) override;
+    void handle_client_message(const long* data) override;
     const int get_event_handling_mask() const override;
 
     Window window;
