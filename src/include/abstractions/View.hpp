@@ -2,11 +2,10 @@
 #define SRC_INCLUDE_INTERFACES_VIEWS_HPP
 
 #include <memory>
-#include "UI_Object.hpp"
 
 namespace views {
 
-  class View : public ui::UI_Object {
+  class View {
     public:
       virtual void activate() = 0;
       virtual void deactivate() = 0;
