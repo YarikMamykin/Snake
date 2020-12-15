@@ -11,6 +11,7 @@
 #include "Constants.hpp"
 #include "UI_Object.hpp"
 #include "Rectangle.hpp"
+#include "IWindow.hpp"
 
 namespace xlib {
 
@@ -27,22 +28,28 @@ namespace xlib {
     std::string font_name;
   };
 
-  struct X11_Window : public ui::UI_Object, public events::MouseMotionHandler {
-    X11_Window(views::ViewID viewID, 
-               const WindowSettings& win_sets);
-    ~X11_Window();
-    void show() const;
-    void expose();
+  struct X11_Window : public ui::UI_Object, 
+                      public interfaces::IWindow, 
                       public events::ClientMessageHandler,
+                      public events::MouseMotionHandler {
+
+    X11_Window(views::ViewID viewID, const WindowSettings& win_sets);
+    ~X11_Window() override;
+
+    private:
     void redraw_background() const;
 
-    const int get_x() const;
-    const int get_y() const;
-    const unsigned int get_width() const;
-    const unsigned int get_height() const;
-    geometry::Rectangle get_frame() const;
+    public:
+    void show() const override;
+    void expose() override;
+    const int get_x() const override;
+    const int get_y() const override;
+    const unsigned int get_width() const override;
+    const unsigned int get_height() const override;
+    void change_view(const int viewID) override;
+    std::shared_ptr<views::View> get_view() const override;
 
-    void change_view(const views::ViewID viewID);
+    geometry::Rectangle get_frame() const;
 
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;

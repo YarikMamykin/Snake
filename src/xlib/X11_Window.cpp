@@ -86,13 +86,16 @@ namespace xlib {
         get_height());
   }
 
-  void X11_Window::change_view(const views::ViewID viewID) {
-    this->view = views::ViewFactory::get_view(viewID, this);
+  void X11_Window::change_view(const int viewID) {
+    this->view = views::ViewFactory::get_view(static_cast<views::ViewID>(viewID), this);
 
     redraw_background();
     this->view->activate();
   }
 
+  std::shared_ptr<views::View> X11_Window::get_view() const {
+    return this->view;
+  }
 
   void X11_Window::handle_mouse_motion(const int& x, const int& y) {
     XWindowAttributes win_attr;
