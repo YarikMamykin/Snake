@@ -30,7 +30,7 @@ namespace events {
                                break; 
                              }
           case ClientMessage: { 
-                                handle_client_message(event.xclient.data.l, x_window); 
+                                handle_client_message(event.xclient.data.l); 
                                 break; 
                               }
           default:break;
@@ -80,18 +80,33 @@ namespace events {
     }
   }
 
-  void EventHandler::handle_client_message(const long* data, xlib::X11_Window& x_window) {
+  void EventHandler::handle_client_message(const long* data) {
+    for(auto& listener : listeners) {
+      if(listener.second.expired()) {
+        continue;
+      }
+      auto&& listener_pointer = listener.second.lock();
+      auto&& listener_as_event_handler = as_event_handler<ClientMessageHandler>(listener_pointer);
+      if(events::ClientMessageHandler::mask & listener_pointer->get_event_handling_mask()) {
+        listener_as_event_handler->handle_client_message(data);
+      }
+    }
+
     switch(data[0]) {
-      case AdditionalEvents::ExitApplication: { 
-                                                UnregisterAll();
-                                                x_window.change_view(views::ViewID::NONE);
-                                                throw exceptions::ExitApplication(); 
-                                                break; 
-                                              }
-      case AdditionalEvents::ChangeView: { 
-                                           x_window.change_view(static_cast<views::ViewID>(data[1])); 
-                                           this->add_listener(constants::HandlerKeys::WINDOW_VIEW, x_window.view); // Resubscribe view as new-created
-                                         }
+      case AdditionalEvents::ExitApplication: 
+        {
+          throw exceptions::ExitApplication(); 
+          break;
+        }
+      case AdditionalEvents::ResubscribeView:
+        {
+          auto x_window_ptr = listeners.find(constants::HandlerKeys::WINDOW);
+          auto x_window = std::dynamic_pointer_cast<interfaces::IWindow>(x_window_ptr->second.lock());
+          std::shared_ptr<ui::UI_Object> view_as_ui_object = std::dynamic_pointer_cast<ui::UI_Object>(x_window->get_view());
+          this->add_listener(constants::HandlerKeys::WINDOW_VIEW, view_as_ui_object); // Resubscribe view as new-created
+          break;
+        }
+      default: return;
     }
   }
 

@@ -22,7 +22,7 @@ namespace events {
     void handle_key_press(const KeySym&& key_sym) override;
     void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
     void handle_mouse_motion(const int& x, const int& y) override;
-    void handle_client_message(const long* data, xlib::X11_Window& x_window);
+    void handle_client_message(const long* data) override;
 
     void add_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener);
 
