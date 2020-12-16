@@ -15,6 +15,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xlib)
 
 set(XLIB_UI_SRC ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Display.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Window.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_TextLabel.cpp
 )
 
 set(EVENTS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/events/EventHandler.cpp)
@@ -24,6 +25,7 @@ set(HELPERS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/helpers/Helper.cpp)
 set(GAME_VIEW_SRC ${CMAKE_CURRENT_SOURCE_DIR}/views/GameMenu.cpp
                   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameAction.cpp
                   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameOver.cpp
+                  ${CMAKE_CURRENT_SOURCE_DIR}/views/GameSettings.cpp
                   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameNone.cpp
 )
 
