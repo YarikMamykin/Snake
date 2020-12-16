@@ -19,6 +19,9 @@ namespace geometry {
     int x,y;
     unsigned int width, height;
 
+    Rectangle() = default;
+    Rectangle(const Rectangle&) = default;
+
     friend bool operator == (const Rectangle& a, const Rectangle& b) {
       const auto&& a_tl = a.top_left();
       const auto&& b_tl = b.top_left();
