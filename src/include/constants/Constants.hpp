@@ -30,6 +30,7 @@ namespace views {
     MENU,
     ACTION,
     OVER,
+    SETTINGS,
     NONE
   };
 }

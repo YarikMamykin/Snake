@@ -167,7 +167,11 @@ namespace views {
           SettingsItemName,
           empty_mouse_motion_handler,
           empty_mouse_button_press_handler,
-          empty_key_press_handler
+          [x_window](const KeySym&& key_sym) {
+            switch(key_sym) {
+              case XK_Return: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::SETTINGS); break;
+            }
+          }
         },
         {
           ExitItemName,
