@@ -34,6 +34,25 @@ namespace xlib {
     XFillRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
   }
 
+  void X11_TextLabel::show_frame() {
+    auto& display = parent_window->x_display.display;
+    auto& graphical_context = parent_window->graphical_context;
+    auto& window = parent_window->window;
+
+    XSetLineAttributes(display, graphical_context, frame_weight,0,0,0);
+    XSetForeground(display, graphical_context, this->color_scheme.frame);
+    XDrawRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
+  }
+
+  void X11_TextLabel::hide_frame() {
+    auto& display = parent_window->x_display.display;
+    auto& graphical_context = parent_window->graphical_context;
+    auto& window = parent_window->window;
+
+    XSetForeground(display, graphical_context, this->color_scheme.background);
+    XDrawRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
+  }
+
   void X11_TextLabel::set_text(const std::string& text) {
     this->text = text;
   }

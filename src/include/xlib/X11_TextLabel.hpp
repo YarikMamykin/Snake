@@ -11,6 +11,8 @@ namespace xlib {
     public:
       virtual void show() = 0;
       virtual void hide() = 0;
+      virtual void show_frame() = 0;
+      virtual void hide_frame() = 0;
       virtual void set_text(const std::string& text) = 0;
       virtual const std::string get_text() = 0;
       virtual void set_background_color(unsigned long color) = 0;
@@ -48,6 +50,8 @@ namespace xlib {
 
       void show() override;
       void hide() override;
+      void show_frame() override;
+      void hide_frame() override;
       void set_text(const std::string& text) override;
       const std::string get_text() override;
       void set_background_color(unsigned long color) override;
