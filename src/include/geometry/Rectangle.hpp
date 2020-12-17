@@ -64,6 +64,12 @@ namespace geometry {
       return rect_data.str();
     }
 
+    bool has_point(const Point& p) const {
+      const auto&& top_left_p = top_left();
+      const auto&& bottom_right_p = bottom_right();
+      return p >= top_left_p && p >= bottom_right_p;
+    }
+
     bool belongs_to(const Rectangle& rect) const {
       const auto&& tr = top_right();
       const auto&& tl = top_left();
