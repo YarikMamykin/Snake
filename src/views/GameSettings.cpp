@@ -50,6 +50,10 @@ namespace views {
   GameSettings::GameSettings(xlib::X11_Window* x_window) 
   : x_window(x_window) {
     settings_items.emplace_back(Setting("Snake speed: ", settings::Settings::settings().snake_speed, x_window));
+    settings_items.emplace_back(Setting("Snake color: ", 255U, x_window));
+
+    settings_items.begin()->set_active(true);
+    settings_items.back().move(0, settings_items.begin()->key_label.get_height() + 10U);
   }
 
   GameSettings::~GameSettings() {
