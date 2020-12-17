@@ -28,6 +28,7 @@ namespace views {
         Setting(const std::string& key, unsigned int value, xlib::X11_Window* parent_window);
         void show();
         void set_active(bool active);
+        void move(const int& x, const int& y);
       };
 
     public:

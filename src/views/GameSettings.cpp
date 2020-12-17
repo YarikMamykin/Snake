@@ -37,6 +37,12 @@ namespace views {
     key_label.show();
     value_label.show();
   }
+  
+  void GameSettings::Setting::move(const int& x, const int& y) {
+    key_label.move(x,y);
+    value_label.move(x,y);
+  }
+
 }
 
 namespace views {
