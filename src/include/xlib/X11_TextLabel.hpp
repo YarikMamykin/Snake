@@ -18,12 +18,15 @@ namespace xlib {
       virtual void set_background_color(unsigned long color) = 0;
       virtual void set_frame_color(unsigned long color) = 0;
       virtual void set_text_color(unsigned long color) = 0;
-      virtual bool focused(const int& x, const int& y) const = 0;
+      virtual void set_focused(bool focus) = 0;
+      virtual bool focused() const = 0;
+      virtual bool hovered_by_mouse(const int& x, const int& y) const = 0;
       virtual void set_frame(const int& x, const int& y, const unsigned int& width, const unsigned int& height) = 0;
       virtual const int get_x() const = 0;
       virtual const int get_y() const = 0;
       virtual const unsigned int get_width() const = 0;
       virtual const unsigned int get_height() const = 0;
+      virtual void move(const int& x, const int& y) = 0;
 
       virtual ~ITextLabel() {};
   };
@@ -57,12 +60,15 @@ namespace xlib {
       void set_background_color(unsigned long color) override;
       void set_frame_color(unsigned long color) override;
       void set_text_color(unsigned long color) override;
-      bool focused(const int& x, const int& y) const override;
+      void set_focused(bool focus) override;
+      bool focused() const override;
+      bool hovered_by_mouse(const int& x, const int& y) const override;
       void set_frame(const int& x, const int& y, const unsigned int& width, const unsigned int& height) override;
       const int get_x() const override;
       const int get_y() const override;
       const unsigned int get_width() const override;
       const unsigned int get_height() const override;
+      void move(const int& x, const int& y) override;
 
     private:
       void update();
@@ -75,7 +81,7 @@ namespace xlib {
       ColorScheme color_scheme;
       geometry::Rectangle frame;
       std::string text;
-      bool active;
+      bool focus;
   };
 }
 

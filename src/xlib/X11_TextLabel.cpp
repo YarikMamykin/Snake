@@ -7,11 +7,12 @@ namespace xlib {
   , color_scheme() 
   , frame() 
   , text()
-  , active(false) { }
+  , focus(false) { }
 
   X11_TextLabel::X11_TextLabel(const std::string& text, const geometry::Rectangle& frame, const ColorScheme& color_scheme, X11_Window* parent_window) 
   : frame(frame)
   , text(text)
+  , focus(false)
   , color_scheme(color_scheme)
   , parent_window(parent_window) {
     this->frame = frame;
@@ -73,9 +74,16 @@ namespace xlib {
     this->color_scheme.text = color;
   }
 
-  bool X11_TextLabel::focused(const int& x, const int& y) const {
-    return (x >= this->frame.x && (x <= this->frame.x + this->frame.width)) &&
-           (y >= this->frame.y && (y <= this->frame.y + this->frame.height));
+  void X11_TextLabel::set_focused(bool focus) {
+    this->focus = focus;
+  }
+
+  bool X11_TextLabel::focused() const {
+    return this->focus;
+  }
+
+  bool X11_TextLabel::hovered_by_mouse(const int &x, const int &y) const {
+    return this->frame.has_point({x,y});
   }
 
   void X11_TextLabel::set_frame(const int& x, const int& y, const unsigned int& width, const unsigned int& height) {
@@ -98,6 +106,10 @@ namespace xlib {
     return this->frame.height;
   }
 
+  void X11_TextLabel::move(const int& x, const int& y) {
+    this->frame.move(x,y);
+  }
+
   void X11_TextLabel::update() {
     auto display = parent_window->x_display.display;
     auto graphical_context = parent_window->graphical_context;
@@ -115,9 +127,11 @@ namespace xlib {
         this->text.c_str(), 
         this->text.length());
 
-    XSetLineAttributes(display, graphical_context, frame_weight,0,0,0);
-    XSetForeground(display, graphical_context, this->color_scheme.frame);
-    XDrawRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
+    if(focused()) {
+      show_frame();
+    } else {
+      hide_frame();
+    }
   }
 
   const unsigned int X11_TextLabel::get_text_graphical_width() const {
