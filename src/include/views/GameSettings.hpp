@@ -20,12 +20,14 @@ namespace views {
       struct Setting {
         std::string key;
         unsigned int value;
+        bool active;
 
         xlib::X11_TextLabel key_label;
         xlib::X11_TextLabel value_label;
 
         Setting(const std::string& key, unsigned int value, xlib::X11_Window* parent_window);
         void show();
+        void set_active(bool active);
       };
 
     public:

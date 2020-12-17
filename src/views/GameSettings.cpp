@@ -30,6 +30,13 @@ namespace views {
     value_label.show();
   }
 
+  void GameSettings::Setting::set_active(bool active) {
+    this->active = active;
+    key_label.set_focused(this->active);
+    value_label.set_focused(this->active);  
+    key_label.show();
+    value_label.show();
+  }
 }
 
 namespace views {
