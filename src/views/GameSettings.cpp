@@ -71,46 +71,41 @@ namespace views {
   void GameSettings::handle_key_press(const KeySym&& key_sym) {
     switch(key_sym) {
       case XK_Escape: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU); break;
+      case XK_Down:
+        {
+          const auto& active_item = std::find_if(settings_items.begin(), settings_items.end(), 
+                                                [](const Setting& item) { return item.active; });
+
+          for(auto& item : settings_items) {
+            item.set_active(false);
+          }
+
+          if(active_item == --settings_items.end()) {
+            settings_items.begin()->set_active(true);
+            break;
+          }
+
+          std::next(active_item)->set_active(true);
+          break;
+        }
+      case XK_Up:
+        {
+          const auto& active_item = std::find_if(settings_items.begin(), settings_items.end(), 
+                                                [](const Setting& item) { return item.active; });
+
+          for(auto& item : settings_items) {
+            item.set_active(false);
+          }
+
+          if(active_item == settings_items.begin()) {
+            settings_items.back().set_active(true);
+            return;
+          }
+
+          std::prev(active_item)->set_active(true);
+          break;
+        }
     }
-    // switch(key_sym) {
-      // case XK_Down:
-        // {
-          // const auto& active_item = std::find_if(items.begin(), items.end(), [](const Item& item) { return item.active; });
-          // for(auto& item : items) {
-            // item.hide_focus();
-          // }
-
-          // if(active_item == --items.end()) {
-            // items.begin()->show_focus();
-            // break;
-          // }
-
-          // std::next(active_item)->show_focus();
-          // break;
-        // }
-      // case XK_Up:
-        // {
-          // auto active_item = std::find_if(items.begin(), items.end(), [](const Item& item) { return item.active; });
-          // for(auto& item : items) {
-            // item.hide_focus();
-          // }
-
-          // if(active_item == items.begin()) {
-            // items.back().show_focus();
-            // return;
-          // }
-
-          // std::prev(active_item)->show_focus();
-          // break;
-        // }
-      // case XK_Return:
-        // {
-          // for(auto& item : items) {
-            // item.handle_key_press(std::move(key_sym));
-          // }
-          // break;
-        // }
-    // }
   }
 
   const int GameSettings::get_event_handling_mask() const {
