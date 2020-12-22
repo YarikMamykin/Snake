@@ -110,6 +110,10 @@ namespace xlib {
     this->frame.move(x,y);
   }
 
+  void X11_TextLabel::set_position(const int& x, const int& y) {
+    this->frame.set_position(x,y);
+  }
+
   void X11_TextLabel::update() {
     auto display = parent_window->x_display.display;
     auto graphical_context = parent_window->graphical_context;

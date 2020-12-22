@@ -27,6 +27,7 @@ namespace xlib {
       virtual const unsigned int get_width() const = 0;
       virtual const unsigned int get_height() const = 0;
       virtual void move(const int& x, const int& y) = 0;
+      virtual void set_position(const int& x, const int& y) = 0;
 
       virtual ~ITextLabel() {};
   };
@@ -69,6 +70,7 @@ namespace xlib {
       const unsigned int get_width() const override;
       const unsigned int get_height() const override;
       void move(const int& x, const int& y) override;
+      void set_position(const int& x, const int& y) override;
 
     private:
       void update();

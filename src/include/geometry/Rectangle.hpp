@@ -49,6 +49,11 @@ namespace geometry {
       this->y += y;
     }
 
+    void set_position(const int& x, const int& y) {
+      this->x = x;
+      this->y = y;
+    }
+
     const std::string to_string() const {
       std::ostringstream rect_data;
       rect_data << "Rectangle:"
