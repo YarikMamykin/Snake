@@ -26,9 +26,7 @@ namespace views {
         xlib::X11_TextLabel value_label;
 
         Setting(const std::string& key, unsigned int value, xlib::X11_Window* parent_window);
-        void show();
         void set_active(bool active);
-        void move(const int& x, const int& y);
       };
 
     public:
@@ -39,11 +37,16 @@ namespace views {
       void activate() override;
       void deactivate() override;
       void handle_key_press(const KeySym&& key_sym) override;
-      const int get_event_handling_mask() const override;
+
+    private:
+      void update();
+      void move_to_next_item();
+      void move_to_prev_item();
 
     private:
       xlib::X11_Window* x_window;
       std::list<Setting> settings_items;
+      std::list<Setting>::iterator current_active_item;
   };
 }
 

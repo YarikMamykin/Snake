@@ -60,9 +60,7 @@ namespace views {
   }
 
   void GameSettings::activate() {
-    for(auto& item : settings_items) {
-      item.show();
-    }
+    update();
   }
 
   void GameSettings::deactivate() {
@@ -71,44 +69,47 @@ namespace views {
   void GameSettings::handle_key_press(const KeySym&& key_sym) {
     switch(key_sym) {
       case XK_Escape: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU); break;
-      case XK_Down:
-        {
-          const auto& active_item = std::find_if(settings_items.begin(), settings_items.end(), 
-                                                [](const Setting& item) { return item.active; });
-
-          for(auto& item : settings_items) {
-            item.set_active(false);
-          }
-
-          if(active_item == --settings_items.end()) {
-            settings_items.begin()->set_active(true);
-            break;
-          }
-
-          std::next(active_item)->set_active(true);
-          break;
-        }
-      case XK_Up:
-        {
-          const auto& active_item = std::find_if(settings_items.begin(), settings_items.end(), 
-                                                [](const Setting& item) { return item.active; });
-
-          for(auto& item : settings_items) {
-            item.set_active(false);
-          }
-
-          if(active_item == settings_items.begin()) {
-            settings_items.back().set_active(true);
-            return;
-          }
-
-          std::prev(active_item)->set_active(true);
-          break;
-        }
+      case XK_Down: move_to_next_item(); break;
+      case XK_Up: move_to_prev_item(); break;
     }
+
+    update();
   }
 
-  const int GameSettings::get_event_handling_mask() const {
-    return events::KeyPressHandler::mask;
+  void GameSettings::update() {
+    key_labels_layout.update();
+    value_labels_layout.update();
+  }
+
+  void GameSettings::move_to_next_item() {
+    for(auto& item : settings_items) {
+      item.set_active(false);
+    }
+
+    if(current_active_item == --settings_items.end()) {
+      settings_items.begin()->set_active(true);
+      current_active_item = settings_items.begin();
+      return;
+    }
+
+    current_active_item = std::next(current_active_item);
+    current_active_item->set_active(true);
+    return;
+  }
+
+  void GameSettings::move_to_prev_item() {
+    for(auto& item : settings_items) {
+      item.set_active(false);
+    }
+
+    if(current_active_item == settings_items.begin()) {
+      settings_items.back().set_active(true);
+      current_active_item = --settings_items.end();
+      return;
+    }
+
+    current_active_item = std::prev(current_active_item);
+    current_active_item->set_active(true);
+    return;
   }
 }
