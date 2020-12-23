@@ -2,7 +2,6 @@
 #include "Helper.hpp"
 #include "Settings.hpp"
 #include <iostream>
-#include <array>
 
 namespace {
   xlib::X11_TextLabel::ColorScheme key_color_scheme = {
@@ -22,38 +21,32 @@ namespace views {
   GameSettings::Setting::Setting(const std::string& key, unsigned int value, xlib::X11_Window* parent_window) 
   : key(key)
   , value(value)
-  , key_label(key, {.x = 100, .y = 100}, key_color_scheme, parent_window)
-  , value_label(std::to_string(value), {.x = key_label.get_x() + key_label.get_width() + 10U, .y = 100}, value_color_scheme, parent_window) { }
-
-  void GameSettings::Setting::show() {
-    key_label.show();
-    value_label.show();
-  }
+  , key_label(key, {}, key_color_scheme, parent_window)
+  , value_label(std::to_string(value), {}, value_color_scheme, parent_window) { }
 
   void GameSettings::Setting::set_active(bool active) {
     this->active = active;
     key_label.set_focused(this->active);
     value_label.set_focused(this->active);  
-    key_label.show();
-    value_label.show();
   }
-  
-  void GameSettings::Setting::move(const int& x, const int& y) {
-    key_label.move(x,y);
-    value_label.move(x,y);
-  }
-
 }
 
 namespace views {
 
   GameSettings::GameSettings(xlib::X11_Window* x_window) 
-  : x_window(x_window) {
+  : x_window(x_window) 
+  , key_labels_layout({.x = 100, .y = 100})
+  , value_labels_layout({.x = 500, .y = 100}) {
     settings_items.emplace_back(Setting("Snake speed: ", settings::Settings::settings().snake_speed, x_window));
     settings_items.emplace_back(Setting("Snake color: ", 255U, x_window));
 
     settings_items.begin()->set_active(true);
-    settings_items.back().move(0, settings_items.begin()->key_label.get_height() + 10U);
+    current_active_item = settings_items.begin();
+
+    for(auto& item : settings_items) {
+      key_labels_layout.add(&(item.key_label));
+      value_labels_layout.add(&(item.value_label));
+    }
   }
 
   GameSettings::~GameSettings() {

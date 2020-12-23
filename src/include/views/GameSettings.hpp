@@ -6,6 +6,7 @@
 #include "X11_Window.hpp"
 #include "KeyPressHandler.hpp"
 #include "X11_TextLabel.hpp"
+#include "AlignHandler.hpp"
 
 #include <string>
 #include <list>
@@ -17,6 +18,8 @@ namespace views {
                              public events::KeyPressHandler {
 
     private:
+      typedef ui::AlignHandler<xlib::X11_TextLabel, ui::LayoutType::VERTICAL> LAYOUT_TYPE;
+
       struct Setting {
         std::string key;
         unsigned int value;
@@ -47,6 +50,8 @@ namespace views {
       xlib::X11_Window* x_window;
       std::list<Setting> settings_items;
       std::list<Setting>::iterator current_active_item;
+      LAYOUT_TYPE key_labels_layout;
+      LAYOUT_TYPE value_labels_layout;
   };
 }
 
