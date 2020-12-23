@@ -3,15 +3,15 @@
 
 #include "XHeaders.hpp"
 #include "Constants.hpp"
+#include "EventHandlingObject.hpp"
 
 namespace events {
 
-  class MouseMotionHandler {
+  class MouseMotionHandler : virtual public EventHandlingObject {
     public:
       virtual void handle_mouse_motion(const int& x, const int& y) = 0;
+      virtual const int get_event_handling_mask() const { return HandlersMask::MouseMotionHandlerMask; }
       virtual ~MouseMotionHandler() {};
-
-      static const HandlersMask mask = HandlersMask::MouseMotionHandlerMask;
   };
 
 }

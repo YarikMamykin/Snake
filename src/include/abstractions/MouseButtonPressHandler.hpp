@@ -3,15 +3,15 @@
 
 #include "XHeaders.hpp"
 #include "Constants.hpp"
+#include "EventHandlingObject.hpp"
 
 namespace events {
 
-  class MouseButtonPressHandler {
+  class MouseButtonPressHandler : virtual public EventHandlingObject {
     public:
       virtual void handle_button_press(const int& x, const int& y, const unsigned int& button) = 0;
+      virtual const int get_event_handling_mask() const { return HandlersMask::MouseButtonPressHandlerMask; }
       virtual ~MouseButtonPressHandler() {};
-
-      static const HandlersMask mask = HandlersMask::MouseButtonPressHandlerMask;
   };
 
 }

@@ -14,6 +14,10 @@ namespace events {
                         public ClientMessageHandler {
 
     public:
+      virtual const int get_event_handling_mask() const { return MouseButtonPressHandler::get_event_handling_mask() 
+                                                                 | MouseMotionHandler::get_event_handling_mask() 
+                                                                 | KeyPressHandler::get_event_handling_mask() 
+                                                                 | ClientMessageHandler::get_event_handling_mask(); }
       virtual void event_handler_loop(interfaces::IWindow* x_window) = 0;
       virtual ~IEventHandler() {};
   };
