@@ -49,13 +49,13 @@ namespace ui {
 
         const unsigned int get_width() const {
           switch(layout_type) {
-            case LayoutType::VERTICAL: 
+            case LayoutType::VERTICAL:
               {
-                auto widest = *std::max_element(objects.begin(), objects.end(), [](Object* object1, Object* object2) { return object1->get_width() > object2->get_width(); }); 
+                auto widest = *std::max_element(objects.begin(), objects.end(), [](Object* object1, Object* object2) { return object1->get_width() > object2->get_width(); });
                 return widest->get_width();
               }
 
-            case LayoutType::HORIZONTAL: 
+            case LayoutType::HORIZONTAL:
               {
                 return objects.back()->get_x() + objects.back()->get_width() - top_left.x;
               }
@@ -64,13 +64,13 @@ namespace ui {
 
         const unsigned int get_height() const {
           switch(layout_type) {
-            case LayoutType::HORIZONTAL: 
+            case LayoutType::HORIZONTAL:
               {
-                auto highest = *std::max_element(objects.begin(), objects.end(), [](Object* object1, Object* object2) { return object1->get_height() > object2->get_height(); }); 
+                auto highest = *std::max_element(objects.begin(), objects.end(), [](Object* object1, Object* object2) { return object1->get_height() > object2->get_height(); });
                 return highest->get_height();
               }
 
-            case LayoutType::VERTICAL: 
+            case LayoutType::VERTICAL:
               {
                 return objects.back()->get_y() + objects.back()->get_height() - top_left.y;
               }
