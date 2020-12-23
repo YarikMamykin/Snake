@@ -39,8 +39,4 @@ namespace views {
                       }
     }
   }
-
-  const int GameOver::get_event_handling_mask() const {
-    return events::KeyPressHandler::mask;
-  }
 }

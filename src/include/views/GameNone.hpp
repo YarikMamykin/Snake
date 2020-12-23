@@ -2,12 +2,13 @@
 #define SRC_INCLUDE_VIEWS_GAMENONE_HPP
 
 #include "UI_Object.hpp"
+#include "NoEventHandler.hpp"
 #include "View.hpp"
 
 namespace views {
 
-  class GameNone final :  public ui::UI_Object,
-                          public View {
+  class GameNone final :  public View,
+                          public events::NoEventHandler {
     public:
       explicit GameNone();
       virtual ~GameNone();
@@ -15,7 +16,6 @@ namespace views {
     public:
       virtual void activate() override;
       virtual void deactivate() override;
-      const int get_event_handling_mask() const override;
   };
 }
 

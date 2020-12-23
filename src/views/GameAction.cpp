@@ -65,8 +65,4 @@ namespace views {
         }
     }
   }
-
-  const int GameAction::get_event_handling_mask() const {
-    return events::KeyPressHandler::mask;
-  }
 }

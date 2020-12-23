@@ -20,7 +20,6 @@ namespace views {
       void activate() override;
       void deactivate() override;
       void handle_key_press(const KeySym&& key_sym) override;
-      const int get_event_handling_mask() const override;
 
     private:
       xlib::X11_Window* x_window;

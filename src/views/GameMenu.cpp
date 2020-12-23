@@ -315,6 +315,8 @@ namespace views {
   }
 
   const int GameMenu::get_event_handling_mask() const {
-    return events::KeyPressHandler::mask | events::MouseMotionHandler::mask | events::MouseButtonPressHandler::mask;
+    return events::KeyPressHandler::get_event_handling_mask() | 
+           events::MouseMotionHandler::get_event_handling_mask() | 
+           events::MouseButtonPressHandler::get_event_handling_mask();
   }
 }
