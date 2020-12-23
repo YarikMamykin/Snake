@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions/event_handling)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/constants)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/events)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/exceptions)
