@@ -28,8 +28,7 @@ namespace xlib {
     std::string font_name;
   };
 
-  struct X11_Window : public ui::UI_Object, 
-                      public interfaces::IWindow, 
+  struct X11_Window : public interfaces::IWindow, 
                       public events::ClientMessageHandler,
                       public events::MouseMotionHandler {
 
