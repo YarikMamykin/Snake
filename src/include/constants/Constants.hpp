@@ -58,4 +58,17 @@ namespace game_objects {
   };
 }
 
+namespace ui {
+  enum class AlignType {
+    CENTER,
+    LEFT,
+    RIGHT
+  };
+
+  enum class LayoutType {
+    HORIZONTAL,
+    VERTICAL
+  };
+}
+
 #endif /* SRC_INCLUDE_CONSTANTS_CONSTANTS_HPP */
