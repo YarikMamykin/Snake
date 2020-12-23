@@ -50,10 +50,12 @@ namespace events {
       if(listener.second.expired()) {
         continue;
       }
-      auto&& listener_pointer = listener.second.lock();
-      auto&& listener_as_event_handler = as_event_handler<KeyPressHandler>(listener_pointer);
-      if(events::KeyPressHandler::mask & listener_pointer->get_event_handling_mask()) {
-        listener_as_event_handler->handle_key_press(std::move(key_sym));
+      auto listener_pointer = listener.second.lock();
+      if(events::HandlersMask::KeyPressHandlerMask & listener_pointer->get_event_handling_mask()) {
+        auto listener_as_event_handler = as_event_handler<KeyPressHandler>(listener_pointer);
+        if(listener_as_event_handler) {
+          listener_as_event_handler->handle_key_press(std::move(key_sym));
+        }
       }
     }
   }
@@ -63,9 +65,9 @@ namespace events {
       if(listener.second.expired()) {
         continue;
       }
-      auto&& listener_pointer = listener.second.lock();
-      auto&& listener_as_event_handler = as_event_handler<MouseButtonPressHandler>(listener_pointer);
-      if(events::MouseButtonPressHandler::mask & listener_pointer->get_event_handling_mask()) {
+      auto listener_pointer = listener.second.lock();
+      if(events::HandlersMask::MouseButtonPressHandlerMask & listener_pointer->get_event_handling_mask()) {
+        auto listener_as_event_handler = as_event_handler<MouseButtonPressHandler>(listener_pointer);
         listener_as_event_handler->handle_button_press(x,y,button);
       }
     }
@@ -76,9 +78,9 @@ namespace events {
       if(listener.second.expired()) {
         continue;
       }
-      auto&& listener_pointer = listener.second.lock();
-      auto&& listener_as_event_handler = as_event_handler<MouseMotionHandler>(listener_pointer);
-      if(events::MouseMotionHandler::mask & listener_pointer->get_event_handling_mask()) {
+      auto listener_pointer = listener.second.lock();
+      if(events::HandlersMask::MouseMotionHandlerMask & listener_pointer->get_event_handling_mask()) {
+        auto listener_as_event_handler = as_event_handler<MouseMotionHandler>(listener_pointer);
         listener_as_event_handler->handle_mouse_motion(x,y);
       }
     }
@@ -89,9 +91,9 @@ namespace events {
       if(listener.second.expired()) {
         continue;
       }
-      auto&& listener_pointer = listener.second.lock();
-      auto&& listener_as_event_handler = as_event_handler<ClientMessageHandler>(listener_pointer);
-      if(events::ClientMessageHandler::mask & listener_pointer->get_event_handling_mask()) {
+      auto listener_pointer = listener.second.lock();
+      if(events::HandlersMask::ClientMessageHandlerMask & listener_pointer->get_event_handling_mask()) {
+        auto listener_as_event_handler = as_event_handler<ClientMessageHandler>(listener_pointer);
         listener_as_event_handler->handle_client_message(data);
       }
     }
@@ -106,7 +108,7 @@ namespace events {
         {
           auto x_window_ptr = listeners.find(constants::HandlerKeys::WINDOW);
           auto x_window = std::dynamic_pointer_cast<interfaces::IWindow>(x_window_ptr->second.lock());
-          std::shared_ptr<ui::UI_Object> view_as_ui_object = std::dynamic_pointer_cast<ui::UI_Object>(x_window->get_view());
+          std::shared_ptr<EventHandlingObject> view_as_ui_object = std::dynamic_pointer_cast<EventHandlingObject>(x_window->get_view());
           this->add_listener(constants::HandlerKeys::WINDOW_VIEW, view_as_ui_object); // Resubscribe view as new-created
           break;
         }
@@ -114,7 +116,7 @@ namespace events {
     }
   }
 
-  void EventHandler::add_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener) {
+  void EventHandler::add_listener(constants::HandlerKeys key, std::shared_ptr<EventHandlingObject> listener) {
     const auto&& existing_listener = listeners.find(key);
     if(existing_listener != listeners.end()) {
       listeners.erase(key);

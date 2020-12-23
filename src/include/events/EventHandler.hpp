@@ -4,14 +4,14 @@
 #include "IWindow.hpp"
 #include <memory>
 #include <map>
-#include "UI_Object.hpp"
+#include "EventHandlingObject.hpp"
 #include "IEventHandler.hpp"
 
 namespace events {
 
   struct EventHandler : public IEventHandler {
 
-    std::map<constants::HandlerKeys, std::weak_ptr<ui::UI_Object>> listeners;
+    std::map<constants::HandlerKeys, std::weak_ptr<EventHandlingObject>> listeners;
     XEvent event;
 
     explicit EventHandler() = default;
@@ -24,11 +24,13 @@ namespace events {
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;
 
-    void add_listener(constants::HandlerKeys key, std::shared_ptr<ui::UI_Object> listener);
+    void add_listener(constants::HandlerKeys key, std::shared_ptr<EventHandlingObject> listener);
 
     private:
-      template <class EventHandlerType> static EventHandlerType* as_event_handler(std::shared_ptr<ui::UI_Object> object) {
-        return dynamic_cast<EventHandlerType*>(object.get());
+      template <class EventHandlerType> 
+        static std::shared_ptr<EventHandlerType> 
+          as_event_handler(std::shared_ptr<EventHandlingObject> object) {
+            return std::dynamic_pointer_cast<EventHandlerType>(object);
       }
   };
 }
