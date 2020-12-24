@@ -17,12 +17,6 @@ namespace ui {
         std::list<Object*> objects;
         const unsigned int spacing;
 
-        struct ElementsWidthRectifier {
-        };
-
-        struct ElementsHeightRectifier {
-        };
-
       public:
         AlignHandler(const geometry::Point& top_left, const unsigned int& spacing = 20U) 
         : top_left(top_left)
