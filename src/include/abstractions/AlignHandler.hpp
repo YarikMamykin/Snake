@@ -76,6 +76,10 @@ namespace ui {
           }
         }
 
+        void set_position(const int& x, const int& y) {
+          top_left = {.x = x, .y = y};
+        }
+
       private:
         typedef std::function<void (decltype(objects.begin())& )> ALIGN_HANDLER_TYPE;
 
