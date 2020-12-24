@@ -28,9 +28,14 @@ namespace ui {
         }
 
         void update() {
+          align_objects();
           for(auto& object : objects) {
             object->show();
           }
+        }
+
+        void show() {
+          update();
         }
 
         const int get_x() const {
