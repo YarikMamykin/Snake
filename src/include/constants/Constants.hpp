@@ -59,7 +59,7 @@ namespace game_objects {
 }
 
 namespace ui {
-  enum class AlignType {
+  enum class AnchorType {
     CENTER,
     LEFT,
     RIGHT
