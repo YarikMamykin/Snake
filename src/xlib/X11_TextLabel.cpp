@@ -16,8 +16,7 @@ namespace xlib {
   , color_scheme(color_scheme)
   , parent_window(parent_window) {
     this->frame = frame;
-    this->frame.height = get_text_graphical_height() + top_text_margin * 2;
-    this->frame.width = get_text_graphical_width() + left_text_margin * 2;
+    update_frame();
   }
 
   X11_TextLabel::~X11_TextLabel() { }
