@@ -53,10 +53,9 @@ namespace ui {
                 auto widest = *std::max_element(objects.begin(), objects.end(), [](Object* object1, Object* object2) { return object1->get_width() > object2->get_width(); });
                 return widest->get_width();
               }
-
             case LayoutType::HORIZONTAL:
               {
-                return objects.back()->get_x() + objects.back()->get_width() - top_left.x;
+                return objects.back()->get_x() + objects.back()->get_width() - objects.front()->get_x();
               }
           }
         }
@@ -71,7 +70,7 @@ namespace ui {
 
             case LayoutType::VERTICAL:
               {
-                return objects.back()->get_y() + objects.back()->get_height() - top_left.y;
+                return objects.back()->get_y() + objects.back()->get_height() - objects.front()->get_y();
               }
           }
         }
