@@ -2,6 +2,7 @@
 #include "Helper.hpp"
 #include "Settings.hpp"
 #include <iostream>
+#include "WindowAnchorHandler.hpp"
 
 namespace {
   xlib::X11_TextLabel::ColorScheme key_color_scheme = {
@@ -35,8 +36,7 @@ namespace views {
 
   GameSettings::GameSettings(xlib::X11_Window* x_window) 
   : x_window(x_window) 
-  , key_labels_layout({.x = 100, .y = 100})
-  , value_labels_layout({.x = 500, .y = 100}) {
+  , horizontal_layout({}) {
     settings_items.emplace_back(Setting("Snake speed: ", settings::Settings::settings().snake_speed, x_window));
     settings_items.emplace_back(Setting("Snake color: ", 255U, x_window));
 
@@ -44,9 +44,13 @@ namespace views {
     current_active_item = settings_items.begin();
 
     for(auto& item : settings_items) {
-      key_labels_layout.add(&(item.key_label));
-      value_labels_layout.add(&(item.value_label));
+      auto&& layout = LAYOUT_TYPE({});
+      layout.add(&(item.key_label));
+      layout.add(&(item.value_label));
+      labels_layout.push_back(layout);
+      horizontal_layout.add(&labels_layout.back());
     }
+    ui::WindowAnchorHandler<V_LAYOUT_TYPE> anchor_handler(&horizontal_layout, x_window);
   }
 
   GameSettings::~GameSettings() {
@@ -70,8 +74,10 @@ namespace views {
   }
 
   void GameSettings::update() {
-    key_labels_layout.update();
-    value_labels_layout.update();
+    horizontal_layout.update();
+    for(auto& item : labels_layout) {
+      item.update();
+    }
   }
 
   void GameSettings::move_to_next_item() {

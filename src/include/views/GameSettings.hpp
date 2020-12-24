@@ -18,7 +18,8 @@ namespace views {
                              public events::KeyPressHandler {
 
     private:
-      typedef ui::AlignHandler<xlib::X11_TextLabel, ui::LayoutType::VERTICAL> LAYOUT_TYPE;
+      typedef ui::AlignHandler<xlib::X11_TextLabel, ui::LayoutType::HORIZONTAL> LAYOUT_TYPE;
+      typedef ui::AlignHandler<LAYOUT_TYPE, ui::LayoutType::VERTICAL> V_LAYOUT_TYPE;
 
       struct Setting {
         std::string key;
@@ -50,8 +51,8 @@ namespace views {
       xlib::X11_Window* x_window;
       std::list<Setting> settings_items;
       std::list<Setting>::iterator current_active_item;
-      LAYOUT_TYPE key_labels_layout;
-      LAYOUT_TYPE value_labels_layout;
+      std::list<LAYOUT_TYPE> labels_layout;
+      V_LAYOUT_TYPE horizontal_layout;
   };
 }
 
