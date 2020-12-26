@@ -30,11 +30,11 @@ namespace ui {
         void update() {
           align_objects();
           for(auto& object : objects) {
-            object->show();
+            object->show(true);
           }
         }
 
-        void show() {
+        void show(bool) {
           update();
         }
 
