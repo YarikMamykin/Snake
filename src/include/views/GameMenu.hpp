@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_VIEWS_GAMEMENU_HPP
 
 #include "View.hpp"
-#include "UI_Object.hpp"
 #include "X11_Window.hpp"
 #include <list>
 #include <functional>

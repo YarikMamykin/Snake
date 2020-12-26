@@ -4,13 +4,11 @@
 #include "View.hpp"
 #include "X11_Window.hpp"
 #include "KeyPressHandler.hpp"
-#include "UI_Object.hpp"
 #include <string>
 
 namespace views {
 
-  class GameOver final : public ui::UI_Object,
-                         public View, 
+  class GameOver final : public View, 
                          public events::KeyPressHandler {
     public:
       explicit GameOver(xlib::X11_Window* x_window);

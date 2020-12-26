@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_VIEWS_GAMESETTINGS_HPP
 
 #include "View.hpp"
-#include "UI_Object.hpp"
 #include "X11_Window.hpp"
 #include "KeyPressHandler.hpp"
 #include "X11_TextLabel.hpp"
@@ -13,8 +12,7 @@
 
 namespace views {
 
-  class GameSettings final : public ui::UI_Object,
-                             public View, 
+  class GameSettings final : public View, 
                              public events::KeyPressHandler {
 
     private:

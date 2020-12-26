@@ -1,7 +1,6 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMENONE_HPP
 #define SRC_INCLUDE_VIEWS_GAMENONE_HPP
 
-#include "UI_Object.hpp"
 #include "NoEventHandler.hpp"
 #include "View.hpp"
 
