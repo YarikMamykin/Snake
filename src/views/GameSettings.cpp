@@ -82,9 +82,6 @@ namespace views {
 
   void GameSettings::update() {
     horizontal_layout.update();
-    for(auto& item : labels_layout) {
-      item.update();
-    }
   }
 
   void GameSettings::move_to_next_item() {
