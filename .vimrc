@@ -67,6 +67,8 @@ nmap <Leader><F6> :call Debug()<CR>
 nmap <Leader><F7> :call RunTests()<CR>
 nmap <Leader><F8> :call BuildQuick()<CR>
 
+xmap <Space>p "py:vimgrep /<C-R>p/g ./**/*.hpp ./**/*.cpp<CR>
+
 function! Switch()
   let filename = expand("%:t:r")
   let fileext = expand("%:e")
