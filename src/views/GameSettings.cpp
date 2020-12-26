@@ -5,16 +5,16 @@
 #include "WindowAnchorHandler.hpp"
 
 namespace {
-  xlib::X11_TextLabel::ColorScheme key_color_scheme = {
-    .background = 0UL,
-    .frame = ~0UL, 
-    .text = (255UL << 16) 
+  abstractions::ui::COLOR_SCHEME_TYPE key_color_scheme = {
+    { ui::ColorSchemeID::BackgroundColor, 0UL },
+    { ui::ColorSchemeID::FrameColor, ~0UL },
+    { ui::ColorSchemeID::TextColor, (255UL << 16) }
   };
 
-  xlib::X11_TextLabel::ColorScheme value_color_scheme = {
-    .background = 0UL,
-    .frame = ~0UL, 
-    .text = (127UL << 16)|(255UL << 8)|212UL
+  abstractions::ui::COLOR_SCHEME_TYPE value_color_scheme = {
+    { ui::ColorSchemeID::BackgroundColor, 0UL },
+    { ui::ColorSchemeID::FrameColor, ~0UL },
+    { ui::ColorSchemeID::TextColor, (127UL << 16)|(255UL << 8)|212UL }
   };
 }
 
