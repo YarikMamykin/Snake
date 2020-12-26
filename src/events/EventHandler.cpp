@@ -6,7 +6,7 @@
 
 namespace events {
 
-  void EventHandler::event_handler_loop(interfaces::IWindow* x_window) {
+  void EventHandler::event_handler_loop(abstractions::ui::AWindow* x_window) {
     using namespace events;
     // select kind of events we are interested in
     xlib::X11_Window* x11_window = dynamic_cast<xlib::X11_Window*>(x_window); // OH YES -> FIX IT!
@@ -107,7 +107,7 @@ namespace events {
       case AdditionalEvents::ResubscribeView:
         {
           auto x_window_ptr = listeners.find(constants::HandlerKeys::WINDOW);
-          auto x_window = std::dynamic_pointer_cast<interfaces::IWindow>(x_window_ptr->second.lock());
+          auto x_window = std::dynamic_pointer_cast<abstractions::ui::AWindow>(x_window_ptr->second.lock());
           std::shared_ptr<EventHandlingObject> view_as_ui_object = std::dynamic_pointer_cast<EventHandlingObject>(x_window->get_view());
           this->add_listener(constants::HandlerKeys::WINDOW_VIEW, view_as_ui_object); // Resubscribe view as new-created
           break;

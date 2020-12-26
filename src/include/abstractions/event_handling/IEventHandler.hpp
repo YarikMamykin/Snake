@@ -5,7 +5,7 @@
 #include "MouseButtonPressHandler.hpp"
 #include "KeyPressHandler.hpp"
 #include "ClientMessageHandler.hpp"
-#include "IWindow.hpp"
+#include "Window.hpp"
 
 namespace events {
   class IEventHandler : public MouseButtonPressHandler,
@@ -18,7 +18,7 @@ namespace events {
                                                                  | MouseMotionHandler::get_event_handling_mask() 
                                                                  | KeyPressHandler::get_event_handling_mask() 
                                                                  | ClientMessageHandler::get_event_handling_mask(); }
-      virtual void event_handler_loop(interfaces::IWindow* x_window) = 0;
+      virtual void event_handler_loop(abstractions::ui::AWindow* x_window) = 0;
       virtual ~IEventHandler() {};
   };
 }

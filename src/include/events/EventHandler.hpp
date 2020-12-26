@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_EVENTS_EVENTHANDLER_HPP
 #define SRC_INCLUDE_EVENTS_EVENTHANDLER_HPP
 
-#include "IWindow.hpp"
+#include "Window.hpp"
 #include <memory>
 #include <map>
 #include "EventHandlingObject.hpp"
@@ -17,7 +17,7 @@ namespace events {
     explicit EventHandler() = default;
     ~EventHandler() {};
 
-    void event_handler_loop(interfaces::IWindow* x_window) override;
+    void event_handler_loop(abstractions::ui::AWindow* x_window) override;
 
     void handle_key_press(const KeySym&& key_sym) override;
     void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
