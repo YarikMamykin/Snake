@@ -69,6 +69,13 @@ namespace ui {
     HORIZONTAL,
     VERTICAL
   };
+
+  enum ColorSchemeID : unsigned char { 
+    BackgroundColor,
+    TextColor,
+    FrameColor,
+    FontColor
+  };
 }
 
 #endif /* SRC_INCLUDE_CONSTANTS_CONSTANTS_HPP */
