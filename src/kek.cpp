@@ -19,7 +19,7 @@ void LaunchApp() {
   auto x_window = std::make_shared<X11_Window>(views::ViewID::MENU, settings::Settings::settings().win_sets);
   auto x_window_as_event_handling_object = std::dynamic_pointer_cast<EventHandlingObject>(x_window);
   auto view_as_event_handling_object = std::dynamic_pointer_cast<EventHandlingObject>(x_window->get_view());
-  x_window->show();
+  x_window->show(true);
 
   EventHandler ehandler;
   ehandler.add_listener(constants::HandlerKeys::WINDOW, x_window_as_event_handling_object);
