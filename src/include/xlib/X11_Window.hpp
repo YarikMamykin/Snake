@@ -9,9 +9,9 @@
 #include <memory>
 #include "View.hpp"
 #include "Constants.hpp"
-#include "UI_Object.hpp"
+#include "Object.hpp"
 #include "Rectangle.hpp"
-#include "IWindow.hpp"
+#include "Window.hpp"
 
 namespace xlib {
 
@@ -28,7 +28,7 @@ namespace xlib {
     std::string font_name;
   };
 
-  struct X11_Window : public interfaces::IWindow, 
+  struct X11_Window : public abstractions::ui::AWindow,
                       public events::ClientMessageHandler,
                       public events::MouseMotionHandler {
 
@@ -39,16 +39,11 @@ namespace xlib {
     void redraw_background() const;
 
     public:
-    void show() const override;
+    void show(bool) override;
+    void show_frame(bool) override;
     void expose() override;
-    const int get_x() const override;
-    const int get_y() const override;
-    const unsigned int get_width() const override;
-    const unsigned int get_height() const override;
     void change_view(const int viewID) override;
     std::shared_ptr<views::View> get_view() const override;
-
-    geometry::Rectangle get_frame() const;
 
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;

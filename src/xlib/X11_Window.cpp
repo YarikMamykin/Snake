@@ -6,10 +6,11 @@
 namespace xlib {
 
   X11_Window::X11_Window(views::ViewID viewID, const WindowSettings& win_sets) 
-    : x_display()
-      , win_sets(win_sets)
-      , msg("Hello, World!") 
-      , graphical_context(DefaultGC(x_display.display, XDefaultScreen(x_display.display))) {
+    : abstractions::ui::AWindow({win_sets.x, win_sets.y, win_sets.w, win_sets.h}, abstractions::ui::COLOR_SCHEME_TYPE())
+    , x_display()
+    , win_sets(win_sets)
+    , msg("Hello, World!") 
+    , graphical_context(DefaultGC(x_display.display, XDefaultScreen(x_display.display))) {
 
         // create window
         window = XCreateSimpleWindow(x_display.display,
@@ -30,6 +31,7 @@ namespace xlib {
         }
 
         view = views::ViewFactory::get_view(viewID, this);
+        this->frame.x = this->frame.y = 0;
       }
 
   X11_Window::~X11_Window() {
@@ -37,53 +39,29 @@ namespace xlib {
     XDestroyWindow(x_display.display, window);
   }
 
-  void X11_Window::show() const {
+  void X11_Window::show(bool) {
     // map (show) the window
     XMapWindow(x_display.display, window);
   }
 
+  void X11_Window::show_frame(bool) { }
+
   void X11_Window::expose() {
     XWindowAttributes win_attr;
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
-    this->win_sets.w = win_attr.width;
-    this->win_sets.h = win_attr.height;
+    this->frame.width = win_attr.width;
+    this->frame.height = win_attr.height;
 
     if (view) {
       view->activate();
     }
   }
 
-  const int X11_Window::get_x() const {
-    return 0;
-  }
-
-  const int X11_Window::get_y() const {
-    return 0;
-  }
-
-  const unsigned int X11_Window::get_width() const {
-    return this->win_sets.w;
-  }
-
-  const unsigned int X11_Window::get_height() const {
-    return this->win_sets.h;
-  }
-
-  geometry::Rectangle X11_Window::get_frame() const {
-    return { .x = 0, .y = 0, .width = get_width(), .height = get_height() };
-  }
-
   void X11_Window::redraw_background() const {
     XFlushGC(x_display.display, graphical_context);
     XFlush(x_display.display);
     XSetForeground(x_display.display, graphical_context, win_sets.backgnd_color);
-    XFillRectangle(x_display.display,
-        window,
-        graphical_context,
-        0,
-        0,
-        get_width(),
-        get_height());
+    XFillRectangle(x_display.display, window, graphical_context, frame.x, frame.y, frame.width, frame.height);
   }
 
   void X11_Window::change_view(const int viewID) {
