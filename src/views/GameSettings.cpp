@@ -30,6 +30,11 @@ namespace views {
     key_label.set_focused(this->active);
     value_label.set_focused(this->active);  
   }
+
+  void GameSettings::Setting::update_value(const unsigned int& new_value) {
+    value = new_value;
+    value_label.set_text(std::to_string(new_value));
+  }
 }
 
 namespace views {
@@ -38,9 +43,9 @@ namespace views {
   : x_window(x_window) 
   , horizontal_layout({}) {
     settings_items.emplace_back(Setting("Snake speed: ", settings::Settings::settings().snake_speed, x_window));
-    settings_items.emplace_back(Setting("Snake color: ", 255U, x_window));
+    settings_items.emplace_back(Setting("Snake color: ", settings::Settings::settings().snake_color, x_window));
 
-    settings_items.begin()->set_active(true);
+    settings_items.front().set_active(true);
     current_active_item = settings_items.begin();
 
     for(auto& item : settings_items) {
@@ -68,6 +73,8 @@ namespace views {
       case XK_Escape: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU); break;
       case XK_Down: move_to_next_item(); break;
       case XK_Up: move_to_prev_item(); break;
+      case XK_KP_Add: increase_setting_value(); break;
+      case XK_KP_Subtract: decrease_setting_value(); break;
     }
 
     update();
@@ -110,5 +117,13 @@ namespace views {
     current_active_item = std::prev(current_active_item);
     current_active_item->set_active(true);
     return;
+  }
+
+  void GameSettings::increase_setting_value() {
+    current_active_item->update_value(current_active_item->value + 1U);
+  }
+
+  void GameSettings::decrease_setting_value() {
+    current_active_item->update_value(current_active_item->value - 1U);
   }
 }

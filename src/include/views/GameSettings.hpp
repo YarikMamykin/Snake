@@ -29,6 +29,7 @@ namespace views {
 
         Setting(const std::string& key, unsigned int value, xlib::X11_Window* parent_window);
         void set_active(bool active);
+        void update_value(const unsigned int& new_value);
       };
 
     public:
@@ -44,6 +45,8 @@ namespace views {
       void update();
       void move_to_next_item();
       void move_to_prev_item();
+      void increase_setting_value();
+      void decrease_setting_value();
 
     private:
       xlib::X11_Window* x_window;
