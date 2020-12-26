@@ -2,6 +2,7 @@
 #define SRC_INCLUDE_SETTINGS_SETTINGS_HPP
 
 #include "X11_Window.hpp"
+#include <chrono>
 
 namespace settings {
   class Settings final {
@@ -20,14 +21,16 @@ namespace settings {
         })
     , snake_speed(10U)
     , snake_color((255U << 8))
+    , snake_timeout(50u)
     {
 
     }
 
     public:
-    const xlib::WindowSettings win_sets;
-    const unsigned int snake_speed;
-    const unsigned int snake_color;
+    xlib::WindowSettings win_sets;
+    unsigned int snake_speed;
+    unsigned int snake_color;
+    std::chrono::milliseconds snake_timeout;
 
     static Settings& settings() {
       static Settings sets;
