@@ -19,6 +19,7 @@ namespace settings {
         .font_name = "*-courier-*-24-*"
         })
     , snake_speed(10U)
+    , snake_color((255U << 8))
     {
 
     }
@@ -26,6 +27,7 @@ namespace settings {
     public:
     const xlib::WindowSettings win_sets;
     const unsigned int snake_speed;
+    const unsigned int snake_color;
 
     static Settings& settings() {
       static Settings sets;
