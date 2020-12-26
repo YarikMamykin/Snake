@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_ABSTRACTIONS_WINDOWANCHORHANDLER_HPP
 
 #include "Constants.hpp"
-#include "IWindow.hpp"
+#include "Window.hpp"
 #include "Rectangle.hpp"
 
 namespace ui {
@@ -14,7 +14,7 @@ namespace ui {
   template <class Object, AnchorType anchor_type = AnchorType::CENTER>
     class WindowAnchorHandler {
       public:
-        WindowAnchorHandler(Object* object, interfaces::IWindow* parent_window) {
+        WindowAnchorHandler(Object* object, abstractions::ui::AWindow* parent_window) {
           auto&& window_center = get_window_center(parent_window);
           auto&& object_width = object->get_width();
           auto&& object_height = object->get_height();
@@ -22,7 +22,7 @@ namespace ui {
         }
 
       private:
-        geometry::Point get_window_center(interfaces::IWindow* parent_window) {
+        geometry::Point get_window_center(abstractions::ui::AWindow* parent_window) {
           return { .x = parent_window->get_width()/2, .y = parent_window->get_height()/2 };
         }
     };
