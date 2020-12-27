@@ -30,9 +30,11 @@ namespace xlib {
       void update_frame();
       const unsigned int get_text_graphical_width() const;
       const unsigned int get_text_graphical_height() const;
+      void hide_prev_frame();
 
     private:
       X11_Window* parent_window;
+      geometry::Rectangle prev_frame;
   };
 }
 
