@@ -44,9 +44,11 @@ namespace views {
   }
 
   void GameMenu::Item::show_text() const {
+    const auto& window_color_scheme = x_window->get_color_scheme();
+
     XSetForeground(x_window->x_display.display, 
         x_window->graphical_context, 
-        x_window->win_sets.font_color);
+        window_color_scheme.at(ui::ColorSchemeID::FontColor));
 
     XDrawString(x_window->x_display.display, 
         x_window->window, 

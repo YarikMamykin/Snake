@@ -16,14 +16,9 @@
 namespace xlib {
 
   struct WindowSettings {
-    int x;
-    int y;
-    unsigned int w;
-    unsigned int h;
-    unsigned int border_width;
-    unsigned long border_color;
-    unsigned long backgnd_color;
-    unsigned long font_color;
+    geometry::Rectangle frame;
+    abstractions::ui::COLOR_SCHEME_TYPE color_scheme;
+    const unsigned int border_width;
     std::string name;
     std::string font_name;
   };
@@ -52,8 +47,6 @@ namespace xlib {
     Window window;
     X11_Display x_display;
     std::shared_ptr<views::View> view;
-    WindowSettings win_sets;
-    std::string msg;
     GC graphical_context;
     XFontStruct* font_info;
   };

@@ -6,22 +6,18 @@
 namespace xlib {
 
   X11_Window::X11_Window(views::ViewID viewID, const WindowSettings& win_sets) 
-    : abstractions::ui::AWindow({win_sets.x, win_sets.y, win_sets.w, win_sets.h}, abstractions::ui::COLOR_SCHEME_TYPE())
+    : abstractions::ui::AWindow(win_sets.frame, win_sets.color_scheme)
     , x_display()
-    , win_sets(win_sets)
-    , msg("Hello, World!") 
     , graphical_context(DefaultGC(x_display.display, XDefaultScreen(x_display.display))) {
 
         // create window
         window = XCreateSimpleWindow(x_display.display,
             RootWindow(x_display.display, XDefaultScreen(x_display.display)),
-            win_sets.x,
-            win_sets.y,
-            win_sets.w,
-            win_sets.h,
+            this->frame.x, this->frame.y, this->frame.width, this->frame.height,
             win_sets.border_width, 
-            win_sets.border_color, 
-            win_sets.backgnd_color);
+            this->color_scheme.at(ui::ColorSchemeID::FrameColor), 
+            this->color_scheme.at(ui::ColorSchemeID::BackgroundColor));
+
         XStoreName(x_display.display, window, win_sets.name.c_str());
         font_info = XLoadQueryFont(x_display.display, win_sets.font_name.c_str());
         if(!font_info) {
@@ -60,7 +56,7 @@ namespace xlib {
   void X11_Window::redraw_background() const {
     XFlushGC(x_display.display, graphical_context);
     XFlush(x_display.display);
-    XSetForeground(x_display.display, graphical_context, win_sets.backgnd_color);
+    XSetForeground(x_display.display, graphical_context, this->color_scheme.at(ui::ColorSchemeID::BackgroundColor));
     XFillRectangle(x_display.display, window, graphical_context, frame.x, frame.y, frame.width, frame.height);
   }
 

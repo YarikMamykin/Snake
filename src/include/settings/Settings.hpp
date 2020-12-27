@@ -8,17 +8,21 @@ namespace settings {
   class Settings final {
     Settings() 
     : win_sets({ 
-        .x = 10,
-        .y = 10,
-        .w = 200U,
-        .h = 200U,
+        { 
+          .x = 0,
+          .y = 0,
+          .width = 200U,
+          .height = 200U
+        },
+        {
+          { ui::ColorSchemeID::FrameColor, (255L << 16) },
+          { ui::ColorSchemeID::BackgroundColor, (0L) },
+          { ui::ColorSchemeID::FontColor, (255L << 8) },
+        },
         .border_width = 1U,
-        .border_color = (255L << 16),
-        .backgnd_color = (0L),
-        .font_color = (255L << 8),
         .name = "Snake",
         .font_name = "*-courier-*-24-*"
-        })
+      })
     , snake_speed(10U)
     , snake_color((255U << 8))
     , snake_timeout(50u)
