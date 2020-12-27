@@ -34,9 +34,10 @@ namespace abstractions {
         virtual const geometry::Rectangle get_frame() const { return this->frame; }
         virtual bool hovered_by_mouse(const int& x, const int& y) const { return this->frame.has_point({x,y}); }
 
-        // Colors setters
+        // Colors setters/getters
         virtual void set_color_scheme(const COLOR_SCHEME_TYPE& color_scheme) { this->color_scheme = color_scheme; }
         virtual void update_color_scheme(const unsigned char& key, const unsigned long& value) { this->color_scheme[key] = value; }
+        virtual const COLOR_SCHEME_TYPE& get_color_scheme() { return this->color_scheme; }
 
         // Frame manipulations
         virtual void move(const int& x, const int& y) {
