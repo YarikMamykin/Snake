@@ -44,6 +44,10 @@ namespace geometry {
       return { .x = x, .y = y };
     }
 
+    Point center() const {
+      return { .x = width/2 + x, .y = height/2 + y };
+    }
+
     void move(const int& x, const int& y) {
       this->x += x;
       this->y += y;
@@ -52,6 +56,11 @@ namespace geometry {
     void set_position(const int& x, const int& y) {
       this->x = x;
       this->y = y;
+    }
+
+    void set_center(const int& x, const int& y) {
+      this->x = x - this->width/2;
+      this->y = y - this->height/2;
     }
 
     const std::string to_string() const {
