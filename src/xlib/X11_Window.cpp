@@ -42,12 +42,15 @@ namespace xlib {
 
   void X11_Window::show_frame(bool) { }
 
-  void X11_Window::expose() {
+  void X11_Window::update_window_frame() {
     XWindowAttributes win_attr;
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
     this->frame.width = win_attr.width;
     this->frame.height = win_attr.height;
+  }
 
+  void X11_Window::expose() {
+    update_window_frame();
     if (view) {
       view->activate();
     }

@@ -39,6 +39,7 @@ namespace xlib {
     void expose() override;
     void change_view(const int viewID) override;
     std::shared_ptr<views::View> get_view() const override;
+    void update_window_frame();
 
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;
