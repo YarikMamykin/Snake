@@ -35,27 +35,29 @@ namespace views {
   }
 
   GameMenu::GameMenu(xlib::X11_Window* x_window) 
-  : parent_window(x_window) {
-    items.emplace_back(Item(x_window, NewGameItemName, [x_window](const KeySym&& key_sym) {
+  : parent_window(x_window) 
+  , menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme) {
+    std::unique_ptr<abstractions::ui::Object> menu_item;
+    menu_item.reset(new Item(x_window, NewGameItemName, [x_window](const KeySym&& key_sym) {
           switch(key_sym) {
             case XK_Return: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::ACTION); break;
           }}));
-    items.emplace_back(Item(x_window, ScoreItemName, empty_key_press_handler));
-    items.emplace_back(Item(x_window, SettingsItemName, [x_window](const KeySym&& key_sym) {
+    menu.add_item(std::move(menu_item));
+
+    menu_item.reset(new Item(x_window, ScoreItemName, empty_key_press_handler));
+    menu.add_item(std::move(menu_item));
+
+    menu_item.reset(new Item(x_window, SettingsItemName, [x_window](const KeySym&& key_sym) {
           switch(key_sym) {
             case XK_Return: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::SETTINGS); break;
           }}));
-    items.emplace_back(Item(x_window, ExitItemName, [x_window](const KeySym&& key_sym) {
+    menu.add_item(std::move(menu_item));
+    
+    menu_item.reset(new Item(x_window, ExitItemName, [x_window](const KeySym&& key_sym) {
           switch(key_sym) {
             case XK_Return: helpers::Helper::SendExitApplicationEvent(x_window); break;
           }}));
-
-    current_item = items.begin();
-    current_item->set_focused(true);
-
-    for(auto& item : items) {
-      items_layout.add(&item);
-    }
+    menu.add_item(std::move(menu_item));
   }
 
   GameMenu::~GameMenu() {
@@ -66,49 +68,26 @@ namespace views {
   }
 
   void GameMenu::update() {
-    current_item->set_focused(true);
-    ui::WindowAnchorHandler<decltype(items_layout)> anchor_handler(&items_layout, parent_window);
-    items_layout.update();
+    ui::WindowAnchorHandler<decltype(menu)> anchor_handler(&menu, parent_window);
+    menu.get_current_item()->get()->set_focused(true);
+    menu.show(true);
   }
 
   void GameMenu::deactivate() { }
 
   void GameMenu::handle_key_press(const KeySym&& key_sym) {
     switch(key_sym) {
-      case XK_Down: move_to_next_item(); break;
-      case XK_Up: move_to_prev_item(); break;
-      case XK_Return: current_item->handle_key_press(std::move(key_sym)); break; 
+      case XK_Down: menu.move_to_next_item(); break;
+      case XK_Up: menu.move_to_prev_item(); break;
+      case XK_Return: 
+                  {
+                    events::KeyPressHandler* current_item = static_cast<Item*>(menu.get_current_item()->get());
+                    current_item->handle_key_press(std::move(key_sym)); 
+                    break; 
+                  }
     }
 
     update();
-  }
-
-  void GameMenu::move_to_next_item() {
-    for(auto& item : items) {
-      item.set_focused(false);
-    }
-
-    if(current_item == --items.end()) {
-      current_item = items.begin();
-      return;
-    }
-
-    current_item = std::next(current_item);
-    return;
-  }
-
-  void GameMenu::move_to_prev_item() {
-    for(auto& item : items) {
-      item.set_focused(false);
-    }
-
-    if(current_item == items.begin()) {
-      current_item = --items.end();
-      return;
-    }
-
-    current_item = std::prev(current_item);
-    return;
   }
 
   const int GameMenu::get_event_handling_mask() const {

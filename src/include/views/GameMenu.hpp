@@ -6,10 +6,8 @@
 #include "X11_TextLabel.hpp"
 #include <list>
 #include <functional>
-#include "MouseMotionHandler.hpp"
-#include "MouseButtonPressHandler.hpp"
 #include "KeyPressHandler.hpp"
-#include "AlignHandler.hpp"
+#include "X11_Menu.hpp"
 
 namespace views {
 
@@ -38,17 +36,15 @@ namespace views {
       void deactivate() override;
       void handle_key_press(const KeySym&& key_sym) override;
       const int get_event_handling_mask() const override;
+
+    private:
+      void update();
       void move_to_next_item();
       void move_to_prev_item();
 
     private:
-      void update();
-
-    private:
       xlib::X11_Window* parent_window;
-      std::list<Item> items;
-      std::list<Item>::iterator current_item;
-      ui::AlignHandler<Item, ui::LayoutType::VERTICAL> items_layout;
+      xlib::X11_Menu menu;
   };
 }
 
