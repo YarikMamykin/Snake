@@ -9,7 +9,6 @@ namespace abstractions {
     class TextLabel : public Object {
       protected:
         std::string text;
-        bool focus;
 
         TextLabel() : Object() {}
         TextLabel(const std::string& text, 
@@ -21,8 +20,6 @@ namespace abstractions {
       public:
         virtual void set_text(const std::string& text) { this->text = text; }
         virtual const std::string get_text() const { return this->text; }
-        virtual void set_focused(bool focus) { this->focus = focus; }
-        virtual bool focused() const { return this->focus; }
 
         virtual ~TextLabel() {};
     };
