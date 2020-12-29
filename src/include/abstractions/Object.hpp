@@ -10,17 +10,19 @@ namespace abstractions {
 
     class Object {
       protected:
-        // geometry::Rectangle prev_frame;
         geometry::Rectangle frame;
         COLOR_SCHEME_TYPE color_scheme;
+        bool focus;
 
         Object()
         : frame()
-        , color_scheme() {}
+        , color_scheme() 
+        , focus(false) {}
 
         Object(const geometry::Rectangle& frame, const COLOR_SCHEME_TYPE& color_scheme)
         : frame(frame)
-        , color_scheme(color_scheme) {}
+        , color_scheme(color_scheme) 
+        , focus(false) {}
 
       public:
         virtual void show(bool show_flag) = 0;
@@ -41,15 +43,20 @@ namespace abstractions {
 
         // Frame manipulations
         virtual void move(const int& x, const int& y) {
-          this->frame.x += x;
-          this->frame.y += y;
+          this->frame.move(x,y);
         }
         virtual void set_position(const int& x, const int& y) {
-          this->frame.x = x;
-          this->frame.y = y;
+          this->frame.set_position(x,y);
+        }
+        virtual void set_center(const int& x, const int& y) {
+          this->frame.set_center(x,y);
         }
         virtual void set_width(const unsigned int& width) { this->frame.width = width; }
         virtual void set_height(const unsigned int& height) { this->frame.height = height; }
+
+        // Focus setters/getters
+        virtual void set_focused(bool focus) { this->focus = focus; }
+        virtual bool focused() const { return this->focus; }
 
         virtual ~Object() {};
     };
