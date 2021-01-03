@@ -29,7 +29,6 @@ namespace abstractions {
         , items_layout(layout) 
         , spacing(spacing) { }
 
-        virtual ~Menu() {};
 
         const unsigned int update_menu_height() const {
           switch(items_layout) {
@@ -186,6 +185,8 @@ namespace abstractions {
               }
             }
         };
+
+        virtual ~Menu() {};
     };
   }
 }
