@@ -5,10 +5,11 @@
 #include "X11_Window.hpp"
 #include "KeyPressHandler.hpp"
 #include "X11_TextLabel.hpp"
-#include "AlignHandler.hpp"
+#include "X11_Menu.hpp"
 
 #include <string>
 #include <list>
+#include <memory>
 
 namespace views {
 
@@ -16,20 +17,16 @@ namespace views {
                              public events::KeyPressHandler {
 
     private:
-      typedef ui::AlignHandler<xlib::X11_TextLabel, ui::LayoutType::HORIZONTAL> LAYOUT_TYPE;
-      typedef ui::AlignHandler<LAYOUT_TYPE, ui::LayoutType::VERTICAL> V_LAYOUT_TYPE;
+      struct Setting : public xlib::X11_Menu {
+        Setting(std::unique_ptr<abstractions::ui::TextLabel> key_presenter, 
+                std::unique_ptr<abstractions::ui::Object> value_presenter,
+                xlib::X11_Window* x_window);
 
-      struct Setting {
-        std::string key;
-        unsigned int value;
-        bool active;
+        void increase();
+        void decrease();
 
-        xlib::X11_TextLabel key_label;
-        xlib::X11_TextLabel value_label;
-
-        Setting(const std::string& key, unsigned int value, xlib::X11_Window* parent_window);
-        void set_active(bool active);
-        void update_value(const unsigned int& new_value);
+        std::function<void()> increase_binder;
+        std::function<void()> decrease_binder;
       };
 
     public:
@@ -43,17 +40,30 @@ namespace views {
 
     private:
       void update();
-      void move_to_next_item();
-      void move_to_prev_item();
-      void increase_setting_value();
-      void decrease_setting_value();
+      template<typename ValuePresenterType, typename ValueType, typename ValuePresentingObjectType> std::unique_ptr<xlib::X11_Menu>
+        construct_menu_item(const std::string& name, const ValueType& value, 
+                            const abstractions::ui::COLOR_SCHEME_TYPE& key_color_scheme,
+                            const abstractions::ui::COLOR_SCHEME_TYPE& value_color_scheme,
+                            std::unique_ptr<ValuePresentingObjectType> value_presenting_ui_object,
+                            xlib::X11_Window* x_window) {
+          std::unique_ptr<xlib::X11_TextLabel> key_presenter(new xlib::X11_TextLabel(name, {}, key_color_scheme, x_window));
+          std::unique_ptr<ValuePresenterType> value_presenter(new ValuePresenterType(value, std::move(value_presenting_ui_object)));
+
+          auto increase_binder = value_presenter->bind_increase_value_trigger();
+          auto decrease_binder = value_presenter->bind_decrease_value_trigger();
+
+          auto setting = new Setting(std::move(key_presenter), std::move(value_presenter), x_window);
+
+          setting->increase_binder = increase_binder;
+          setting->decrease_binder = decrease_binder;
+
+          std::unique_ptr<xlib::X11_Menu> menu_item(setting);
+          return menu_item;
+        }
 
     private:
       xlib::X11_Window* x_window;
-      std::list<Setting> settings_items;
-      std::list<Setting>::iterator current_active_item;
-      std::list<LAYOUT_TYPE> labels_layout;
-      V_LAYOUT_TYPE horizontal_layout;
+      xlib::X11_Menu menu;
   };
 }
 
