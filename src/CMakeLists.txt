@@ -13,11 +13,13 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/settings)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/timing)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/views)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xlib)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/ui)
 
 set(XLIB_UI_SRC ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Display.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Window.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_TextLabel.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Menu.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_ColorLabel.cpp
 )
 
 set(EVENTS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/events/EventHandler.cpp)
@@ -33,6 +35,9 @@ set(GAME_VIEW_SRC ${CMAKE_CURRENT_SOURCE_DIR}/views/GameMenu.cpp
 
 set(TIMER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/timing/Timer.cpp)
 set(SNAKE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/game_objects/Snake.cpp)
+set(PRESENTERS_SRC 
+  ${CMAKE_CURRENT_SOURCE_DIR}/ui/UlongValuePresenter.cpp 
+  ${CMAKE_CURRENT_SOURCE_DIR}/ui/ColorValuePresenter.cpp)
 
 set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 
@@ -42,7 +47,8 @@ add_library(game_view STATIC ${GAME_VIEW_SRC})
 add_library(helpers STATIC ${HELPERS_SRC})
 add_library(timer STATIC ${TIMER_SRC})
 add_library(snake STATIC ${SNAKE_SRC})
+add_library(presenters STATIC ${PRESENTERS_SRC})
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(events xlib_ui)
-target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers timer snake)
+target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers timer snake presenters)
