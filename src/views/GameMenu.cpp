@@ -36,7 +36,7 @@ namespace views {
 
   GameMenu::GameMenu(xlib::X11_Window* x_window) 
   : parent_window(x_window) 
-  , menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme) {
+  , menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme, x_window) {
     std::unique_ptr<abstractions::ui::Object> menu_item;
     menu_item.reset(new Item(x_window, NewGameItemName, [x_window](const KeySym&& key_sym) {
           switch(key_sym) {
