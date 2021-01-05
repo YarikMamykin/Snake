@@ -89,8 +89,8 @@ namespace views {
       case XK_Escape: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU); break;
       case XK_Down: menu.move_to_next_item(); break;
       case XK_Up: menu.move_to_prev_item(); break;
-      case XK_KP_Add: static_cast<GameSettings::Setting*>(menu.get_current_item()->get())->increase(); break;
-      case XK_KP_Subtract: static_cast<GameSettings::Setting*>(menu.get_current_item()->get())->decrease(); break;
+      case XK_KP_Add: current_item_as_setting(menu)->increase(); break;
+      case XK_KP_Subtract: current_item_as_setting(menu)->decrease(); break;
     }
 
     update();
@@ -102,4 +102,7 @@ namespace views {
     menu.show(true);
   }
 
+  GameSettings::Setting* GameSettings::current_item_as_setting(const xlib::X11_Menu& menu) {
+    return static_cast<GameSettings::Setting*>(menu.get_current_item()->get());
+  }
 }

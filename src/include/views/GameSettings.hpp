@@ -60,6 +60,8 @@ namespace views {
           return menu_item;
         }
 
+      static Setting* current_item_as_setting(const xlib::X11_Menu& menu);
+
     private:
       xlib::X11_Window* x_window;
       xlib::X11_Menu menu;
