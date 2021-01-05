@@ -7,7 +7,7 @@ namespace {
 
 namespace xlib {
 
-  X11_ColorLabel::X11_ColorLabel(const Color& color,
+  X11_ColorLabel::X11_ColorLabel(const color::Color& color,
                    const geometry::Rectangle& frame, 
                    const abstractions::ui::COLOR_SCHEME_TYPE& color_scheme,
                    xlib::X11_Window* x_window) 

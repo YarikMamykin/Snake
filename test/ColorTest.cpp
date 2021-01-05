@@ -1,9 +1,9 @@
 #include "gtest/gtest.h"
-#include "ColorLabel.hpp"
+#include "Color.hpp"
 
 namespace colors_test {
 
-  using Color = abstractions::ui::ColorLabel::Color;
+  using Color = color::Color;
 
 TEST(ColorTest, CreateRedFromLong) {
   Color color(255UL << 16);

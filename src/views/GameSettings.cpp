@@ -64,7 +64,7 @@ namespace views {
             x_window)));
 
     menu.add_item(std::move(construct_menu_item<ui::ColorValuePresenter, 
-                                                abstractions::ui::ColorLabel::Color, 
+                                                color::Color, 
                                                 xlib::X11_ColorLabel>(
             "Snake color: ", 
             settings::Settings::settings().snake_color, 

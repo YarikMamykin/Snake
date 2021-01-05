@@ -8,6 +8,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/include)
 include_directories(${CMAKE_SOURCE_DIR}/src/include/abstractions)
 include_directories(${CMAKE_SOURCE_DIR}/src/include/abstractions/event_handling)
 include_directories(${CMAKE_SOURCE_DIR}/src/include/constants)
+include_directories(${CMAKE_SOURCE_DIR}/src/include/color)
 include_directories(${CMAKE_SOURCE_DIR}/src/include/events)
 include_directories(${CMAKE_SOURCE_DIR}/src/include/exceptions)
 include_directories(${CMAKE_SOURCE_DIR}/src/include/game_objects)
@@ -23,7 +24,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/include/ui)
 # Unit Tests
 ################################
 # Add test cpp file
-add_executable( runUnitTests gtestexample.cpp TimerTest.cpp RectangleTest.cpp ColorTest.cpp)
+add_executable( runUnitTests gtestexample.cpp TimerTest.cpp RectangleTest.cpp ColorTest.cpp ColorPalleteTest.cpp)
 # Link test executable against gtest & gtest_main
-target_link_libraries(runUnitTests gtest gtest_main xlib_ui events game_view helpers timer snake presenters)
+target_link_libraries(runUnitTests gtest gtest_main xlib_ui events game_view helpers timer snake presenters color)
 add_test( runUnitTests runUnitTests )
