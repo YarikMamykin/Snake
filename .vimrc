@@ -68,6 +68,9 @@ nmap <Leader><F7> :call RunTests()<CR>
 nmap <Leader><F8> :call BuildQuick()<CR>
 
 xmap <Space>p "py:vimgrep /<C-R>p/g ./**/*.hpp ./**/*.cpp<CR>
+function! SearchProject(pattern)
+  exec 'vimgrep /'.a:pattern.'/g ./**/*.hpp ./**/*.cpp'
+endfunction
 
 function! Switch()
   let filename = expand("%:t:r")
