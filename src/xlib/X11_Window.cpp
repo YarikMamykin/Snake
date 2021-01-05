@@ -1,7 +1,16 @@
 #include "X11_Window.hpp"
+#include "X11_TextLabel.hpp"
 #include "ViewFactory.hpp"
 #include "Helper.hpp"
 #include <iostream>
+
+namespace {
+  constants::COLOR_SCHEME_TYPE text_label_color_scheme = {
+    { ui::ColorSchemeID::BackgroundColor, color::Color(0UL) },
+    { ui::ColorSchemeID::TextColor, color::Color(~0UL) },
+    { ui::ColorSchemeID::FrameColor, color::Color(0UL) }
+  };
+}
 
 namespace xlib {
 
@@ -79,26 +88,10 @@ namespace xlib {
     XGetWindowAttributes(x_display.display, this->window, &win_attr);
 
     std::string coords_text = std::to_string(x) + std::string(" : ") + std::to_string(y);
-    const auto&& text_width = XTextWidth(this->font_info, coords_text.c_str(), coords_text.size()); 
-    const auto&& text_height = this->font_info->ascent + this->font_info->descent;
 
-    XSetForeground(this->x_display.display, this->graphical_context, 0L);
-    XFillRectangle(this->x_display.display, 
-        this->window, 
-        this->graphical_context, 
-        win_attr.width - text_width - 30, 
-        50-text_height,
-        win_attr.width,
-        text_height);
-
-    XSetForeground(this->x_display.display, this->graphical_context, ~0L);
-    XDrawString(this->x_display.display, 
-        this->window, 
-        this->graphical_context, 
-        win_attr.width - text_width - 10, 
-        50, 
-        coords_text.c_str(), 
-        coords_text.size()); 
+    X11_TextLabel text_label(coords_text, {}, text_label_color_scheme, this);
+    text_label.set_position(win_attr.width - text_label.get_width() - 30, 50-text_label.get_height());
+    text_label.show(true);
   }
 
   void X11_Window::handle_client_message(const long* data) {
