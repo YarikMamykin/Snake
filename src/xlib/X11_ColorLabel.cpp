@@ -17,15 +17,17 @@ namespace xlib {
   X11_ColorLabel::~X11_ColorLabel() {}
 
   void X11_ColorLabel::show(bool show_flag) {
-    if(show_flag) {
-      auto& display = x_window->x_display.display;
-      auto& graphical_context = x_window->graphical_context;
-      auto& window = x_window->window;
+    auto& display = x_window->x_display.display;
+    auto& graphical_context = x_window->graphical_context;
+    auto& window = x_window->window;
 
-      XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor]);
-      XFillRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
+    // hide
+    XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor]);
+    XFillRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
+
+    if(show_flag) {
       show_frame(focused());
-      XSetForeground(display, graphical_context, this->color.to_long());
+      XSetForeground(display, graphical_context, this->color_pallete.get_current_color().to_long());
       XFillRectangle(display, window, graphical_context, 
           this->frame.x + margin,
           this->frame.y + margin,

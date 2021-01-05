@@ -8,7 +8,6 @@
 #include "X11_Menu.hpp"
 
 #include <string>
-#include <list>
 #include <memory>
 
 namespace views {
