@@ -42,6 +42,8 @@ namespace views {
       void move_to_next_item();
       void move_to_prev_item();
 
+      static events::KeyPressHandler* current_item_as_key_press_handler(const xlib::X11_Menu& menu);
+
     private:
       xlib::X11_Window* parent_window;
       xlib::X11_Menu menu;

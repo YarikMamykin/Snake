@@ -80,14 +80,17 @@ namespace views {
       case XK_Down: menu.move_to_next_item(); break;
       case XK_Up: menu.move_to_prev_item(); break;
       case XK_Return: 
-                  {
-                    events::KeyPressHandler* current_item = static_cast<Item*>(menu.get_current_item()->get());
-                    current_item->handle_key_press(std::move(key_sym)); 
-                    break; 
-                  }
+      {
+        current_item_as_key_press_handler(menu)->handle_key_press(std::move(key_sym)); 
+        break; 
+      }
     }
 
     update();
+  }
+
+  events::KeyPressHandler* GameMenu::current_item_as_key_press_handler(const xlib::X11_Menu& menu) {
+    return static_cast<GameMenu::Item*>(menu.get_current_item()->get());
   }
 
   const int GameMenu::get_event_handling_mask() const {
