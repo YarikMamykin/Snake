@@ -17,7 +17,7 @@ namespace game_objects {
   void Snake::SnakeHead::hide(xlib::X11_Window *x_window) {
     XSetLineAttributes(x_window->x_display.display, x_window->graphical_context, 3,0,0,0);
     const auto& window_color_scheme = x_window->get_color_scheme();
-    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(ui::ColorSchemeID::BackgroundColor));
+    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(ui::ColorSchemeID::BackgroundColor).to_long());
     XFillRectangle(x_window->x_display.display,
         x_window->window,
         x_window->graphical_context,
@@ -38,7 +38,7 @@ namespace game_objects {
   void Snake::SnakeHead::show(xlib::X11_Window *x_window) {
     XSetLineAttributes(x_window->x_display.display, x_window->graphical_context, 3,0,0,0);
     const auto& window_color_scheme = x_window->get_color_scheme();
-    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(ui::ColorSchemeID::BackgroundColor));
+    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(ui::ColorSchemeID::BackgroundColor).to_long());
     XDrawRectangle(x_window->x_display.display,
         x_window->window,
         x_window->graphical_context,
@@ -46,7 +46,7 @@ namespace game_objects {
         frame.y,
         frame.width,
         frame.height);
-    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(ui::ColorSchemeID::FontColor));
+    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(ui::ColorSchemeID::FontColor).to_long());
     XFillRectangle(x_window->x_display.display,
         x_window->window,
         x_window->graphical_context,

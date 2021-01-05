@@ -16,7 +16,17 @@ void LaunchApp() {
   using namespace events;
   XInitThreads();
 
-  auto x_window = std::make_shared<X11_Window>(views::ViewID::MENU, settings::Settings::settings().win_sets);
+  configuration::Settings settings;
+
+  xlib::WindowSettings win_sets = {
+    .frame = settings.window_frame,
+    .color_scheme = settings.window_color_scheme,
+    .border_width = settings.border_width,
+    .name = settings.window_name,
+    .font_name = settings.font_name
+  };
+
+  auto x_window = std::make_shared<X11_Window>(views::ViewID::MENU, win_sets);
   auto x_window_as_event_handling_object = std::dynamic_pointer_cast<EventHandlingObject>(x_window);
   auto view_as_event_handling_object = std::dynamic_pointer_cast<EventHandlingObject>(x_window->get_view());
   x_window->show(true);

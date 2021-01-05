@@ -2,12 +2,16 @@
 #define SRC_INCLUDE_CONSTANTS_CONSTANTS_HPP
 
 #include "XHeaders.hpp"
+#include <map>
+#include "Color.hpp"
 
 namespace constants {
   enum class HandlerKeys {
     WINDOW,
     WINDOW_VIEW
   };
+
+  typedef std::map<unsigned char, color::Color> COLOR_SCHEME_TYPE;
 }
 
 namespace events {

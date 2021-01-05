@@ -41,8 +41,8 @@ namespace views {
       void update();
       template<typename ValuePresenterType, typename ValueType, typename ValuePresentingObjectType> std::unique_ptr<xlib::X11_Menu>
         construct_menu_item(const std::string& name, const ValueType& value, 
-                            const abstractions::ui::COLOR_SCHEME_TYPE& key_color_scheme,
-                            const abstractions::ui::COLOR_SCHEME_TYPE& value_color_scheme,
+                            const constants::COLOR_SCHEME_TYPE& key_color_scheme,
+                            const constants::COLOR_SCHEME_TYPE& value_color_scheme,
                             std::unique_ptr<ValuePresentingObjectType> value_presenting_ui_object,
                             xlib::X11_Window* x_window) {
           std::unique_ptr<xlib::X11_TextLabel> key_presenter(new xlib::X11_TextLabel(name, {}, key_color_scheme, x_window));

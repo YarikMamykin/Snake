@@ -11,7 +11,7 @@ namespace abstractions {
         ColorLabel() : Object() {}
         ColorLabel(const color::Color& color,
                    const geometry::Rectangle& frame, 
-                   const abstractions::ui::COLOR_SCHEME_TYPE& color_scheme) 
+                   const constants::COLOR_SCHEME_TYPE& color_scheme) 
         : Object(frame, color_scheme) 
         , color_pallete(color) {}
 

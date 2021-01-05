@@ -11,7 +11,7 @@ namespace abstractions {
     class AWindow : public Object {
       protected:
         AWindow() : Object() {}
-        AWindow(const geometry::Rectangle& frame, const COLOR_SCHEME_TYPE& color_scheme) 
+        AWindow(const geometry::Rectangle& frame, const constants::COLOR_SCHEME_TYPE& color_scheme) 
         : Object(frame, color_scheme) {}
         
       public:

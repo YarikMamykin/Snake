@@ -10,7 +10,7 @@ namespace {
 
   auto empty_key_press_handler = [](const KeySym&& key_sym) {};
 
-  abstractions::ui::COLOR_SCHEME_TYPE text_labels_color_scheme = {
+  constants::COLOR_SCHEME_TYPE text_labels_color_scheme = {
     { ui::ColorSchemeID::BackgroundColor, 0UL },
     { ui::ColorSchemeID::TextColor, (255UL << 8) },
     { ui::ColorSchemeID::FrameColor, (255UL << 16) }

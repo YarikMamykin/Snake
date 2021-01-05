@@ -15,8 +15,8 @@ namespace xlib {
             RootWindow(x_display.display, XDefaultScreen(x_display.display)),
             this->frame.x, this->frame.y, this->frame.width, this->frame.height,
             win_sets.border_width, 
-            this->color_scheme.at(ui::ColorSchemeID::FrameColor), 
-            this->color_scheme.at(ui::ColorSchemeID::BackgroundColor));
+            this->color_scheme.at(ui::ColorSchemeID::FrameColor).to_long(), 
+            this->color_scheme.at(ui::ColorSchemeID::BackgroundColor).to_long());
 
         XStoreName(x_display.display, window, win_sets.name.c_str());
         font_info = XLoadQueryFont(x_display.display, win_sets.font_name.c_str());
@@ -59,7 +59,7 @@ namespace xlib {
   void X11_Window::redraw_background() const {
     XFlushGC(x_display.display, graphical_context);
     XFlush(x_display.display);
-    XSetForeground(x_display.display, graphical_context, this->color_scheme.at(ui::ColorSchemeID::BackgroundColor));
+    XSetForeground(x_display.display, graphical_context, this->color_scheme.at(ui::ColorSchemeID::BackgroundColor).to_long());
     XFillRectangle(x_display.display, window, graphical_context, frame.x, frame.y, frame.width, frame.height);
   }
 

@@ -2,16 +2,15 @@
 #define SRC_INCLUDE_INTERFACES_OBJECT_HPP
 
 #include "Rectangle.hpp"
-#include <map>
+#include "Constants.hpp"
 
 namespace abstractions {
   namespace ui {
-    typedef std::map<unsigned char, unsigned long> COLOR_SCHEME_TYPE;
 
     class Object {
       protected:
         geometry::Rectangle frame;
-        COLOR_SCHEME_TYPE color_scheme;
+        constants::COLOR_SCHEME_TYPE color_scheme;
         bool focus;
 
         Object()
@@ -19,7 +18,7 @@ namespace abstractions {
         , color_scheme() 
         , focus(false) {}
 
-        Object(const geometry::Rectangle& frame, const COLOR_SCHEME_TYPE& color_scheme)
+        Object(const geometry::Rectangle& frame, const constants::COLOR_SCHEME_TYPE& color_scheme)
         : frame(frame)
         , color_scheme(color_scheme) 
         , focus(false) {}
@@ -37,9 +36,9 @@ namespace abstractions {
         virtual bool hovered_by_mouse(const int& x, const int& y) const { return this->frame.has_point({x,y}); }
 
         // Colors setters/getters
-        virtual void set_color_scheme(const COLOR_SCHEME_TYPE& color_scheme) { this->color_scheme = color_scheme; }
+        virtual void set_color_scheme(const constants::COLOR_SCHEME_TYPE& color_scheme) { this->color_scheme = color_scheme; }
         virtual void update_color_scheme(const unsigned char& key, const unsigned long& value) { this->color_scheme[key] = value; }
-        virtual const COLOR_SCHEME_TYPE& get_color_scheme() { return this->color_scheme; }
+        virtual const constants::COLOR_SCHEME_TYPE& get_color_scheme() { return this->color_scheme; }
 
         // Frame manipulations
         virtual void move(const int& x, const int& y) {

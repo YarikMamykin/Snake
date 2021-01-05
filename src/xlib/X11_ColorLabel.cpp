@@ -9,7 +9,7 @@ namespace xlib {
 
   X11_ColorLabel::X11_ColorLabel(const color::Color& color,
                    const geometry::Rectangle& frame, 
-                   const abstractions::ui::COLOR_SCHEME_TYPE& color_scheme,
+                   const constants::COLOR_SCHEME_TYPE& color_scheme,
                    xlib::X11_Window* x_window) 
   : abstractions::ui::ColorLabel(color, frame, color_scheme) 
   , x_window(x_window) { }
@@ -22,7 +22,7 @@ namespace xlib {
     auto& window = x_window->window;
 
     // hide
-    XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor]);
+    XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor].to_long());
     XFillRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
 
     if(show_flag) {
@@ -41,7 +41,7 @@ namespace xlib {
       auto& display = x_window->x_display.display;
       auto& graphical_context = x_window->graphical_context;
       auto& window = x_window->window;
-      XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::FrameColor]);
+      XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::FrameColor].to_long());
       XDrawRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
     }
   }

@@ -7,19 +7,19 @@
 #include "ColorValuePresenter.hpp"
 
 namespace {
-  abstractions::ui::COLOR_SCHEME_TYPE key_color_scheme = {
+  constants::COLOR_SCHEME_TYPE key_color_scheme = {
     { ui::ColorSchemeID::BackgroundColor, 0UL },
     { ui::ColorSchemeID::FrameColor, ~0UL },
     { ui::ColorSchemeID::TextColor, (255UL << 16) }
   };
 
-  abstractions::ui::COLOR_SCHEME_TYPE value_color_scheme = {
+  constants::COLOR_SCHEME_TYPE value_color_scheme = {
     { ui::ColorSchemeID::BackgroundColor, 0UL },
     { ui::ColorSchemeID::FrameColor, ~0UL },
     { ui::ColorSchemeID::TextColor, (127UL << 16)|(255UL << 8)|212UL }
   };
 
-  abstractions::ui::COLOR_SCHEME_TYPE menu_color_scheme = {
+  constants::COLOR_SCHEME_TYPE menu_color_scheme = {
     { ui::ColorSchemeID::BackgroundColor, 0UL },
     { ui::ColorSchemeID::FrameColor, ~0UL }
   };
@@ -48,16 +48,16 @@ namespace views {
 
   GameSettings::GameSettings(xlib::X11_Window* x_window) 
   : x_window(x_window)  
-  , menu(ui::LayoutType::VERTICAL, {}, abstractions::ui::COLOR_SCHEME_TYPE(), x_window, 20U) {
+  , menu(ui::LayoutType::VERTICAL, {}, constants::COLOR_SCHEME_TYPE(), x_window, 20U) {
 
-    std::unique_ptr<xlib::X11_TextLabel> text_label(new xlib::X11_TextLabel(std::to_string(settings::Settings::settings().snake_speed), {}, value_color_scheme, x_window));
+    std::unique_ptr<xlib::X11_TextLabel> text_label(new xlib::X11_TextLabel(std::to_string(configuration::Settings().snake_speed), {}, value_color_scheme, x_window));
     std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(0UL, {.width = 100U, .height = text_label->get_height()}, value_color_scheme, x_window));
 
     menu.add_item(std::move(construct_menu_item<ui::UlongValuePresenter, 
                                                 unsigned long, 
                                                 xlib::X11_TextLabel>(
             "Snake speed: ", 
-            settings::Settings::settings().snake_speed, 
+            configuration::Settings().snake_speed, 
             key_color_scheme,
             value_color_scheme,
             std::move(text_label),
@@ -67,7 +67,7 @@ namespace views {
                                                 color::Color, 
                                                 xlib::X11_ColorLabel>(
             "Snake color: ", 
-            settings::Settings::settings().snake_color, 
+            configuration::Settings().snake_color, 
             key_color_scheme,
             value_color_scheme,
             std::move(color_label),
