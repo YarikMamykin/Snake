@@ -22,7 +22,7 @@ namespace events {
                          break; 
                        }
           case KeyPress: { 
-                           handle_key_press(XLookupKeysym(&event.xkey, 0)); 
+                           handle_key_press(XLookupKeysym(&event.xkey, 0), std::move(event.xkey.state)); 
                            break; 
                          }
           case ButtonPress: { 
@@ -45,7 +45,7 @@ namespace events {
     }
   }
 
-  void EventHandler::handle_key_press(const KeySym&& key_sym) {
+  void EventHandler::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
     for(auto& listener : listeners) {
       if(listener.second.expired()) {
         continue;
@@ -54,7 +54,7 @@ namespace events {
       if(events::HandlersMask::KeyPressHandlerMask & listener_pointer->get_event_handling_mask()) {
         auto listener_as_event_handler = as_event_handler<KeyPressHandler>(listener_pointer);
         if(listener_as_event_handler) {
-          listener_as_event_handler->handle_key_press(std::move(key_sym));
+          listener_as_event_handler->handle_key_press(std::move(key_sym), std::move(mask));
         }
       }
     }

@@ -37,7 +37,7 @@ namespace views {
     XFlush(x_window->x_display.display); // Necessary in case of multithreading!
   }
 
-  void GameAction::handle_key_press(const KeySym&& key_sym) {
+  void GameAction::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
     switch(key_sym) {
       case XK_Escape:
         {

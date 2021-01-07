@@ -84,7 +84,7 @@ namespace views {
   void GameSettings::deactivate() {
   }
 
-  void GameSettings::handle_key_press(const KeySym&& key_sym) {
+  void GameSettings::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
     switch(key_sym) {
       case XK_Escape: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU); break;
       case XK_Down: menu.move_to_next_item(); break;

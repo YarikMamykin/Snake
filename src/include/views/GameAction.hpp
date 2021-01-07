@@ -19,7 +19,7 @@ namespace views {
     public:
       virtual void activate() override;
       virtual void deactivate() override;
-      virtual void handle_key_press(const KeySym&& key_sym) override;
+      virtual void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
 
     public:
       game_objects::Snake snake;

@@ -28,7 +28,7 @@ namespace views {
   GameMenu::Item::~Item() {
   }
 
-  void GameMenu::Item::handle_key_press(const KeySym&& key_sym) {
+  void GameMenu::Item::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
     if(this->focused()) {
       this->key_press_handler(std::move(key_sym));
     }
@@ -75,13 +75,13 @@ namespace views {
 
   void GameMenu::deactivate() { }
 
-  void GameMenu::handle_key_press(const KeySym&& key_sym) {
+  void GameMenu::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
     switch(key_sym) {
       case XK_Down: menu.move_to_next_item(); break;
       case XK_Up: menu.move_to_prev_item(); break;
       case XK_Return: 
       {
-        current_item_as_key_press_handler(menu)->handle_key_press(std::move(key_sym)); 
+        current_item_as_key_press_handler(menu)->handle_key_press(std::move(key_sym), std::move(mask)); 
         break; 
       }
     }

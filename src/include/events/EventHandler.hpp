@@ -19,7 +19,7 @@ namespace events {
 
     void event_handler_loop(abstractions::ui::AWindow* x_window) override;
 
-    void handle_key_press(const KeySym&& key_sym) override;
+    void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
     void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;
