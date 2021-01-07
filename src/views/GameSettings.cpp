@@ -89,7 +89,11 @@ namespace views {
       case XK_Escape: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU); break;
       case XK_Down: menu.move_to_next_item(); break;
       case XK_Up: menu.move_to_prev_item(); break;
+      case XK_equal: if(!(mask & ShiftMask)) break;
+      case XK_Right:
       case XK_KP_Add: current_item_as_setting(menu)->increase(); break;
+      case XK_Left:
+      case XK_minus: if(mask == 0u) break;
       case XK_KP_Subtract: current_item_as_setting(menu)->decrease(); break;
     }
 
