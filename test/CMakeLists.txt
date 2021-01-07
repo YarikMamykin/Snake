@@ -24,7 +24,15 @@ include_directories(${CMAKE_SOURCE_DIR}/src/include/ui)
 # Unit Tests
 ################################
 # Add test cpp file
-add_executable( runUnitTests gtestexample.cpp TimerTest.cpp RectangleTest.cpp ColorTest.cpp ColorPalleteTest.cpp)
+add_executable( runUnitTests
+  gtestexample.cpp
+  TimerTest.cpp
+  RectangleTest.cpp
+  ColorTest.cpp
+  ColorPalleteTest.cpp
+  ObservableValueTest.cpp
+)
+
 # Link test executable against gtest & gtest_main
 target_link_libraries(runUnitTests gtest gtest_main xlib_ui events game_view helpers timer snake presenters color)
 add_test( runUnitTests runUnitTests )
