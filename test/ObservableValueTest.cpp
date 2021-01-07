@@ -47,5 +47,21 @@ namespace abstractions_testing {
     EXPECT_TRUE(value_changed_user2_callback_called);
   }
 
+  TEST(ObservableValueTest, UserDestroyedAndUnsubscribed) {
+    auto observable_value = std::make_shared<ObservableValue<int>>(1000);
+    ASSERT_EQ(1000, observable_value->get_value());
+
+    int value_changed_callback_called_counter = 0;
+    auto user1 = new ObservableValueUser<int>(observable_value, [&value_changed_callback_called_counter]() { 
+        ++value_changed_callback_called_counter;
+    });
+
+    user1->change_value(1);
+    EXPECT_EQ(1, value_changed_callback_called_counter);
+    delete user1;
+    observable_value->change_value(100);
+    EXPECT_EQ(100, observable_value->get_value());
+    EXPECT_EQ(1, value_changed_callback_called_counter);
+  }
 }
 
