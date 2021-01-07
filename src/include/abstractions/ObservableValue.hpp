@@ -25,7 +25,7 @@ namespace abstractions {
                                      std::function<void()> value_changed_callback = [](){}) 
       : observable_value(value) 
       , value_changed_callback(value_changed_callback) { 
-        value->add_listening_user(this);
+        observable_value->add_listening_user(this);
       }
 
       void value_changed() {
@@ -36,6 +36,10 @@ namespace abstractions {
         if(observable_value) {
           observable_value->change_value(new_value);
         }
+      }
+
+      ~ObservableValueUser<ValueType>() {
+        observable_value->delete_listening_user(this);
       }
   };
 
@@ -52,6 +56,10 @@ namespace abstractions {
 
       void add_listening_user(ObservableValueUser<ValueType>* user) {
         users.push_back(user);
+      }
+
+      void delete_listening_user(ObservableValueUser<ValueType>* user) {
+        users.remove(user);
       }
 
       void change_value(const ValueType& new_value) {
