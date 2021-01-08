@@ -18,7 +18,7 @@ namespace xlib {
       X11_TextLabel(X11_Window* parent_window);
       X11_TextLabel(const std::string& text, 
                     const geometry::Rectangle& frame, 
-                    const constants::COLOR_SCHEME_TYPE& color_scheme, 
+                    const color::COLOR_SCHEME_TYPE& color_scheme, 
                     X11_Window* parent_window);
       ~X11_TextLabel();
 

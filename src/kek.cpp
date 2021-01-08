@@ -14,16 +14,15 @@
 void LaunchApp() {
   using namespace xlib;
   using namespace events;
+  using namespace configuration;
   XInitThreads();
 
-  configuration::Settings settings;
-
   xlib::WindowSettings win_sets = {
-    .frame = settings.window_frame,
-    .color_scheme = settings.window_color_scheme,
-    .border_width = settings.border_width,
-    .name = settings.window_name,
-    .font_name = settings.font_name
+    .frame = abstractions::ObservableValueContainerWrapper::to_concrete_value<geometry::Rectangle>(Settings::get(ConfigID::WINDOW_FRAME))->get_value(),
+    .color_scheme = abstractions::ObservableValueContainerWrapper::to_concrete_value<color::COLOR_SCHEME_TYPE>(Settings::get(ConfigID::WINDOW_COLOR_SCHEME))->get_value(),
+    .border_width = abstractions::ObservableValueContainerWrapper::to_concrete_value<unsigned int>(Settings::get(ConfigID::WINDOW_BORDER_WIDTH))->get_value(),
+    .name = abstractions::ObservableValueContainerWrapper::to_concrete_value<std::string>(Settings::get(ConfigID::WINDOW_NAME))->get_value(),
+    .font_name = abstractions::ObservableValueContainerWrapper::to_concrete_value<std::string>(Settings::get(ConfigID::WINDOW_FONT_NAME))->get_value()
   };
 
   auto x_window = std::make_shared<X11_Window>(views::ViewID::MENU, win_sets);

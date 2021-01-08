@@ -8,7 +8,7 @@ namespace xlib {
 
   X11_TextLabel::X11_TextLabel(const std::string& text, 
                                const geometry::Rectangle& frame, 
-                               const constants::COLOR_SCHEME_TYPE& color_scheme, 
+                               const color::COLOR_SCHEME_TYPE& color_scheme, 
                                X11_Window* parent_window) 
   : abstractions::ui::TextLabel(text, frame, color_scheme)
   , parent_window(parent_window) {
@@ -28,7 +28,7 @@ namespace xlib {
       auto& graphical_context = parent_window->graphical_context;
       auto& window = parent_window->window;
 
-      XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor].to_long());
+      XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::BackgroundColor].to_long());
       XFillRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
     }
   }
@@ -40,7 +40,7 @@ namespace xlib {
       auto& window = parent_window->window;
 
       XSetLineAttributes(display, graphical_context, frame_weight,0,0,0);
-      XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::FrameColor].to_long());
+      XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::FrameColor].to_long());
       XDrawRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
     }
 
@@ -49,7 +49,7 @@ namespace xlib {
       auto& graphical_context = parent_window->graphical_context;
       auto& window = parent_window->window;
 
-      XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor].to_long());
+      XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::BackgroundColor].to_long());
       XDrawRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
     }
   }
@@ -62,10 +62,10 @@ namespace xlib {
     update_frame();
     hide_prev_frame();
 
-    XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor].to_long());
+    XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::BackgroundColor].to_long());
     XFillRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
 
-    XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::TextColor].to_long());
+    XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::TextColor].to_long());
     XDrawString(display, window, graphical_context, 
         this->frame.x + left_text_margin, 
         this->frame.y + (get_text_graphical_height() + top_text_margin / 2), 
@@ -94,7 +94,7 @@ namespace xlib {
     auto graphical_context = parent_window->graphical_context;
     auto window = parent_window->window;
 
-    XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor].to_long());
+    XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::BackgroundColor].to_long());
     XFillRectangle(display, window, graphical_context, this->prev_frame.x, this->prev_frame.y, this->prev_frame.width, this->prev_frame.height);
     XDrawRectangle(display, window, graphical_context, this->prev_frame.x, this->prev_frame.y, this->prev_frame.width, this->prev_frame.height);
   }

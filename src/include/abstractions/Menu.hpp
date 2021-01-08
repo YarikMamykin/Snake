@@ -22,7 +22,7 @@ namespace abstractions {
 
         Menu(const ::ui::LayoutType& layout, 
              const geometry::Rectangle& frame, 
-             const constants::COLOR_SCHEME_TYPE& color_scheme, 
+             const color::COLOR_SCHEME_TYPE& color_scheme, 
              const unsigned int& spacing = 20U) 
         : Object(frame, color_scheme) 
         , current_item(items.end())

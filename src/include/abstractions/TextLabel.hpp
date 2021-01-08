@@ -13,7 +13,7 @@ namespace abstractions {
         TextLabel() : Object() {}
         TextLabel(const std::string& text, 
                   const geometry::Rectangle& frame, 
-                  const constants::COLOR_SCHEME_TYPE& color_scheme) 
+                  const color::COLOR_SCHEME_TYPE& color_scheme) 
         : Object(frame, color_scheme) 
         , text(text) {}
 

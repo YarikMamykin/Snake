@@ -40,6 +40,7 @@ set(PRESENTERS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/ui/UlongValuePresenter.cpp
                    ${CMAKE_CURRENT_SOURCE_DIR}/ui/ColorValuePresenter.cpp)
 set(COLOR_SRC ${CMAKE_CURRENT_SOURCE_DIR}/color/Color.cpp
               ${CMAKE_CURRENT_SOURCE_DIR}/color/ColorPallete.cpp)
+set(SETTINGS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/configuration/Settings.cpp)
 
 set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 
@@ -51,7 +52,8 @@ add_library(timer STATIC ${TIMER_SRC})
 add_library(snake STATIC ${SNAKE_SRC})
 add_library(presenters STATIC ${PRESENTERS_SRC})
 add_library(color STATIC ${COLOR_SRC})
+add_library(settings STATIC ${SETTINGS_SRC})
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(events xlib_ui)
-target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers timer snake presenters color)
+target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers timer snake presenters color settings)

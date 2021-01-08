@@ -8,7 +8,7 @@ namespace {
 namespace xlib {
   X11_Menu::X11_Menu(const ::ui::LayoutType& layout, 
                      const geometry::Rectangle& frame, 
-                     const constants::COLOR_SCHEME_TYPE& color_scheme,
+                     const color::COLOR_SCHEME_TYPE& color_scheme,
                      xlib::X11_Window* x_window,
                      const unsigned int& spacing)
     : abstractions::ui::Menu(layout, frame, color_scheme, spacing) 
@@ -26,7 +26,7 @@ namespace xlib {
       auto& display = x_window->x_display.display;
       auto& graphical_context = x_window->graphical_context;
       auto& window = x_window->window;
-      XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::FrameColor].to_long());
+      XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::FrameColor].to_long());
       XDrawRectangle(display, window, graphical_context, 
           this->frame.x - margin, 
           this->frame.y - margin, 
@@ -38,7 +38,7 @@ namespace xlib {
       auto& display = x_window->x_display.display;
       auto& graphical_context = x_window->graphical_context;
       auto& window = x_window->window;
-      XSetForeground(display, graphical_context, this->color_scheme[ui::ColorSchemeID::BackgroundColor].to_long());
+      XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::BackgroundColor].to_long());
       XDrawRectangle(display, window, graphical_context, 
           this->frame.x - margin, 
           this->frame.y - margin, 

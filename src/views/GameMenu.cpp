@@ -1,6 +1,7 @@
 #include "GameMenu.hpp"
 #include "Helper.hpp"
 #include "WindowAnchorHandler.hpp"
+#include "Color.hpp"
 
 namespace {
   const std::string NewGameItemName = "New Game"; 
@@ -10,10 +11,10 @@ namespace {
 
   auto empty_key_press_handler = [](const KeySym&& key_sym) {};
 
-  constants::COLOR_SCHEME_TYPE text_labels_color_scheme = {
-    { ui::ColorSchemeID::BackgroundColor, 0UL },
-    { ui::ColorSchemeID::TextColor, (255UL << 8) },
-    { ui::ColorSchemeID::FrameColor, (255UL << 16) }
+  color::COLOR_SCHEME_TYPE text_labels_color_scheme = {
+    { color::ColorSchemeID::BackgroundColor, 0UL },
+    { color::ColorSchemeID::TextColor, (255UL << 8) },
+    { color::ColorSchemeID::FrameColor, (255UL << 16) }
   };
 }
 

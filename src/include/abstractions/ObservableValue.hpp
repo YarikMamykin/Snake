@@ -4,15 +4,19 @@
 #include <memory>
 #include <list>
 #include <functional>
-#include <iostream>
 
 namespace abstractions {
+  template <typename ValueType> class ObservableValue;
+
   class ObservableValueContainerWrapper {
     public:
+      template<typename ValueType> static 
+        std::shared_ptr<ObservableValue<ValueType>> to_concrete_value(std::shared_ptr<ObservableValueContainerWrapper> value) {
+          return std::static_pointer_cast<ObservableValue<ValueType>>(value);
+        }
+
       virtual ~ObservableValueContainerWrapper() {}
   };
-
-  template <typename ValueType> class ObservableValue;
 
   template <typename ValueType>
   class ObservableValueUser {
@@ -38,13 +42,13 @@ namespace abstractions {
         }
       }
 
-      ~ObservableValueUser<ValueType>() {
+      virtual ~ObservableValueUser<ValueType>() {
         observable_value->delete_listening_user(this);
       }
   };
 
   template <typename ValueType>
-  class ObservableValue : public ObservableValueContainerWrapper {
+  class ObservableValue final : public ObservableValueContainerWrapper {
     protected:
       ValueType value;
       std::list<ObservableValueUser<ValueType>* > users;
@@ -62,13 +66,27 @@ namespace abstractions {
         users.remove(user);
       }
 
-      void change_value(const ValueType& new_value) {
-        this->value = new_value;
+      void notify_users() const {
         for(auto& user : users) {
           if(user) {
             user->value_changed();
           }
         }
+      }
+
+      void change_value(const ValueType& new_value) {
+        this->value = new_value;
+        notify_users();
+      }
+
+      void increase() {
+        ++this->value;
+        notify_users();
+      }
+
+      void decrease() {
+        --this->value;
+        notify_users();
       }
 
       const ValueType get_value() const {

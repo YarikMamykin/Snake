@@ -10,7 +10,7 @@ namespace views {
   : x_window(x_window) 
   , snake(x_window) 
   , snake_direction(game_objects::SnakeDirection::Right) {
-    timer.timeout = configuration::Settings().snake_timeout;
+    timer.timeout = abstractions::ObservableValueContainerWrapper::to_concrete_value<std::chrono::milliseconds>(configuration::Settings::get(configuration::ConfigID::SNAKE_TIMEOUT))->get_value();
     timer.callback = [this, x_window]() {
       try { 
         this->snake.move(this->snake_direction); 

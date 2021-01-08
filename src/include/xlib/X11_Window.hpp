@@ -17,7 +17,7 @@ namespace xlib {
 
   struct WindowSettings {
     geometry::Rectangle frame;
-    constants::COLOR_SCHEME_TYPE color_scheme;
+    color::COLOR_SCHEME_TYPE color_scheme;
     const unsigned int border_width;
     std::string name;
     std::string font_name;

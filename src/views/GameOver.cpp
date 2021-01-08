@@ -18,7 +18,7 @@ namespace views {
 
     XSetForeground(x_window->x_display.display, 
         x_window->graphical_context, 
-        window_color_scheme.at(ui::ColorSchemeID::FontColor).to_long());
+        window_color_scheme.at(color::ColorSchemeID::FontColor).to_long());
 
     XDrawString(x_window->x_display.display, 
         x_window->window, 

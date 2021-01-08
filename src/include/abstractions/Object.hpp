@@ -3,6 +3,7 @@
 
 #include "Rectangle.hpp"
 #include "Constants.hpp"
+#include "Color.hpp"
 
 namespace abstractions {
   namespace ui {
@@ -10,7 +11,7 @@ namespace abstractions {
     class Object {
       protected:
         geometry::Rectangle frame;
-        constants::COLOR_SCHEME_TYPE color_scheme;
+        color::COLOR_SCHEME_TYPE color_scheme;
         bool focus;
 
         Object()
@@ -18,7 +19,7 @@ namespace abstractions {
         , color_scheme() 
         , focus(false) {}
 
-        Object(const geometry::Rectangle& frame, const constants::COLOR_SCHEME_TYPE& color_scheme)
+        Object(const geometry::Rectangle& frame, const color::COLOR_SCHEME_TYPE& color_scheme)
         : frame(frame)
         , color_scheme(color_scheme) 
         , focus(false) {}
@@ -36,9 +37,9 @@ namespace abstractions {
         virtual bool hovered_by_mouse(const int& x, const int& y) const { return this->frame.has_point({x,y}); }
 
         // Colors setters/getters
-        virtual void set_color_scheme(const constants::COLOR_SCHEME_TYPE& color_scheme) { this->color_scheme = color_scheme; }
-        virtual void update_color_scheme(const unsigned char& key, const unsigned long& value) { this->color_scheme[key] = value; }
-        virtual const constants::COLOR_SCHEME_TYPE& get_color_scheme() { return this->color_scheme; }
+        virtual void set_color_scheme(const color::COLOR_SCHEME_TYPE& color_scheme) { this->color_scheme = color_scheme; }
+        virtual void update_color_scheme(const color::ColorSchemeID& key, const unsigned long& value) { this->color_scheme[key] = value; }
+        virtual const color::COLOR_SCHEME_TYPE& get_color_scheme() { return this->color_scheme; }
 
         // Frame manipulations
         virtual void move(const int& x, const int& y) {
