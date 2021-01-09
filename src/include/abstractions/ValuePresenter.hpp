@@ -10,30 +10,28 @@ namespace abstractions {
   namespace ui {
 
     template <typename ValueType, typename ValuePresentingObject = abstractions::ui::Object>
-      class ValuePresenter : public Object,
-                             public ObservableValueUser<ValueType> {
+      class ValuePresenter : public Object {
         protected:
+          ValueType value;
           std::unique_ptr<ValuePresentingObject> presenting_object;
-          std::function<void()> increase_binder;
-          std::function<void()> decrease_binder;
 
         protected:
-          ValuePresenter<ValueType, ValuePresentingObject>(std::shared_ptr<abstractions::ObservableValueContainerWrapper> value, 
-                                                           std::unique_ptr<ValuePresentingObject> presenting_object) 
+          ValuePresenter<ValueType, ValuePresentingObject>(const ValueType& value, 
+                                                           std::unique_ptr<ValuePresentingObject> presenting_object)
             : abstractions::ui::Object() 
-            , abstractions::ObservableValueUser<ValueType>(abstractions::ObservableValueContainerWrapper::to_concrete_value<ValueType>(value))
+            , value(value)
             , presenting_object(std::move(presenting_object)) { }
 
           virtual void update_presenter() = 0;
 
         public:
           virtual void increase_value() {
-            this->observable_value->increase();
+            ++value;
             update_presenter();
           }
 
           virtual void decrease_value() {
-            this->observable_value->decrease();
+            --value;
             update_presenter();
           }
 
@@ -44,6 +42,8 @@ namespace abstractions {
           virtual std::function<void()> bind_decrease_value_trigger() {
             return std::bind(&ValuePresenter<ValueType, ValuePresentingObject>::decrease_value, this);
           }
+
+          virtual const ValueType get_value() const { return value; }
 
           virtual void show(bool show_flag) override {
             presenting_object->show(show_flag);
