@@ -54,7 +54,7 @@ namespace views {
     auto snake_color = configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR);
 
     std::unique_ptr<xlib::X11_TextLabel> text_label(new xlib::X11_TextLabel(std::to_string(snake_speed), {}, value_color_scheme, x_window));
-    std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(0UL, {.width = 100U, .height = text_label->get_height()}, value_color_scheme, x_window));
+    std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(snake_color, {.width = 100U, .height = text_label->get_height()}, value_color_scheme, x_window));
 
     menu.add_item(std::move(construct_menu_item<ui::ObservableUlongValuePresenter, 
                                                 unsigned long, 
