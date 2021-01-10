@@ -9,6 +9,7 @@ namespace color {
     unsigned char red, green, blue;
 
     Color() = default;
+    Color(const Color&) = default;
     Color(const unsigned long& value);
     Color(const std::string& value);
     const unsigned long to_long() const; 

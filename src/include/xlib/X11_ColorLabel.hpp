@@ -10,6 +10,10 @@ namespace xlib {
     private:
       xlib::X11_Window* x_window;
     public:
+      X11_ColorLabel(const color::ColorPallete& color_pallete,
+                     const geometry::Rectangle& frame, 
+                     const color::COLOR_SCHEME_TYPE& color_scheme,
+                     xlib::X11_Window* x_window);
       X11_ColorLabel(const color::Color& color,
                      const geometry::Rectangle& frame, 
                      const color::COLOR_SCHEME_TYPE& color_scheme,

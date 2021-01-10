@@ -6,6 +6,7 @@
 #include "KeyPressHandler.hpp"
 #include "X11_TextLabel.hpp"
 #include "X11_Menu.hpp"
+#include "ObservableValuePresenter.hpp"
 
 #include <string>
 #include <memory>
@@ -24,8 +25,7 @@ namespace views {
         void increase();
         void decrease();
 
-        std::function<void()> increase_binder;
-        std::function<void()> decrease_binder;
+        std::function<void()> increase_binder, decrease_binder;
       };
 
     public:
@@ -40,7 +40,7 @@ namespace views {
     private:
       void update();
       template<typename ValuePresenterType, typename ValueType, typename ValuePresentingObjectType> std::unique_ptr<xlib::X11_Menu>
-        construct_menu_item(const std::string& name, const ValueType& value, 
+        construct_menu_item(const std::string& name, std::shared_ptr<abstractions::ObservableValue<ValueType>> value,
                             const color::COLOR_SCHEME_TYPE& key_color_scheme,
                             const color::COLOR_SCHEME_TYPE& value_color_scheme,
                             std::unique_ptr<ValuePresentingObjectType> value_presenting_ui_object,

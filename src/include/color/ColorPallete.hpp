@@ -3,10 +3,12 @@
 
 #include "Color.hpp"
 #include <list>
+#include <string>
 
 namespace color {
   struct ColorPallete {
     ColorPallete();
+    ColorPallete(const std::string& hex_color);
     ColorPallete(const Color& color);
     ColorPallete(const ColorPallete& color_pallete);
     ColorPallete& operator ++();

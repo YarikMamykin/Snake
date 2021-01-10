@@ -8,11 +8,13 @@
 #include "Constants.hpp"
 #include "Rectangle.hpp"
 #include "Triangle.hpp"
+#include "ObservableValue.hpp"
 
 namespace game_objects {
   class Snake {
     public:
     explicit Snake(xlib::X11_Window* x_window, 
+                   const color::Color& value,
                    const SnakeDirection&& direction = SnakeDirection::Right);
     ~Snake();
 
@@ -28,7 +30,8 @@ namespace game_objects {
         const unsigned int step;
         const unsigned int spacing;
         geometry::Rectangle frame;
-        SnakeHead(geometry::Rectangle&& frame, const unsigned int& spacing);
+        color::Color head_color;
+        SnakeHead(const color::Color color, geometry::Rectangle&& frame, const unsigned int& spacing);
         SnakeHead(SnakeHead&&) = default;
         void show(xlib::X11_Window* x_window);
         void hide(xlib::X11_Window* x_window);

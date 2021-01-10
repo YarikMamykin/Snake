@@ -3,14 +3,15 @@
 #include "Settings.hpp"
 #include <iostream>
 #include <thread>
+#include "ColorPallete.hpp"
 
 namespace views {
 
   GameAction::GameAction(xlib::X11_Window* x_window) 
   : x_window(x_window) 
-  , snake(x_window) 
+  , snake(x_window, configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR).get_current_color()) 
   , snake_direction(game_objects::SnakeDirection::Right) {
-    timer.timeout = abstractions::ObservableValueContainerWrapper::to_concrete_value<std::chrono::milliseconds>(configuration::Settings::get(configuration::ConfigID::SNAKE_TIMEOUT))->get_value();
+    timer.timeout = configuration::Settings::get_concrete<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT);
     timer.callback = [this, x_window]() {
       try { 
         this->snake.move(this->snake_direction); 

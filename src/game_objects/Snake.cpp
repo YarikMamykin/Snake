@@ -9,10 +9,11 @@ namespace game_objects {
   class Snake;
   class SnakeHead;
 
-  Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame, const unsigned int& spacing) 
+  Snake::SnakeHead::SnakeHead(const color::Color color, geometry::Rectangle&& frame, const unsigned int& spacing) 
   : frame(frame) 
   , spacing(spacing) 
-  , step(std::max(frame.width, frame.height) + spacing) { }
+  , step(std::max(frame.width, frame.height) + spacing) 
+  , head_color(color) { }
 
   void Snake::SnakeHead::hide(xlib::X11_Window *x_window) {
     XSetLineAttributes(x_window->x_display.display, x_window->graphical_context, 3,0,0,0);
@@ -46,7 +47,7 @@ namespace game_objects {
         frame.y,
         frame.width,
         frame.height);
-    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(color::ColorSchemeID::FontColor).to_long());
+    XSetForeground(x_window->x_display.display, x_window->graphical_context, head_color.to_long());
     XFillRectangle(x_window->x_display.display,
         x_window->window,
         x_window->graphical_context,
@@ -125,7 +126,9 @@ namespace game_objects {
   }
 
 
-  Snake::Snake(xlib::X11_Window* x_window, const game_objects::SnakeDirection&& direction) 
+  Snake::Snake(xlib::X11_Window* x_window, 
+               const color::Color& color,
+               const SnakeDirection&& direction) 
   : x_window(x_window)
   , current_direction(direction) 
   , window_frame(x_window->get_frame()) {
@@ -138,11 +141,12 @@ namespace game_objects {
     };
     constexpr unsigned int spacing = 10u;
 
-    parts.emplace_back(SnakeHead(std::move(head_shape), spacing));
+    parts.emplace_back(SnakeHead(color, std::move(head_shape), spacing));
 
     for(auto&& i : {1,2,3}) {
       const auto& last_frame = parts.back().frame;
-      parts.emplace_back(SnakeHead({ 
+      parts.emplace_back(SnakeHead(color,
+            { 
             .x = last_frame.x - last_frame.width - spacing, 
             .y = last_frame.y, 
             .width = last_frame.width,

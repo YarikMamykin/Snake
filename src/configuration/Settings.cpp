@@ -1,5 +1,5 @@
 #include "Settings.hpp"
-#include "Color.hpp"
+#include "ColorPallete.hpp"
 #include <exception>
 
 namespace configuration {
@@ -15,7 +15,7 @@ namespace configuration {
     { ConfigID::WINDOW_NAME, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::string>("Snake")))) },
     { ConfigID::WINDOW_FONT_NAME, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::string>("*-courier-*-24-*")))) },
     { ConfigID::SNAKE_SPEED, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<unsigned int>(10u)))) },
-    { ConfigID::SNAKE_COLOR, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<color::Color>(std::string("#00ff00"))))) },
+    { ConfigID::SNAKE_COLOR, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<color::ColorPallete>(std::string("#00ff00"))))) },
     { ConfigID::SNAKE_TIMEOUT, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::chrono::milliseconds>(std::chrono::milliseconds(50u))))) }
   };
   

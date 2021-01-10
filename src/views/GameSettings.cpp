@@ -3,8 +3,8 @@
 #include "Settings.hpp"
 #include <iostream>
 #include "WindowAnchorHandler.hpp"
-#include "UlongValuePresenter.hpp"
-#include "ColorValuePresenter.hpp"
+#include "ObservableUlongValuePresenter.hpp"
+#include "ObservableColorValuePresenter.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE key_color_scheme = {
@@ -50,27 +50,27 @@ namespace views {
   : x_window(x_window)  
   , menu(ui::LayoutType::VERTICAL, {}, color::COLOR_SCHEME_TYPE(), x_window, 20U) {
 
-    auto snake_speed = abstractions::ObservableValueContainerWrapper::to_concrete_value<unsigned int>(configuration::Settings::get(configuration::ConfigID::SNAKE_SPEED))->get_value();
-    auto snake_color = abstractions::ObservableValueContainerWrapper::to_concrete_value<color::Color>(configuration::Settings::get(configuration::ConfigID::SNAKE_COLOR))->get_value();
+    auto snake_speed = configuration::Settings::get_concrete<unsigned long>(configuration::ConfigID::SNAKE_SPEED);
+    auto snake_color = configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR);
 
     std::unique_ptr<xlib::X11_TextLabel> text_label(new xlib::X11_TextLabel(std::to_string(snake_speed), {}, value_color_scheme, x_window));
-    std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(snake_color, {.width = 100U, .height = text_label->get_height()}, value_color_scheme, x_window));
+    std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(0UL, {.width = 100U, .height = text_label->get_height()}, value_color_scheme, x_window));
 
-    menu.add_item(std::move(construct_menu_item<ui::UlongValuePresenter, 
+    menu.add_item(std::move(construct_menu_item<ui::ObservableUlongValuePresenter, 
                                                 unsigned long, 
-                                                xlib::X11_TextLabel>(
+                                                xlib::X11_TextLabel> (
             "Snake speed: ", 
-            snake_speed, 
+            configuration::Settings::get_concrete_ptr<unsigned long>(configuration::ConfigID::SNAKE_SPEED), 
             key_color_scheme,
             value_color_scheme,
             std::move(text_label),
             x_window)));
 
-    menu.add_item(std::move(construct_menu_item<ui::ColorValuePresenter, 
-                                                color::Color, 
+    menu.add_item(std::move(construct_menu_item<ui::ObservableColorValuePresenter, 
+                                                color::ColorPallete, 
                                                 xlib::X11_ColorLabel>(
             "Snake color: ", 
-            snake_color, 
+            configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR),  
             key_color_scheme,
             value_color_scheme,
             std::move(color_label),

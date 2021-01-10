@@ -9,6 +9,12 @@ namespace abstractions {
     class ColorLabel : public Object {
       public:
         ColorLabel() : Object() {}
+        ColorLabel(const color::ColorPallete& color_pallete,
+                   const geometry::Rectangle& frame, 
+                   const color::COLOR_SCHEME_TYPE& color_scheme) 
+        : Object(frame, color_scheme) 
+        , color_pallete(color_pallete) {}
+
         ColorLabel(const color::Color& color,
                    const geometry::Rectangle& frame, 
                    const color::COLOR_SCHEME_TYPE& color_scheme) 
