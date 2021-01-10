@@ -37,7 +37,9 @@ set(GAME_VIEW_SRC ${CMAKE_CURRENT_SOURCE_DIR}/views/GameMenu.cpp
 set(TIMER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/timing/Timer.cpp)
 set(SNAKE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/game_objects/Snake.cpp)
 set(PRESENTERS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/ui/UlongValuePresenter.cpp 
-                   ${CMAKE_CURRENT_SOURCE_DIR}/ui/ColorValuePresenter.cpp)
+                   ${CMAKE_CURRENT_SOURCE_DIR}/ui/ColorValuePresenter.cpp
+                   ${CMAKE_CURRENT_SOURCE_DIR}/ui/ObservableColorValuePresenter.cpp
+                   ${CMAKE_CURRENT_SOURCE_DIR}/ui/ObservableUlongValuePresenter.cpp)
 set(COLOR_SRC ${CMAKE_CURRENT_SOURCE_DIR}/color/Color.cpp
               ${CMAKE_CURRENT_SOURCE_DIR}/color/ColorPallete.cpp)
 set(SETTINGS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/configuration/Settings.cpp)
