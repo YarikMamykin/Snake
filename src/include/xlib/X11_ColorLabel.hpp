@@ -14,10 +14,6 @@ namespace xlib {
                      const geometry::Rectangle& frame, 
                      const color::COLOR_SCHEME_TYPE& color_scheme,
                      xlib::X11_Window* x_window);
-      X11_ColorLabel(const color::Color& color,
-                     const geometry::Rectangle& frame, 
-                     const color::COLOR_SCHEME_TYPE& color_scheme,
-                     xlib::X11_Window* x_window);
       ~X11_ColorLabel();
 
       void show(bool show_flag) override;

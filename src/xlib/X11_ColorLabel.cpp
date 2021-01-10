@@ -14,13 +14,6 @@ namespace xlib {
   : abstractions::ui::ColorLabel(color_pallete, frame, color_scheme) 
   , x_window(x_window) { }
 
-  X11_ColorLabel::X11_ColorLabel(const color::Color& color,
-                   const geometry::Rectangle& frame, 
-                   const color::COLOR_SCHEME_TYPE& color_scheme,
-                   xlib::X11_Window* x_window) 
-  : abstractions::ui::ColorLabel(color, frame, color_scheme) 
-  , x_window(x_window) { }
-
   X11_ColorLabel::~X11_ColorLabel() {}
 
   void X11_ColorLabel::show(bool show_flag) {
