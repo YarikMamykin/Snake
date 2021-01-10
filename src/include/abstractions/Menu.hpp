@@ -130,7 +130,7 @@ namespace abstractions {
             item->set_focused(false);
           }
 
-          if(current_item == --items.end()) {
+          if(current_item == std::prev(items.end())) {
             current_item = items.begin();
             return;
           }
@@ -145,7 +145,7 @@ namespace abstractions {
           }
 
           if(current_item == items.begin()) {
-            current_item = --items.end();
+            current_item = std::prev(items.end());
             return;
           }
 
