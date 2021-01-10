@@ -40,8 +40,8 @@ namespace color {
     }
 
     bool Color::operator == (const Color& a) const {
-      return (a.red == red) &&
-        (a.green == green) &&
-        (a.blue == blue);
+      return (a.red   == this->red) &&
+             (a.green == this->green) &&
+             (a.blue  == this->blue);
     }
 }
