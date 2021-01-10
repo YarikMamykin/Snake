@@ -9,6 +9,6 @@ namespace ui {
   }
   
   void ObservableColorValuePresenter::update_presenter() { 
-    this->presenting_object->set_color_pallete(this->value);
+    this->presenting_object->set_color(this->observable_value->get_value().get_current_color());
   }
 }

@@ -7,6 +7,6 @@ namespace ui {
   }
   
   void ObservableUlongValuePresenter::update_presenter() {
-    this->presenting_object->set_text(std::to_string(value));
+    this->presenting_object->set_text(std::to_string(this->observable_value->get_value()));
   }
 }

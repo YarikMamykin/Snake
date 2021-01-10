@@ -19,13 +19,13 @@ namespace abstractions {
 
         public:
           virtual void increase_value() override {
-            abstractions::ui::ValuePresenter<ValueType, ValuePresentingObject>::increase_value();
-            this->observable_value->change_value(this->value);
+            this->observable_value->increase();
+            this->update_presenter();
           }
 
           virtual void decrease_value() override {
-            abstractions::ui::ValuePresenter<ValueType, ValuePresentingObject>::decrease_value();
-            this->observable_value->change_value(this->value);
+            this->observable_value->decrease();
+            this->update_presenter();
           }
 
           virtual std::function<void()> bind_increase_value_trigger() override {
