@@ -5,6 +5,7 @@
 #include <map>
 #include "Rectangle.hpp"
 #include "ObservableValue.hpp"
+#include "RestrictedValue.hpp"
 
 namespace configuration {
   enum class ConfigID {
@@ -31,26 +32,12 @@ namespace configuration {
 namespace configuration {
   template <typename ValueType>
   std::shared_ptr<abstractions::ObservableValue<ValueType>> Settings::get_concrete_ptr(ConfigID id) {
-    using namespace abstractions;
-    std::shared_ptr<ObservableValue<ValueType>> result;
-
-    try {
-      result = ObservableValueContainerWrapper::to_concrete_value<ValueType>(settings_map.at(id));
-    } catch(const std::out_of_range&) {
-      result = nullptr;
-    }
-    return result;
+    return abstractions::ObservableValueContainerWrapper::to_concrete_value<ValueType>(settings_map.at(id));
   }
 
   template <typename ValueType>
   ValueType Settings::get_concrete(ConfigID id) {
-    using namespace abstractions;
-    ValueType result;
-
-    try {
-      result = get_concrete_ptr<ValueType>(id)->get_value();
-    } catch(const std::out_of_range&) { }
-    return result;
+    return get_concrete_ptr<ValueType>(id)->get_value();
   }
 }
 #endif /* SRC_INCLUDE_SETTINGS_SETTINGS_HPP */
