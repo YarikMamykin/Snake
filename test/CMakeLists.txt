@@ -31,6 +31,7 @@ add_executable( runUnitTests
   ColorTest.cpp
   ColorPalleteTest.cpp
   ObservableValueTest.cpp
+  RestrictedValueTest.cpp
 )
 
 # Link test executable against gtest & gtest_main
