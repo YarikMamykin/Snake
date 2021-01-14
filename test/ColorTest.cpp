@@ -93,4 +93,24 @@ TEST(ColorTest, ConvertGreenToLong) {
   Color color(255UL << 8);
   EXPECT_EQ(color.to_long(), (255UL << 8));
 }
+
+TEST(ColorTest, ConvertGreenToHex) {
+  Color color(255UL << 8);
+  EXPECT_EQ(color.to_hex(), std::string("#00ff00"));
+}
+
+TEST(ColorTest, ConvertRedToHex) {
+  Color color(255UL << 16);
+  EXPECT_EQ(color.to_hex(), std::string("#ff0000"));
+}
+
+TEST(ColorTest, ConvertBlueToHex) {
+  Color color(255UL);
+  EXPECT_EQ(color.to_hex(), std::string("#0000ff"));
+}
+
+TEST(ColorTest, ConvertBlackToHex) {
+  Color color(0UL);
+  EXPECT_EQ(color.to_hex(), std::string("#000000"));
+}
 }
