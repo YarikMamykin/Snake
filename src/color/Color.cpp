@@ -31,6 +31,12 @@ namespace color {
       return result;
     }
 
+    const std::string Color::to_hex() const {
+      std::stringstream result_stream;
+      result_stream << "#" << std::hex << std::noshowbase << this->to_long();
+      return result_stream.str().insert(1u, 7u - result_stream.str().size(), '0');    
+    }
+
     const std::string Color::to_string() const { 
       std::string result;
       for(auto& color_part : {red, green, blue}) {
