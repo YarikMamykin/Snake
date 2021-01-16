@@ -11,7 +11,11 @@ namespace views {
   : x_window(x_window) 
   , snake(x_window, configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR).get_current_color()) 
   , snake_direction(game_objects::SnakeDirection::Right) {
-    timer.timeout = configuration::Settings::get_concrete<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT);
+    auto snake_timeout_ptr = configuration::Settings::get_concrete_ptr<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT);
+    auto snake_speed_ptr = configuration::Settings::get_concrete_ptr<configuration::SNAKE_SPEED_TYPE>(configuration::ConfigID::SNAKE_SPEED);
+
+    std::chrono::milliseconds snake_speed_in_time(1ul + snake_speed_ptr->get_value().get_max() - snake_speed_ptr->get_value().get_restricted_value());
+    timer.timeout = std::chrono::milliseconds(snake_speed_in_time.count() * snake_timeout_ptr->get_value().count());
     timer.callback = [this, x_window]() {
       try { 
         this->snake.move(this->snake_direction); 
