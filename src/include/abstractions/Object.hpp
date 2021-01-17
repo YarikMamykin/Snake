@@ -38,7 +38,7 @@ namespace abstractions {
 
         // Colors setters/getters
         virtual void set_color_scheme(const color::COLOR_SCHEME_TYPE& color_scheme) { this->color_scheme = color_scheme; }
-        virtual void update_color_scheme(const color::ColorSchemeID& key, const unsigned long& value) { this->color_scheme[key] = value; }
+        virtual void update_color_scheme(const color::ColorSchemeID& key, const color::Color& value) { this->color_scheme[key] = value; }
         virtual const color::COLOR_SCHEME_TYPE& get_color_scheme() { return this->color_scheme; }
 
         // Frame manipulations
