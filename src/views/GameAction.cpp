@@ -49,21 +49,25 @@ namespace views {
           helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU);
           break;
         }
+      case XK_j:
       case XK_Down: 
         {
           this->snake_direction = game_objects::SnakeDirection::Down;
           break;
         }
+      case XK_k:
       case XK_Up: 
         {
           this->snake_direction = game_objects::SnakeDirection::Up;
           break;
         }
+      case XK_l:
       case XK_Right: 
         {
           this->snake_direction = game_objects::SnakeDirection::Right;
           break;
         }
+      case XK_h:
       case XK_Left: 
         {
           this->snake_direction = game_objects::SnakeDirection::Left;
