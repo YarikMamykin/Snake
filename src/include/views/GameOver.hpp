@@ -3,6 +3,8 @@
 
 #include "View.hpp"
 #include "X11_Window.hpp"
+#include "X11_ColorizedTextLabel.hpp"
+#include "Timer.hpp"
 #include "KeyPressHandler.hpp"
 #include <string>
 
@@ -12,7 +14,7 @@ namespace views {
                          public events::KeyPressHandler {
     public:
       explicit GameOver(xlib::X11_Window* x_window);
-      ~GameOver() = default;
+      ~GameOver();
 
     public:
       void activate() override;
@@ -21,7 +23,8 @@ namespace views {
 
     private:
       xlib::X11_Window* x_window;
-      std::string text;
+      std::unique_ptr<xlib::X11_ColorizedTextLabel> colorized_text_label;
+      timing::Timer timer;
   };
 }
 

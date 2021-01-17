@@ -1,43 +1,57 @@
 #include "GameOver.hpp"
 #include "Helper.hpp"
+#include "WindowAnchorHandler.hpp"
+
+namespace {
+  color::COLOR_SCHEME_TYPE color_scheme = {
+    { color::ColorSchemeID::BackgroundColor, 0UL },
+    { color::ColorSchemeID::FrameColor, ~0UL },
+    { color::ColorSchemeID::TextColor, (255UL << 16) }
+  };
+}
 
 namespace views {
 
   GameOver::GameOver(xlib::X11_Window* x_window) 
   : x_window(x_window) 
-  , text("G A M E   O V E R") {
+  , colorized_text_label(new xlib::X11_ColorizedTextLabel("GAME OVER", {}, color_scheme, color::ColorPallete({
+        color::Color("#ff0000"),
+        color::Color("#00ff00"),
+        color::Color("#0000ff"),
+        color::Color("#ffff00"),
+        color::Color("#00ffff"),
+        color::Color("#ff00ff"),
+        }), x_window)) 
+  , timer(std::chrono::milliseconds(130u)) {
+    auto colorized_text_label_ptr = colorized_text_label.get();
+    timer.callback = [colorized_text_label_ptr, x_window]() {
+      colorized_text_label_ptr->shift_colors();
+      colorized_text_label_ptr->show(true);
+      XFlush(x_window->x_display.display); 
+    };
+  }
+
+  GameOver::~GameOver() {
+    timer.stop();
   }
 
   void GameOver::activate() {
-    const auto&& window_frame = x_window->get_frame();
-    const int&& font_height = x_window->font_info->ascent + x_window->font_info->descent;
-    const int text_width = XTextWidth(x_window->font_info, this->text.c_str(), this->text.length());
-    const int text_x_coord = window_frame.width/2 - text_width/2; 
-    const int text_y_coord = window_frame.height/2 - (font_height)/2; 
-    const auto& window_color_scheme = x_window->get_color_scheme();
-
-    XSetForeground(x_window->x_display.display, 
-        x_window->graphical_context, 
-        window_color_scheme.at(color::ColorSchemeID::FontColor).to_long());
-
-    XDrawString(x_window->x_display.display, 
-        x_window->window, 
-        x_window->graphical_context, 
-        text_x_coord,
-        text_y_coord,
-        this->text.c_str(), 
-        this->text.length());
+    ui::WindowAnchorHandler<xlib::X11_ColorizedTextLabel>(colorized_text_label.get(), x_window);
+    if(!timer.running()) {
+      timer.launch();
+    }
+    colorized_text_label->show(true);
   }
 
-  void GameOver::deactivate() {
-  }
+  void GameOver::deactivate() { }
 
   void GameOver::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
     switch(key_sym) {
-      case XK_Escape: {
-                        helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU);
-                        break;
-                      }
+      case XK_Escape: 
+        {
+          helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU);
+          break;
+        }
     }
   }
 }
