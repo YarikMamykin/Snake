@@ -11,10 +11,13 @@ namespace color {
     ColorPallete(const std::string& hex_color);
     ColorPallete(const Color& color);
     ColorPallete(const ColorPallete& color_pallete);
+    ColorPallete(ColorPallete&& color_pallete);
+    ColorPallete(const std::list<Color>& colors);
     ColorPallete& operator ++();
+    ColorPallete& operator --();
+    ColorPallete& operator = (const ColorPallete& color_pallete);
     void set_current_color(const Color& color);
     const Color& get_current_color() const;
-    ColorPallete& operator --();
 
     private:
     std::list<Color> colors;

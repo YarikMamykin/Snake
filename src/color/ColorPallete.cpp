@@ -28,6 +28,14 @@ namespace color {
         set_current_color(color_pallete.get_current_color());
       }
 
+  ColorPallete::ColorPallete(ColorPallete&& color_pallete)
+    : colors(std::move(color_pallete.colors))
+    , current_color(colors.begin()) { }
+
+  ColorPallete::ColorPallete(const std::list<Color>& user_defined_colors) 
+    : colors(user_defined_colors) 
+    , current_color(colors.begin()) { }
+
   ColorPallete& ColorPallete::operator ++() {
     if(current_color == std::prev(colors.end())) {
       current_color = colors.begin();
@@ -43,6 +51,12 @@ namespace color {
     } else { 
       current_color = std::prev(current_color);
     }
+    return *this;
+  }
+
+  ColorPallete& ColorPallete::operator = (const ColorPallete& color_pallete) {
+    this->colors = color_pallete.colors;
+    this->set_current_color(color_pallete.get_current_color());
     return *this;
   }
 
