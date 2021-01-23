@@ -18,6 +18,8 @@ namespace timing {
   }
 
   void Timer::launch() {
+    if(running()) return;
+
     do_stop.store(false);
     async_result = std::async([this]() {
         switch(this->type) {

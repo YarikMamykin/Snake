@@ -31,9 +31,7 @@ namespace views {
   }
 
   void GameAction::activate() {
-    if(!timer.running()) {
-      timer.launch();
-    }
+    timer.launch();
   }
 
   void GameAction::deactivate() {

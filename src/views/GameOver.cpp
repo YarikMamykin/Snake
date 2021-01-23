@@ -37,9 +37,7 @@ namespace views {
 
   void GameOver::activate() {
     ui::WindowAnchorHandler<xlib::X11_ColorizedTextLabel>(colorized_text_label.get(), x_window);
-    if(!timer.running()) {
-      timer.launch();
-    }
+    timer.launch();
     colorized_text_label->show(true);
   }
 
