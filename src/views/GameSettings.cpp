@@ -92,7 +92,7 @@ namespace views {
       case XK_Right:
       case XK_KP_Add: current_item_as_setting(menu)->increase(); break;
       case XK_Left:
-      case XK_minus: if(mask == 0u) break;
+      case XK_minus: if(mask != 0u) break;
       case XK_KP_Subtract: current_item_as_setting(menu)->decrease(); break;
     }
 
