@@ -22,7 +22,7 @@ namespace views {
         color::Color("#00ffff"),
         color::Color("#ff00ff"),
         }), x_window)) 
-  , timer(std::chrono::milliseconds(130u)) {
+  , timer(std::chrono::milliseconds(80u)) {
     auto colorized_text_label_ptr = colorized_text_label.get();
     timer.callback = [colorized_text_label_ptr, x_window]() {
       colorized_text_label_ptr->shift_colors();
