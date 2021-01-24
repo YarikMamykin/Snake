@@ -21,22 +21,27 @@ namespace timing {
     if(running()) return;
 
     do_stop.store(false);
+
     async_result = std::async([this]() {
+        using namespace std::chrono;
+        auto start_point = steady_clock::now();
+
         switch(this->type) {
           case TimerType::Simple: { 
             while(!do_stop.load()) { 
-              std::this_thread::sleep_for(timeout); 
-              if(do_stop.load()) { 
-                break; 
-              } 
-              callback(); 
+              if(duration_cast<milliseconds>(steady_clock::now() - start_point) >= timeout) {
+                callback(); 
+                start_point = steady_clock::now();
+              }
             } 
+            break;
           }
 
           case TimerType::SingleShot: { 
-              std::this_thread::sleep_for(timeout); 
-              callback(); 
-              do_stop.store(true);
+              if(duration_cast<milliseconds>(steady_clock::now() - start_point) >= timeout) {
+                callback(); 
+                do_stop.store(true);
+              }
               break;
           }
         }
