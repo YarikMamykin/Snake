@@ -16,7 +16,8 @@ namespace configuration {
     { ConfigID::WINDOW_FONT_NAME, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::string>("*-courier-*-24-*")))) },
     { ConfigID::SNAKE_SPEED, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<SNAKE_SPEED_TYPE>(SNAKE_SPEED_TYPE(5ul, 1ul, 5ul))))) },
     { ConfigID::SNAKE_COLOR, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<color::ColorPallete>(std::string("#00ff00"))))) },
-    { ConfigID::SNAKE_TIMEOUT, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::chrono::milliseconds>(std::chrono::milliseconds(50u))))) }
+    { ConfigID::SNAKE_TIMEOUT, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::chrono::milliseconds>(std::chrono::milliseconds(50u))))) },
+    { ConfigID::GAME_OVER_TIMEOUT, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::chrono::milliseconds>(std::chrono::milliseconds(80u))))) },
   };
   
   std::shared_ptr<abstractions::ObservableValueContainerWrapper> Settings::get(ConfigID id) {

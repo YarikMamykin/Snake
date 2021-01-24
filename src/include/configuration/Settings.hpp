@@ -16,7 +16,8 @@ namespace configuration {
     WINDOW_FONT_NAME,
     SNAKE_SPEED,
     SNAKE_COLOR,
-    SNAKE_TIMEOUT
+    SNAKE_TIMEOUT,
+    GAME_OVER_TIMEOUT
   };
 
   struct Settings final {
