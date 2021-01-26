@@ -128,17 +128,12 @@ namespace game_objects {
 
   Snake::Snake(xlib::X11_Window* x_window, 
                const color::Color& color,
+               geometry::Rectangle&& head_shape,
                const SnakeDirection&& direction) 
   : x_window(x_window)
   , current_direction(direction) 
   , window_frame(x_window->get_frame()) {
 
-    geometry::Rectangle head_shape = { 
-      .x = 100 * 3, 
-      .y = 100,
-      .width = 20 * 2,
-      .height = 20
-    };
     constexpr unsigned int spacing = 10u;
 
     parts.emplace_back(SnakeHead(color, std::move(head_shape), spacing));

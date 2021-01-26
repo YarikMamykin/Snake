@@ -15,6 +15,7 @@ namespace game_objects {
     public:
     explicit Snake(xlib::X11_Window* x_window, 
                    const color::Color& value,
+                   geometry::Rectangle&& head_shape,
                    const SnakeDirection&& direction = SnakeDirection::Right);
     ~Snake();
 
