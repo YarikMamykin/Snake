@@ -3,6 +3,8 @@
 #include "Settings.hpp"
 #include <iostream>
 #include "WindowAnchorHandler.hpp"
+#include "ObservableIntValuePresenter.hpp"
+#include "ObservableUlongValuePresenter.hpp"
 #include "ObservableColorValuePresenter.hpp"
 #include "ObservableRestrictedValuePresenter.hpp"
 
@@ -52,25 +54,35 @@ namespace views {
 
     auto snake_speed = configuration::Settings::get_concrete_ptr<configuration::SNAKE_SPEED_TYPE>(configuration::ConfigID::SNAKE_SPEED);
     auto snake_color = configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR);
+    auto snake_x = configuration::Settings::get_concrete_ptr<int>(configuration::ConfigID::SNAKE_HEAD_X);
+    auto snake_y = configuration::Settings::get_concrete_ptr<int>(configuration::ConfigID::SNAKE_HEAD_Y);
+    auto snake_width = configuration::Settings::get_concrete_ptr<unsigned long>(configuration::ConfigID::SNAKE_HEAD_WIDTH);
+    auto snake_height = configuration::Settings::get_concrete_ptr<unsigned long>(configuration::ConfigID::SNAKE_HEAD_HEIGHT);
 
     std::unique_ptr<xlib::X11_TextLabel> text_label(new xlib::X11_TextLabel(std::to_string(snake_speed->get_value().get_restricted_value()), {}, value_color_scheme, x_window));
     std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(snake_color->get_value(), {.width = 100U, .height = text_label->get_height()}, value_color_scheme, x_window));
 
     menu.add_item(std::move(construct_menu_item<ui::ObservableRestrictedValuePresenter<decltype(snake_speed->get_value().get_restricted_value())>, decltype(snake_speed), xlib::X11_TextLabel> (
-            "Snake speed: ", 
-            snake_speed, 
-            key_color_scheme,
-            value_color_scheme,
-            std::move(text_label),
-            x_window)));
+            "Snake speed: ", snake_speed, key_color_scheme, value_color_scheme, std::move(text_label), x_window)));
 
     menu.add_item(std::move(construct_menu_item<ui::ObservableColorValuePresenter, decltype(snake_color), xlib::X11_ColorLabel>(
-            "Snake color: ", 
-            snake_color,  
-            key_color_scheme,
-            value_color_scheme,
-            std::move(color_label),
-            x_window)));
+            "Snake color: ", snake_color,  key_color_scheme, value_color_scheme, std::move(color_label), x_window)));
+
+    text_label.reset(new xlib::X11_TextLabel(std::to_string(snake_x->get_value()), {}, value_color_scheme, x_window));
+    menu.add_item(std::move(construct_menu_item<ui::ObservableIntValuePresenter, decltype(snake_x), xlib::X11_TextLabel> (
+            "Snake X: ", snake_x, key_color_scheme, value_color_scheme, std::move(text_label), x_window)));
+
+    text_label.reset(new xlib::X11_TextLabel(std::to_string(snake_y->get_value()), {}, value_color_scheme, x_window));
+    menu.add_item(std::move(construct_menu_item<ui::ObservableIntValuePresenter, decltype(snake_y), xlib::X11_TextLabel> (
+            "Snake Y: ", snake_y, key_color_scheme, value_color_scheme, std::move(text_label), x_window)));
+
+    text_label.reset(new xlib::X11_TextLabel(std::to_string(snake_width->get_value()), {}, value_color_scheme, x_window));
+    menu.add_item(std::move(construct_menu_item<ui::ObservableUlongValuePresenter, decltype(snake_width), xlib::X11_TextLabel> (
+            "Snake WIDTH: ", snake_width, key_color_scheme, value_color_scheme, std::move(text_label), x_window)));
+
+    text_label.reset(new xlib::X11_TextLabel(std::to_string(snake_height->get_value()), {}, value_color_scheme, x_window));
+    menu.add_item(std::move(construct_menu_item<ui::ObservableUlongValuePresenter, decltype(snake_height), xlib::X11_TextLabel> (
+            "Snake HEIGHT: ", snake_height, key_color_scheme, value_color_scheme, std::move(text_label), x_window)));
   }
 
   GameSettings::~GameSettings() {
