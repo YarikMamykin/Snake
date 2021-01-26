@@ -18,6 +18,10 @@ namespace configuration {
     { ConfigID::SNAKE_COLOR, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<color::ColorPallete>(std::string("#00ff00"))))) },
     { ConfigID::SNAKE_TIMEOUT, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::chrono::milliseconds>(std::chrono::milliseconds(50u))))) },
     { ConfigID::GAME_OVER_TIMEOUT, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<std::chrono::milliseconds>(std::chrono::milliseconds(80u))))) },
+    { ConfigID::SNAKE_HEAD_X, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<unsigned long>(80u)))) },
+    { ConfigID::SNAKE_HEAD_Y, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<unsigned long>(80u)))) },
+    { ConfigID::SNAKE_HEAD_WIDTH, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<unsigned long>(20u)))) },
+    { ConfigID::SNAKE_HEAD_HEIGHT, std::shared_ptr<abstractions::ObservableValueContainerWrapper>(static_cast<abstractions::ObservableValueContainerWrapper*>((new abstractions::ObservableValue<unsigned long>(10u)))) },
   };
   
   std::shared_ptr<abstractions::ObservableValueContainerWrapper> Settings::get(ConfigID id) {

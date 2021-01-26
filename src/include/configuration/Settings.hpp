@@ -17,7 +17,11 @@ namespace configuration {
     SNAKE_SPEED,
     SNAKE_COLOR,
     SNAKE_TIMEOUT,
-    GAME_OVER_TIMEOUT
+    GAME_OVER_TIMEOUT,
+    SNAKE_HEAD_X,
+    SNAKE_HEAD_Y,
+    SNAKE_HEAD_WIDTH,
+    SNAKE_HEAD_HEIGHT
   };
 
   struct Settings final {
