@@ -40,6 +40,7 @@ set(SNAKE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/game_objects/Snake.cpp)
 set(PRESENTERS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/ui/UlongValuePresenter.cpp 
                    ${CMAKE_CURRENT_SOURCE_DIR}/ui/ColorValuePresenter.cpp
                    ${CMAKE_CURRENT_SOURCE_DIR}/ui/ObservableColorValuePresenter.cpp
+                   ${CMAKE_CURRENT_SOURCE_DIR}/ui/ObservableIntValuePresenter.cpp
                    ${CMAKE_CURRENT_SOURCE_DIR}/ui/ObservableUlongValuePresenter.cpp
                    ${CMAKE_CURRENT_SOURCE_DIR}/ui/ObservableRestrictedValuePresenter.cpp)
 set(COLOR_SRC ${CMAKE_CURRENT_SOURCE_DIR}/color/Color.cpp
