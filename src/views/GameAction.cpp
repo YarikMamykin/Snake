@@ -9,7 +9,12 @@ namespace views {
 
   GameAction::GameAction(xlib::X11_Window* x_window) 
   : x_window(x_window) 
-  , snake(x_window, configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR).get_current_color()) 
+  , snake(x_window, 
+      configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR).get_current_color(), 
+      geometry::Rectangle { .x = configuration::Settings::get_concrete<int>(configuration::ConfigID::SNAKE_HEAD_X),
+                            .y = configuration::Settings::get_concrete<int>(configuration::ConfigID::SNAKE_HEAD_Y),
+                            .width = configuration::Settings::get_concrete<unsigned int>(configuration::ConfigID::SNAKE_HEAD_WIDTH),
+                            .height = configuration::Settings::get_concrete<unsigned int>(configuration::ConfigID::SNAKE_HEAD_HEIGHT)}) 
   , snake_direction(game_objects::SnakeDirection::Right) {
     auto snake_timeout_ptr = configuration::Settings::get_concrete_ptr<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT);
     auto snake_speed_ptr = configuration::Settings::get_concrete_ptr<configuration::SNAKE_SPEED_TYPE>(configuration::ConfigID::SNAKE_SPEED);
