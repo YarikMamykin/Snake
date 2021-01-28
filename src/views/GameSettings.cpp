@@ -7,6 +7,7 @@
 #include "ObservableUlongValuePresenter.hpp"
 #include "ObservableColorValuePresenter.hpp"
 #include "ObservableRestrictedValuePresenter.hpp"
+#include "Rectangle.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE key_color_scheme = {
@@ -60,7 +61,7 @@ namespace views {
     auto snake_height = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_HEIGHT);
 
     std::unique_ptr<xlib::X11_TextLabel> text_label(new xlib::X11_TextLabel(std::to_string(snake_speed->get_value().get_restricted_value()), {}, value_color_scheme, x_window));
-    std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(snake_color->get_value(), {.width = 100U, .height = text_label->get_height()}, value_color_scheme, x_window));
+    std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(snake_color->get_value(), geometry::Rectangle{.width = 100U, .height = text_label->get_height()}, value_color_scheme, x_window));
 
     menu.add_item(std::move(construct_menu_item<ui::ObservableRestrictedValuePresenter<decltype(snake_speed->get_value().get_restricted_value())>, decltype(snake_speed), xlib::X11_TextLabel> (
             "Snake speed: ", snake_speed, key_color_scheme, value_color_scheme, std::move(text_label), x_window)));
