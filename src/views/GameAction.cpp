@@ -15,7 +15,8 @@ namespace views {
                             .y = configuration::Settings::get_concrete<configuration::RESTRICTED_INT>(configuration::ConfigID::SNAKE_HEAD_Y).get_restricted_value(),
                             .width = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_WIDTH).get_restricted_value(),
                             .height = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_HEIGHT).get_restricted_value()}) 
-  , snake_direction(game_objects::SnakeDirection::Right) {
+  , snake_direction(game_objects::SnakeDirection::Right) 
+  , paused(false) {
     auto snake_timeout_ptr = configuration::Settings::get_concrete_ptr<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT);
     auto snake_speed_ptr = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
 
@@ -43,6 +44,21 @@ namespace views {
     this->timer.stop_async(); 
     helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::OVER);
     XFlush(x_window->x_display.display); // Necessary in case of multithreading!
+  }
+
+  void GameAction::set_paused(const bool pause_flag) {
+    paused = pause_flag;
+
+    if(pause_flag) {
+      snake_timer.stop();
+      // TODO: draw_pause screen or whatever
+      return;
+    }
+
+    if(!pause_flag) {
+      // TODO: redraw background
+      snake_timer.launch();
+    }
   }
 
   void GameAction::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
@@ -74,6 +90,11 @@ namespace views {
       case XK_Left: 
         {
           this->snake_direction = game_objects::SnakeDirection::Left;
+          break;
+        }
+      case XK_space:
+        {
+          set_paused(!paused);
           break;
         }
     }
