@@ -21,8 +21,8 @@ namespace views {
     auto snake_speed_ptr = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
 
     std::chrono::milliseconds snake_speed_in_time(1ul + snake_speed_ptr->get_value().get_max() - snake_speed_ptr->get_value().get_restricted_value());
-    timer.timeout = std::chrono::milliseconds(snake_speed_in_time.count() * snake_timeout_ptr->get_value().count());
-    timer.callback = [this, x_window]() {
+    snake_timer.timeout = std::chrono::milliseconds(snake_speed_in_time.count() * snake_timeout_ptr->get_value().count());
+    snake_timer.callback = [this, x_window]() {
       try { 
         this->snake.move(this->snake_direction); 
       }
@@ -33,15 +33,17 @@ namespace views {
   }
 
   GameAction::~GameAction() {
-    timer.stop();
+    snake_timer.stop();
   }
 
   void GameAction::activate() {
-    timer.launch();
+    if(!paused) {
+      snake_timer.launch();
+    }
   }
 
   void GameAction::deactivate() {
-    this->timer.stop_async(); 
+    this->snake_timer.stop_async(); 
     helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::OVER);
     XFlush(x_window->x_display.display); // Necessary in case of multithreading!
   }
