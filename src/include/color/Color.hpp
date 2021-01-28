@@ -11,6 +11,7 @@ namespace color {
     Color() = default;
     Color(const Color&) = default;
     Color(const unsigned long& value);
+    Color(const char* value);
     Color(const std::string& value);
     const unsigned long to_long() const; 
     const std::string to_hex() const; 

@@ -6,6 +6,7 @@ namespace color {
         , green(value >> 8)
         , blue(value) {}
 
+    Color::Color(const char* value) : Color(std::string(value)) { }
     Color::Color(const std::string& value) 
       : red(0u)
         , green(0u)
