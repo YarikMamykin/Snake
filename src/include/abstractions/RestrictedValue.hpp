@@ -43,6 +43,14 @@ namespace abstractions {
             value = new_value;
           }
         }
+
+        void set_min(const ValueType& min_value) {
+          min_bound(min_value);
+        }
+        
+        void set_max(const ValueType& max_value) {
+          max_bound(max_value);
+        }
         
         RestrictedValue<ValueType>& operator ++() {
           auto new_value = this->value;
@@ -59,7 +67,9 @@ namespace abstractions {
 }
 
 namespace configuration {
-  typedef abstractions::RestrictedValue<unsigned long> SNAKE_SPEED_TYPE;
+  typedef abstractions::RestrictedValue<unsigned long> RESTRICTED_ULONG;
+  typedef abstractions::RestrictedValue<int> RESTRICTED_INT;
+  typedef abstractions::RestrictedValue<unsigned int> RESTRICTED_UINT;
 }
 
 #endif /* SRC_INCLUDE_ABSTRACTIONS_RESTRICTEDVALUE_HPP */
