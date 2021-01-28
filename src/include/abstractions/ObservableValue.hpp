@@ -54,8 +54,17 @@ namespace abstractions {
       std::list<ObservableValueUser<ValueType>* > users;
 
     public:
-      ObservableValue<ValueType>(const ValueType& value) 
+      ObservableValue<ValueType>(const ValueType& value)
       : value(value) {
+      }
+
+      ObservableValue<ValueType>(ValueType&& value)
+      : value(value) {
+      }
+
+      template <typename... Args>
+      ObservableValue<ValueType>(Args... args) 
+      : ObservableValue<ValueType>(ValueType(args...)) {
       }
 
       void add_listening_user(ObservableValueUser<ValueType>* user) {
