@@ -21,6 +21,12 @@ namespace geometry {
 
     Rectangle() = default;
     Rectangle(const Rectangle&) = default;
+    Rectangle(Rectangle&&) = default;
+    Rectangle& operator=(const Rectangle&) = default;
+
+    Rectangle(const int& x, const int& y) : x(x), y(y), width(), height() { }
+    Rectangle(const unsigned int& w, const unsigned int& h) : width(w), height(h) { }
+    Rectangle(const int& x, const int& y, const unsigned int& w, const unsigned int& h) : x(x), y(y), width(w), height(h) { }
 
     friend bool operator == (const Rectangle& a, const Rectangle& b) {
       const auto&& a_tl = a.top_left();
