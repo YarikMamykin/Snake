@@ -14,6 +14,9 @@ namespace color {
     : colors(default_colors) 
     , current_color(colors.begin()) { }
 
+  ColorPallete::ColorPallete(const char* hex_color)
+    : ColorPallete(Color(hex_color)) { }
+
   ColorPallete::ColorPallete(const std::string& hex_color)
     : ColorPallete(Color(hex_color)) { }
 

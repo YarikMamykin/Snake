@@ -8,6 +8,7 @@
 namespace color {
   struct ColorPallete {
     ColorPallete();
+    ColorPallete(const char* hex_color);
     ColorPallete(const std::string& hex_color);
     ColorPallete(const Color& color);
     ColorPallete(const ColorPallete& color_pallete);
