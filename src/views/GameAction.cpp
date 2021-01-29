@@ -43,7 +43,6 @@ namespace views {
   }
 
   void GameAction::deactivate() {
-    this->snake_timer.stop_async(); 
     helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::OVER);
     XFlush(x_window->x_display.display); // Necessary in case of multithreading!
   }
