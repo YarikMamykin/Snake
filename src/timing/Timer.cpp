@@ -38,11 +38,13 @@ namespace timing {
           }
 
           case TimerType::SingleShot: { 
+            while(!do_stop.load()) {
               if(duration_cast<milliseconds>(steady_clock::now() - start_point) >= timeout) {
                 callback(); 
                 do_stop.store(true);
               }
-              break;
+            }
+            break;
           }
         }
     });
