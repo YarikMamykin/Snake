@@ -53,7 +53,6 @@ namespace game_objects {
       std::list<SnakeHead> parts;
       xlib::X11_Window* x_window;
       SnakeDirection current_direction;
-      geometry::Rectangle window_frame;
       std::deque<std::pair<SnakeDirection, RotationDirection>> movement_queue;
   };
 }
