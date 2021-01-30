@@ -29,6 +29,7 @@ namespace views {
     private:
       xlib::X11_Window* x_window;
       timing::Timer snake_timer;
+      timing::Timer movement_controller_timer;
       bool paused;
       game_objects::SnakeDirection snake_direction;
   };

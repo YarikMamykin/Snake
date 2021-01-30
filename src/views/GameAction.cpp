@@ -4,6 +4,7 @@
 #include <iostream>
 #include <thread>
 #include "ColorPallete.hpp"
+#include "MovementController.hpp"
 
 namespace views {
 
@@ -20,13 +21,14 @@ namespace views {
     auto snake_timeout_ptr = configuration::Settings::get_concrete_ptr<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT);
     auto snake_speed_ptr = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
 
-    std::chrono::milliseconds snake_speed_in_time(1ul + snake_speed_ptr->get_value().get_max() - snake_speed_ptr->get_value().get_restricted_value());
+    std::chrono::milliseconds snake_speed_in_time(snake_speed_ptr->get_value().get_min() + snake_speed_ptr->get_value().get_max() - snake_speed_ptr->get_value().get_restricted_value());
     snake_timer.timeout = std::chrono::milliseconds(snake_speed_in_time.count() * snake_timeout_ptr->get_value().count());
-    snake_timer.callback = [this, x_window]() {
-      try { 
-        this->snake.move(this->snake_direction); 
-      }
-      catch(...) { 
+    snake_timer.callback = [this, x_window]() { this->snake.move(this->snake_direction); };
+
+    movement_controller_timer.timeout = snake_timer.timeout;
+    movement_controller_timer.callback = [this, x_window]() {
+      game_objects::MovementController mcontroller(this->snake, x_window);
+      if(!mcontroller.validate()) {
         this->deactivate();
       }
     };
@@ -34,11 +36,13 @@ namespace views {
 
   GameAction::~GameAction() {
     snake_timer.stop();
+    movement_controller_timer.stop();
   }
 
   void GameAction::activate() {
     if(!paused) {
       snake_timer.launch();
+      movement_controller_timer.launch();
     }
   }
 
