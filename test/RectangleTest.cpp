@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "Rectangle.hpp"
+#include <utility>
 
 namespace {
 }
@@ -85,6 +86,21 @@ TEST(Rectangle, Rotate)
   EXPECT_EQ(counterclockwize_rotated_rectangle, test_rectangles[0]);
   EXPECT_EQ(clockwize_rotated_rectangle, test_rectangles[1]);
   EXPECT_EQ(rectangle, test_rectangles[2]);
+}
+
+TEST(Rectangle, HasPoint) {
+  geometry::Rectangle r = {0,0,200,200};
+  geometry::Point p1 = {10,20};
+  geometry::Point p2 = {300,400};
+  geometry::Point p3 = {-1,200};
+  geometry::Point p4 = {0,0};
+  geometry::Point p5 = {200,200};
+
+  EXPECT_TRUE(r.has_point(std::forward<geometry::Point>(p1)));
+  EXPECT_FALSE(r.has_point(std::forward<geometry::Point>(p2)));
+  EXPECT_FALSE(r.has_point(std::forward<geometry::Point>(p3)));
+  EXPECT_TRUE(r.has_point(std::forward<geometry::Point>(p4)));
+  EXPECT_TRUE(r.has_point(std::forward<geometry::Point>(p5)));
 }
 
 }
