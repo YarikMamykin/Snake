@@ -11,6 +11,9 @@
 #include "ObservableValue.hpp"
 
 namespace game_objects {
+
+  class MovementController;
+
   class Snake {
     public:
     explicit Snake(xlib::X11_Window* x_window, 
@@ -21,12 +24,9 @@ namespace game_objects {
 
     void move(const SnakeDirection& direction);
 
-    private:
-      struct MovementController {
-        void validate( geometry::Rectangle& frame, 
-                       const geometry::Rectangle& x_window_frame);
-      } mcontroller;
+    friend class MovementController;
 
+    private:
       struct SnakeHead {
         const unsigned int step;
         const unsigned int spacing;

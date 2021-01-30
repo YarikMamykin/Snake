@@ -131,8 +131,7 @@ namespace game_objects {
                geometry::Rectangle&& head_shape,
                const SnakeDirection&& direction) 
   : x_window(x_window)
-  , current_direction(direction) 
-  , window_frame(x_window->get_frame()) {
+  , current_direction(direction) {
 
     constexpr unsigned int spacing = 10u;
 
@@ -187,11 +186,7 @@ namespace game_objects {
       auto&& part_direction = movements_iter->first;
       auto&& part_rotation_direction = movements_iter->second;
       parts_iter->move(part_direction, part_rotation_direction);
-
     }
-
-    // don't let snake to go out of window borders
-    mcontroller.validate(parts.begin()->frame, window_frame);
 
     this->show(x_window);
 
@@ -229,10 +224,4 @@ namespace game_objects {
     return up_down || down_up || left_right || right_left;
   }
 
-  void Snake::MovementController::validate(geometry::Rectangle& frame, 
-                                           const geometry::Rectangle& x_window_frame) {
-    if(!frame.belongs_to(x_window_frame)) {
-      throw exceptions::GameOver();
-    }
-  }
 }
