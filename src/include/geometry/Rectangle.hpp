@@ -105,6 +105,10 @@ namespace geometry {
       return result;
     }
 
+    bool crosses(const Rectangle& r) const {
+      return r.has_point(top_left()) || r.has_point(top_right()) || r.has_point(bottom_left()) || r.has_point(bottom_right());
+    }
+
     void rotate(const game_objects::RotationDirection&& rotation_direction, const Point&& rotation_point) {
       std::vector<Point> current_points = {top_right(), top_left(), bottom_left(), bottom_right()};
       std::function<Point (const Point& p)> rotate_point;
