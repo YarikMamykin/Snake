@@ -87,7 +87,7 @@ namespace geometry {
     bool has_point(Point&& p) const {
       const auto&& top_left_p = top_left();
       const auto&& bottom_right_p = bottom_right();
-      return p >= top_left_p && p >= bottom_right_p;
+      return p >= top_left_p && bottom_right_p >= p;
     }
 
     bool belongs_to(const Rectangle& rect) const {
