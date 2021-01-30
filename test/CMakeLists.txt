@@ -35,5 +35,5 @@ add_executable( runUnitTests
 )
 
 # Link test executable against gtest & gtest_main
-target_link_libraries(runUnitTests gtest gtest_main xlib_ui events game_view helpers timer snake presenters color)
+target_link_libraries(runUnitTests gtest gtest_main xlib_ui events game_view helpers timer game_objects presenters color)
 add_test( runUnitTests runUnitTests )
