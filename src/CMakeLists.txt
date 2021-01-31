@@ -48,6 +48,8 @@ set(TIMER_SRC
 set(GAME_OBJECTS_SRC 
   ${CMAKE_CURRENT_SOURCE_DIR}/game_objects/Snake.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/game_objects/MovementController.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/game_objects/Food.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/game_objects/FoodGenerator.cpp
 )
 
 set(PRESENTERS_SRC 
