@@ -63,7 +63,7 @@ namespace color {
     return *this;
   }
 
-  const Color& ColorPallete::get_current_color() const {
+  Color ColorPallete::get_current_color() const {
     return *current_color;
   }
 

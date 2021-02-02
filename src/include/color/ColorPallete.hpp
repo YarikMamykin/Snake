@@ -18,7 +18,7 @@ namespace color {
     ColorPallete& operator --();
     ColorPallete& operator = (const ColorPallete& color_pallete);
     void set_current_color(const Color& color);
-    const Color& get_current_color() const;
+    Color get_current_color() const;
 
     private:
     std::list<Color> colors;
