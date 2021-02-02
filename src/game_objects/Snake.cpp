@@ -1,5 +1,6 @@
 #include "Snake.hpp"
 #include "Exceptions.hpp"
+#include "XlibWrapper.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -16,46 +17,14 @@ namespace game_objects {
   , head_color(color) { }
 
   void Snake::SnakeHead::hide(xlib::X11_Window *x_window) {
-    XSetLineAttributes(x_window->x_display.display, x_window->graphical_context, 3,0,0,0);
-    const auto& window_color_scheme = x_window->get_color_scheme();
-    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(color::ColorSchemeID::BackgroundColor).to_long());
-    XFillRectangle(x_window->x_display.display,
-        x_window->window,
-        x_window->graphical_context,
-        frame.x,
-        frame.y,
-        frame.width,
-        frame.height);
-    XDrawRectangle(x_window->x_display.display,
-        x_window->window,
-        x_window->graphical_context,
-        frame.x,
-        frame.y,
-        frame.width,
-        frame.height);
-    XFlush(x_window->x_display.display);
+    auto background_color = x_window->get_color_scheme().at(color::ColorSchemeID::BackgroundColor);
+    xlib::XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), std::forward<color::Color>(background_color));
+    xlib::XlibWrapper::self()->flush_buffer();
   }
 
   void Snake::SnakeHead::show(xlib::X11_Window *x_window) {
-    XSetLineAttributes(x_window->x_display.display, x_window->graphical_context, 3,0,0,0);
-    const auto& window_color_scheme = x_window->get_color_scheme();
-    XSetForeground(x_window->x_display.display, x_window->graphical_context, window_color_scheme.at(color::ColorSchemeID::BackgroundColor).to_long());
-    XDrawRectangle(x_window->x_display.display,
-        x_window->window,
-        x_window->graphical_context,
-        frame.x,
-        frame.y,
-        frame.width,
-        frame.height);
-    XSetForeground(x_window->x_display.display, x_window->graphical_context, head_color.to_long());
-    XFillRectangle(x_window->x_display.display,
-        x_window->window,
-        x_window->graphical_context,
-        frame.x,
-        frame.y,
-        frame.width,
-        frame.height);
-    XFlush(x_window->x_display.display);
+    xlib::XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), std::forward<color::Color>(head_color));
+    xlib::XlibWrapper::self()->flush_buffer();
   }
 
   void Snake::SnakeHead::move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction) { 

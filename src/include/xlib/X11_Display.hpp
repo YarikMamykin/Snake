@@ -8,9 +8,6 @@ namespace xlib {
   struct X11_Display {
     X11_Display();
     ~X11_Display();
-
-    Display *display;
-    std::string error_msg;
   };
 }
 

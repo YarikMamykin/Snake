@@ -23,7 +23,7 @@ namespace views {
   GameMenu::Item::Item(xlib::X11_Window* x_window, 
       const std::string& name, 
       KEY_PRESS_HANDLER_TYPE key_press_handler)
-  : xlib::X11_TextLabel(name, {}, text_labels_color_scheme, x_window)
+  : xlib::X11_TextLabel(name, {}, text_labels_color_scheme)
   , key_press_handler(key_press_handler) { }
 
   GameMenu::Item::~Item() {
@@ -37,7 +37,7 @@ namespace views {
 
   GameMenu::GameMenu(xlib::X11_Window* x_window) 
   : parent_window(x_window) 
-  , menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme, x_window) {
+  , menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme) {
     std::unique_ptr<abstractions::ui::Object> menu_item;
     menu_item.reset(new Item(x_window, NewGameItemName, [x_window](const KeySym&& key_sym) {
           switch(key_sym) {

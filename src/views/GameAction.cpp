@@ -5,6 +5,7 @@
 #include <thread>
 #include "ColorPallete.hpp"
 #include "MovementController.hpp"
+#include "XlibWrapper.hpp"
 
 namespace views {
 
@@ -48,7 +49,7 @@ namespace views {
 
   void GameAction::deactivate() {
     helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::OVER);
-    XFlush(x_window->x_display.display); // Necessary in case of multithreading!
+    xlib::XlibWrapper::self()->flush_buffer();
   }
 
   void GameAction::set_paused(const bool pause_flag) {

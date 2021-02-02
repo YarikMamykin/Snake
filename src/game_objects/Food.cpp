@@ -1,42 +1,22 @@
 #include "Food.hpp"
+#include "XlibWrapper.hpp"
 
 namespace game_objects {
 
-  Food::Food(xlib::X11_Window* x_window, const color::Color&& color, geometry::Rectangle&& frame) 
-  : x_window(x_window) 
+  Food::Food(const color::Color&& background_color, const color::Color&& color, geometry::Rectangle&& frame) 
+  : background_color(background_color) 
   , color(color) 
   , frame(std::forward<decltype(frame)>(frame)) { }
 
   Food::~Food() {
-    // XSetForeground(x_window->x_display.display, x_window->graphical_context, this->color_scheme.at(color::ColorSchemeID::BackgroundColor).to_long());
-    // XFillRectangle(x_window->x_display.display,
-        // x_window->window,
-        // x_window->graphical_context,
-        // frame.x,
-        // frame.y,
-        // frame.width,
-        // frame.height);
-    // XFlush(x_window->x_display.display);
+    xlib::XlibWrapper::self()->fill_circle(std::forward<decltype(frame)>(frame), 
+                                           std::forward<decltype(background_color)>(background_color));
+    xlib::XlibWrapper::self()->flush_buffer();
   }
 
   void Food::show() {
-//     XSetForeground(x_window->x_display.display, x_window->graphical_context, this->color_scheme.at(color::ColorSchemeID::BackgroundColor).to_long());
-    // XFillRectangle(x_window->x_display.display,
-        // x_window->window,
-        // x_window->graphical_context,
-        // frame.x,
-        // frame.y,
-        // frame.width,
-        // frame.height);
-    // XSetForeground(x_window->x_display.display, x_window->graphical_context, this->color_scheme.at(color::ColorSchemeID::FoodColor).to_long());
-    // XDrawArc(x_window->x_display.display,
-        // x_window->window,
-        // x_window->graphical_context,
-        // frame.x,
-        // frame.y,
-        // frame.width,
-        // frame.height,
-        // 0, 360*64); // angle is specified as <degrees> * 64
-    // XFlush(x_window->x_display.display);
+    xlib::XlibWrapper::self()->fill_circle(std::forward<decltype(frame)>(frame), 
+                                           std::forward<decltype(background_color)>(color));
+    xlib::XlibWrapper::self()->flush_buffer();
   }
 }

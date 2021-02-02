@@ -1,7 +1,6 @@
 #ifndef SRC_INCLUDE_XLIB_X11_TEXTLABEL_HPP
 #define SRC_INCLUDE_XLIB_X11_TEXTLABEL_HPP
 
-#include "X11_Window.hpp"
 #include "Rectangle.hpp"
 #include "TextLabel.hpp"
 #include <string>
@@ -15,11 +14,10 @@ namespace xlib {
       static const unsigned int frame_weight = 3U;
 
     public:
-      X11_TextLabel(X11_Window* parent_window);
+      X11_TextLabel();
       X11_TextLabel(const std::string& text, 
                     const geometry::Rectangle& frame, 
-                    const color::COLOR_SCHEME_TYPE& color_scheme, 
-                    X11_Window* parent_window);
+                    const color::COLOR_SCHEME_TYPE& color_scheme);
       ~X11_TextLabel();
 
       void show(bool show_flag) override;
@@ -33,7 +31,6 @@ namespace xlib {
       void hide_prev_frame();
 
     private:
-      X11_Window* parent_window;
       geometry::Rectangle prev_frame;
   };
 }

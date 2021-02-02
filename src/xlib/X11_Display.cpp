@@ -1,15 +1,13 @@
 #include "X11_Display.hpp"
+#include "XlibWrapper.hpp"
 
 
 namespace xlib {
   X11_Display::X11_Display() {
-    display = XOpenDisplay(nullptr);
-    if (display == nullptr) {
-      error_msg = "Cannot open display";
-    }
+    XlibWrapper::self()->open_display();
   }
 
   X11_Display::~X11_Display() {
-    XCloseDisplay(display);
+    XlibWrapper::self()->close_display();
   }
 }

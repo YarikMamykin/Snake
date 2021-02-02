@@ -1,4 +1,5 @@
 #include "X11_ColorLabel.hpp"
+#include "XlibWrapper.hpp"
 #include "Constants.hpp"
 
 namespace {
@@ -9,40 +10,32 @@ namespace xlib {
 
   X11_ColorLabel::X11_ColorLabel(const color::ColorPallete& color_pallete,
                    geometry::Rectangle&& frame, 
-                   const color::COLOR_SCHEME_TYPE& color_scheme,
-                   xlib::X11_Window* x_window) 
-  : abstractions::ui::ColorLabel(color_pallete, std::move(frame), color_scheme) 
-  , x_window(x_window) { }
+                   const color::COLOR_SCHEME_TYPE& color_scheme) 
+  : abstractions::ui::ColorLabel(color_pallete, std::move(frame), color_scheme) { }
 
   X11_ColorLabel::~X11_ColorLabel() {}
 
   void X11_ColorLabel::show(bool show_flag) {
-    auto& display = x_window->x_display.display;
-    auto& graphical_context = x_window->graphical_context;
-    auto& window = x_window->window;
-
     // hide
-    XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::BackgroundColor].to_long());
-    XFillRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
+    XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), 
+                                 std::forward<color::Color>(color_scheme[color::ColorSchemeID::BackgroundColor]));
 
     if(show_flag) {
       show_frame(focused());
-      XSetForeground(display, graphical_context, this->color_pallete.get_current_color().to_long());
-      XFillRectangle(display, window, graphical_context, 
-          this->frame.x + margin,
-          this->frame.y + margin,
-          this->frame.width - margin * 2,
-          this->frame.height - margin * 2);
+      XlibWrapper::self()->fill_rectangle({
+          frame.x + margin,
+          frame.y + margin,
+          frame.width - margin * 2,
+          frame.height - margin * 2},
+          (color_pallete.get_current_color()));
+
     }
   }
 
   void X11_ColorLabel::show_frame(bool show_flag) {
     if(show_flag) {
-      auto& display = x_window->x_display.display;
-      auto& graphical_context = x_window->graphical_context;
-      auto& window = x_window->window;
-      XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::FrameColor].to_long());
-      XDrawRectangle(display, window, graphical_context, this->frame.x, this->frame.y, this->frame.width, this->frame.height);
+      XlibWrapper::self()->draw_rectangle(std::forward<geometry::Rectangle>(frame), 
+                                   std::forward<color::Color>(color_scheme[color::ColorSchemeID::FrameColor]));
     }
   }
 }

@@ -5,7 +5,7 @@
    */
 
 #include "X11_Window.hpp"
-#include "X11_Display.hpp"
+#include "XlibWrapper.hpp"
 #include "EventHandler.hpp"
 #include "Settings.hpp"
 #include <iostream>

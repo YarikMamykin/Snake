@@ -1,21 +1,20 @@
 #include "X11_ColorizedTextLabel.hpp"
+#include "XlibWrapper.hpp"
 #include <algorithm>
 #include <numeric>
 
 namespace xlib {
-  X11_ColorizedTextLabel::X11_ColorizedTextLabel(X11_Window* parent_window)
-  : abstractions::ui::TextLabel() {}
+  X11_ColorizedTextLabel::X11_ColorizedTextLabel() : abstractions::ui::TextLabel() {}
 
   X11_ColorizedTextLabel::X11_ColorizedTextLabel(const std::string& text, 
                                const geometry::Rectangle& frame, 
                                const color::COLOR_SCHEME_TYPE& color_scheme, 
-															 color::ColorPallete&& char_color_sequence,
-                               X11_Window* parent_window) 
+															 color::ColorPallete&& char_color_sequence) 
   : abstractions::ui::TextLabel(text, frame, color_scheme) 
 	, char_color_sequence(char_color_sequence) {
     std::transform(text.begin(), text.end(), std::back_inserter(char_labels), 
-				[&color_scheme, parent_window](const char& c) -> xlib::X11_TextLabel {
-        return xlib::X11_TextLabel(std::string(1,c), {}, color_scheme, parent_window);
+				[&color_scheme](const char& c) -> xlib::X11_TextLabel {
+        return xlib::X11_TextLabel(std::string(1,c), {}, color_scheme);
 		});
 
 		this->frame.height = char_labels.empty() ? 0u : char_labels.front().get_width();

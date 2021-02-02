@@ -4,6 +4,7 @@
 #include "XHeaders.hpp"
 #include <string>
 #include "X11_Display.hpp"
+#include "X11_Font.hpp"
 #include "MouseMotionHandler.hpp"
 #include "ClientMessageHandler.hpp"
 #include <memory>
@@ -45,11 +46,9 @@ namespace xlib {
     void handle_client_message(const long* data) override;
     const int get_event_handling_mask() const override;
 
-    Window window;
     X11_Display x_display;
+    X11_Font x_font;
     std::shared_ptr<views::View> view;
-    GC graphical_context;
-    XFontStruct* font_info;
   };
 }
 

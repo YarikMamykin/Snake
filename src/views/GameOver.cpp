@@ -2,6 +2,7 @@
 #include "Helper.hpp"
 #include "WindowAnchorHandler.hpp"
 #include "Settings.hpp"
+#include "XlibWrapper.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE color_scheme = {
@@ -22,13 +23,13 @@ namespace views {
         color::Color("#ffff00"),
         color::Color("#00ffff"),
         color::Color("#ff00ff"),
-        }), x_window)) 
+        }))) 
   , timer(configuration::Settings::get_concrete<std::chrono::milliseconds>(configuration::ConfigID::GAME_OVER_TIMEOUT)) {
     auto colorized_text_label_ptr = colorized_text_label.get();
     timer.callback = [colorized_text_label_ptr, x_window]() {
       colorized_text_label_ptr->shift_colors();
       colorized_text_label_ptr->show(true);
-      XFlush(x_window->x_display.display); 
+      xlib::XlibWrapper::self()->flush_buffer();
     };
   }
 

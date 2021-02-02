@@ -3,40 +3,42 @@
 #include <algorithm>
 #include "Exceptions.hpp"
 #include "X11_Window.hpp"
+#include "XlibWrapper.hpp"
 
 namespace events {
 
   void EventHandler::event_handler_loop(abstractions::ui::AWindow* x_window) {
     using namespace events;
-    // select kind of events we are interested in
-    xlib::X11_Window* x11_window = dynamic_cast<xlib::X11_Window*>(x_window); // OH YES -> FIX IT!
-    XSelectInput(x11_window->x_display.display, 
-                 x11_window->window, 
-                 ExposureMask | KeyPressMask | ButtonPressMask | PointerMotionMask );
+    xlib::XlibWrapper::self()->select_events_to_process();
     try {
       for (;;) {
-        XNextEvent(x11_window->x_display.display, &event);
+        xlib::XlibWrapper::self()->next_event(&event);
         switch(event.type) {
-          case Expose: { 
-                         x_window->expose(); 
-                         break; 
-                       }
-          case KeyPress: { 
-                           handle_key_press(XLookupKeysym(&event.xkey, 0), std::move(event.xkey.state)); 
-                           break; 
-                         }
-          case ButtonPress: { 
-                              handle_button_press(event.xmotion.x, event.xmotion.y, event.xbutton.button); 
-                              break; 
-                            }
-          case MotionNotify: { 
-                               handle_mouse_motion(event.xmotion.x, event.xmotion.y); 
-                               break; 
-                             }
-          case ClientMessage: { 
-                                handle_client_message(event.xclient.data.l); 
-                                break; 
-                              }
+          case Expose: 
+            { 
+              x_window->expose(); 
+              break; 
+            }
+          case KeyPress: 
+            { 
+              handle_key_press(XLookupKeysym(&event.xkey, 0), std::move(event.xkey.state)); 
+              break; 
+            }
+          case ButtonPress: 
+            { 
+              handle_button_press(event.xmotion.x, event.xmotion.y, event.xbutton.button); 
+              break; 
+            }
+          case MotionNotify: 
+            { 
+              handle_mouse_motion(event.xmotion.x, event.xmotion.y); 
+              break; 
+            }
+          case ClientMessage: 
+            { 
+              handle_client_message(event.xclient.data.l); 
+              break; 
+            }
           default:break;
         }
       }

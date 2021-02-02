@@ -11,12 +11,11 @@ namespace xlib {
 		color::ColorPallete char_color_sequence;
 
     public:
-      X11_ColorizedTextLabel(X11_Window* parent_window);
+      X11_ColorizedTextLabel();
       X11_ColorizedTextLabel(const std::string& text, 
                             const geometry::Rectangle& frame, 
                             const color::COLOR_SCHEME_TYPE& color_scheme, 
-														color::ColorPallete&& char_color_sequence,
-                            X11_Window* parent_window);
+														color::ColorPallete&& char_color_sequence);
       ~X11_ColorizedTextLabel();
     
       void show(bool show_flag) override;

@@ -1,5 +1,5 @@
 #include "X11_Menu.hpp"
-#include <iostream>
+#include "XlibWrapper.hpp"
 
 namespace {
   
@@ -9,10 +9,8 @@ namespace xlib {
   X11_Menu::X11_Menu(const ::ui::LayoutType& layout, 
                      const geometry::Rectangle& frame, 
                      const color::COLOR_SCHEME_TYPE& color_scheme,
-                     xlib::X11_Window* x_window,
                      const unsigned int& spacing)
     : abstractions::ui::Menu(layout, frame, color_scheme, spacing) 
-    , x_window(x_window) 
     , margin(20U) {}
 
   void X11_Menu::show(bool show_flag) {
@@ -23,27 +21,23 @@ namespace xlib {
   void X11_Menu::show_frame(bool show_flag) {
     update_menu_frame();
     if(show_flag) {
-      auto& display = x_window->x_display.display;
-      auto& graphical_context = x_window->graphical_context;
-      auto& window = x_window->window;
-      XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::FrameColor].to_long());
-      XDrawRectangle(display, window, graphical_context, 
-          this->frame.x - margin, 
-          this->frame.y - margin, 
-          this->frame.width + margin * 2, 
-          this->frame.height + margin * 2);
+      XlibWrapper::self()->draw_rectangle({
+        frame.x - margin,
+        frame.y - margin,
+        frame.width + margin * 2,
+        frame.height + margin * 2
+      }, 
+      std::forward<color::Color>(color_scheme[color::ColorSchemeID::FrameColor]));
     }
 
     if(!show_flag) {
-      auto& display = x_window->x_display.display;
-      auto& graphical_context = x_window->graphical_context;
-      auto& window = x_window->window;
-      XSetForeground(display, graphical_context, this->color_scheme[color::ColorSchemeID::BackgroundColor].to_long());
-      XDrawRectangle(display, window, graphical_context, 
-          this->frame.x - margin, 
-          this->frame.y - margin, 
-          this->frame.width + margin * 2, 
-          this->frame.height + margin * 2);
+      XlibWrapper::self()->draw_rectangle({
+        frame.x - margin,
+        frame.y - margin,
+        frame.width + margin * 2,
+        frame.height + margin * 2
+      }, 
+      std::forward<color::Color>(color_scheme[color::ColorSchemeID::BackgroundColor]));
     }
   }
 
