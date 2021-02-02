@@ -10,6 +10,8 @@ namespace color {
 
     Color() = default;
     Color(const Color&) = default;
+    Color(Color&&) = default;
+    Color& operator=(const Color&) = default;
     Color(const unsigned long& value);
     Color(const char* value);
     Color(const std::string& value);
