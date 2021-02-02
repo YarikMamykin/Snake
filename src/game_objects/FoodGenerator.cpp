@@ -5,6 +5,6 @@ namespace game_objects {
   }
 
   Food FoodGenerator::generate(xlib::X11_Window* x_window) {
-    return Food(x_window, {/* food color*/ }, {/* generated frame */ });
+    return Food({/* background color*/ }, {/* food color*/ }, {/* generated frame */ });
   }
 }
