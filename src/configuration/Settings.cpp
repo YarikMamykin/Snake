@@ -22,7 +22,7 @@ namespace configuration {
     { ConfigID::SNAKE_HEAD_HEIGHT, (new abstractions::ObservableValue<RESTRICTED_UINT>(10u, 5u, 50u))->wrap() },
     { ConfigID::RANDOM_ENGINE_ALGORITHM, (new abstractions::ObservableValue<RANDOM_ENGINE_ALGORITHM_TYPE>())->wrap() },
     { ConfigID::RANDOM_ENGINE_SEED_SEQUENCE, (new abstractions::ObservableValue<RANDOM_ENGINE_SEED_SEQUENCE_TYPE>(std::list<unsigned int>{1u,2u,3u,4u,5u,6u,7u,8u}))->wrap() },
-    { ConfigID::FOOD_COLOR, (new abstractions::ObservableValue<color::Color>("#ffff00"))->wrap() },
+    { ConfigID::FOOD_COLOR, (new abstractions::ObservableValue<color::ColorPallete>("#ffff00"))->wrap() },
     { ConfigID::FOOD_SIZE, (new abstractions::ObservableValue<RESTRICTED_UINT>(10u, 5u, 20u))->wrap() },
   };
   
