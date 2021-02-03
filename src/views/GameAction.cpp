@@ -13,6 +13,7 @@ namespace views {
   : x_window(x_window) 
   , snake(x_window, 
       configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR).get_current_color(), 
+      geometry::Rectangle { .x = 10u, .y = 10u,
                             .width = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_WIDTH).get_restricted_value(),
                             .height = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_HEIGHT).get_restricted_value()}) 
   , snake_direction(game_objects::SnakeDirection::Right) 
