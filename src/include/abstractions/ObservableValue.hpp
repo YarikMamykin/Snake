@@ -101,6 +101,10 @@ namespace abstractions {
       const ValueType get_value() const {
         return this->value;
       }
+
+      std::shared_ptr<ObservableValueContainerWrapper> wrap() {
+        return std::shared_ptr<ObservableValueContainerWrapper>(static_cast<ObservableValueContainerWrapper*>(this));
+      }
   };
 }
 #endif /* SRC_INCLUDE_ABSTRACTIONS_OBSERVABLEVALUE_HPP */
