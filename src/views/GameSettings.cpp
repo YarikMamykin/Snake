@@ -55,8 +55,6 @@ namespace views {
 
     auto snake_speed = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
     auto snake_color = configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR);
-    auto snake_x = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_INT>(configuration::ConfigID::SNAKE_HEAD_X);
-    auto snake_y = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_INT>(configuration::ConfigID::SNAKE_HEAD_Y);
     auto snake_width = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_WIDTH);
     auto snake_height = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_HEIGHT);
 
@@ -68,14 +66,6 @@ namespace views {
 
     menu.add_item(std::move(construct_menu_item<ui::ObservableColorValuePresenter, decltype(snake_color), xlib::X11_ColorLabel>(
             "Snake color: ", snake_color,  key_color_scheme, value_color_scheme, std::move(color_label), x_window)));
-
-    text_label.reset(new xlib::X11_TextLabel(std::to_string(snake_x->get_value().get_restricted_value()), {}, value_color_scheme));
-    menu.add_item(std::move(construct_menu_item<ui::ObservableRestrictedValuePresenter<decltype(snake_x->get_value().get_restricted_value())>, decltype(snake_x), xlib::X11_TextLabel> (
-            "Snake X: ", snake_x, key_color_scheme, value_color_scheme, std::move(text_label), x_window)));
-
-    text_label.reset(new xlib::X11_TextLabel(std::to_string(snake_y->get_value().get_restricted_value()), {}, value_color_scheme));
-    menu.add_item(std::move(construct_menu_item<ui::ObservableRestrictedValuePresenter<decltype(snake_y->get_value().get_restricted_value())>, decltype(snake_y), xlib::X11_TextLabel> (
-            "Snake Y: ", snake_y, key_color_scheme, value_color_scheme, std::move(text_label), x_window)));
 
     text_label.reset(new xlib::X11_TextLabel(std::to_string(snake_width->get_value().get_restricted_value()), {}, value_color_scheme));
     menu.add_item(std::move(construct_menu_item<ui::ObservableRestrictedValuePresenter<decltype(snake_width->get_value().get_restricted_value())>, decltype(snake_width), xlib::X11_TextLabel> (

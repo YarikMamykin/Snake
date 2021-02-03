@@ -18,8 +18,6 @@ namespace configuration {
     { ConfigID::SNAKE_COLOR, (new abstractions::ObservableValue<color::ColorPallete>("#00ff00"))->wrap() },
     { ConfigID::SNAKE_TIMEOUT, (new abstractions::ObservableValue<std::chrono::milliseconds>(50u))->wrap() },
     { ConfigID::GAME_OVER_TIMEOUT, (new abstractions::ObservableValue<std::chrono::milliseconds>(80u))->wrap() },
-    { ConfigID::SNAKE_HEAD_X, (new abstractions::ObservableValue<RESTRICTED_INT>(80, 10, 2000))->wrap() },
-    { ConfigID::SNAKE_HEAD_Y, (new abstractions::ObservableValue<RESTRICTED_INT>(80, 10, 2000))->wrap() },
     { ConfigID::SNAKE_HEAD_WIDTH, (new abstractions::ObservableValue<RESTRICTED_UINT>(20u, 5u, 50u))->wrap() },
     { ConfigID::SNAKE_HEAD_HEIGHT, (new abstractions::ObservableValue<RESTRICTED_UINT>(10u, 5u, 50u))->wrap() },
     { ConfigID::RANDOM_ENGINE_ALGORITHM, (new abstractions::ObservableValue<RANDOM_ENGINE_ALGORITHM_TYPE>())->wrap() },
