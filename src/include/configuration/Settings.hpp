@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <map>
+#include <random>
 #include "Rectangle.hpp"
 #include "ObservableValue.hpp"
 #include "RestrictedValue.hpp"
@@ -21,7 +22,11 @@ namespace configuration {
     SNAKE_HEAD_X,
     SNAKE_HEAD_Y,
     SNAKE_HEAD_WIDTH,
-    SNAKE_HEAD_HEIGHT
+    SNAKE_HEAD_HEIGHT,
+    RANDOM_ENGINE_ALGORITHM,
+    RANDOM_ENGINE_SEED_SEQUENCE,
+    FOOD_COLOR,
+    FOOD_SIZE
   };
 
   struct Settings final {
@@ -45,4 +50,10 @@ namespace configuration {
     return get_concrete_ptr<ValueType>(id)->get_value();
   }
 }
+
+namespace configuration {
+  typedef std::linear_congruential_engine<std::uint_fast32_t, 1u, 10u, 700u> RANDOM_ENGINE_ALGORITHM_TYPE;
+  typedef std::list<unsigned int> RANDOM_ENGINE_SEED_SEQUENCE_TYPE;
+}
+
 #endif /* SRC_INCLUDE_SETTINGS_SETTINGS_HPP */
