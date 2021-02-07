@@ -23,6 +23,7 @@ namespace game_objects {
     ~Snake();
 
     void move(const SnakeDirection& direction);
+    geometry::Rectangle head_frame() const;
 
     friend class MovementController;
 

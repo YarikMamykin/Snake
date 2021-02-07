@@ -167,6 +167,11 @@ namespace game_objects {
     movement_queue.push_front(std::pair<SnakeDirection, RotationDirection>(current_direction, rotation_direction));
   }
 
+  geometry::Rectangle Snake::head_frame() const {
+    return this->parts.front().frame;
+  }
+
+
   void Snake::hide(xlib::X11_Window* x_window) {
     for(auto& part : parts) {
       part.hide(x_window);
