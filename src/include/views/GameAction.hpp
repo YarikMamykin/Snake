@@ -7,6 +7,8 @@
 #include "Timer.hpp"
 #include "Snake.hpp"
 #include "Constants.hpp"
+#include "FoodGenerator.hpp"
+#include "MovementController.hpp"
 
 namespace views {
 
@@ -24,12 +26,13 @@ namespace views {
     private:
       void set_paused(const bool pause_flag);
 
-    public:
-      game_objects::Snake snake;
     private:
+      game_objects::Snake snake;
+      game_objects::MovementController mcontroller;
       xlib::X11_Window* x_window;
       timing::Timer snake_timer;
       timing::Timer movement_controller_timer;
+      game_objects::FoodGenerator food_generator;
       bool paused;
       game_objects::SnakeDirection snake_direction;
   };

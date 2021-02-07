@@ -4,7 +4,6 @@
 #include <iostream>
 #include <thread>
 #include "ColorPallete.hpp"
-#include "MovementController.hpp"
 #include "XlibWrapper.hpp"
 
 namespace views {
@@ -16,6 +15,7 @@ namespace views {
       geometry::Rectangle { .x = 10u, .y = 10u,
                             .width = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_WIDTH).get_restricted_value(),
                             .height = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_HEIGHT).get_restricted_value()}) 
+  , mcontroller(snake, x_window)
   , snake_direction(game_objects::SnakeDirection::Right) 
   , paused(false) {
     auto snake_timeout_ptr = configuration::Settings::get_concrete_ptr<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT);
@@ -23,14 +23,27 @@ namespace views {
 
     std::chrono::milliseconds snake_speed_in_time(snake_speed_ptr->get_value().get_min() + snake_speed_ptr->get_value().get_max() - snake_speed_ptr->get_value().get_restricted_value());
     snake_timer.timeout = std::chrono::milliseconds(snake_speed_in_time.count() * snake_timeout_ptr->get_value().count());
-    snake_timer.callback = [this, x_window]() { this->snake.move(this->snake_direction); };
+    snake_timer.callback = [this, x_window]() { 
+      this->snake.move(this->snake_direction); 
+    };
 
-    movement_controller_timer.timeout = snake_timer.timeout;
+    mcontroller.set_current_food(food_generator.generate(x_window, {}));
+    movement_controller_timer.timeout = snake_timer.timeout/2;
     movement_controller_timer.callback = [this, x_window]() {
-      game_objects::MovementController mcontroller(this->snake, x_window);
       if(!mcontroller.validate()) {
         this->deactivate();
       }
+      if(mcontroller.food_eaten()) {
+        auto&& snake_head_frame = snake.head_frame();
+        mcontroller.set_current_food(food_generator.generate(x_window, { snake_head_frame.x - 50, 
+                                                                         snake_head_frame.y - 50,
+                                                                         snake_head_frame.width + 50u,
+                                                                         snake_head_frame.height + 50u }));
+      }
+      // We need to redraw food periodically 
+      // because in other case only Snake is visible.
+      // Behavior caused with regular XFlush calls, needed for proper render.
+      mcontroller.get_current_food().show();
     };
   }
 
