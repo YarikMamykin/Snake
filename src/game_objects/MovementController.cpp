@@ -1,6 +1,7 @@
 #include "MovementController.hpp"
 #include "Exceptions.hpp"
 #include "Snake.hpp"
+#include "Food.hpp"
 
 namespace game_objects {
 
@@ -27,11 +28,12 @@ namespace game_objects {
       return false;
     };
 
+    auto& snake_head_frame = snake.parts.front().frame;
     switch(snake.current_direction) {
-      case SnakeDirection::Down: { return !snake_head_crosses_tail(snake.parts.front().frame.bottom_left(), snake.parts.front().frame.bottom_right()); }
-      case SnakeDirection::Up:   { return !snake_head_crosses_tail(snake.parts.front().frame.top_left(), snake.parts.front().frame.top_right()); }
-      case SnakeDirection::Left: { return !snake_head_crosses_tail(snake.parts.front().frame.top_left(), snake.parts.front().frame.bottom_left()); } 
-      case SnakeDirection::Right:{ return !snake_head_crosses_tail(snake.parts.front().frame.top_right(), snake.parts.front().frame.bottom_right()); } 
+      case SnakeDirection::Down: { return !snake_head_crosses_tail(snake_head_frame.bottom_left(), snake_head_frame.bottom_right()); }
+      case SnakeDirection::Up:   { return !snake_head_crosses_tail(snake_head_frame.top_left(),    snake_head_frame.top_right()); }
+      case SnakeDirection::Left: { return !snake_head_crosses_tail(snake_head_frame.top_left(),    snake_head_frame.bottom_left()); } 
+      case SnakeDirection::Right:{ return !snake_head_crosses_tail(snake_head_frame.top_right(),   snake_head_frame.bottom_right()); } 
     }
 
     return true;
@@ -40,4 +42,21 @@ namespace game_objects {
   bool MovementController::validate() const {
     return validate_snake_head_with_window_bounds() && validate_snake_head_with_snake_tail();
   }
+
+  bool MovementController::food_eaten() const {
+    auto& snake_head_frame = snake.parts.front().frame;
+    return current_food->frame.has_point(snake_head_frame.top_left()) ||
+           current_food->frame.has_point(snake_head_frame.top_right()) ||
+           current_food->frame.has_point(snake_head_frame.bottom_left()) ||
+           current_food->frame.has_point(snake_head_frame.bottom_right());
+  }
+
+  void MovementController::set_current_food(Food* food) {
+    current_food.reset(food);
+  }
+
+  Food& MovementController::get_current_food() {
+    return *this->current_food;
+  }
+
 }
