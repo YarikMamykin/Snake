@@ -5,6 +5,7 @@
 #include <random>
 #include <list>
 #include "Settings.hpp"
+#include "X11_Window.hpp"
 
 namespace game_objects {
 
@@ -12,8 +13,8 @@ namespace game_objects {
     configuration::RANDOM_ENGINE_ALGORITHM_TYPE algorithm;
 
     public:
-      RandomEngine(const unsigned int& min, const unsigned int& max, std::list<unsigned int>&& seed_sequence);
-      geometry::Point generate_point();
+      RandomEngine(std::list<unsigned int>&& seed_sequence);
+      geometry::Point generate_point(geometry::Rectangle&& region);
   };
 
   class FoodGenerator final {
@@ -23,7 +24,7 @@ namespace game_objects {
     explicit FoodGenerator();
     ~FoodGenerator() = default;
 
-    Food generate(xlib::X11_Window* x_window);
+    Food* generate(xlib::X11_Window* x_window, geometry::Rectangle&& region);
   };
 }
 
