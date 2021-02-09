@@ -17,7 +17,9 @@ namespace game_objects {
     int&& y = x ^ (algorithm()/(algorithm()+7));
     y = x ^ algorithm();
     x = y ^ algorithm();
-    return {x > region.x ? x : region.x + x , y > region.y ? y : region.y + y};
+    const bool x_in_range = x >= region.x && x <= (region.x + region.width);
+    const bool y_in_range = y >= region.y && y <= (region.y + region.height);
+    return {x_in_range ? x : region.x, y_in_range ? y : region.y};
   }
 }
 
@@ -26,12 +28,13 @@ namespace game_objects {
   : points_generator(configuration::Settings::get_concrete<configuration::RANDOM_ENGINE_SEED_SEQUENCE_TYPE>(configuration::ConfigID::RANDOM_ENGINE_SEED_SEQUENCE)) {
   }
 
-  Food* FoodGenerator::generate(xlib::X11_Window* x_window, geometry::Rectangle&& region) {
+  Food* FoodGenerator::generate(xlib::X11_Window* x_window) {
     auto&& window_width = x_window->get_width();
     auto&& window_height = x_window->get_height();
     auto background_color = x_window->get_color_scheme().at(color::ColorSchemeID::BackgroundColor);
     auto&& food_color = configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::FOOD_COLOR).get_current_color();
     auto&& food_size = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::FOOD_SIZE).get_restricted_value();
+    auto&& region = geometry::Rectangle{50,50,x_window->get_width() - 50u,x_window->get_height() - 50u};
     auto&& generated_point = points_generator.generate_point(std::move(region));
     return new Food(std::forward<decltype(background_color)>(background_color), 
                     std::forward<decltype(food_color)>(food_color), 

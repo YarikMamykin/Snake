@@ -24,7 +24,7 @@ namespace game_objects {
     explicit FoodGenerator();
     ~FoodGenerator() = default;
 
-    Food* generate(xlib::X11_Window* x_window, geometry::Rectangle&& region);
+    Food* generate(xlib::X11_Window* x_window);
   };
 }
 
