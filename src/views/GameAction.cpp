@@ -27,18 +27,14 @@ namespace views {
       this->snake.move(this->snake_direction); 
     };
 
-    mcontroller.set_current_food(food_generator.generate(x_window, {}));
-    movement_controller_timer.timeout = snake_timer.timeout/2;
+    mcontroller.set_current_food(food_generator.generate(x_window));
+    movement_controller_timer.timeout = snake_timer.timeout/10u;
     movement_controller_timer.callback = [this, x_window]() {
       if(!mcontroller.validate()) {
         this->deactivate();
       }
       if(mcontroller.food_eaten()) {
-        auto&& snake_head_frame = snake.head_frame();
-        mcontroller.set_current_food(food_generator.generate(x_window, { snake_head_frame.x - 50, 
-                                                                         snake_head_frame.y - 50,
-                                                                         snake_head_frame.width + 50u,
-                                                                         snake_head_frame.height + 50u }));
+        mcontroller.set_current_food(food_generator.generate(x_window));
       }
       // We need to redraw food periodically 
       // because in other case only Snake is visible.
