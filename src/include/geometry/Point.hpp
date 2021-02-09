@@ -21,7 +21,7 @@ namespace geometry {
     }
 
     friend bool operator >= (const Point& a, const Point& b) {
-      bool equal = (a.x == b.x) && (a.y == b.y);
+      bool equal = a == b;
       bool greater = a > b;
       return equal || greater;
     }
