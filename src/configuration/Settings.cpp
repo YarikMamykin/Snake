@@ -23,7 +23,7 @@ namespace configuration {
     { ConfigID::RANDOM_ENGINE_ALGORITHM, (new abstractions::ObservableValue<RANDOM_ENGINE_ALGORITHM_TYPE>())->wrap() },
     { ConfigID::RANDOM_ENGINE_SEED_SEQUENCE, (new abstractions::ObservableValue<RANDOM_ENGINE_SEED_SEQUENCE_TYPE>(std::list<unsigned int>{10u,2u,39u,40u,57u,60u,70u,80u}))->wrap() },
     { ConfigID::FOOD_COLOR, (new abstractions::ObservableValue<color::ColorPallete>("#ffff00"))->wrap() },
-    { ConfigID::FOOD_SIZE, (new abstractions::ObservableValue<RESTRICTED_UINT>(15u, 5u, 20u))->wrap() },
+    { ConfigID::FOOD_SIZE, (new abstractions::ObservableValue<RESTRICTED_UINT>(15u, 5u, 50u))->wrap() },
   };
   
   std::shared_ptr<abstractions::ObservableValueContainerWrapper> Settings::get(ConfigID id) {
