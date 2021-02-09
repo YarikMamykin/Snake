@@ -133,6 +133,20 @@ namespace geometry {
       this->width = new_bottom_right->x - new_top_left->x;
       this->height = new_bottom_right->y - new_top_left->y;
     }
+
+    bool do_not_cross(const Rectangle& r) const {
+      auto&& tl = top_left();
+      auto&& br = bottom_right();
+      auto&& rtl = r.top_left();
+      auto&& rbr = r.bottom_right();
+
+      bool&& this_left_of = tl.x > rbr.x;
+      bool&& this_right_of = br.x < rtl.x;
+      bool&& this_lower = tl.y > rbr.y;
+      bool&& this_upper = br.y < rtl.y;
+
+      return this_left_of || this_right_of || this_lower || this_upper;
+    }
   };
 }
 #endif /* SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP */
