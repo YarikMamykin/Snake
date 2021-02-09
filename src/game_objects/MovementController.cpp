@@ -44,11 +44,7 @@ namespace game_objects {
   }
 
   bool MovementController::food_eaten() const {
-    auto& snake_head_frame = snake.parts.front().frame;
-    return current_food->frame.has_point(snake_head_frame.top_left()) ||
-           current_food->frame.has_point(snake_head_frame.top_right()) ||
-           current_food->frame.has_point(snake_head_frame.bottom_left()) ||
-           current_food->frame.has_point(snake_head_frame.bottom_right());
+    return !snake.parts.front().frame.do_not_cross(current_food->frame);
   }
 
   void MovementController::set_current_food(Food* food) {
