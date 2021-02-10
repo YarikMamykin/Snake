@@ -164,7 +164,7 @@ namespace game_objects {
     }
 
     movement_queue.pop_back();
-    movement_queue.push_front(std::pair<SnakeDirection, RotationDirection>(current_direction, rotation_direction));
+    movement_queue.emplace_front(std::pair<SnakeDirection, RotationDirection>(current_direction, rotation_direction));
   }
 
   geometry::Rectangle Snake::head_frame() const {
