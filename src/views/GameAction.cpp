@@ -35,6 +35,7 @@ namespace views {
       }
       if(mcontroller.food_eaten()) {
         mcontroller.set_current_food(food_generator.generate(x_window));
+        mcontroller.increase_snake();
       }
       // We need to redraw food periodically 
       // because in other case only Snake is visible.
