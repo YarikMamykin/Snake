@@ -28,7 +28,7 @@ namespace views {
     };
 
     mcontroller.set_current_food(food_generator.generate(x_window));
-    movement_controller_timer.timeout = snake_timer.timeout/10u;
+    movement_controller_timer.timeout = snake_timer.timeout;
     movement_controller_timer.callback = [this, x_window]() {
       if(!mcontroller.validate()) {
         this->deactivate();
