@@ -50,6 +50,7 @@ namespace game_objects {
       void show(xlib::X11_Window* x_window);
       void hide(xlib::X11_Window* x_window);
       inline bool is_opposite_to_current(const SnakeDirection& direction);
+      void increase();
 
       std::list<SnakeHead> parts;
       xlib::X11_Window* x_window;

@@ -40,4 +40,8 @@ namespace game_objects {
     return *this->current_food;
   }
 
+  void MovementController::increase_snake() {
+    snake.increase();
+  }
+
 }

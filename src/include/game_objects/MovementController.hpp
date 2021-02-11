@@ -27,6 +27,8 @@ namespace game_objects {
 
       void set_current_food(Food* food);
       Food& get_current_food();
+
+      void increase_snake();
   };
 }
 

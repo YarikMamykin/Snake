@@ -198,4 +198,49 @@ namespace game_objects {
     return up_down || down_up || left_right || right_left;
   }
 
+  void Snake::increase() {
+    const auto& tail_end = parts.back();
+    const auto& tail_end_color = tail_end.head_color;
+    const auto& tail_end_frame = tail_end.frame;
+    const auto& tail_end_movement = movement_queue.back();
+    const auto& spacing = tail_end.spacing;
+    geometry::Point&& new_top_left {};
+
+    switch(tail_end_movement.first) {
+      case SnakeDirection::Down: 
+        {
+          new_top_left.x = tail_end_frame.x;
+          new_top_left.y = tail_end_frame.y - tail_end_frame.height - spacing;
+          break;
+        }
+      case SnakeDirection::Up:
+        {
+          new_top_left.x = tail_end_frame.x;
+          new_top_left.y = tail_end_frame.y + tail_end_frame.height + spacing;
+          break;
+        }
+      case SnakeDirection::Left:
+        {
+          new_top_left.x = tail_end_frame.x + tail_end_frame.width + spacing;
+          new_top_left.y = tail_end_frame.y;
+          break;
+        }
+      case SnakeDirection::Right:
+        {
+          new_top_left.x = tail_end_frame.x - tail_end_frame.width - spacing;
+          new_top_left.y = tail_end_frame.y;
+          break;
+        }
+    }
+
+    parts.emplace_back(SnakeHead(tail_end_color,
+          { 
+          .x = new_top_left.x,
+          .y = new_top_left.y,
+          .width = tail_end_frame.width,
+          .height = tail_end_frame.height }, 
+          spacing));
+    movement_queue.emplace_back(std::pair<SnakeDirection, RotationDirection>{ tail_end_movement.first, RotationDirection::NONE });
+  }
+
 }
