@@ -14,28 +14,13 @@ namespace game_objects {
   }
 
   bool MovementController::validate_snake_head_with_snake_tail() const {
-    using namespace geometry;
-
-    
-    auto snake_head_crosses_tail = [this](Point&& forward_p1, Point&& forward_p2) -> bool { 
-      auto snake_parts_it = snake.parts.begin();
-      while((snake_parts_it = std::next(snake_parts_it)) != snake.parts.end()) {
-        if(snake_parts_it->frame.has_point(std::move(forward_p1)) || snake_parts_it->frame.has_point(std::move(forward_p2))) {
-          return true;
-        }
-      }
-
-      return false;
-    };
-
     auto& snake_head_frame = snake.parts.front().frame;
-    switch(snake.current_direction) {
-      case SnakeDirection::Down: { return !snake_head_crosses_tail(snake_head_frame.bottom_left(), snake_head_frame.bottom_right()); }
-      case SnakeDirection::Up:   { return !snake_head_crosses_tail(snake_head_frame.top_left(),    snake_head_frame.top_right()); }
-      case SnakeDirection::Left: { return !snake_head_crosses_tail(snake_head_frame.top_left(),    snake_head_frame.bottom_left()); } 
-      case SnakeDirection::Right:{ return !snake_head_crosses_tail(snake_head_frame.top_right(),   snake_head_frame.bottom_right()); } 
+    auto snake_parts_it = snake.parts.begin();
+    while((snake_parts_it = std::next(snake_parts_it)) != snake.parts.end()) {
+      if(!snake_parts_it->frame.do_not_cross(snake_head_frame)) {
+        return false;
+      }
     }
-
     return true;
   }
 
