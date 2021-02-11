@@ -10,8 +10,14 @@ namespace game_objects {
   class Snake;
   class SnakeHead;
 
-  Snake::SnakeHead::SnakeHead(const color::Color color, geometry::Rectangle&& frame, const unsigned int& spacing) 
+  Snake::SnakeHead::SnakeHead(const color::Color color, 
+                              geometry::Rectangle&& frame, 
+                              SnakeDirection&& direction, 
+                              RotationDirection&& rotation_direction, 
+                              const unsigned int& spacing) 
   : frame(frame) 
+  , direction(std::forward<SnakeDirection>(direction))
+  , rotation_direction(std::forward<RotationDirection>(rotation_direction))
   , spacing(spacing) 
   , step(std::max(frame.width, frame.height) + spacing) 
   , head_color(color) { }
@@ -27,23 +33,23 @@ namespace game_objects {
     xlib::XlibWrapper::self()->flush_buffer();
   }
 
-  void Snake::SnakeHead::move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction) { 
+  void Snake::SnakeHead::move() {
     switch(rotation_direction) {
       case RotationDirection::Clockwize: 
         {
-          this->frame.rotate(std::move(rotation_direction), std::move(get_clockwize_rotation_point(new_direction)));
-          this->handle_shift_after_clockwize_rotation(new_direction);
+          this->frame.rotate(std::move(rotation_direction), std::move(get_clockwize_rotation_point(direction)));
+          this->handle_shift_after_clockwize_rotation(direction);
           break;
         }
       case RotationDirection::Counterclockwize: 
         {
-          this->frame.rotate(std::move(rotation_direction), std::move(get_counter_clockwize_rotation_point(new_direction)));
-          this->handle_shift_after_counter_clockwize_rotation(new_direction);
+          this->frame.rotate(std::move(rotation_direction), std::move(get_counter_clockwize_rotation_point(direction)));
+          this->handle_shift_after_counter_clockwize_rotation(direction);
           break;
         }
       case RotationDirection::NONE: 
         {
-          handle_none_rotation(new_direction); 
+          handle_none_rotation(direction); 
           break;
         }
     }
@@ -104,7 +110,7 @@ namespace game_objects {
 
     constexpr unsigned int spacing = 10u;
 
-    parts.emplace_back(SnakeHead(color, std::move(head_shape), spacing));
+    parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
 
     for(auto&& i : {1,2,3}) {
       const auto& last_frame = parts.back().frame;
@@ -114,11 +120,9 @@ namespace game_objects {
             .y = last_frame.y, 
             .width = last_frame.width,
             .height = last_frame.height }, 
+            SnakeDirection(current_direction), 
+            RotationDirection::NONE,
             spacing));
-    }
-
-    for(const auto& part : parts) {
-      movement_queue.push_back(std::pair<game_objects::SnakeDirection, RotationDirection>(current_direction, RotationDirection::NONE));
     }
   }
 
@@ -148,13 +152,14 @@ namespace game_objects {
     }
 
     this->hide(x_window);
-    auto parts_iter = parts.begin();
-    auto movements_iter = movement_queue.begin();
 
-    for(; parts_iter != parts.end() && movements_iter != movement_queue.end(); ++parts_iter, ++movements_iter) {
-      auto&& part_direction = movements_iter->first;
-      auto&& part_rotation_direction = movements_iter->second;
-      parts_iter->move(part_direction, part_rotation_direction);
+    for(auto& part : parts) {
+      part.move();
+    }
+
+    for(auto parts_iter = std::next(parts.rbegin()); parts_iter != parts.rend(); ++parts_iter) {
+      std::prev(parts_iter)->direction = parts_iter->direction;
+      std::prev(parts_iter)->rotation_direction = parts_iter->rotation_direction;
     }
 
     this->show(x_window);
@@ -163,8 +168,8 @@ namespace game_objects {
       current_direction = direction;
     }
 
-    movement_queue.pop_back();
-    movement_queue.emplace_front(std::pair<SnakeDirection, RotationDirection>(current_direction, rotation_direction));
+    parts.front().direction = current_direction;
+    parts.front().rotation_direction = rotation_direction;
   }
 
   geometry::Rectangle Snake::head_frame() const {
@@ -202,11 +207,11 @@ namespace game_objects {
     const auto& tail_end = parts.back();
     const auto& tail_end_color = tail_end.head_color;
     const auto& tail_end_frame = tail_end.frame;
-    const auto& tail_end_movement = movement_queue.back();
+    const auto& tail_end_direction = tail_end.direction;
     const auto& spacing = tail_end.spacing;
     geometry::Point&& new_top_left {};
 
-    switch(tail_end_movement.first) {
+    switch(tail_end_direction) {
       case SnakeDirection::Down: 
         {
           new_top_left.x = tail_end_frame.x;
@@ -239,8 +244,9 @@ namespace game_objects {
           .y = new_top_left.y,
           .width = tail_end_frame.width,
           .height = tail_end_frame.height }, 
+          SnakeDirection(tail_end_direction), 
+          RotationDirection::NONE,
           spacing));
-    movement_queue.emplace_back(std::pair<SnakeDirection, RotationDirection>{ tail_end_movement.first, RotationDirection::NONE });
   }
 
 }

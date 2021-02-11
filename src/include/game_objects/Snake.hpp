@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_GAME_OBJECT_SNAKE_HPP
 
 #include <list>
-#include <queue> 
 #include <memory>
 #include "X11_Window.hpp"
 #include "Constants.hpp"
@@ -33,11 +32,18 @@ namespace game_objects {
         const unsigned int spacing;
         geometry::Rectangle frame;
         color::Color head_color;
-        SnakeHead(const color::Color color, geometry::Rectangle&& frame, const unsigned int& spacing);
+        SnakeDirection direction;
+        RotationDirection rotation_direction;
+
+        SnakeHead(const color::Color color, 
+                  geometry::Rectangle&& frame, 
+                  SnakeDirection&& direction,
+                  RotationDirection&& rotation_direction,
+                  const unsigned int& spacing);
         SnakeHead(SnakeHead&&) = default;
         void show(xlib::X11_Window* x_window);
         void hide(xlib::X11_Window* x_window);
-        void move(const SnakeDirection& new_direction, const RotationDirection& rotation_direction);
+        void move();
 
         inline void handle_none_rotation(const SnakeDirection& new_direction);
         inline geometry::Point get_counter_clockwize_rotation_point(const SnakeDirection& new_direction);
@@ -55,7 +61,6 @@ namespace game_objects {
       std::list<SnakeHead> parts;
       xlib::X11_Window* x_window;
       SnakeDirection current_direction;
-      std::deque<std::pair<SnakeDirection, RotationDirection>> movement_queue;
   };
 }
 
