@@ -106,32 +106,18 @@ namespace geometry {
     }
 
     void rotate(const game_objects::RotationDirection&& rotation_direction, const Point&& rotation_point) {
-      std::vector<Point> current_points = {top_right(), top_left(), bottom_left(), bottom_right()};
-      std::function<Point (const Point& p)> rotate_point;
-
-      switch(rotation_direction) {
-        case game_objects::RotationDirection::Clockwize: 
-          {
-            rotate_point = [&rotation_point](const Point& p) -> Point { return { rotation_point.x - p.y + rotation_point.y, rotation_point.y + p.x - rotation_point.x }; };
-            std::transform(current_points.begin(), current_points.end(), current_points.begin(), rotate_point);
-            break;
-          }
-        case game_objects::RotationDirection::Counterclockwize: 
-          {
-            rotate_point = [&rotation_point](const Point& p) -> Point { return { rotation_point.x + p.y - rotation_point.y, rotation_point.y - p.x + rotation_point.x }; };
-            std::transform(current_points.begin(), current_points.end(), current_points.begin(), rotate_point);
-            break;
-          }
-        default: return;
+      if(rotation_direction == game_objects::RotationDirection::NONE) {
+        return;
       }
 
-      const auto&& new_top_left = std::min_element(current_points.cbegin(), current_points.cend());
-      const auto&& new_bottom_right = std::max_element(current_points.cbegin(), current_points.cend());
-
-      this->x = new_top_left->x;
-      this->y = new_top_left->y;
-      this->width = new_bottom_right->x - new_top_left->x;
-      this->height = new_bottom_right->y - new_top_left->y;
+      std::vector<Point> points = {top_left(), top_right(), bottom_left(), bottom_right()};
+      std::for_each(points.begin(), points.end(), [&rotation_direction, &rotation_point](Point& p) -> void { 
+          p.rotate(game_objects::RotationDirection(rotation_direction), Point(rotation_point)); 
+      });
+      auto&& new_top_left = *std::min_element(points.begin(), points.end());
+      this->x = new_top_left.x;
+      this->y = new_top_left.y;
+      std::swap(this->width, this->height);
     }
 
     bool do_not_cross(const Rectangle& r) const {
