@@ -3,6 +3,7 @@
 
 #include <string>
 #include <sstream>
+#include "Constants.hpp"
 
 namespace geometry {
   struct Point {
@@ -38,6 +39,33 @@ namespace geometry {
       std::ostringstream point_data;
       point_data << "Point(" << this->x << ":" << this->y << ")" << std::endl;
       return point_data.str();
+    }
+
+    void rotate(const game_objects::RotationDirection&& rotation_direction, const Point& p) {
+      if(rotation_direction == game_objects::RotationDirection::NONE) {
+        return;
+      }
+
+      int x_rotated, y_rotated;
+
+      switch(rotation_direction) {
+        case game_objects::RotationDirection::Counterclockwize:
+          {
+            x_rotated = p.x + (y - p.y);
+            y_rotated = p.y - (x - p.x);
+            break;
+          }
+        case game_objects::RotationDirection::Clockwize:
+          {
+            x_rotated = p.x - (y - p.y);
+            y_rotated = p.y + (x - p.x);
+            break;
+          }
+        default: break;
+      }
+
+      this->x = x_rotated;
+      this->y = y_rotated;
     }
   };
 }
