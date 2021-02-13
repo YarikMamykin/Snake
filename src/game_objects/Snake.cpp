@@ -210,44 +210,45 @@ namespace game_objects {
     const auto& tail_end = parts.back();
     const auto& tail_end_color = tail_end.head_color;
     const auto& tail_end_frame = tail_end.frame;
-    const auto& tail_end_direction = tail_end.direction;
+    const auto& tail_end_direction = tail_end.old_direction;
+    const auto& tail_end_rotation_direction = tail_end.rotation_direction;
     const auto& spacing = tail_end.spacing;
-    geometry::Point&& new_top_left {};
+    geometry::Rectangle&& new_part_frame {};
 
     switch(tail_end_direction) {
       case SnakeDirection::Down: 
         {
-          new_top_left.x = tail_end_frame.x;
-          new_top_left.y = tail_end_frame.y - tail_end_frame.height - spacing;
+          new_part_frame.x = tail_end_frame.x;
+          new_part_frame.y = tail_end_frame.y - tail_end_frame.height - spacing;
           break;
         }
       case SnakeDirection::Up:
         {
-          new_top_left.x = tail_end_frame.x;
-          new_top_left.y = tail_end_frame.y + tail_end_frame.height + spacing;
+          new_part_frame.x = tail_end_frame.x;
+          new_part_frame.y = tail_end_frame.y + tail_end_frame.height + spacing;
           break;
         }
       case SnakeDirection::Left:
         {
-          new_top_left.x = tail_end_frame.x + tail_end_frame.width + spacing;
-          new_top_left.y = tail_end_frame.y;
+          new_part_frame.x = tail_end_frame.x + tail_end_frame.width + spacing;
+          new_part_frame.y = tail_end_frame.y;
           break;
         }
       case SnakeDirection::Right:
         {
-          new_top_left.x = tail_end_frame.x - tail_end_frame.width - spacing;
-          new_top_left.y = tail_end_frame.y;
+          new_part_frame.x = tail_end_frame.x - tail_end_frame.width - spacing;
+          new_part_frame.y = tail_end_frame.y;
           break;
         }
     }
 
+    new_part_frame.width = tail_end_frame.width;
+    new_part_frame.height = tail_end_frame.height;
+
+
     parts.emplace_back(SnakeHead(tail_end_color,
-          { 
-          .x = new_top_left.x,
-          .y = new_top_left.y,
-          .width = tail_end_frame.width,
-          .height = tail_end_frame.height }, 
-          SnakeDirection(tail_end_direction), 
+          std::move(new_part_frame),
+          SnakeDirection(tail_end_direction),
           RotationDirection::NONE,
           spacing));
   }
