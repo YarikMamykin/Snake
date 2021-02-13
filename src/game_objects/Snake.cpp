@@ -114,15 +114,15 @@ namespace game_objects {
 
     parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
 
-    for(auto&& i : {1,2,3}) {
+    for(auto&& i : {1,2}) {
       const auto& last_frame = parts.back().frame;
       parts.emplace_back(SnakeHead(color,
-            { 
-            .x = last_frame.x - last_frame.width - spacing, 
-            .y = last_frame.y, 
+            {
+            .x = last_frame.x - last_frame.width - spacing,
+            .y = last_frame.y,
             .width = last_frame.width,
-            .height = last_frame.height }, 
-            SnakeDirection(current_direction), 
+            .height = last_frame.height },
+            SnakeDirection(current_direction),
             RotationDirection::NONE,
             spacing));
     }
