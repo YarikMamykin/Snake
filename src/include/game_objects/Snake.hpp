@@ -29,10 +29,12 @@ namespace game_objects {
     private:
       struct SnakeHead {
         const unsigned int step;
+        const unsigned int shift;
         const unsigned int spacing;
         geometry::Rectangle frame;
         color::Color head_color;
         SnakeDirection direction;
+        SnakeDirection old_direction;
         RotationDirection rotation_direction;
 
         SnakeHead(const color::Color color, 

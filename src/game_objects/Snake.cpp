@@ -20,7 +20,8 @@ namespace game_objects {
   , rotation_direction(std::forward<RotationDirection>(rotation_direction))
   , spacing(spacing) 
   , step(std::max(frame.width, frame.height) + spacing) 
-  , head_color(color) { }
+  , shift(std::min(frame.width, frame.height))
+  , head_color(color) { this->old_direction = direction; }
 
   void Snake::SnakeHead::hide(xlib::X11_Window *x_window) {
     auto background_color = x_window->get_color_scheme().at(color::ColorSchemeID::BackgroundColor);
