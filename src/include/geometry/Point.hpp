@@ -9,11 +9,19 @@ namespace geometry {
     int x,y;
 
     friend bool operator < (const Point& a, const Point& b) {
-      return (a.x < b.x) && (a.y < b.y);
+      bool&& x_equal = a.x == b.x;
+      bool&& y_equal = a.y == b.y;
+      bool&& x_lesser = a.x < b.x;
+      bool&& y_lesser = a.y < b.y;
+      return (x_equal && y_lesser) || (y_equal && x_lesser) || (x_lesser && y_lesser);
     }
 
     friend bool operator > (const Point& a, const Point& b) {
-      return (a.x > b.x) && (a.y > b.y);
+      bool&& x_equal = a.x == b.x;
+      bool&& y_equal = a.y == b.y;
+      bool&& x_greater = a.x > b.x;
+      bool&& y_greater = a.y > b.y;
+      return (x_equal && y_greater) || (y_equal && x_greater) || (y_greater && x_greater);
     }
 
     friend bool operator == (const Point& a, const Point& b) {
