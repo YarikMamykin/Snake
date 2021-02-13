@@ -38,26 +38,27 @@ namespace game_objects {
     switch(rotation_direction) {
       case RotationDirection::Clockwize: 
         {
-          this->frame.rotate(std::move(rotation_direction), std::move(get_clockwize_rotation_point(direction)));
-          this->handle_shift_after_clockwize_rotation(direction);
+          this->frame.rotate(RotationDirection(rotation_direction), std::move(get_clockwize_rotation_point()));
+          this->handle_shift_after_clockwize_rotation();
           break;
         }
       case RotationDirection::Counterclockwize: 
         {
-          this->frame.rotate(std::move(rotation_direction), std::move(get_counter_clockwize_rotation_point(direction)));
-          this->handle_shift_after_counter_clockwize_rotation(direction);
+          this->frame.rotate(RotationDirection(rotation_direction), std::move(get_counter_clockwize_rotation_point()));
+          this->handle_shift_after_counter_clockwize_rotation();
           break;
         }
       case RotationDirection::NONE: 
         {
-          handle_none_rotation(direction); 
+          handle_none_rotation(); 
           break;
         }
     }
+    old_direction = direction;
   }
 
-  void Snake::SnakeHead::handle_none_rotation(const SnakeDirection& new_direction) {
-      switch(new_direction) {
+  void Snake::SnakeHead::handle_none_rotation() {
+      switch(direction) {
         case SnakeDirection::Up:    this->frame.move(0, -step); break;
         case SnakeDirection::Down:  this->frame.move(0, step); break;
         case SnakeDirection::Left:  this->frame.move(-step, 0); break;
@@ -65,26 +66,26 @@ namespace game_objects {
       }
   }
 
-  void Snake::SnakeHead::handle_shift_after_clockwize_rotation(const SnakeDirection& old_direction) {
-      switch(old_direction) {
-        case SnakeDirection::Up:    this->frame.move(spacing, 0); break;
-        case SnakeDirection::Down:  this->frame.move(-spacing, 0); break;
-        case SnakeDirection::Left:  this->frame.move(0, -spacing); break;
-        case SnakeDirection::Right: this->frame.move(0, spacing); break;
+  void Snake::SnakeHead::handle_shift_after_clockwize_rotation() {
+      switch(direction) {
+        case SnakeDirection::Up:    this->frame.move(-step,shift); break;
+        case SnakeDirection::Down:  this->frame.move(step,-shift); break;
+        case SnakeDirection::Left:  this->frame.move(shift,step); break;
+        case SnakeDirection::Right: this->frame.move(-shift, -step); break;
       }
   }
 
-  void Snake::SnakeHead::handle_shift_after_counter_clockwize_rotation(const SnakeDirection& old_direction) {
-      switch(old_direction) {
-        case SnakeDirection::Up:    this->frame.move(-spacing, 0); break;
-        case SnakeDirection::Down:  this->frame.move(spacing, 0); break;
-        case SnakeDirection::Left:  this->frame.move(0, spacing); break;
-        case SnakeDirection::Right: this->frame.move(0, -spacing); break;
+  void Snake::SnakeHead::handle_shift_after_counter_clockwize_rotation() {
+      switch(direction) {
+        case SnakeDirection::Up:    this->frame.move(step,shift); break;
+        case SnakeDirection::Down:  this->frame.move(-step,-spacing); break;
+        case SnakeDirection::Left:  this->frame.move(shift,-step); break;
+        case SnakeDirection::Right: this->frame.move(-shift,step); break;
       }
   }
 
-  geometry::Point Snake::SnakeHead::get_counter_clockwize_rotation_point(const SnakeDirection& new_direction) {
-      switch(new_direction) {
+  geometry::Point Snake::SnakeHead::get_counter_clockwize_rotation_point() {
+      switch(old_direction) {
         case SnakeDirection::Up:    return this->frame.bottom_left(); break;
         case SnakeDirection::Down:  return this->frame.top_right(); break;
         case SnakeDirection::Left:  return this->frame.bottom_right(); break;
@@ -92,8 +93,8 @@ namespace game_objects {
       }
   }
 
-  geometry::Point Snake::SnakeHead::get_clockwize_rotation_point(const SnakeDirection& new_direction) {
-      switch(new_direction) {
+  geometry::Point Snake::SnakeHead::get_clockwize_rotation_point() {
+      switch(old_direction) {
         case SnakeDirection::Up:    return this->frame.bottom_right(); break;
         case SnakeDirection::Down:  return this->frame.top_left(); break;
         case SnakeDirection::Left:  return this->frame.top_right(); break;
