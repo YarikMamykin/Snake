@@ -167,6 +167,7 @@ namespace game_objects {
     this->show(x_window);
 
     if(!direction_opposite_to_current) {
+      parts.front().old_direction = current_direction;
       current_direction = direction;
     }
 
