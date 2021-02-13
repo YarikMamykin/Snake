@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "Rectangle.hpp"
 #include <utility>
+#include <iostream>
 
 namespace {
 }
@@ -55,7 +56,7 @@ TEST(Rectangle, GetVertices) {
   EXPECT_EQ(br.y, rectangle.y + rectangle.height);
 }
 
-TEST(Rectangle, Rotate)
+TEST(Rectangle, RotateCounterClockwize)
 {
   geometry::Rectangle rectangle = { 
     .x = 100, 
@@ -64,28 +65,49 @@ TEST(Rectangle, Rotate)
     .height = 40 
   };
 
-  geometry::Rectangle clockwize_rotated_rectangle = {
+  geometry::Rectangle counterclockwize_rotated_rectangle = {
     .x = 60,
     .y = 50,
     .width = 40,
     .height = 20
   };
 
-  geometry::Rectangle counterclockwize_rotated_rectangle = {
+  rectangle.rotate(game_objects::RotationDirection::Counterclockwize, rectangle.top_left());
+
+  EXPECT_TRUE(counterclockwize_rotated_rectangle == rectangle);
+}
+
+TEST(Rectangle, RotateClockwize) {
+  geometry::Rectangle rectangle = { 
+    .x = 100, 
+    .y = 50, 
+    .width = 20, 
+    .height = 40 
+  };
+
+  geometry::Rectangle clockwize_rotated_rectangle = {
     .x = 100,
     .y = 30,
     .width = 40,
     .height = 20
   };
 
-  std::vector<geometry::Rectangle> test_rectangles = { rectangle, rectangle, rectangle };
-  test_rectangles[0].rotate(game_objects::RotationDirection::Counterclockwize, rectangle.top_left());
-  test_rectangles[1].rotate(game_objects::RotationDirection::Clockwize, rectangle.top_left());
-  test_rectangles[2].rotate(game_objects::RotationDirection::NONE, rectangle.top_left());
+  rectangle.rotate(game_objects::RotationDirection::Clockwize, rectangle.top_left());
+  EXPECT_TRUE(clockwize_rotated_rectangle == rectangle);
+}
 
-  EXPECT_EQ(counterclockwize_rotated_rectangle, test_rectangles[0]);
-  EXPECT_EQ(clockwize_rotated_rectangle, test_rectangles[1]);
-  EXPECT_EQ(rectangle, test_rectangles[2]);
+TEST(Rectangle, RotateNONE) {
+  geometry::Rectangle rectangle = { 
+    .x = 100, 
+    .y = 50, 
+    .width = 20, 
+    .height = 40 
+  };
+  rectangle.rotate(game_objects::RotationDirection::NONE, rectangle.top_left());
+  EXPECT_EQ(rectangle.x, 100);
+  EXPECT_EQ(rectangle.y, 50);
+  EXPECT_EQ(rectangle.width, 20);
+  EXPECT_EQ(rectangle.height, 40);
 }
 
 TEST(Rectangle, HasPoint) {
