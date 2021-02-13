@@ -19,6 +19,7 @@ namespace game_objects {
 
   class FoodGenerator final {
     RandomEngine points_generator;
+    geometry::Point&& prev_point;
 
     public:
     explicit FoodGenerator();
