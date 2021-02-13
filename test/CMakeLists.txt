@@ -28,6 +28,7 @@ add_executable( runUnitTests
   gtestexample.cpp
   TimerTest.cpp
   RectangleTest.cpp
+  PointTest.cpp
   ColorTest.cpp
   ColorPalleteTest.cpp
   ObservableValueTest.cpp
