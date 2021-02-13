@@ -30,7 +30,7 @@ namespace views {
       game_objects::Snake snake;
       game_objects::MovementController mcontroller;
       xlib::X11_Window* x_window;
-      timing::Timer snake_timer;
+      timing::Timer action_timer;
       timing::Timer movement_controller_timer;
       game_objects::FoodGenerator food_generator;
       bool paused;

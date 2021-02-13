@@ -22,14 +22,9 @@ namespace views {
     auto snake_speed_ptr = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
 
     std::chrono::milliseconds snake_speed_in_time(snake_speed_ptr->get_value().get_min() + snake_speed_ptr->get_value().get_max() - snake_speed_ptr->get_value().get_restricted_value());
-    snake_timer.timeout = std::chrono::milliseconds(snake_speed_in_time.count() * snake_timeout_ptr->get_value().count());
-    snake_timer.callback = [this, x_window]() { 
+    action_timer.timeout = std::chrono::milliseconds(snake_speed_in_time.count() * snake_timeout_ptr->get_value().count());
+    action_timer.callback = [this, x_window]() { 
       this->snake.move(this->snake_direction); 
-    };
-
-    mcontroller.set_current_food(food_generator.generate(x_window));
-    movement_controller_timer.timeout = snake_timer.timeout;
-    movement_controller_timer.callback = [this, x_window]() {
       if(!mcontroller.validate()) {
         this->deactivate();
       }
@@ -42,17 +37,17 @@ namespace views {
       // Behavior caused with regular XFlush calls, needed for proper render.
       mcontroller.get_current_food().show();
     };
+
+    mcontroller.set_current_food(food_generator.generate(x_window));
   }
 
   GameAction::~GameAction() {
-    snake_timer.stop();
-    movement_controller_timer.stop();
+    action_timer.stop();
   }
 
   void GameAction::activate() {
     if(!paused) {
-      snake_timer.launch();
-      movement_controller_timer.launch();
+      action_timer.launch();
     }
   }
 
@@ -65,14 +60,14 @@ namespace views {
     paused = pause_flag;
 
     if(pause_flag) {
-      snake_timer.stop();
+      action_timer.stop();
       // TODO: draw_pause screen or whatever
       return;
     }
 
     if(!pause_flag) {
       // TODO: redraw background
-      snake_timer.launch();
+      action_timer.launch();
     }
   }
 
