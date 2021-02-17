@@ -36,7 +36,7 @@ namespace game_objects {
     auto background_color = x_window->get_color_scheme().at(color::ColorSchemeID::BackgroundColor);
     auto&& food_color = configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::FOOD_COLOR).get_current_color();
     auto&& food_size = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::FOOD_SIZE).get_restricted_value();
-    auto&& region = geometry::Rectangle{200,200,x_window->get_width() - 200u,x_window->get_height() - 200u};
+    auto&& region = geometry::Rectangle{200,200,x_window->get_width() - 300u,x_window->get_height() - 300u};
     geometry::Point&& generated_point{};
     while((generated_point = points_generator.generate_point(std::move(region))) == prev_point);
     prev_point = generated_point;
