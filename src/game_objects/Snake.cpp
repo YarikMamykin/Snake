@@ -78,7 +78,7 @@ namespace game_objects {
   void Snake::SnakeHead::handle_shift_after_counter_clockwize_rotation() {
       switch(direction) {
         case SnakeDirection::Up:    this->frame.move(step,shift); break;
-        case SnakeDirection::Down:  this->frame.move(-step,-spacing); break;
+        case SnakeDirection::Down:  this->frame.move(-step,-shift); break;
         case SnakeDirection::Left:  this->frame.move(shift,-step); break;
         case SnakeDirection::Right: this->frame.move(-shift,step); break;
       }
