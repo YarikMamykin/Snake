@@ -23,7 +23,7 @@ namespace abstractions_testing {
     auto restricted_value = RestrictedValue<unsigned long>(1u, 1u, 10u);
     ASSERT_EQ(1u, restricted_value.get_restricted_value());
     restricted_value.set_value(11u);
-    EXPECT_EQ(1u, restricted_value.get_restricted_value());
+    EXPECT_EQ(10u, restricted_value.get_restricted_value());
     restricted_value.set_value(0u);
     EXPECT_EQ(1u, restricted_value.get_restricted_value());
   }

@@ -3,6 +3,7 @@
 
 #include <stdexcept> 
 #include <sstream>
+#include <iostream>
 
 namespace abstractions {
   template <typename ValueType>
@@ -11,11 +12,12 @@ namespace abstractions {
         ValueType min_bound;
         ValueType value;
         ValueType max_bound;
+        const unsigned int step;
 
       public:
         RestrictedValue<ValueType>() = delete;
         RestrictedValue<ValueType>(const RestrictedValue<ValueType>&) = default; 
-        RestrictedValue<ValueType>(const ValueType& value, const ValueType& min, const ValueType& max) : min_bound(min), value(value), max_bound(max) { }
+        RestrictedValue<ValueType>(const ValueType& value, const ValueType& min, const ValueType& max, const unsigned int& step = 1u) : min_bound(min), value(value), max_bound(max), step(step) { }
 
         const ValueType get_restricted_value() const { 
           if(!value_in_bounds()) {
@@ -39,7 +41,11 @@ namespace abstractions {
         }
 
         void set_value(const ValueType& new_value) {
-          if(min_bound <= new_value && new_value <= max_bound) {
+          if(min_bound > new_value) {
+            value = min_bound;
+          } else if(new_value > max_bound) {
+            value = max_bound;
+          } else { 
             value = new_value;
           }
         }
@@ -54,13 +60,19 @@ namespace abstractions {
         
         RestrictedValue<ValueType>& operator ++() {
           auto new_value = this->value;
-          this->set_value(++new_value);
+          for(unsigned int i = 0; i < step; ++i) {
+            ++new_value;
+          }
+          this->set_value(new_value);
           return *this;
         }
 
         RestrictedValue<ValueType>& operator --() {
           auto new_value = this->value;
-          this->set_value(--new_value);
+          for(unsigned int i = step; i > 0; --i) {
+            --new_value;
+          }
+          this->set_value(new_value);
           return *this;
         }
     };
