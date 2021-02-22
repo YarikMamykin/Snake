@@ -2,24 +2,26 @@
 #include "Point.hpp"
 #include <utility>
 
-namespace {
-}
-
 namespace geometry_test {
 
-TEST(Point, rotate)
+TEST(Point, rotate_counter_clockwize)
 {
   auto&& p = geometry::Point{100,200};
   auto&& rotation_point = geometry::Point{40,50};
   auto p_to_rotate_counter_clockwize = p;
   p_to_rotate_counter_clockwize.rotate(game_objects::RotationDirection::Counterclockwize, rotation_point);
-  EXPECT_EQ(p_to_rotate_counter_clockwize.x, -110);
-  EXPECT_EQ(p_to_rotate_counter_clockwize.y, 110);
+  EXPECT_EQ(p_to_rotate_counter_clockwize.x, 190);
+  EXPECT_EQ(p_to_rotate_counter_clockwize.y, -10);
 
+}
+
+TEST(Point, rotate_clockwize) {
+  auto&& p = geometry::Point{100,200};
+  auto&& rotation_point = geometry::Point{40,50};
   auto p_to_rotate_clockwize = p;
   p_to_rotate_clockwize.rotate(game_objects::RotationDirection::Clockwize, rotation_point);
-  EXPECT_EQ(p_to_rotate_clockwize.x, 190);
-  EXPECT_EQ(p_to_rotate_clockwize.y, -10);
+  EXPECT_EQ(p_to_rotate_clockwize.x, -110);
+  EXPECT_EQ(p_to_rotate_clockwize.y, 110);
 }
 
 TEST(Point, lesser) {

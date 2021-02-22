@@ -66,8 +66,8 @@ TEST(Rectangle, RotateCounterClockwize)
   };
 
   geometry::Rectangle counterclockwize_rotated_rectangle = {
-    .x = 60,
-    .y = 50,
+    .x = 100,
+    .y = 30,
     .width = 40,
     .height = 20
   };
@@ -86,8 +86,8 @@ TEST(Rectangle, RotateClockwize) {
   };
 
   geometry::Rectangle clockwize_rotated_rectangle = {
-    .x = 100,
-    .y = 30,
+    .x = 60,
+    .y = 50,
     .width = 40,
     .height = 20
   };
