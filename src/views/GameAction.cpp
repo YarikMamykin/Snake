@@ -11,10 +11,11 @@ namespace views {
   GameAction::GameAction(xlib::X11_Window* x_window) 
   : x_window(x_window) 
   , snake(x_window, 
-      configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR).get_current_color(), 
-      geometry::Rectangle { .x = 10u, .y = 100u,
-                            .width = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_WIDTH).get_restricted_value(),
-                            .height = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_HEAD_HEIGHT).get_restricted_value()}) 
+          configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR).get_current_color(), 
+          geometry::Rectangle { .x = 10u, 
+                                .y = 100u, 
+                                .width = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE).get_restricted_value(), 
+                                .height = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE).get_restricted_value()/2u }) 
   , mcontroller(snake, x_window)
   , snake_direction(game_objects::SnakeDirection::Right) 
   , paused(false) {

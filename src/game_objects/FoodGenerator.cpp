@@ -38,7 +38,7 @@ namespace game_objects {
     auto&& window_height = x_window->get_height();
     auto& background_color = x_window->get_color_scheme().at(color::ColorSchemeID::BackgroundColor);
     auto&& food_color = configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::FOOD_COLOR).get_current_color();
-    auto&& food_size = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE).get_restricted_value() * 15u + 5u;
+    auto&& food_size = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE).get_restricted_value() + 5u;
     auto&& region = geometry::Rectangle{200,200,x_window->get_width() - 300u,x_window->get_height() - 300u};
 
     geometry::Point&& generated_point{};
