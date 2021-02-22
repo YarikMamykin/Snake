@@ -19,12 +19,10 @@ namespace configuration {
     SNAKE_COLOR,
     SNAKE_TIMEOUT,
     GAME_OVER_TIMEOUT,
-    SNAKE_HEAD_WIDTH,
-    SNAKE_HEAD_HEIGHT,
+    SNAKE_SIZE,
     RANDOM_ENGINE_ALGORITHM,
     RANDOM_ENGINE_SEED_SEQUENCE,
-    FOOD_COLOR,
-    FOOD_SIZE
+    FOOD_COLOR
   };
 
   struct Settings final {
