@@ -15,7 +15,6 @@ namespace abstractions {
         : Object(frame, color_scheme) {}
         
       public:
-        virtual void expose() = 0;
         virtual void change_view(const int viewID) = 0;
         virtual std::shared_ptr<views::View> get_view() const = 0;
 
