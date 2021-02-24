@@ -7,43 +7,38 @@
 
 namespace events {
 
-  void EventHandler::event_handler_loop(abstractions::ui::AWindow* x_window) {
+  void EventHandler::event_handler_loop() {
     using namespace events;
     xlib::XlibWrapper::self()->select_events_to_process();
     try {
       for (;;) {
         xlib::XlibWrapper::self()->next_event(&event);
         switch(event.type) {
-          case Expose: 
-            { 
-              x_window->expose(); 
-              break; 
-            }
-          case KeyPress: 
-            { 
-              handle_key_press(XLookupKeysym(&event.xkey, 0), std::move(event.xkey.state)); 
-              break; 
-            }
-          case ButtonPress: 
-            { 
-              handle_button_press(event.xmotion.x, event.xmotion.y, event.xbutton.button); 
-              break; 
-            }
-          case MotionNotify: 
-            { 
-              handle_mouse_motion(event.xmotion.x, event.xmotion.y); 
-              break; 
-            }
-          case ClientMessage: 
-            { 
-              handle_client_message(event.xclient.data.l); 
-              break; 
-            }
+          case Expose: handle_expose_event(); break;
+          case KeyPress: handle_key_press(XLookupKeysym(&event.xkey, 0), std::move(event.xkey.state)); break; 
+          case ButtonPress: handle_button_press(event.xmotion.x, event.xmotion.y, event.xbutton.button); break;
+          case MotionNotify: handle_mouse_motion(event.xmotion.x, event.xmotion.y); break;
+          case ClientMessage:  handle_client_message(event.xclient.data.l); break; 
           default:break;
         }
       }
     } catch (const std::exception& e) {
       std::cerr << e.what() << std::endl;
+    }
+  }
+
+  void EventHandler::handle_expose_event() {
+    for(auto& listener : listeners) {
+      if(listener.second.expired()) {
+        continue;
+      }
+      auto listener_pointer = listener.second.lock();
+      if(events::HandlersMask::ExposeEventHandlerMask & listener_pointer->get_event_handling_mask()) {
+        auto listener_as_event_handler = as_event_handler<ExposeEventHandler>(listener_pointer);
+        if(listener_as_event_handler) {
+          listener_as_event_handler->handle_expose_event();
+        }
+      }
     }
   }
 

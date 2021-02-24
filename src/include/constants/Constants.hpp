@@ -22,7 +22,8 @@ namespace events {
     KeyPressHandlerMask = 1,
     MouseMotionHandlerMask = 1 << 1,
     MouseButtonPressHandlerMask = 1 << 2,
-    ClientMessageHandlerMask = 1 << 3
+    ClientMessageHandlerMask = 1 << 3,
+    ExposeEventHandlerMask = 1 << 4
   };
 }
 

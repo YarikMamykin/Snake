@@ -5,20 +5,23 @@
 #include "MouseButtonPressHandler.hpp"
 #include "KeyPressHandler.hpp"
 #include "ClientMessageHandler.hpp"
+#include "ExposeEventHandler.hpp"
 #include "Window.hpp"
 
 namespace events {
   class IEventHandler : public MouseButtonPressHandler,
                         public MouseMotionHandler,
                         public KeyPressHandler,
-                        public ClientMessageHandler {
+                        public ClientMessageHandler,
+                        public ExposeEventHandler {
 
     public:
       virtual const int get_event_handling_mask() const { return MouseButtonPressHandler::get_event_handling_mask() 
                                                                  | MouseMotionHandler::get_event_handling_mask() 
                                                                  | KeyPressHandler::get_event_handling_mask() 
-                                                                 | ClientMessageHandler::get_event_handling_mask(); }
-      virtual void event_handler_loop(abstractions::ui::AWindow* x_window) = 0;
+                                                                 | ClientMessageHandler::get_event_handling_mask()
+                                                                 | ExposeEventHandler::get_event_handling_mask(); }
+      virtual void event_handler_loop() = 0;
       virtual ~IEventHandler() {};
   };
 }

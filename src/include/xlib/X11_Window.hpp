@@ -7,6 +7,7 @@
 #include "X11_Font.hpp"
 #include "MouseMotionHandler.hpp"
 #include "ClientMessageHandler.hpp"
+#include "ExposeEventHandler.hpp"
 #include <memory>
 #include "View.hpp"
 #include "Constants.hpp"
@@ -26,7 +27,8 @@ namespace xlib {
 
   struct X11_Window : public abstractions::ui::AWindow,
                       public events::ClientMessageHandler,
-                      public events::MouseMotionHandler {
+                      public events::MouseMotionHandler, 
+                      public events::ExposeEventHandler {
 
     X11_Window(views::ViewID viewID, const WindowSettings& win_sets);
     ~X11_Window() override;
@@ -44,6 +46,7 @@ namespace xlib {
 
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;
+    void handle_expose_event() override;
     const int get_event_handling_mask() const override;
 
     X11_Display x_display;

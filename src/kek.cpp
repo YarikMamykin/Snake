@@ -32,7 +32,7 @@ void LaunchApp() {
   EventHandler ehandler;
   ehandler.add_listener(constants::HandlerKeys::WINDOW, x_window_as_event_handling_object);
   ehandler.add_listener(constants::HandlerKeys::WINDOW_VIEW, view_as_event_handling_object);
-  ehandler.event_handler_loop(x_window.get());
+  ehandler.event_handler_loop();
 }
 
 int main(void)

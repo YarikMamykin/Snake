@@ -17,12 +17,13 @@ namespace events {
     explicit EventHandler() = default;
     ~EventHandler() {};
 
-    void event_handler_loop(abstractions::ui::AWindow* x_window) override;
+    void event_handler_loop() override;
 
     void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
     void handle_button_press(const int& x, const int& y, const unsigned int& button) override;
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;
+    void handle_expose_event() override;
 
     void add_listener(constants::HandlerKeys key, std::shared_ptr<EventHandlingObject> listener);
 
