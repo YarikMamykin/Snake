@@ -16,7 +16,6 @@ namespace abstractions {
         
       public:
         virtual void change_view(const int viewID) = 0;
-        virtual std::shared_ptr<views::View> get_view() const = 0;
 
         virtual ~AWindow() {};
     };
