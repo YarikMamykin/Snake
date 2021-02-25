@@ -25,13 +25,8 @@ void LaunchApp() {
     .font_name = abstractions::ObservableValueContainerWrapper::to_concrete_value<std::string>(Settings::get(ConfigID::WINDOW_FONT_NAME))->get_value()
   };
 
-  auto x_window = std::make_shared<X11_Window>(views::ViewID::MENU, win_sets);
-  auto x_window_as_event_handling_object = std::dynamic_pointer_cast<EventHandlingObject>(x_window);
-  auto view_as_event_handling_object = std::dynamic_pointer_cast<EventHandlingObject>(x_window->get_view());
-
-  EventHandler ehandler;
-  ehandler.add_listener(constants::HandlerKeys::WINDOW, x_window_as_event_handling_object);
-  ehandler.add_listener(constants::HandlerKeys::WINDOW_VIEW, view_as_event_handling_object);
+  std::shared_ptr<abstractions::ui::AWindow> x_window(new X11_Window(views::ViewID::MENU, win_sets));
+  EventHandler ehandler(std::move(x_window));
   ehandler.event_handler_loop();
 }
 
