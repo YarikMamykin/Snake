@@ -90,6 +90,10 @@ namespace xlib {
     this->expose();
   }
 
+  void X11_Window::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
+    std::dynamic_pointer_cast<events::KeyPressHandler>(this->view)->handle_key_press(std::move(key_sym), std::move(mask));
+  }
+
   const int X11_Window::get_event_handling_mask() const {
     return events::MouseMotionHandler::get_event_handling_mask() 
           | events::ClientMessageHandler::get_event_handling_mask() 

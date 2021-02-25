@@ -8,6 +8,7 @@
 #include "MouseMotionHandler.hpp"
 #include "ClientMessageHandler.hpp"
 #include "ExposeEventHandler.hpp"
+#include "KeyPressHandler.hpp"
 #include <memory>
 #include "View.hpp"
 #include "Constants.hpp"
@@ -28,6 +29,7 @@ namespace xlib {
   struct X11_Window : public abstractions::ui::AWindow,
                       public events::ClientMessageHandler,
                       public events::MouseMotionHandler, 
+                      public events::KeyPressHandler, 
                       public events::ExposeEventHandler {
 
     X11_Window(views::ViewID viewID, const WindowSettings& win_sets);
@@ -43,6 +45,7 @@ namespace xlib {
     void change_view(const int viewID) override;
     void update_window_frame();
 
+    void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;
     void handle_expose_event() override;
