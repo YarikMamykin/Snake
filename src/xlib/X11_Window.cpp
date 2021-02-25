@@ -61,7 +61,6 @@ namespace xlib {
     this->view->activate();
   }
 
-
   void X11_Window::handle_mouse_motion(const int& x, const int& y) {
     update_window_frame();
     std::string coords_text = std::to_string(x) + std::string(" : ") + std::to_string(y);
@@ -95,8 +94,9 @@ namespace xlib {
   }
 
   const int X11_Window::get_event_handling_mask() const {
-    return events::MouseMotionHandler::get_event_handling_mask() 
-          | events::ClientMessageHandler::get_event_handling_mask() 
-          | events::ExposeEventHandler::get_event_handling_mask();
+    return std::dynamic_pointer_cast<EventHandlingObject>(this->view)->get_event_handling_mask() 
+           | events::HandlersMask::ClientMessageHandlerMask 
+           | events::HandlersMask::MouseMotionHandlerMask 
+           | events::HandlersMask::ExposeEventHandlerMask;
   }
 }
