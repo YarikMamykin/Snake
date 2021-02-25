@@ -61,9 +61,6 @@ namespace xlib {
     this->view->activate();
   }
 
-  std::shared_ptr<views::View> X11_Window::get_view() const {
-    return this->view;
-  }
 
   void X11_Window::handle_mouse_motion(const int& x, const int& y) {
     update_window_frame();
