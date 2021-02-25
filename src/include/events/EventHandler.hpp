@@ -11,10 +11,10 @@ namespace events {
 
   struct EventHandler : public IEventHandler {
 
-    std::map<constants::HandlerKeys, std::weak_ptr<EventHandlingObject>> listeners;
+    std::shared_ptr<EventHandlingObject> window;
     XEvent event;
 
-    explicit EventHandler() = default;
+    explicit EventHandler(std::shared_ptr<abstractions::ui::AWindow> window);
     ~EventHandler() {};
 
     void event_handler_loop() override;
@@ -25,13 +25,11 @@ namespace events {
     void handle_client_message(const long* data) override;
     void handle_expose_event() override;
 
-    void add_listener(constants::HandlerKeys key, std::shared_ptr<EventHandlingObject> listener);
-
     private:
-      template <class EventHandlerType> 
-        static std::shared_ptr<EventHandlerType> 
-          as_event_handler(std::shared_ptr<EventHandlingObject> object) {
-            return std::dynamic_pointer_cast<EventHandlerType>(object);
+      bool window_contains_event_handling_mask(HandlersMask&& mask) const;
+
+      template <typename EventHandlerType> EventHandlerType* window_as_concrete_event_handler() {
+        return dynamic_cast<EventHandlerType*>(window.get());
       }
   };
 }
