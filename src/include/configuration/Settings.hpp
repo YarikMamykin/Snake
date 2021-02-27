@@ -21,6 +21,7 @@ namespace configuration {
     GAME_OVER_TIMEOUT,
     SNAKE_SIZE,
     RANDOM_ENGINE_ALGORITHM,
+    SIZE_MULTIPLIER,
     FOOD_COLOR
   };
 
