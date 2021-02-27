@@ -80,7 +80,6 @@ namespace xlib {
       case events::AdditionalEvents::ChangeView: 
         {
           this->change_view(data[1]);
-          helpers::Helper::SendResubscribeViewEvent(this);
         }
     }
   }
