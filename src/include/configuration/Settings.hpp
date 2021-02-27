@@ -21,7 +21,6 @@ namespace configuration {
     GAME_OVER_TIMEOUT,
     SNAKE_SIZE,
     RANDOM_ENGINE_ALGORITHM,
-    RANDOM_ENGINE_SEED_SEQUENCE,
     FOOD_COLOR
   };
 
@@ -49,7 +48,6 @@ namespace configuration {
 
 namespace configuration {
   typedef std::linear_congruential_engine<std::uint_fast32_t, 1u, 10u, 700u> RANDOM_ENGINE_ALGORITHM_TYPE;
-  typedef std::list<unsigned int> RANDOM_ENGINE_SEED_SEQUENCE_TYPE;
 }
 
 #endif /* SRC_INCLUDE_SETTINGS_SETTINGS_HPP */

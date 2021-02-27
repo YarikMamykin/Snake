@@ -20,7 +20,6 @@ namespace configuration {
     { ConfigID::GAME_OVER_TIMEOUT, (new abstractions::ObservableValue<std::chrono::milliseconds>(80u))->wrap() },
     { ConfigID::SNAKE_SIZE, (new abstractions::ObservableValue<RESTRICTED_UINT>(15u, 15u, 75u, 10u))->wrap() },
     { ConfigID::RANDOM_ENGINE_ALGORITHM, (new abstractions::ObservableValue<RANDOM_ENGINE_ALGORITHM_TYPE>())->wrap() },
-    { ConfigID::RANDOM_ENGINE_SEED_SEQUENCE, (new abstractions::ObservableValue<RANDOM_ENGINE_SEED_SEQUENCE_TYPE>(std::list<unsigned int>{10u,2u,39u,40u,57u,60u,70u,80u}))->wrap() },
     { ConfigID::FOOD_COLOR, (new abstractions::ObservableValue<color::ColorPallete>("#ffff00"))->wrap() },
   };
   
