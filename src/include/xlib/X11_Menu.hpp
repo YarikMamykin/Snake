@@ -7,6 +7,7 @@ namespace xlib {
   class X11_Menu : public abstractions::ui::Menu {
     protected:
       unsigned int margin;
+      geometry::Rectangle prev_frame;
 
     public:
       X11_Menu(const ::ui::LayoutType& layout, 

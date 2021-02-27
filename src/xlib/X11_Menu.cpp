@@ -1,10 +1,6 @@
 #include "X11_Menu.hpp"
 #include "XlibWrapper.hpp"
 
-namespace {
-  
-}
-
 namespace xlib {
   X11_Menu::X11_Menu(const ::ui::LayoutType& layout, 
                      const geometry::Rectangle& frame, 
@@ -19,8 +15,11 @@ namespace xlib {
   }
 
   void X11_Menu::show_frame(bool show_flag) {
+    prev_frame = frame;
     update_menu_frame();
     if(show_flag) {
+      XlibWrapper::self()->draw_rectangle(std::forward<geometry::Rectangle>(prev_frame), 
+      std::forward<color::Color>(color_scheme[color::ColorSchemeID::BackgroundColor]));
       XlibWrapper::self()->draw_rectangle({
         frame.x - margin,
         frame.y - margin,
