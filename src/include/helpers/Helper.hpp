@@ -3,7 +3,6 @@
 
 #include "XHeaders.hpp"
 #include "Constants.hpp"
-#include "X11_Window.hpp"
 
 namespace helpers {
   struct Helper {
