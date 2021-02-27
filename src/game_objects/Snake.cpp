@@ -113,6 +113,7 @@ namespace game_objects {
     constexpr unsigned int spacing = 10u;
 
     parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
+    parts.back().frame.set_center(x_window->get_width()/2u, x_window->get_height()/2u);
   }
 
   Snake::~Snake() {
