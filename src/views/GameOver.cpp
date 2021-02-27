@@ -49,7 +49,7 @@ namespace views {
     switch(key_sym) {
       case XK_Escape: 
         {
-          helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU);
+          helpers::Helper::SendChangeViewEvent(views::ViewID::MENU);
           break;
         }
     }

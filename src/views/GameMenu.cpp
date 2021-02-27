@@ -39,24 +39,24 @@ namespace views {
   : parent_window(x_window) 
   , menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme) {
     std::unique_ptr<abstractions::ui::Object> menu_item;
-    menu_item.reset(new Item(x_window, NewGameItemName, [x_window](const KeySym&& key_sym) {
+    menu_item.reset(new Item(x_window, NewGameItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
-            case XK_Return: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::ACTION); break;
+            case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::ACTION); break;
           }}));
     menu.add_item(std::move(menu_item));
 
     menu_item.reset(new Item(x_window, ScoreItemName, empty_key_press_handler));
     menu.add_item(std::move(menu_item));
 
-    menu_item.reset(new Item(x_window, SettingsItemName, [x_window](const KeySym&& key_sym) {
+    menu_item.reset(new Item(x_window, SettingsItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
-            case XK_Return: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::SETTINGS); break;
+            case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::SETTINGS); break;
           }}));
     menu.add_item(std::move(menu_item));
     
-    menu_item.reset(new Item(x_window, ExitItemName, [x_window](const KeySym&& key_sym) {
+    menu_item.reset(new Item(x_window, ExitItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
-            case XK_Return: helpers::Helper::SendExitApplicationEvent(x_window); break;
+            case XK_Return: helpers::Helper::SendExitApplicationEvent(); break;
           }}));
     menu.add_item(std::move(menu_item));
   }

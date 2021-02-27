@@ -53,7 +53,7 @@ namespace views {
   }
 
   void GameAction::deactivate() {
-    helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::OVER);
+    helpers::Helper::SendChangeViewEvent(views::ViewID::OVER);
     xlib::XlibWrapper::self()->flush_buffer();
   }
 
@@ -76,7 +76,7 @@ namespace views {
     switch(key_sym) {
       case XK_Escape:
         {
-          helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU);
+          helpers::Helper::SendChangeViewEvent(views::ViewID::MENU);
           break;
         }
       case XK_j:

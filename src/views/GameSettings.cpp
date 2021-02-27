@@ -89,7 +89,7 @@ namespace views {
 
   void GameSettings::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
     switch(key_sym) {
-      case XK_Escape: helpers::Helper::SendChangeViewEvent(x_window, views::ViewID::MENU); break;
+      case XK_Escape: helpers::Helper::SendChangeViewEvent(views::ViewID::MENU); break;
       case XK_Down: menu.move_to_next_item(); break;
       case XK_Up: menu.move_to_prev_item(); break;
       case XK_equal: if(!(mask & ShiftMask)) break;
