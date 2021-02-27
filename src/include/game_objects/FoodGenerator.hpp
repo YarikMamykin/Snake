@@ -13,7 +13,7 @@ namespace game_objects {
     configuration::RANDOM_ENGINE_ALGORITHM_TYPE algorithm;
 
     public:
-      RandomEngine(std::list<unsigned int>&& seed_sequence);
+      RandomEngine();
       geometry::Point generate_point(geometry::Rectangle&& region);
   };
 
