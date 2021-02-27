@@ -8,19 +8,22 @@
 
 namespace views {
 
+  using namespace configuration;
+  using Sets = configuration::Settings;
+
   GameAction::GameAction(xlib::X11_Window* x_window) 
   : x_window(x_window) 
   , snake(x_window, 
-          configuration::Settings::get_concrete<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR).get_current_color(), 
+          Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color(), 
           geometry::Rectangle { .x = 10u, 
                                 .y = 100u, 
-                                .width = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE).get_restricted_value(), 
-                                .height = configuration::Settings::get_concrete<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE).get_restricted_value()/2u }) 
+                                .width = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER), 
+                                .height = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u}) 
   , mcontroller(snake, x_window)
   , snake_direction(game_objects::SnakeDirection::Right) 
   , paused(false) {
-    auto snake_timeout_ptr = configuration::Settings::get_concrete_ptr<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT);
-    auto snake_speed_ptr = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
+    auto snake_timeout_ptr = Sets::get_concrete_ptr<std::chrono::milliseconds>(ConfigID::SNAKE_TIMEOUT);
+    auto snake_speed_ptr = Sets::get_concrete_ptr<RESTRICTED_ULONG>(ConfigID::SNAKE_SPEED);
 
     std::chrono::milliseconds snake_speed_in_time(snake_speed_ptr->get_value().get_max() - snake_speed_ptr->get_value().get_restricted_value());
     action_timer.timeout = std::chrono::milliseconds(snake_speed_in_time.count() * std::chrono::milliseconds(10u).count() +  snake_timeout_ptr->get_value().count());
