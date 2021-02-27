@@ -48,7 +48,7 @@ namespace configuration {
 }
 
 namespace configuration {
-  typedef std::linear_congruential_engine<std::uint_fast32_t, 1u, 10u, 700u> RANDOM_ENGINE_ALGORITHM_TYPE;
+  typedef std::linear_congruential_engine<std::uint_fast32_t, 1u, 300u, 700u> RANDOM_ENGINE_ALGORITHM_TYPE;
 }
 
 #endif /* SRC_INCLUDE_SETTINGS_SETTINGS_HPP */
