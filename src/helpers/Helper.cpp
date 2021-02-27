@@ -2,7 +2,7 @@
 #include "XlibWrapper.hpp"
 
 namespace helpers {
-  XEvent Helper::ConstructExitApplicationEvent(const xlib::X11_Window* x_window) {
+  XEvent Helper::ConstructExitApplicationEvent() {
     XEvent event;
     event.xclient.type = ClientMessage; 
     event.xclient.format = 32;
@@ -12,7 +12,7 @@ namespace helpers {
     return event;
   }
 
-  XEvent Helper::ConstructChangeViewEvent(const xlib::X11_Window* x_window, const views::ViewID& viewID) {
+  XEvent Helper::ConstructChangeViewEvent(const views::ViewID& viewID) {
     XEvent event;
     event.xclient.type = ClientMessage; 
     event.xclient.format = 32;
@@ -23,7 +23,7 @@ namespace helpers {
     return event;
   }
 
-  XEvent Helper::ConstructResubscribeViewEvent(const xlib::X11_Window* x_window) {
+  XEvent Helper::ConstructResubscribeViewEvent() {
     XEvent event;
     event.xclient.type = ClientMessage; 
     event.xclient.format = 32;
@@ -33,18 +33,18 @@ namespace helpers {
     return event;
   }
 
-  void Helper::SendExitApplicationEvent(const xlib::X11_Window* x_window) {
-    auto event = helpers::Helper::ConstructExitApplicationEvent(x_window);
+  void Helper::SendExitApplicationEvent() {
+    auto event = helpers::Helper::ConstructExitApplicationEvent();
     XSendEvent(xlib::XlibWrapper::self()->display, xlib::XlibWrapper::self()->window, true, NoEventMask, &event);
   }
 
-  void Helper::SendChangeViewEvent(const xlib::X11_Window* x_window, const views::ViewID& viewID) {
-    auto event = helpers::Helper::ConstructChangeViewEvent(x_window, viewID);
+  void Helper::SendChangeViewEvent(const views::ViewID& viewID) {
+    auto event = helpers::Helper::ConstructChangeViewEvent(viewID);
     XSendEvent(xlib::XlibWrapper::self()->display, xlib::XlibWrapper::self()->window, true, NoEventMask, &event);
   }
 
-  void Helper::SendResubscribeViewEvent(const xlib::X11_Window* x_window) {
-    auto event = helpers::Helper::ConstructResubscribeViewEvent(x_window);
+  void Helper::SendResubscribeViewEvent() {
+    auto event = helpers::Helper::ConstructResubscribeViewEvent();
     XSendEvent(xlib::XlibWrapper::self()->display, xlib::XlibWrapper::self()->window, true, NoEventMask, &event);
   }
 }
