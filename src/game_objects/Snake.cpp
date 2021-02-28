@@ -241,4 +241,7 @@ namespace game_objects {
           spacing));
   }
 
+  const size_t Snake::size() const {
+    return parts.size();
+  }
 }
