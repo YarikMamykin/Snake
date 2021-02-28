@@ -30,6 +30,7 @@ namespace game_objects {
   }
 
   void Snake::SnakeHead::show(xlib::X11_Window *x_window) {
+    if(frame.x < 0 || frame.y < 0) return;
     xlib::XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), std::forward<color::Color>(head_color));
     xlib::XlibWrapper::self()->flush_buffer();
   }
