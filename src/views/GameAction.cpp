@@ -5,6 +5,15 @@
 #include <thread>
 #include "ColorPallete.hpp"
 #include "XlibWrapper.hpp"
+#include "X11_TextLabel.hpp"
+
+namespace {
+  color::COLOR_SCHEME_TYPE score_counter_label_color_scheme = {
+    { color::ColorSchemeID::BackgroundColor, 0UL },
+    { color::ColorSchemeID::FrameColor, "#ff0000" },
+    { color::ColorSchemeID::TextColor, "#00ffff"}
+  };
+}
 
 namespace views {
 
@@ -21,7 +30,11 @@ namespace views {
                                 .height = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u}) 
   , mcontroller(snake, x_window)
   , snake_direction(game_objects::SnakeDirection::Right) 
-  , paused(false) {
+  , paused(false) 
+  , score_counter_label(std::to_string(1u), geometry::Rectangle{}, score_counter_label_color_scheme) {
+    geometry::Point&& window_bottom_center{x_window->get_width()/2u, x_window->get_height()};
+    score_counter_label.set_center(window_bottom_center.x, window_bottom_center.y - score_counter_label.get_height()/2u);
+
     auto snake_timeout_ptr = Sets::get_concrete_ptr<std::chrono::milliseconds>(ConfigID::SNAKE_TIMEOUT);
     auto snake_speed_ptr = Sets::get_concrete_ptr<RESTRICTED_ULONG>(ConfigID::SNAKE_SPEED);
 
@@ -36,10 +49,21 @@ namespace views {
         mcontroller.set_current_food(food_generator.generate(x_window));
         mcontroller.increase_snake();
       }
+      if(!snake.head_frame().do_not_cross(score_counter_label.get_frame())) {
+        auto&& current_snake_size = snake.size();
+        for(unsigned int i = 0u; i < current_snake_size; ++i) {
+          mcontroller.increase_snake();
+        }
+      }
       // We need to redraw food periodically 
       // because in other case only Snake is visible.
       // Behavior caused with regular XFlush calls, needed for proper render.
       mcontroller.get_current_food().show();
+      score_counter_label.show(false);
+      score_counter_label.show_frame(false);
+      score_counter_label.set_text(std::to_string(snake.size()));
+      score_counter_label.show(true);
+      score_counter_label.show_frame(true);
     };
 
     mcontroller.set_current_food(food_generator.generate(x_window));

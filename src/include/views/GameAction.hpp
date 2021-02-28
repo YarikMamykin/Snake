@@ -4,6 +4,7 @@
 #include "View.hpp"
 #include "KeyPressHandler.hpp"
 #include "X11_Window.hpp"
+#include "X11_TextLabel.hpp"
 #include "Timer.hpp"
 #include "Snake.hpp"
 #include "Constants.hpp"
@@ -35,6 +36,7 @@ namespace views {
       game_objects::FoodGenerator food_generator;
       bool paused;
       game_objects::SnakeDirection snake_direction;
+      xlib::X11_TextLabel score_counter_label;
   };
 
 }
