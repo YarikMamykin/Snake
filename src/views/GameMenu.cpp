@@ -5,7 +5,7 @@
 
 namespace {
   const std::string NewGameItemName = "New Game"; 
-  const std::string ScoreItemName = "Score"; 
+  const std::string AboutItemName = "About"; 
   const std::string SettingsItemName = "Settings"; 
   const std::string ExitItemName = "Exit";
 
@@ -45,12 +45,15 @@ namespace views {
           }}));
     menu.add_item(std::move(menu_item));
 
-    menu_item.reset(new Item(x_window, ScoreItemName, empty_key_press_handler));
-    menu.add_item(std::move(menu_item));
-
     menu_item.reset(new Item(x_window, SettingsItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
             case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::SETTINGS); break;
+          }}));
+    menu.add_item(std::move(menu_item));
+
+    menu_item.reset(new Item(x_window, AboutItemName, [](const KeySym&& key_sym) {
+          switch(key_sym) {
+            case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::ABOUT); break;
           }}));
     menu.add_item(std::move(menu_item));
     

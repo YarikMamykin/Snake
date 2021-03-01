@@ -33,6 +33,7 @@ namespace views {
     ACTION,
     OVER,
     SETTINGS,
+    ABOUT,
     NONE
   };
 }
