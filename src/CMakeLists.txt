@@ -38,6 +38,7 @@ set(HELPERS_SRC
 set(GAME_VIEW_SRC 
   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameMenu.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameAction.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/views/GameAbout.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameOver.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameSettings.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/views/GameNone.cpp
