@@ -77,8 +77,6 @@ namespace views {
     menu.show(true);
   }
 
-  void GameMenu::deactivate() { }
-
   void GameMenu::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
     switch(key_sym) {
       case XK_Down: menu.move_to_next_item(); break;
