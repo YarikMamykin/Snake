@@ -12,14 +12,15 @@
 namespace views {
     class ViewFactory {
       public:
-        static std::shared_ptr<View> get_view(ViewID id, xlib::X11_Window* parent_window) {
+        static std::shared_ptr<View> get_view(ViewID id) {
+          std::unique_ptr<View> new_view;
           switch(id) {
-            case ViewID::ACTION:  new_view.reset(new GameAction(parent_window)); break;
-            case ViewID::ABOUT:  new_view.reset(new GameAbout(parent_window)); break;
-            case ViewID::MENU:  new_view.reset(new GameMenu(parent_window)); break;
-            case ViewID::OVER:  new_view.reset(new GameOver(parent_window)); break;
-            case ViewID::SETTINGS:  new_view.reset(new GameSettings(parent_window)); break;
-            default:  new_view.reset(new GameNone(parent_window)); break;
+            case ViewID::ACTION:  new_view.reset(new GameAction); break;
+            case ViewID::ABOUT:  new_view.reset(new GameAbout); break;
+            case ViewID::MENU:  new_view.reset(new GameMenu); break;
+            case ViewID::OVER:  new_view.reset(new GameOver); break;
+            case ViewID::SETTINGS:  new_view.reset(new GameSettings); break;
+            default:  new_view.reset(new GameNone); break;
           }
           return new_view;
         }
