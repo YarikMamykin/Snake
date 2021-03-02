@@ -53,7 +53,7 @@ namespace xlib {
 
     X11_Display x_display;
     X11_Font x_font;
-    std::shared_ptr<views::View> view;
+    std::unique_ptr<views::View> view;
   };
 }
 

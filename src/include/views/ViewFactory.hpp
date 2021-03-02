@@ -14,13 +14,14 @@ namespace views {
       public:
         static std::shared_ptr<View> get_view(ViewID id, xlib::X11_Window* parent_window) {
           switch(id) {
-            case ViewID::ACTION: return std::make_shared<GameAction>(parent_window); break;
-            case ViewID::ABOUT: return std::make_shared<GameAbout>(parent_window); break;
-            case ViewID::MENU: return std::make_shared<GameMenu>(parent_window); break;
-            case ViewID::OVER: return std::make_shared<GameOver>(parent_window); break;
-            case ViewID::SETTINGS: return std::make_shared<GameSettings>(parent_window); break;
-            default: return std::make_shared<GameNone>(); break;
+            case ViewID::ACTION:  new_view.reset(new GameAction(parent_window)); break;
+            case ViewID::ABOUT:  new_view.reset(new GameAbout(parent_window)); break;
+            case ViewID::MENU:  new_view.reset(new GameMenu(parent_window)); break;
+            case ViewID::OVER:  new_view.reset(new GameOver(parent_window)); break;
+            case ViewID::SETTINGS:  new_view.reset(new GameSettings(parent_window)); break;
+            default:  new_view.reset(new GameNone(parent_window)); break;
           }
+          return new_view;
         }
     };
 }
