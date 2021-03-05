@@ -13,7 +13,7 @@ namespace views {
   class GameOver final : public View, 
                          public events::KeyPressHandler {
     public:
-      explicit GameOver(xlib::X11_Window* x_window);
+      explicit GameOver();
       ~GameOver();
 
     public:

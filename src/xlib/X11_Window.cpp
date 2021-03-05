@@ -55,7 +55,7 @@ namespace xlib {
   }
 
   void X11_Window::change_view(const int viewID) {
-    this->view = views::ViewFactory::get_view(static_cast<views::ViewID>(viewID), this);
+    this->view = views::ViewFactory::get_view(static_cast<views::ViewID>(viewID));
 
     redraw_background();
     this->view->activate();

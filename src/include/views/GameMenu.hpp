@@ -28,7 +28,7 @@ namespace views {
       };
 
     public:
-      explicit GameMenu(xlib::X11_Window* x_window);
+      explicit GameMenu();
       ~GameMenu();
 
     public:

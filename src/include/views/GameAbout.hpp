@@ -12,7 +12,7 @@ namespace views {
   class GameAbout final : public View, 
                           public events::KeyPressHandler {
     public:
-      explicit GameAbout(xlib::X11_Window* x_window);
+      explicit GameAbout();
       ~GameAbout() = default;
 
     public:

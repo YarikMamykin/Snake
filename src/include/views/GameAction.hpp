@@ -16,7 +16,7 @@ namespace views {
   class GameAction final : public View, 
                            public events::KeyPressHandler {
     public:
-      explicit GameAction(xlib::X11_Window* x_window);
+      explicit GameAction();
       ~GameAction();
 
     public:
@@ -30,7 +30,6 @@ namespace views {
     private:
       game_objects::Snake snake;
       game_objects::MovementController mcontroller;
-      xlib::X11_Window* x_window;
       timing::Timer action_timer;
       timing::Timer movement_controller_timer;
       game_objects::FoodGenerator food_generator;

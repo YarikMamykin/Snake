@@ -29,7 +29,7 @@ namespace views {
       };
 
     public:
-      explicit GameSettings(xlib::X11_Window* x_window);
+      explicit GameSettings();
       ~GameSettings();
 
     public:
