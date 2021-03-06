@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_VIEWS_GAMEOVER_HPP
 
 #include "View.hpp"
-#include "X11_Window.hpp"
 #include "X11_ColorizedTextLabel.hpp"
 #include "Timer.hpp"
 #include "KeyPressHandler.hpp"
@@ -21,7 +20,6 @@ namespace views {
       void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
 
     private:
-      xlib::X11_Window* x_window;
       std::unique_ptr<xlib::X11_ColorizedTextLabel> colorized_text_label;
       timing::Timer timer;
   };

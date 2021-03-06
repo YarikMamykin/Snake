@@ -1,6 +1,6 @@
 #include "GameMenu.hpp"
 #include "Helper.hpp"
-#include "WindowAnchorHandler.hpp"
+#include "CenterWindowAnchorHandler.hpp"
 #include "Color.hpp"
 
 namespace {
@@ -20,8 +20,7 @@ namespace {
 
 namespace views {
 
-  GameMenu::Item::Item(xlib::X11_Window* x_window, 
-      const std::string& name, 
+  GameMenu::Item::Item(const std::string& name, 
       KEY_PRESS_HANDLER_TYPE key_press_handler)
   : xlib::X11_TextLabel(name, {}, text_labels_color_scheme)
   , key_press_handler(key_press_handler) { }
@@ -35,29 +34,28 @@ namespace views {
     }
   }
 
-  GameMenu::GameMenu(xlib::X11_Window* x_window) 
-  : parent_window(x_window) 
-  , menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme) {
+  GameMenu::GameMenu() 
+  : menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme) {
     std::unique_ptr<abstractions::ui::Object> menu_item;
-    menu_item.reset(new Item(x_window, NewGameItemName, [](const KeySym&& key_sym) {
+    menu_item.reset(new Item(NewGameItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
             case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::ACTION); break;
           }}));
     menu.add_item(std::move(menu_item));
 
-    menu_item.reset(new Item(x_window, SettingsItemName, [](const KeySym&& key_sym) {
+    menu_item.reset(new Item(SettingsItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
             case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::SETTINGS); break;
           }}));
     menu.add_item(std::move(menu_item));
 
-    menu_item.reset(new Item(x_window, AboutItemName, [](const KeySym&& key_sym) {
+    menu_item.reset(new Item(AboutItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
             case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::ABOUT); break;
           }}));
     menu.add_item(std::move(menu_item));
     
-    menu_item.reset(new Item(x_window, ExitItemName, [](const KeySym&& key_sym) {
+    menu_item.reset(new Item(ExitItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
             case XK_Return: helpers::Helper::SendExitApplicationEvent(); break;
           }}));
@@ -72,7 +70,7 @@ namespace views {
   }
 
   void GameMenu::update() {
-    ui::WindowAnchorHandler<decltype(menu)> anchor_handler(&menu, parent_window);
+    ui::CenterWindowAnchorHandler anchor_handler(&menu);
     menu.get_current_item()->get()->set_focused(true);
     menu.show(true);
   }

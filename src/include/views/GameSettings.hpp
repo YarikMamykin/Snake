@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_VIEWS_GAMESETTINGS_HPP
 
 #include "View.hpp"
-#include "X11_Window.hpp"
 #include "KeyPressHandler.hpp"
 #include "X11_TextLabel.hpp"
 #include "X11_Menu.hpp"
@@ -19,8 +18,7 @@ namespace views {
     private:
       struct Setting : public xlib::X11_Menu {
         Setting(std::unique_ptr<abstractions::ui::TextLabel> key_presenter, 
-                std::unique_ptr<abstractions::ui::Object> value_presenter,
-                xlib::X11_Window* x_window);
+                std::unique_ptr<abstractions::ui::Object> value_presenter);
 
         void increase();
         void decrease();
@@ -42,15 +40,14 @@ namespace views {
         construct_menu_item(const std::string& name, ValueType value,
                             const color::COLOR_SCHEME_TYPE& key_color_scheme,
                             const color::COLOR_SCHEME_TYPE& value_color_scheme,
-                            std::unique_ptr<ValuePresentingObjectType> value_presenting_ui_object,
-                            xlib::X11_Window* x_window) {
+                            std::unique_ptr<ValuePresentingObjectType> value_presenting_ui_object) {
           std::unique_ptr<xlib::X11_TextLabel> key_presenter(new xlib::X11_TextLabel(name, {}, key_color_scheme));
           std::unique_ptr<ValuePresenterType> value_presenter(new ValuePresenterType(value, std::move(value_presenting_ui_object)));
 
           auto increase_binder = value_presenter->bind_increase_value_trigger();
           auto decrease_binder = value_presenter->bind_decrease_value_trigger();
 
-          auto setting = new Setting(std::move(key_presenter), std::move(value_presenter), x_window);
+          auto setting = new Setting(std::move(key_presenter), std::move(value_presenter));
 
           setting->increase_binder = increase_binder;
           setting->decrease_binder = decrease_binder;
@@ -62,7 +59,6 @@ namespace views {
       static Setting* current_item_as_setting(const xlib::X11_Menu& menu);
 
     private:
-      xlib::X11_Window* x_window;
       xlib::X11_Menu menu;
   };
 }

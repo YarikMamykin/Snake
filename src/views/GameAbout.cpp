@@ -1,6 +1,7 @@
 #include "GameAbout.hpp"
-#include "WindowAnchorHandler.hpp"
+#include "CenterWindowAnchorHandler.hpp"
 #include "Helper.hpp"
+#include "X11_TextLabel.hpp"
 
 namespace {
   const std::string about = "Classic 'Snake' game designed by Yaroslav Mamykin. Enjoy!";
@@ -13,14 +14,12 @@ namespace {
 
 namespace views {
 
-  GameAbout::GameAbout(xlib::X11_Window* x_window) 
-  : x_window(x_window)
-  , text_label(about, {}, text_label_color_scheme) {
-  }
+  GameAbout::GameAbout() 
+  : text_label(new xlib::X11_TextLabel(about, {}, text_label_color_scheme)) { }
   
   void GameAbout::activate() {
-    ui::WindowAnchorHandler<xlib::X11_TextLabel>(&text_label, x_window);
-    text_label.show(true);
+    ui::CenterWindowAnchorHandler(text_label.get());
+    text_label->show(true);
   }
 
   void GameAbout::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {

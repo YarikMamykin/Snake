@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_VIEWS_GAMEMENU_HPP
 
 #include "View.hpp"
-#include "X11_Window.hpp"
 #include "X11_TextLabel.hpp"
 #include <list>
 #include <functional>
@@ -18,8 +17,7 @@ namespace views {
                     public events::KeyPressHandler {
 
         typedef std::function<void(const KeySym&& key_sym)> KEY_PRESS_HANDLER_TYPE;
-        Item(xlib::X11_Window* x_window, 
-             const std::string& name, 
+        Item(const std::string& name, 
              KEY_PRESS_HANDLER_TYPE key_press_handler);
         ~Item();
 
@@ -44,7 +42,6 @@ namespace views {
       static events::KeyPressHandler* current_item_as_key_press_handler(const xlib::X11_Menu& menu);
 
     private:
-      xlib::X11_Window* parent_window;
       xlib::X11_Menu menu;
   };
 }

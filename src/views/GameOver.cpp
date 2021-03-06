@@ -1,6 +1,6 @@
 #include "GameOver.hpp"
 #include "Helper.hpp"
-#include "WindowAnchorHandler.hpp"
+#include "CenterWindowAnchorHandler.hpp"
 #include "Settings.hpp"
 #include "XlibWrapper.hpp"
 
@@ -14,9 +14,8 @@ namespace {
 
 namespace views {
 
-  GameOver::GameOver(xlib::X11_Window* x_window) 
-  : x_window(x_window) 
-  , colorized_text_label(new xlib::X11_ColorizedTextLabel("GAME OVER", {}, color_scheme, color::ColorPallete({
+  GameOver::GameOver() 
+  : colorized_text_label(new xlib::X11_ColorizedTextLabel("GAME OVER", {}, color_scheme, color::ColorPallete({
         color::Color("#ff0000"),
         color::Color("#00ff00"),
         color::Color("#0000ff"),
@@ -26,11 +25,12 @@ namespace views {
         }))) 
   , timer(configuration::Settings::get_concrete<std::chrono::milliseconds>(configuration::ConfigID::GAME_OVER_TIMEOUT)) {
     auto colorized_text_label_ptr = colorized_text_label.get();
-    timer.callback = [colorized_text_label_ptr, x_window]() {
+    timer.callback = [colorized_text_label_ptr]() {
       colorized_text_label_ptr->shift_colors();
       colorized_text_label_ptr->show(true);
       xlib::XlibWrapper::self()->flush_buffer();
     };
+    ui::CenterWindowAnchorHandler(colorized_text_label.get());
   }
 
   GameOver::~GameOver() {
@@ -38,7 +38,6 @@ namespace views {
   }
 
   void GameOver::activate() {
-    ui::WindowAnchorHandler<xlib::X11_ColorizedTextLabel>(colorized_text_label.get(), x_window);
     timer.launch();
     colorized_text_label->show(true);
   }
