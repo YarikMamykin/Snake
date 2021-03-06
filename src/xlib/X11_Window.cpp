@@ -56,9 +56,6 @@ namespace xlib {
 
   void X11_Window::change_view(const int viewID) {
     this->view = views::ViewFactory::get_view(static_cast<views::ViewID>(viewID));
-
-    redraw_background();
-    this->view->activate();
   }
 
   void X11_Window::handle_mouse_motion(const int& x, const int& y) {
@@ -80,6 +77,8 @@ namespace xlib {
       case events::AdditionalEvents::ChangeView: 
         {
           this->change_view(data[1]);
+          redraw_background();
+          this->view->activate();
         }
     }
   }
