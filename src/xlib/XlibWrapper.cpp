@@ -122,6 +122,10 @@ namespace xlib {
 		XNextEvent(display, event);
 	}
 
+	const color::COLOR_SCHEME_TYPE& XlibWrapper::get_window_colorscheme() const {
+		return window_color_scheme;
+	}
+
 	std::shared_ptr<XlibWrapper> XlibWrapper::self() {
 		static auto _self = std::make_shared<XlibWrapper>();
 		return _self;

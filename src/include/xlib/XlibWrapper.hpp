@@ -45,6 +45,7 @@ namespace xlib {
       void select_events_to_process();
       void next_event(XEvent* event);
 
+      const color::COLOR_SCHEME_TYPE& get_window_colorscheme() const;
 
       static std::shared_ptr<XlibWrapper> self();
   };
