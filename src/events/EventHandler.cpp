@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 #include "Exceptions.hpp"
-#include "X11_Window.hpp"
 #include "XlibWrapper.hpp"
 
 namespace events {
