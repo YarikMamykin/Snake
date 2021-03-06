@@ -8,7 +8,7 @@
 namespace events {
 
   EventHandler::EventHandler(std::shared_ptr<abstractions::ui::AWindow> window) 
-  : window(std::move(std::dynamic_pointer_cast<EventHandlingObject>(window))) {
+  : window(std::dynamic_pointer_cast<EventHandlingObject>(window)) {
   }
 
   void EventHandler::event_handler_loop() {
