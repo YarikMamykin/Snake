@@ -23,13 +23,13 @@ namespace game_objects {
   , shift(std::min(frame.width, frame.height))
   , head_color(color) { this->old_direction = direction; }
 
-  void Snake::SnakeHead::hide(xlib::X11_Window *x_window) {
-    auto background_color = x_window->get_color_scheme().at(color::ColorSchemeID::BackgroundColor);
+  void Snake::SnakeHead::hide() {
+    auto background_color = xlib::XlibWrapper::self()->get_window_colorscheme().at(color::ColorSchemeID::BackgroundColor);
     xlib::XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), std::forward<color::Color>(background_color));
     xlib::XlibWrapper::self()->flush_buffer();
   }
 
-  void Snake::SnakeHead::show(xlib::X11_Window *x_window) {
+  void Snake::SnakeHead::show() {
     if(frame.x < 0 || frame.y < 0) return;
     xlib::XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), std::forward<color::Color>(head_color));
     xlib::XlibWrapper::self()->flush_buffer();
@@ -104,17 +104,16 @@ namespace game_objects {
   }
 
 
-  Snake::Snake(xlib::X11_Window* x_window, 
-               const color::Color& color,
+  Snake::Snake(const color::Color& color,
                geometry::Rectangle&& head_shape,
                const SnakeDirection&& direction) 
-  : x_window(x_window)
-  , current_direction(direction) {
+  : current_direction(direction) {
 
     constexpr unsigned int spacing = 10u;
+    auto&& win_attr = xlib::XlibWrapper::self()->get_window_attributes();
 
     parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
-    parts.back().frame.set_center(100, x_window->get_height()/2u);
+    parts.back().frame.set_center(100, win_attr.height/2u);
   }
 
   Snake::~Snake() {
@@ -142,7 +141,7 @@ namespace game_objects {
       }
     }
 
-    this->hide(x_window);
+    this->hide();
 
     for(auto& part : parts) {
       part.move();
@@ -153,7 +152,7 @@ namespace game_objects {
       std::prev(parts_iter)->rotation_direction = parts_iter->rotation_direction;
     }
 
-    this->show(x_window);
+    this->show();
 
     if(!direction_opposite_to_current) {
       parts.front().old_direction = current_direction;
@@ -169,15 +168,15 @@ namespace game_objects {
   }
 
 
-  void Snake::hide(xlib::X11_Window* x_window) {
+  void Snake::hide() {
     for(auto& part : parts) {
-      part.hide(x_window);
+      part.hide();
     }
   }
 
-  void Snake::show(xlib::X11_Window* x_window) {
+  void Snake::show() {
     for(auto& part : parts) {
-      part.show(x_window);
+      part.show();
     }
   }
 

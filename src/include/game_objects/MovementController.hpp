@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_GAME_OBJECTS_MOVEMENTCONTROLLER_HPP
 
 #include <memory>
-#include "X11_Window.hpp"
 #include "Rectangle.hpp"
 
 
@@ -13,11 +12,11 @@ namespace game_objects {
 
   class MovementController final {
     Snake& snake;
+    const unsigned int window_width, window_height;
     std::unique_ptr<Food> current_food;
-    xlib::X11_Window* x_window;
 
     public:
-      explicit MovementController(Snake& snake, xlib::X11_Window* x_window);
+      explicit MovementController(Snake& snake, const unsigned int& window_width, const unsigned int& window_height);
       ~MovementController() = default;
 
       bool validate() const;

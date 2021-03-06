@@ -2,15 +2,18 @@
 #include "Exceptions.hpp"
 #include "Snake.hpp"
 #include "Food.hpp"
+#include "XlibWrapper.hpp"
 
 namespace game_objects {
 
-  MovementController::MovementController(Snake& snake, xlib::X11_Window* x_window) 
-  : snake(snake)
-  , x_window(x_window) { }
+  MovementController::MovementController(Snake& snake, const unsigned int& window_width, const unsigned int& window_height) 
+  : snake(snake) 
+  , window_width(window_width)
+  , window_height(window_height) { }
 
   bool MovementController::validate_snake_head_with_window_bounds() const {
-    return snake.parts.front().frame.belongs_to(x_window->get_frame());
+    geometry::Rectangle&& win_frame = {0,0,window_width, window_height};
+    return snake.parts.front().frame.belongs_to(win_frame);
   }
 
   bool MovementController::validate_snake_head_with_snake_tail() const {

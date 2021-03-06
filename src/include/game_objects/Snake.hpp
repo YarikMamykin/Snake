@@ -3,11 +3,11 @@
 
 #include <list>
 #include <memory>
-#include "X11_Window.hpp"
 #include "Constants.hpp"
 #include "Rectangle.hpp"
 #include "Triangle.hpp"
 #include "ObservableValue.hpp"
+#include "Color.hpp"
 
 namespace game_objects {
 
@@ -15,8 +15,7 @@ namespace game_objects {
 
   class Snake {
     public:
-    explicit Snake(xlib::X11_Window* x_window, 
-                   const color::Color& value,
+    explicit Snake(const color::Color& value,
                    geometry::Rectangle&& head_shape,
                    const SnakeDirection&& direction = SnakeDirection::Right);
     ~Snake();
@@ -44,8 +43,8 @@ namespace game_objects {
                   RotationDirection&& rotation_direction,
                   const unsigned int& spacing);
         SnakeHead(SnakeHead&&) = default;
-        void show(xlib::X11_Window* x_window);
-        void hide(xlib::X11_Window* x_window);
+        void show();
+        void hide();
         void move();
 
         inline void handle_none_rotation();
@@ -56,13 +55,12 @@ namespace game_objects {
         inline void handle_shift_after_counter_clockwize_rotation();
       };
 
-      void show(xlib::X11_Window* x_window);
-      void hide(xlib::X11_Window* x_window);
+      void show();
+      void hide();
       inline bool is_opposite_to_current(const SnakeDirection& direction);
       void increase();
 
       std::list<SnakeHead> parts;
-      xlib::X11_Window* x_window;
       SnakeDirection current_direction;
   };
 }

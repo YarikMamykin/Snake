@@ -1,6 +1,7 @@
 #include "FoodGenerator.hpp"
 #include "Point.hpp"
 #include "ColorPallete.hpp"
+#include "XlibWrapper.hpp"
 #include <chrono>
 
 namespace {
@@ -28,18 +29,18 @@ namespace game_objects {
 }
 
 namespace game_objects {
-  FoodGenerator::FoodGenerator() 
-  : prev_point(geometry::Point{}) {
+  FoodGenerator::FoodGenerator(const unsigned int& window_width, const unsigned int& window_height) 
+  : window_width(window_width)
+  , window_height(window_height)
+  , prev_point(geometry::Point{}) {
   }
 
-  Food* FoodGenerator::generate(xlib::X11_Window* x_window) {
+  Food* FoodGenerator::generate() {
     using namespace configuration;
-    auto&& window_width = x_window->get_width();
-    auto&& window_height = x_window->get_height();
-    auto& background_color = x_window->get_color_scheme().at(color::ColorSchemeID::BackgroundColor);
+    auto& background_color = xlib::XlibWrapper::self()->get_window_colorscheme().at(color::ColorSchemeID::BackgroundColor);
     auto&& food_color = Settings::get_concrete<color::ColorPallete>(ConfigID::FOOD_COLOR).get_current_color();
     auto&& food_size = Settings::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Settings::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) + 5u;
-    auto&& region = geometry::Rectangle{200,200,x_window->get_width() - 300u,x_window->get_height() - 300u};
+    auto&& region = geometry::Rectangle{200,200,window_width - 300u,window_height - 300u};
 
     geometry::Point&& generated_point{};
     while((generated_point = points_generator.generate_point(std::move(region))) == prev_point);
