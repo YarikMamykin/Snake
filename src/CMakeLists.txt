@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/anchor_handlers)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions/event_handling)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/constants)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/color)
@@ -73,6 +74,10 @@ set(SETTINGS_SRC
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration/Settings.cpp
 )
 
+set(ANCHOR_HANDLERS
+  ${CMAKE_CURRENT_SOURCE_DIR}/anchor_handlers/CenterWindowAnchorHandler.cpp
+)
+
 add_library(xlib_ui STATIC ${XLIB_UI_SRC})
 add_library(events STATIC ${EVENTS_SRC})
 add_library(game_view STATIC ${GAME_VIEW_SRC})
@@ -82,7 +87,8 @@ add_library(game_objects STATIC ${GAME_OBJECTS_SRC})
 add_library(presenters STATIC ${PRESENTERS_SRC})
 add_library(color STATIC ${COLOR_SRC})
 add_library(settings STATIC ${SETTINGS_SRC})
+add_library(anchor_handlers STATIC ${ANCHOR_HANDLERS})
 
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 target_link_libraries(events xlib_ui)
-target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers timer game_objects presenters color settings)
+target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers timer game_objects presenters color settings anchor_handlers)
