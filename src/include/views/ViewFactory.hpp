@@ -12,7 +12,7 @@
 namespace views {
     class ViewFactory {
       public:
-        static std::shared_ptr<View> get_view(ViewID id) {
+        static std::unique_ptr<View> get_view(ViewID id) {
           std::unique_ptr<View> new_view;
           switch(id) {
             case ViewID::ACTION:  new_view.reset(new GameAction); break;
