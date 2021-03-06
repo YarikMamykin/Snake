@@ -37,12 +37,12 @@ namespace xlib {
 
     private:
     void redraw_background() const;
+    void change_view(const int viewID);
 
     public:
     void show(bool) override;
     void show_frame(bool) override;
     void expose();
-    void change_view(const int viewID) override;
     void update_window_frame();
 
     void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
