@@ -22,7 +22,7 @@ namespace xlib {
         XlibWrapper::self()->create_window(std::forward<decltype(frame)>(frame), 
                                     std::forward<decltype(color_scheme)>(color_scheme), 
                                     win_sets.name.c_str());
-        view = views::ViewFactory::get_view(viewID, this);
+        view = views::ViewFactory::get_view(viewID);
       }
 
   X11_Window::~X11_Window() {
