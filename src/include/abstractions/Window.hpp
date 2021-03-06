@@ -2,7 +2,6 @@
 #define SRC_INCLUDE_ABSTRACTIONS_WINDOW_HPP
 
 #include <memory>
-#include <View.hpp>
 #include "Object.hpp"
 
 namespace abstractions {
@@ -14,9 +13,6 @@ namespace abstractions {
         AWindow(const geometry::Rectangle& frame, const color::COLOR_SCHEME_TYPE& color_scheme) 
         : Object(frame, color_scheme) {}
         
-      public:
-        virtual void change_view(const int viewID) = 0;
-
         virtual ~AWindow() {};
     };
   }
