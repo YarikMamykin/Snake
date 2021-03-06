@@ -48,6 +48,9 @@ namespace abstractions {
         virtual void set_position(const int& x, const int& y) {
           this->frame.set_position(x,y);
         }
+        virtual void set_center(geometry::Point&& p) {
+          this->set_center(p.x,p.y);
+        }
         virtual void set_center(const int& x, const int& y) {
           this->frame.set_center(x,y);
         }
