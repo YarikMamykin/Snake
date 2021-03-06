@@ -26,7 +26,7 @@ void LaunchApp() {
   };
 
   std::shared_ptr<abstractions::ui::AWindow> x_window(new X11_Window(views::ViewID::MENU, win_sets));
-  EventHandler ehandler(std::move(x_window));
+  EventHandler ehandler(x_window);
   ehandler.event_handler_loop();
 }
 
