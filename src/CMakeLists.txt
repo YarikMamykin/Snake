@@ -5,6 +5,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/anchor_handlers)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions/event_handling)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/constants)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/commands)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/color)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/configuration)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/events)
@@ -78,6 +79,13 @@ set(ANCHOR_HANDLERS
   ${CMAKE_CURRENT_SOURCE_DIR}/anchor_handlers/CenterWindowAnchorHandler.cpp
 )
 
+set(COMMANDS_SRC
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawCircle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawRectangle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/FillCircle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/FillRectangle.cpp
+)
+
 add_library(xlib_ui STATIC ${XLIB_UI_SRC})
 add_library(events STATIC ${EVENTS_SRC})
 add_library(game_view STATIC ${GAME_VIEW_SRC})
@@ -88,7 +96,20 @@ add_library(presenters STATIC ${PRESENTERS_SRC})
 add_library(color STATIC ${COLOR_SRC})
 add_library(settings STATIC ${SETTINGS_SRC})
 add_library(anchor_handlers STATIC ${ANCHOR_HANDLERS})
+add_library(commands STATIC ${COMMANDS_SRC})
 
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 target_link_libraries(events xlib_ui)
-target_link_libraries(${PROJECT_NAME} xlib_ui events game_view helpers timer game_objects presenters color settings anchor_handlers)
+target_link_libraries(${PROJECT_NAME} 
+xlib_ui 
+events 
+game_view
+helpers
+timer
+game_objects
+presenters
+color
+settings
+anchor_handlers
+commands
+)
