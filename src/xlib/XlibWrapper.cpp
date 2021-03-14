@@ -39,7 +39,13 @@ namespace xlib {
 
 	bool XlibWrapper::create_window(geometry::Rectangle&& window_frame, 
 																	color::COLOR_SCHEME_TYPE&& color_scheme, 
-																	const char* name) {
+																	const unsigned int& border_width,
+																	const char* name,
+																	const char* font_name) {
+
+		if(!open_display() || !load_font(font_name)) {
+			return false;
+		}
 
 		window = XCreateSimpleWindow(display,
 				RootWindow(display, XDefaultScreen(display)),
@@ -47,7 +53,7 @@ namespace xlib {
 				window_frame.y, 
 				window_frame.width, 
 				window_frame.height,
-				1u, // border_width
+				border_width,
 				color_scheme.at(color::ColorSchemeID::FrameColor).to_long(), 
 				color_scheme.at(color::ColorSchemeID::BackgroundColor).to_long());
 
@@ -77,7 +83,9 @@ namespace xlib {
 	}
 
 	void XlibWrapper::destroy_window() {
+		free_font();
 		XDestroyWindow(display, window);
+		close_display();
 	}
 
 	void XlibWrapper::draw_rectangle(geometry::Rectangle&& r, color::Color&& color) { 
