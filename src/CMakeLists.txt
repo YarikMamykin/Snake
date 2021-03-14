@@ -83,10 +83,16 @@ set(COMMANDS_SRC
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/Command.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawCircle.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawRectangle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawText.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/FillCircle.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/FillRectangle.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/CreateWindow.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/DestroyWindow.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/QueryTextWidth.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/QueryTextHeight.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/QueryWindowAttributes.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/ChangeView.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/ExitApplication.cpp
 )
 
 add_library(xlib_ui STATIC ${XLIB_UI_SRC})
