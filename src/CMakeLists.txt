@@ -30,7 +30,7 @@ set(XLIB_UI_SRC
 )
 
 set(EVENTS_SRC 
-  ${CMAKE_CURRENT_SOURCE_DIR}/events/EventHandler.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/events/EventDispatcher.cpp
 )
 
 set(HELPERS_SRC 
