@@ -21,7 +21,7 @@ namespace views {
 
     public:
       virtual void activate() override;
-      virtual void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
+      virtual void handle_key_press(const KeySym& key_sym, const unsigned int& mask) override;
 
     private:
       void set_paused(const bool pause_flag);

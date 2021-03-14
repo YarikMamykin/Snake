@@ -21,7 +21,7 @@ namespace views {
              KEY_PRESS_HANDLER_TYPE key_press_handler);
         ~Item();
 
-        void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask);
+        void handle_key_press(const KeySym& key_sym, const unsigned int& mask);
          KEY_PRESS_HANDLER_TYPE key_press_handler;
       };
 
@@ -31,7 +31,7 @@ namespace views {
 
     public:
       void activate() override;
-      void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
+      void handle_key_press(const KeySym& key_sym, const unsigned int& mask) override;
       const int get_event_handling_mask() const override;
 
     private:

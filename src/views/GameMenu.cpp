@@ -28,7 +28,7 @@ namespace views {
   GameMenu::Item::~Item() {
   }
 
-  void GameMenu::Item::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
+  void GameMenu::Item::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     if(this->focused()) {
       this->key_press_handler(std::move(key_sym));
     }

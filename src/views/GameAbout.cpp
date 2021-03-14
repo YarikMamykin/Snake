@@ -22,7 +22,7 @@ namespace views {
     text_label->show(true);
   }
 
-  void GameAbout::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
+  void GameAbout::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     switch(key_sym) {
       case XK_Escape: helpers::Helper::SendChangeViewEvent(views::ViewID::MENU); 
     }

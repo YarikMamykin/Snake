@@ -42,7 +42,7 @@ namespace views {
     colorized_text_label->show(true);
   }
 
-  void GameOver::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
+  void GameOver::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     switch(key_sym) {
       case XK_Escape: 
         {

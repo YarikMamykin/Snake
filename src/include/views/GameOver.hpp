@@ -17,7 +17,7 @@ namespace views {
 
     public:
       void activate() override;
-      void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) override;
+      void handle_key_press(const KeySym& key_sym, const unsigned int& mask) override;
 
     private:
       std::unique_ptr<xlib::X11_ColorizedTextLabel> colorized_text_label;

@@ -9,7 +9,7 @@ namespace events {
 
   class KeyPressHandler : virtual public EventHandlingObject {
     public:
-      virtual void handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) = 0;
+      virtual void handle_key_press(const KeySym& key_sym, const unsigned int& mask) = 0;
       virtual const int get_event_handling_mask() const { return HandlersMask::KeyPressHandlerMask; }
       virtual ~KeyPressHandler() {};
   };
