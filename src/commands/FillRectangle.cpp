@@ -4,11 +4,16 @@
 namespace commands {
 
   FillRectangle::FillRectangle(const geometry::Rectangle& rectangle, const color::Color& color) 
-  : Command(rectangle, color) { }
+  : GraphicsCommand(rectangle, color) { }
 
-  void FillRectangle::execute() {
+  DoSaveResult FillRectangle::execute() {
     xlib::XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(rectangle), 
                                               std::forward<color::Color>(color));
+    return DoSaveResult::NO;
+  }
+
+  /* constexpr */ CommandID FillRectangle::get_id() const {
+    return CommandID::FillRectangle;
   }
 }
 

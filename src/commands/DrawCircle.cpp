@@ -4,10 +4,15 @@
 namespace commands {
 
   DrawCircle::DrawCircle(const geometry::Rectangle& circle_frame, const color::Color& color) 
-  : Command(circle_frame, color) { }
+  : GraphicsCommand(circle_frame, color) { }
 
-  void DrawCircle::execute() {
+  DoSaveResult DrawCircle::execute() {
     xlib::XlibWrapper::self()->draw_circle(std::forward<geometry::Rectangle>(rectangle), 
                                            std::forward<color::Color>(color));
+    return DoSaveResult::NO;
+  }
+
+  /* constexpr */ CommandID DrawCircle::get_id() const {
+    return CommandID::DrawCircle;
   }
 }
