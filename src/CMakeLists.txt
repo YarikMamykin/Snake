@@ -80,6 +80,7 @@ set(ANCHOR_HANDLERS
 )
 
 set(COMMANDS_SRC
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/Command.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawCircle.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawRectangle.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/FillCircle.cpp
