@@ -1,6 +1,7 @@
 #include "X11_ColorLabel.hpp"
-#include "XlibWrapper.hpp"
 #include "Constants.hpp"
+#include "DrawRectangle.hpp"
+#include "FillRectangle.hpp"
 
 namespace {
   const unsigned int margin = 10u;
@@ -17,25 +18,21 @@ namespace xlib {
 
   void X11_ColorLabel::show(bool show_flag) {
     // hide
-    XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), 
-                                 std::forward<color::Color>(color_scheme[color::ColorSchemeID::BackgroundColor]));
+    commands::Command::push_xlib_command(new commands::FillRectangle(frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
 
     if(show_flag) {
       show_frame(focused());
-      XlibWrapper::self()->fill_rectangle({
+      commands::Command::push_xlib_command(new commands::FillRectangle({
           frame.x + margin,
           frame.y + margin,
           frame.width - margin * 2,
-          frame.height - margin * 2},
-          (color_pallete.get_current_color()));
-
+          frame.height - margin * 2}, color_pallete.get_current_color()));
     }
   }
 
   void X11_ColorLabel::show_frame(bool show_flag) {
     if(show_flag) {
-      XlibWrapper::self()->draw_rectangle(std::forward<geometry::Rectangle>(frame), 
-                                   std::forward<color::Color>(color_scheme[color::ColorSchemeID::FrameColor]));
+      commands::Command::push_xlib_command(new commands::DrawRectangle(frame, color_scheme.at(color::ColorSchemeID::FrameColor)));
     }
   }
 }

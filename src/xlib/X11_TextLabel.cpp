@@ -1,5 +1,10 @@
 #include "X11_TextLabel.hpp"
-#include "XlibWrapper.hpp"
+#include "QueryTextWidth.hpp"
+#include "QueryTextHeight.hpp"
+#include "FillRectangle.hpp"
+#include "DrawRectangle.hpp"
+#include "DrawText.hpp"
+#include <thread>
 
 namespace xlib {
 
@@ -21,20 +26,17 @@ namespace xlib {
     }
 
     if(!show_flag) { 
-      XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), 
-                                   std::forward<color::Color>(color_scheme[color::ColorSchemeID::BackgroundColor]));
+      commands::Command::push_xlib_command(new commands::FillRectangle(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
     }
   }
 
   void X11_TextLabel::show_frame(bool show_flag) {
     if(show_flag) {
-      XlibWrapper::self()->draw_rectangle(std::forward<geometry::Rectangle>(frame), 
-                                   std::forward<color::Color>(color_scheme[color::ColorSchemeID::FrameColor]));
+      commands::Command::push_xlib_command(new commands::DrawRectangle(frame, color_scheme[color::ColorSchemeID::FrameColor]));
     }
 
     if(!show_flag) {
-      XlibWrapper::self()->draw_rectangle(std::forward<geometry::Rectangle>(frame), 
-                                   std::forward<color::Color>(color_scheme[color::ColorSchemeID::BackgroundColor]));
+      commands::Command::push_xlib_command(new commands::DrawRectangle(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
     }
   }
 
@@ -42,23 +44,22 @@ namespace xlib {
     update_frame();
     hide_prev_frame();
 
-    XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), 
-        std::forward<color::Color>(color_scheme[color::ColorSchemeID::BackgroundColor]));
-
-    XlibWrapper::self()->draw_text({ frame.x + left_text_margin,
-                              frame.y + (get_text_graphical_height() + top_text_margin / 2)},
-                              std::forward<color::Color>(color_scheme[color::ColorSchemeID::TextColor]),
-                              text);
+    commands::Command::push_xlib_command(new commands::DrawRectangle(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+    commands::Command::push_xlib_command(new commands::DrawText( text, geometry::Point{ frame.x + left_text_margin, frame.y + (get_text_graphical_height() + top_text_margin / 2)}, color_scheme[color::ColorSchemeID::TextColor]));
 
     this->show_frame(focused());
   }
 
   const unsigned int X11_TextLabel::get_text_graphical_width() const {
-    return XlibWrapper::self()->get_text_width(text);
+    commands::Command::push_xlib_command(new commands::QueryTextWidth(text));
+    std::unique_ptr<commands::Command> text_width_query_command = commands::Command::get_command_with_result(commands::CommandID::QueryTextWidth);
+    return dynamic_cast<commands::QueryTextWidth*>(text_width_query_command.get())->get_width();
   }
 
   const unsigned int X11_TextLabel::get_text_graphical_height() const {
-    return XlibWrapper::self()->get_text_height();
+    commands::Command::push_xlib_command(new commands::QueryTextHeight());
+    std::unique_ptr<commands::Command> text_height_query_command = commands::Command::get_command_with_result(commands::CommandID::QueryTextHeight);
+    return dynamic_cast<commands::QueryTextHeight*>(text_height_query_command.get())->get_height();
   }
 
   void X11_TextLabel::update_frame() {
@@ -68,7 +69,6 @@ namespace xlib {
   }
 
   void X11_TextLabel::hide_prev_frame() {
-    XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(prev_frame), 
-        std::forward<color::Color>(color_scheme[color::ColorSchemeID::BackgroundColor]));
+    commands::Command::push_xlib_command(new commands::FillRectangle(prev_frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
   }
 }

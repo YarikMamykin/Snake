@@ -1,5 +1,4 @@
 #include "X11_ColorizedTextLabel.hpp"
-#include "XlibWrapper.hpp"
 #include <algorithm>
 #include <numeric>
 

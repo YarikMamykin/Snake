@@ -5,6 +5,11 @@
 #include <iostream>
 #include <utility>
 #include "XlibWrapper.hpp"
+#include "Settings.hpp"
+#include "DrawCircle.hpp"
+#include "DrawRectangle.hpp"
+#include "FillRectangle.hpp"
+#include "QueryWindowAttributes.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE text_label_color_scheme = {
@@ -16,18 +21,13 @@ namespace {
 
 namespace xlib {
 
-  X11_Window::X11_Window(views::ViewID viewID, const WindowSettings& win_sets) 
-    : abstractions::ui::AWindow(win_sets.frame, win_sets.color_scheme)
-    , x_font(win_sets.font_name.c_str()) {
-        XlibWrapper::self()->create_window(std::forward<decltype(frame)>(frame), 
-                                    std::forward<decltype(color_scheme)>(color_scheme), 
-                                    win_sets.name.c_str());
+  X11_Window::X11_Window(views::ViewID viewID) 
+    : abstractions::ui::AWindow(configuration::Settings::get_concrete<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME), 
+        configuration::Settings::get_concrete<color::COLOR_SCHEME_TYPE>(configuration::ConfigID::WINDOW_COLOR_SCHEME)) {
         view = views::ViewFactory::get_view(viewID);
-      }
+    }
 
-  X11_Window::~X11_Window() {
-    XlibWrapper::self()->destroy_window();
-  }
+  X11_Window::~X11_Window() { }
 
   void X11_Window::show(bool) {
     if (view) {
@@ -38,9 +38,10 @@ namespace xlib {
   void X11_Window::show_frame(bool) { }
 
   void X11_Window::update_window_frame() {
-    auto&& win_attr = XlibWrapper::self()->get_window_attributes();
-    this->frame.width = win_attr.width;
-    this->frame.height = win_attr.height;
+    commands::Command::push_xlib_command(new commands::QueryWindowAttributes());
+    std::unique_ptr<commands::Command> query_win_attr_command = commands::Command::get_command_with_result(commands::CommandID::QueryWindowAttributes);
+    auto&& win_attr = dynamic_cast<commands::QueryWindowAttributes*>(query_win_attr_command.get())->get_window_attributes();
+    this->frame = {0, 0, win_attr.width, win_attr.height};
   }
 
   void X11_Window::expose() {
@@ -51,7 +52,7 @@ namespace xlib {
   }
 
   void X11_Window::redraw_background() const {
-    XlibWrapper::self()->redraw_window_background();
+    commands::Command::push_xlib_command(new commands::FillRectangle(frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
   }
 
   void X11_Window::change_view(const int viewID) {
@@ -72,12 +73,13 @@ namespace xlib {
       case events::AdditionalEvents::ExitApplication: 
         {
           this->change_view(views::ViewID::NONE);
+          throw -1;
           break;
         }
       case events::AdditionalEvents::ChangeView: 
         {
-          this->change_view(data[1]);
           redraw_background();
+          this->change_view(data[1]);
           this->view->activate();
         }
     }
@@ -87,8 +89,16 @@ namespace xlib {
     this->expose();
   }
 
-  void X11_Window::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
-    dynamic_cast<events::KeyPressHandler*>(this->view.get())->handle_key_press(std::move(key_sym), std::move(mask));
+  void X11_Window::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
+    if(key_sym == XK_space) {
+      commands::Command::push_xlib_command(new commands::DrawCircle({100,100,50,50}, "#00ff00"));
+      std::cout << "ADD COMMAND!" << std::endl;
+    }
+    if(key_sym == XK_Right) {
+      commands::Command::push_xlib_command(new commands::DrawRectangle({200,200,50,50}, "#ffff00"));
+      std::cout << "ADD COMMAND!" << std::endl;
+    }
+    dynamic_cast<KeyPressHandler*>(this->view.get())->handle_key_press(key_sym, mask);
   }
 
   const int X11_Window::get_event_handling_mask() const {
