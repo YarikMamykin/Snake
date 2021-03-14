@@ -130,6 +130,10 @@ namespace xlib {
 		XNextEvent(display, event);
 	}
 
+	bool XlibWrapper::event_in_queue(int event_type, XEvent* event) {
+		return XCheckTypedEvent(display, event_type, event);
+	}
+
 	const color::COLOR_SCHEME_TYPE& XlibWrapper::get_window_colorscheme() const {
 		return window_color_scheme;
 	}
