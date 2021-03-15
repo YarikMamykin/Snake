@@ -12,8 +12,6 @@ namespace game_objects {
     public:
     Food(color::Color&& background_color, color::Color&& color, geometry::Rectangle&& frame);
     ~Food();
-
-    void show();
   };
 }
 #endif /* SRC_INCLUDE_GAME_OBJECTS_FOOD_HPP */
