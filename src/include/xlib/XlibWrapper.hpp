@@ -26,7 +26,9 @@ namespace xlib {
       bool create_graphical_context();
       bool create_window(geometry::Rectangle&& window_frame, 
                          color::COLOR_SCHEME_TYPE&& color_scheme, 
-                         const char* name);
+                         const unsigned int& border_width,
+                         const char* name,
+                         const char* font_name);
       XWindowAttributes get_window_attributes();
       void flush_buffer();
       void redraw_window_background();
@@ -44,6 +46,7 @@ namespace xlib {
 
       void select_events_to_process();
       void next_event(XEvent* event);
+      bool event_in_queue(int event_type, XEvent* event);
 
       const color::COLOR_SCHEME_TYPE& get_window_colorscheme() const;
 
