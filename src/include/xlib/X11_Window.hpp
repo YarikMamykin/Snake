@@ -24,7 +24,7 @@ namespace xlib {
                       public events::KeyPressHandler, 
                       public events::ExposeEventHandler {
 
-    X11_Window(views::ViewID viewID, const WindowSettings& win_sets);
+    X11_Window(views::ViewID viewID);
     ~X11_Window() override;
 
     private:
