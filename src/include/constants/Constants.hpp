@@ -14,7 +14,6 @@ namespace events {
   enum AdditionalEvents {
     ExitApplication = LASTEvent + 1,
     ChangeView = LASTEvent + 2,
-    ResubscribeView = LASTEvent + 3
   };
 
   enum HandlersMask {
