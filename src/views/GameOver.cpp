@@ -1,8 +1,7 @@
 #include "GameOver.hpp"
-#include "Helper.hpp"
 #include "CenterWindowAnchorHandler.hpp"
 #include "Settings.hpp"
-#include "XlibWrapper.hpp"
+#include "ChangeView.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE color_scheme = {
@@ -28,9 +27,7 @@ namespace views {
     timer.callback = [colorized_text_label_ptr]() {
       colorized_text_label_ptr->shift_colors();
       colorized_text_label_ptr->show(true);
-      xlib::XlibWrapper::self()->flush_buffer();
     };
-    ui::CenterWindowAnchorHandler(colorized_text_label.get());
   }
 
   GameOver::~GameOver() {
@@ -38,6 +35,7 @@ namespace views {
   }
 
   void GameOver::activate() {
+    ui::CenterWindowAnchorHandler(colorized_text_label.get());
     timer.launch();
     colorized_text_label->show(true);
   }
@@ -46,8 +44,7 @@ namespace views {
     switch(key_sym) {
       case XK_Escape: 
         {
-          helpers::Helper::SendChangeViewEvent(views::ViewID::MENU);
-          break;
+          commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::MENU));
         }
     }
   }

@@ -2,6 +2,8 @@
 #include "Helper.hpp"
 #include "CenterWindowAnchorHandler.hpp"
 #include "Color.hpp"
+#include "ChangeView.hpp"
+#include "ExitApplication.hpp"
 
 namespace {
   const std::string NewGameItemName = "New Game"; 
@@ -39,25 +41,25 @@ namespace views {
     std::unique_ptr<abstractions::ui::Object> menu_item;
     menu_item.reset(new Item(NewGameItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
-            case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::ACTION); break;
+            case XK_Return: commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::ACTION)); break;
           }}));
     menu.add_item(std::move(menu_item));
 
     menu_item.reset(new Item(SettingsItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
-            case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::SETTINGS); break;
+            case XK_Return: commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::SETTINGS)); break;
           }}));
     menu.add_item(std::move(menu_item));
 
     menu_item.reset(new Item(AboutItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
-            case XK_Return: helpers::Helper::SendChangeViewEvent(views::ViewID::ABOUT); break;
+            case XK_Return: commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::ABOUT)); break;
           }}));
     menu.add_item(std::move(menu_item));
     
     menu_item.reset(new Item(ExitItemName, [](const KeySym&& key_sym) {
           switch(key_sym) {
-            case XK_Return: helpers::Helper::SendExitApplicationEvent(); break;
+            case XK_Return: commands::Command::push_xlib_command(new commands::ExitApplication()); break;
           }}));
     menu.add_item(std::move(menu_item));
   }
@@ -75,13 +77,13 @@ namespace views {
     menu.show(true);
   }
 
-  void GameMenu::handle_key_press(const KeySym&& key_sym, const unsigned int&& mask) {
+  void GameMenu::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     switch(key_sym) {
       case XK_Down: menu.move_to_next_item(); break;
       case XK_Up: menu.move_to_prev_item(); break;
       case XK_Return: 
       {
-        current_item_as_key_press_handler(menu)->handle_key_press(std::move(key_sym), std::move(mask)); 
+        current_item_as_key_press_handler(menu)->handle_key_press(key_sym, mask); 
         break; 
       }
     }

@@ -1,11 +1,11 @@
 #include "GameAction.hpp"
-#include "Helper.hpp"
 #include "Settings.hpp"
 #include <iostream>
 #include <thread>
 #include "ColorPallete.hpp"
-#include "XlibWrapper.hpp"
 #include "X11_TextLabel.hpp"
+#include "QueryWindowAttributes.hpp"
+#include "ChangeView.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE score_counter_label_color_scheme = {
@@ -24,7 +24,10 @@ namespace views {
   : snake_direction(game_objects::SnakeDirection::Right) 
   , paused(false) 
   , score_counter_label(std::to_string(1u), geometry::Rectangle{}, score_counter_label_color_scheme) {
-    auto&& win_attr = xlib::XlibWrapper::self()->get_window_attributes();
+    commands::Command::push_xlib_command(new commands::QueryWindowAttributes());
+    std::unique_ptr<commands::Command> win_attr_command_result = commands::Command::get_command_with_result(commands::CommandID::QueryWindowAttributes);
+    const auto& win_attr = dynamic_cast<commands::QueryWindowAttributes*>(win_attr_command_result.get())->get_window_attributes();
+
     auto&& snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color();
     auto&& snake_head_width = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER);
     auto&& snake_head_height = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u;
@@ -56,12 +59,6 @@ namespace views {
           mcontroller->increase_snake();
         }
       }
-      // We need to redraw food periodically 
-      // because in other case only Snake is visible.
-      // Behavior caused with regular XFlush calls, needed for proper render.
-      mcontroller->get_current_food().show();
-      score_counter_label.show(false);
-      score_counter_label.show_frame(false);
       score_counter_label.set_text(std::to_string(snake->size()));
       score_counter_label.show(true);
       score_counter_label.show_frame(true);
@@ -81,8 +78,7 @@ namespace views {
   }
 
   void GameAction::deactivate() {
-    helpers::Helper::SendChangeViewEvent(views::ViewID::OVER);
-    xlib::XlibWrapper::self()->flush_buffer();
+    commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::OVER));
   }
 
   void GameAction::set_paused(const bool pause_flag) {
@@ -104,7 +100,7 @@ namespace views {
     switch(key_sym) {
       case XK_Escape:
         {
-          helpers::Helper::SendChangeViewEvent(views::ViewID::MENU);
+          commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::MENU));
           break;
         }
       case XK_j:
