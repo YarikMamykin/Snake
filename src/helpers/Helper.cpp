@@ -23,28 +23,13 @@ namespace helpers {
     return event;
   }
 
-  XEvent Helper::ConstructResubscribeViewEvent() {
-    XEvent event;
-    event.xclient.type = ClientMessage; 
-    event.xclient.format = 32;
-    event.xclient.window = xlib::XlibWrapper::self()->window;
-    event.xclient.display = xlib::XlibWrapper::self()->display;
-    event.xclient.data.l[0] = events::AdditionalEvents::ResubscribeView;
-    return event;
-  }
-
   void Helper::SendExitApplicationEvent() {
-    auto event = helpers::Helper::ConstructExitApplicationEvent();
-    XSendEvent(xlib::XlibWrapper::self()->display, xlib::XlibWrapper::self()->window, true, NoEventMask, &event);
+    auto&& event = helpers::Helper::ConstructExitApplicationEvent();
+    xlib::XlibWrapper::self()->send_event(NoEventMask, &event);
   }
 
   void Helper::SendChangeViewEvent(const views::ViewID& viewID) {
-    auto event = helpers::Helper::ConstructChangeViewEvent(viewID);
-    XSendEvent(xlib::XlibWrapper::self()->display, xlib::XlibWrapper::self()->window, true, NoEventMask, &event);
-  }
-
-  void Helper::SendResubscribeViewEvent() {
-    auto event = helpers::Helper::ConstructResubscribeViewEvent();
-    XSendEvent(xlib::XlibWrapper::self()->display, xlib::XlibWrapper::self()->window, true, NoEventMask, &event);
+    auto&& event = helpers::Helper::ConstructChangeViewEvent(viewID);
+    xlib::XlibWrapper::self()->send_event(NoEventMask, &event);
   }
 }
