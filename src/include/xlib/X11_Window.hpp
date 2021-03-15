@@ -43,8 +43,6 @@ namespace xlib {
     void handle_expose_event() override;
     const int get_event_handling_mask() const override;
 
-    X11_Display x_display;
-    X11_Font x_font;
     std::unique_ptr<views::View> view;
   };
 }
