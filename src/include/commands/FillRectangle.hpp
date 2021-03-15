@@ -4,10 +4,11 @@
 #include "Command.hpp"
 
 namespace commands {
-  class FillRectangle : public Command {
+  class FillRectangle : public GraphicsCommand {
     public:
       explicit FillRectangle(const geometry::Rectangle& rectangle, const color::Color& color);
-      virtual void execute() override;
+      virtual DoSaveResult execute() override;
+      virtual constexpr CommandID get_id() const override;
       virtual ~FillRectangle() override = default;
   };
 }
