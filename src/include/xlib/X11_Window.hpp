@@ -18,14 +18,6 @@
 
 namespace xlib {
 
-  struct WindowSettings {
-    geometry::Rectangle frame;
-    color::COLOR_SCHEME_TYPE color_scheme;
-    const unsigned int border_width;
-    std::string name;
-    std::string font_name;
-  };
-
   struct X11_Window : public abstractions::ui::AWindow,
                       public events::ClientMessageHandler,
                       public events::MouseMotionHandler, 
