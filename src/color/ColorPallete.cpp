@@ -1,17 +1,9 @@
 #include "ColorPallete.hpp"
 #include <algorithm>
 
-namespace {
-  const std::list<color::Color> default_colors = { 
-    color::Color("#ff0000"), 
-    color::Color("#00ff00"), 
-    color::Color("#0000ff") 
-  };
-}
-
 namespace color {
   ColorPallete::ColorPallete() 
-    : colors(default_colors) 
+    : colors({ color::Color("#ff0000"), color::Color("#00ff00"), color::Color("#0000ff") }) 
     , current_color(colors.begin()) { }
 
   ColorPallete::ColorPallete(const char* hex_color)
