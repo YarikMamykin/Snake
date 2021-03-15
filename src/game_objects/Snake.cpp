@@ -1,9 +1,11 @@
 #include "Snake.hpp"
 #include "Exceptions.hpp"
-#include "XlibWrapper.hpp"
+#include "Settings.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "FillRectangle.hpp"
+#include "QueryWindowAttributes.hpp"
 
 namespace game_objects {
   class MovementController;
@@ -24,15 +26,13 @@ namespace game_objects {
   , head_color(color) { this->old_direction = direction; }
 
   void Snake::SnakeHead::hide() {
-    auto background_color = xlib::XlibWrapper::self()->get_window_colorscheme().at(color::ColorSchemeID::BackgroundColor);
-    xlib::XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), std::forward<color::Color>(background_color));
-    xlib::XlibWrapper::self()->flush_buffer();
+    auto background_color = configuration::Settings::get_concrete<color::COLOR_SCHEME_TYPE>(configuration::ConfigID::WINDOW_COLOR_SCHEME).at(color::ColorSchemeID::BackgroundColor);
+    commands::Command::push_xlib_command(new commands::FillRectangle(frame, background_color));
   }
 
   void Snake::SnakeHead::show() {
     if(frame.x < 0 || frame.y < 0) return;
-    xlib::XlibWrapper::self()->fill_rectangle(std::forward<geometry::Rectangle>(frame), std::forward<color::Color>(head_color));
-    xlib::XlibWrapper::self()->flush_buffer();
+    commands::Command::push_xlib_command(new commands::FillRectangle(frame, head_color));
   }
 
   void Snake::SnakeHead::move() {
@@ -110,7 +110,9 @@ namespace game_objects {
   : current_direction(direction) {
 
     constexpr unsigned int spacing = 10u;
-    auto&& win_attr = xlib::XlibWrapper::self()->get_window_attributes();
+    commands::Command::push_xlib_command(new commands::QueryWindowAttributes());
+    std::unique_ptr<commands::Command> win_attr_command_result = commands::Command::get_command_with_result(commands::CommandID::QueryWindowAttributes);
+    const auto& win_attr = dynamic_cast<commands::QueryWindowAttributes*>(win_attr_command_result.get())->get_window_attributes();
 
     parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
     parts.back().frame.set_center(100, win_attr.height/2u);
