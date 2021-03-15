@@ -14,6 +14,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/game_objects)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/geometry)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/helpers)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/timing)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/threads)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/views)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xlib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/ui)
@@ -93,6 +94,11 @@ set(COMMANDS_SRC
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/ExitApplication.cpp
 )
 
+set(THREADS_SRC
+  ${CMAKE_CURRENT_SOURCE_DIR}/threads/XlibThread.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/threads/UI_Thread.cpp
+ )
+
 add_library(xlib_ui STATIC ${XLIB_UI_SRC})
 add_library(events STATIC ${EVENTS_SRC})
 add_library(game_view STATIC ${GAME_VIEW_SRC})
@@ -104,9 +110,11 @@ add_library(color STATIC ${COLOR_SRC})
 add_library(settings STATIC ${SETTINGS_SRC})
 add_library(anchor_handlers STATIC ${ANCHOR_HANDLERS})
 add_library(commands STATIC ${COMMANDS_SRC})
+add_library(threads STATIC ${THREADS_SRC})
 
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 target_link_libraries(events xlib_ui)
+target_link_libraries(threads events)
 target_link_libraries(${PROJECT_NAME} 
 xlib_ui 
 events 
@@ -119,4 +127,5 @@ color
 settings
 anchor_handlers
 commands
+threads
 )
