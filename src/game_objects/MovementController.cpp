@@ -2,7 +2,6 @@
 #include "Exceptions.hpp"
 #include "Snake.hpp"
 #include "Food.hpp"
-#include "XlibWrapper.hpp"
 
 namespace game_objects {
 
