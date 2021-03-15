@@ -90,14 +90,6 @@ namespace xlib {
   }
 
   void X11_Window::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
-    if(key_sym == XK_space) {
-      commands::Command::push_xlib_command(new commands::DrawCircle({100,100,50,50}, "#00ff00"));
-      std::cout << "ADD COMMAND!" << std::endl;
-    }
-    if(key_sym == XK_Right) {
-      commands::Command::push_xlib_command(new commands::DrawRectangle({200,200,50,50}, "#ffff00"));
-      std::cout << "ADD COMMAND!" << std::endl;
-    }
     dynamic_cast<KeyPressHandler*>(this->view.get())->handle_key_press(key_sym, mask);
   }
 
