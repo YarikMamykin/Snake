@@ -13,6 +13,7 @@ namespace abstractions {
         AWindow(const geometry::Rectangle& frame, const color::COLOR_SCHEME_TYPE& color_scheme) 
         : Object(frame, color_scheme) {}
         
+      public:
         virtual ~AWindow() {};
     };
   }
