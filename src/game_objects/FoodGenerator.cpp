@@ -1,7 +1,6 @@
 #include "FoodGenerator.hpp"
 #include "Point.hpp"
 #include "ColorPallete.hpp"
-#include "XlibWrapper.hpp"
 #include <chrono>
 
 namespace {
@@ -37,7 +36,7 @@ namespace game_objects {
 
   Food* FoodGenerator::generate() {
     using namespace configuration;
-    auto& background_color = xlib::XlibWrapper::self()->get_window_colorscheme().at(color::ColorSchemeID::BackgroundColor);
+    auto& background_color = configuration::Settings::get_concrete<color::COLOR_SCHEME_TYPE>(configuration::ConfigID::WINDOW_COLOR_SCHEME).at(color::ColorSchemeID::BackgroundColor);
     auto&& food_color = Settings::get_concrete<color::ColorPallete>(ConfigID::FOOD_COLOR).get_current_color();
     auto&& food_size = Settings::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Settings::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) + 5u;
     auto&& region = geometry::Rectangle{200,200,window_width - 300u,window_height - 300u};
