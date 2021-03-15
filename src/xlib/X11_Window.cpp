@@ -46,6 +46,7 @@ namespace xlib {
 
   void X11_Window::expose() {
     update_window_frame();
+    redraw_background();
     if (view) {
       view->activate();
     }
