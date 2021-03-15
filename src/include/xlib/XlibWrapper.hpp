@@ -46,6 +46,7 @@ namespace xlib {
 
       void select_events_to_process();
       void next_event(XEvent* event);
+      void send_event(long event_mask, XEvent* event);
       bool event_in_queue(int event_type, XEvent* event);
 
       const color::COLOR_SCHEME_TYPE& get_window_colorscheme() const;

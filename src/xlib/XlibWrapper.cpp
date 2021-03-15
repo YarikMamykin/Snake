@@ -130,6 +130,10 @@ namespace xlib {
 		XNextEvent(display, event);
 	}
 
+	void XlibWrapper::send_event(long event_mask, XEvent* event) {
+    XSendEvent(display, window, true, event_mask, event);
+	}
+
 	bool XlibWrapper::event_in_queue(int event_type, XEvent* event) {
 		return XCheckTypedEvent(display, event_type, event);
 	}
