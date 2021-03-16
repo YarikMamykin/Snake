@@ -8,7 +8,7 @@ namespace commands {
     return DoSaveResult::NO;
   }
 
-  /* constexpr */ CommandID ExitApplication::get_id() const {
+  constexpr CommandID ExitApplication::get_id() const {
     return CommandID::ExitApplication;
   }
 }

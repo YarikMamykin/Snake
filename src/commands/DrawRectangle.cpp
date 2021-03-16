@@ -12,7 +12,7 @@ namespace commands {
     return DoSaveResult::NO;
   }
 
-  /* constexpr */ CommandID DrawRectangle::get_id() const {
+  constexpr CommandID DrawRectangle::get_id() const {
     return CommandID::DrawRectangle;
   }
 }

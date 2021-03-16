@@ -12,7 +12,7 @@ namespace commands {
     return DoSaveResult::NO;
   }
 
-  /* constexpr */ CommandID FillCircle::get_id() const {
+  constexpr CommandID FillCircle::get_id() const {
     return CommandID::FillCircle;
   }
 }

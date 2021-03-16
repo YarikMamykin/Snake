@@ -12,7 +12,7 @@ namespace commands {
     return DoSaveResult::NO;
   }
 
-  /* constexpr */ CommandID ChangeView::get_id() const {
+  constexpr CommandID ChangeView::get_id() const {
     return CommandID::ChangeView;
   }
 }

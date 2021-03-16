@@ -11,7 +11,7 @@ namespace commands {
     return DoSaveResult::YES;
   }
 
-  /* constexpr */ CommandID QueryTextWidth::get_id() const {
+  constexpr CommandID QueryTextWidth::get_id() const {
     return CommandID::QueryTextWidth;
   }
 

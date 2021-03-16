@@ -7,7 +7,7 @@ namespace commands {
     return DoSaveResult::YES;
   }
 
-  /* constexpr */ CommandID QueryWindowAttributes::get_id() const {
+  constexpr CommandID QueryWindowAttributes::get_id() const {
     return CommandID::QueryWindowAttributes;
   }
 

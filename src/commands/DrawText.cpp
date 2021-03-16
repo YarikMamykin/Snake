@@ -11,7 +11,7 @@ namespace commands {
     return DoSaveResult::NO;
   }
 
-  /* constexpr */ CommandID DrawText::get_id() const {
+  constexpr CommandID DrawText::get_id() const {
     return CommandID::DrawText;
   }
 

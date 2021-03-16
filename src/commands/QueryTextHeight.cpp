@@ -8,7 +8,7 @@ namespace commands {
     return DoSaveResult::YES;
   }
 
-  /* constexpr */ CommandID QueryTextHeight::get_id() const {
+  constexpr CommandID QueryTextHeight::get_id() const {
     return CommandID::QueryTextHeight;
   }
 
