@@ -27,6 +27,7 @@ namespace views {
       void set_paused(const bool pause_flag);
       void deactivate();
 
+      void init_snake();
     private:
       std::unique_ptr<game_objects::Snake> snake;
       std::unique_ptr<game_objects::MovementController> mcontroller;

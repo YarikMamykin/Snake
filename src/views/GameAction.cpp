@@ -25,12 +25,9 @@ namespace views {
   , paused(false) 
   , score_counter_label(std::to_string(1u), geometry::Rectangle{}, score_counter_label_color_scheme) {
 
-    auto&& snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color();
-    auto&& snake_head_width = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER);
-    auto&& snake_head_height = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u;
     const auto&& win_frame = configuration::Settings::get_concrete<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME);
 
-    snake.reset(new game_objects::Snake(snake_color, geometry::Rectangle { .x = 10u, .y = 100u, .width = snake_head_width, .height = snake_head_height}));
+    init_snake();
     mcontroller.reset(new game_objects::MovementController(*snake.get(), win_frame.width, win_frame.height));
     food_generator.reset(new game_objects::FoodGenerator(win_frame.width, win_frame.height));
 
@@ -77,6 +74,14 @@ namespace views {
 
   void GameAction::deactivate() {
     commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::OVER));
+  }
+
+  void GameAction::init_snake() {
+    auto&& snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color();
+    auto&& snake_head_width = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER);
+    auto&& snake_head_height = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u;
+
+    snake.reset(new game_objects::Snake(snake_color, geometry::Rectangle { .x = 10u, .y = 100u, .width = snake_head_width, .height = snake_head_height}));
   }
 
   void GameAction::set_paused(const bool pause_flag) {
