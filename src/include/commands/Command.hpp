@@ -61,7 +61,15 @@ namespace commands {
       : rectangle(rectangle), color(color) { }
     public: 
       virtual ~GraphicsCommand() override = default;
+  class SynchronousCommand : public Command {
+    protected:
+      std::atomic<bool>& trigger;
 
+      explicit SynchronousCommand(std::atomic<bool>& trigger) 
+      : trigger(trigger) { }
+
+    public:
+      virtual ~SynchronousCommand() override = default;
   };
 }
 
