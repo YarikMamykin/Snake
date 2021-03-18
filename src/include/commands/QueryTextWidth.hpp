@@ -6,18 +6,19 @@
 
 namespace commands {
 
-  class QueryTextWidth : public Command {
+  class QueryTextWidth : public SynchronousCommand {
     protected:
-      unsigned int width;
       const std::string text;
+      unsigned int& width;
 
     public:
-      explicit QueryTextWidth(const std::string& text);
+      explicit QueryTextWidth(const std::string& text, 
+                              unsigned int& result,
+                              std::atomic<bool>& trigger);
       ~QueryTextWidth() override = default;
 
       virtual DoSaveResult execute() override;
       virtual constexpr CommandID get_id() const override;
-      const unsigned int get_width() const;
   };
 }
 

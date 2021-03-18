@@ -6,17 +6,16 @@
 
 namespace commands {
 
-  class QueryTextHeight : public Command {
+  class QueryTextHeight : public SynchronousCommand {
     protected:
-      unsigned int height;
+      unsigned int& height;
 
     public:
-      explicit QueryTextHeight() = default;
+      explicit QueryTextHeight(unsigned int& result, std::atomic<bool>& trigger);
       ~QueryTextHeight() override = default;
 
       virtual DoSaveResult execute() override;
       virtual constexpr CommandID get_id() const override;
-      const unsigned int get_height() const;
   };
 }
 
