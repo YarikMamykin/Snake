@@ -42,6 +42,7 @@ namespace xlib {
     std::unique_ptr<commands::Command> query_win_attr_command = commands::Command::get_command_with_result(commands::CommandID::QueryWindowAttributes);
     auto&& win_attr = dynamic_cast<commands::QueryWindowAttributes*>(query_win_attr_command.get())->get_window_attributes();
     this->frame = {0, 0, win_attr.width, win_attr.height};
+    configuration::Settings::get_concrete_ptr<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME)->change_value(this->frame);
   }
 
   void X11_Window::expose() {

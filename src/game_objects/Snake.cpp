@@ -110,12 +110,10 @@ namespace game_objects {
   : current_direction(direction) {
 
     constexpr unsigned int spacing = 10u;
-    commands::Command::push_xlib_command(new commands::QueryWindowAttributes());
-    std::unique_ptr<commands::Command> win_attr_command_result = commands::Command::get_command_with_result(commands::CommandID::QueryWindowAttributes);
-    const auto& win_attr = dynamic_cast<commands::QueryWindowAttributes*>(win_attr_command_result.get())->get_window_attributes();
+    const auto&& win_frame = configuration::Settings::get_concrete<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME);
 
     parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
-    parts.back().frame.set_center(100, win_attr.height/2u);
+    parts.back().frame.set_center(100, win_frame.height/2u);
   }
 
   Snake::~Snake() {

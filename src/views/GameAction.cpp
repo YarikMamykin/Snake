@@ -24,20 +24,18 @@ namespace views {
   : snake_direction(game_objects::SnakeDirection::Right) 
   , paused(false) 
   , score_counter_label(std::to_string(1u), geometry::Rectangle{}, score_counter_label_color_scheme) {
-    commands::Command::push_xlib_command(new commands::QueryWindowAttributes());
-    std::unique_ptr<commands::Command> win_attr_command_result = commands::Command::get_command_with_result(commands::CommandID::QueryWindowAttributes);
-    const auto& win_attr = dynamic_cast<commands::QueryWindowAttributes*>(win_attr_command_result.get())->get_window_attributes();
 
     auto&& snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color();
     auto&& snake_head_width = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER);
     auto&& snake_head_height = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u;
+    const auto&& win_frame = configuration::Settings::get_concrete<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME);
 
     snake.reset(new game_objects::Snake(snake_color, geometry::Rectangle { .x = 10u, .y = 100u, .width = snake_head_width, .height = snake_head_height}));
-    mcontroller.reset(new game_objects::MovementController(*snake.get(), win_attr.width, win_attr.height));
-    food_generator.reset(new game_objects::FoodGenerator(win_attr.width, win_attr.height));
+    mcontroller.reset(new game_objects::MovementController(*snake.get(), win_frame.width, win_frame.height));
+    food_generator.reset(new game_objects::FoodGenerator(win_frame.width, win_frame.height));
 
-    geometry::Point&& window_bottom_center{win_attr.width/2u, win_attr.height};
-    score_counter_label.set_center(window_bottom_center.x, window_bottom_center.y - score_counter_label.get_height()/2u);
+    geometry::Point&& window_bottom_center{win_frame.width/2u, win_frame.height};
+    score_counter_label.set_center(window_bottom_center.x, window_bottom_center.y - score_counter_label.get_height());
 
     auto snake_timeout_ptr = Sets::get_concrete_ptr<std::chrono::milliseconds>(ConfigID::SNAKE_TIMEOUT);
     auto snake_speed_ptr = Sets::get_concrete_ptr<RESTRICTED_ULONG>(ConfigID::SNAKE_SPEED);
