@@ -11,8 +11,7 @@ namespace commands {
       explicit ExitApplication() = default;
       ~ExitApplication () override = default;
 
-      virtual DoSaveResult execute() override;
-      virtual constexpr CommandID get_id() const override;
+      virtual void execute() override;
   };
 }
 

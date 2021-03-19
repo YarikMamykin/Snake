@@ -7,13 +7,9 @@ namespace commands {
   : viewID(viewID) {
   }
 
-  DoSaveResult ChangeView::execute() {
+  void ChangeView::execute() {
     helpers::Helper::SendChangeViewEvent(viewID);
-    return DoSaveResult::NO;
   }
 
-  constexpr CommandID ChangeView::get_id() const {
-    return CommandID::ChangeView;
-  }
 }
 

@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP
 
 #include "Command.hpp"
-#include "View.hpp"
+#include "Constants.hpp"
 
 namespace commands {
 
@@ -14,8 +14,7 @@ namespace commands {
       explicit ChangeView(views::ViewID&& viewID);
       ~ChangeView() override = default;
 
-      virtual DoSaveResult execute() override;
-      virtual constexpr CommandID get_id() const override;
+      virtual void execute() override;
   };
 }
 

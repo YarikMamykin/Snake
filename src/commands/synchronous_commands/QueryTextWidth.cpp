@@ -9,14 +9,10 @@ namespace commands {
   , text(text) 
   , width(result) { }
 
-  DoSaveResult QueryTextWidth::execute() {
+  void QueryTextWidth::execute() {
     width = xlib::XlibWrapper::self()->get_text_width(text);
     trigger.store(!trigger.load());
-    return DoSaveResult::NO;
   }
 
-  constexpr CommandID QueryTextWidth::get_id() const {
-    return CommandID::QueryTextWidth;
-  }
 }
 

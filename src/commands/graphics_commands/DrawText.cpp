@@ -6,13 +6,9 @@ namespace commands {
     : GraphicsCommand(geometry::Rectangle{.x = top_left.x, .y = top_left.y, .width = 0u, .height = 0u }, color)
     , text(text) {}
 
-  DoSaveResult DrawText::execute() {
+  void DrawText::execute() {
     xlib::XlibWrapper::self()->draw_text({rectangle.x, rectangle.y},color::Color(color),text);
-    return DoSaveResult::NO;
   }
 
-  constexpr CommandID DrawText::get_id() const {
-    return CommandID::DrawText;
-  }
 
 }

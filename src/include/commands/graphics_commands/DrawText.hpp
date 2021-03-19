@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_COMMANDS_DRAWTEXT_HPP
 #define SRC_INCLUDE_COMMANDS_DRAWTEXT_HPP
 
-#include "Command.hpp"
+#include "GraphicsCommand.hpp"
 #include <string>
 
 namespace commands {
@@ -11,8 +11,7 @@ namespace commands {
 
     public:
       explicit DrawText(const std::string& text, const geometry::Point& top_left, const color::Color& color);
-      virtual DoSaveResult execute() override;
-      virtual constexpr CommandID get_id() const override;
+      virtual void execute() override;
       virtual ~DrawText() override = default;
   };
 }

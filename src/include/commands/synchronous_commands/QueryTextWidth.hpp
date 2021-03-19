@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_COMMANDS_QUERYTEXTWIDTH_HPP
 #define SRC_INCLUDE_COMMANDS_QUERYTEXTWIDTH_HPP
 
-#include "Command.hpp"
+#include "SynchronousCommand.hpp"
 #include <string>
 
 namespace commands {
@@ -17,8 +17,7 @@ namespace commands {
                               std::atomic<bool>& trigger);
       ~QueryTextWidth() override = default;
 
-      virtual DoSaveResult execute() override;
-      virtual constexpr CommandID get_id() const override;
+      virtual void execute() override;
   };
 }
 
