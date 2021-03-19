@@ -6,6 +6,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/anchor_handlers)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions/event_handling)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/constants)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/commands)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/commands/graphics_commands)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/commands/synchronous_commands)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/color)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/configuration)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/events)
@@ -82,14 +84,14 @@ set(ANCHOR_HANDLERS
 
 set(COMMANDS_SRC
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/Command.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawCircle.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawRectangle.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/commands/DrawText.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/commands/FillCircle.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/commands/FillRectangle.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/commands/QueryTextWidth.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/commands/QueryTextHeight.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/commands/QueryWindowAttributes.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/graphics_commands/DrawCircle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/graphics_commands/DrawRectangle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/graphics_commands/DrawText.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/graphics_commands/FillCircle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/graphics_commands/FillRectangle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/synchronous_commands/QueryTextWidth.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/synchronous_commands/QueryTextHeight.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/commands/synchronous_commands/QueryWindowFrame.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/ChangeView.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/commands/ExitApplication.cpp
 )
