@@ -9,7 +9,7 @@
 #include "DrawCircle.hpp"
 #include "DrawRectangle.hpp"
 #include "FillRectangle.hpp"
-#include "QueryWindowAttributes.hpp"
+#include "QueryWindowFrame.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE text_label_color_scheme = {
@@ -38,11 +38,9 @@ namespace xlib {
   void X11_Window::show_frame(bool) { }
 
   void X11_Window::update_window_frame() {
-    commands::Command::push_xlib_command(new commands::QueryWindowAttributes());
-    std::unique_ptr<commands::Command> query_win_attr_command = commands::Command::get_command_with_result(commands::CommandID::QueryWindowAttributes);
-    auto&& win_attr = dynamic_cast<commands::QueryWindowAttributes*>(query_win_attr_command.get())->get_window_attributes();
-    this->frame = {0, 0, win_attr.width, win_attr.height};
-    configuration::Settings::get_concrete_ptr<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME)->change_value(this->frame);
+    std::atomic<bool> trigger(false);
+    commands::Command::push_xlib_command(new commands::QueryWindowFrame(this, trigger));
+    while(!trigger.load());
   }
 
   void X11_Window::expose() {

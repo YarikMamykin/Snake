@@ -51,15 +51,19 @@ namespace xlib {
   }
 
   const unsigned int X11_TextLabel::get_text_graphical_width() const {
-    commands::Command::push_xlib_command(new commands::QueryTextWidth(text));
-    std::unique_ptr<commands::Command> text_width_query_command = commands::Command::get_command_with_result(commands::CommandID::QueryTextWidth);
-    return dynamic_cast<commands::QueryTextWidth*>(text_width_query_command.get())->get_width();
+    std::atomic<bool> trigger(false);
+    unsigned int width = 0u;
+    commands::Command::push_xlib_command(new commands::QueryTextWidth(text, width, trigger));
+    while(!trigger.load());
+    return width;
   }
 
   const unsigned int X11_TextLabel::get_text_graphical_height() const {
-    commands::Command::push_xlib_command(new commands::QueryTextHeight());
-    std::unique_ptr<commands::Command> text_height_query_command = commands::Command::get_command_with_result(commands::CommandID::QueryTextHeight);
-    return dynamic_cast<commands::QueryTextHeight*>(text_height_query_command.get())->get_height();
+    std::atomic<bool> trigger(false);
+    unsigned int height = 0u;
+    commands::Command::push_xlib_command(new commands::QueryTextHeight(height, trigger));
+    while(!trigger.load());
+    return height;
   }
 
   void X11_TextLabel::update_frame() {
