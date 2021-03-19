@@ -5,7 +5,6 @@
 #include <vector>
 #include <algorithm>
 #include "FillRectangle.hpp"
-#include "QueryWindowAttributes.hpp"
 
 namespace game_objects {
   class MovementController;
