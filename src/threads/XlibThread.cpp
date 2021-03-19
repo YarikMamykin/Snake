@@ -37,9 +37,7 @@ namespace threading {
       bool queue_empty = commands::Command::xlib_queue_empty();
       if(!queue_empty) {
         std::unique_ptr<commands::Command> command = commands::Command::pop_xlib_command(); // DON'T USE auto HERE!
-        if(command->execute()) {
-          commands::Command::put_command_with_result(std::move(command));
-        }
+        command->execute();
       }
     }
 
