@@ -78,6 +78,8 @@ namespace xlib {
         }
       case events::AdditionalEvents::ChangeView: 
         {
+          // Wait till additional threads ended their part 
+          std::this_thread::sleep_for(configuration::Settings::get_concrete<std::chrono::microseconds>(configuration::ConfigID::THREADS_SLEEP_TIMEOUT));
           redraw_background();
           this->change_view(data[1]);
           this->view->activate();
