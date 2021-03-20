@@ -1,11 +1,4 @@
-/*
-   Simple Xlib application for creating a window and drawing a box in it.
-   gcc input.c -o output -lX11
-   compile with !g++ --std=c++11 % -L/usr/X11/lib -lX11 -lstdc++
-   */
-
 #include <memory>
-#include <thread>
 #include <functional>
 #include <list>
 #include "Window.hpp"
