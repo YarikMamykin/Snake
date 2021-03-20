@@ -37,13 +37,6 @@ namespace views {
   };
 }
 
-namespace timing {
-  enum class TimerType {
-    SingleShot,
-    Simple
-  };
-} 
-
 namespace game_objects {
   enum class SnakeDirection {
     Up,
