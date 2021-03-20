@@ -5,24 +5,20 @@
 #include <functional>
 #include <future>
 #include <thread>
-#include "Constants.hpp"
 
 namespace timing {
   struct Timer {
-    std::chrono::milliseconds timeout;
-    TimerType type;
-    std::future<void> async_result;
     std::atomic<bool> do_stop;
     std::function<void()> callback;
+    std::chrono::milliseconds timeout;
+    std::future<void> timer_thread;
 
     public:
     explicit Timer();
     explicit Timer(const std::chrono::milliseconds&& timeout, 
-                   std::function<void()> callback = [](){},
-                   const TimerType&& type = TimerType::Simple);
+                   std::function<void()> callback = [](){});
     void launch(); 
     void stop();
-    void stop_async();
     bool running() const;
   };
 }
