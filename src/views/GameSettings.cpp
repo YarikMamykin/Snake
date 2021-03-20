@@ -1,7 +1,6 @@
 #include "GameSettings.hpp"
 #include "Helper.hpp"
 #include "Settings.hpp"
-#include <iostream>
 #include "CenterWindowAnchorHandler.hpp"
 #include "ObservableIntValuePresenter.hpp"
 #include "ObservableUlongValuePresenter.hpp"
@@ -30,8 +29,12 @@ namespace {
 
 namespace views {
   GameSettings::Setting::Setting(std::unique_ptr<abstractions::ui::TextLabel> key_presenter, 
-                                 std::unique_ptr<abstractions::ui::Object> value_presenter) 
-  : xlib::X11_Menu(::ui::LayoutType::HORIZONTAL, {}, menu_color_scheme, 30U) {
+                                 std::unique_ptr<abstractions::ui::Object> value_presenter, 
+                                 std::function<void()> increase_binder, 
+                                 std::function<void()> decrease_binder)
+  : xlib::X11_Menu(::ui::LayoutType::HORIZONTAL, {}, menu_color_scheme, 30U) 
+  , increase_binder(increase_binder)
+  , decrease_binder(decrease_binder) {
     add_item(std::move(key_presenter));
     add_item(std::move(value_presenter));
     margin = 0U;
@@ -49,33 +52,46 @@ namespace views {
 namespace views {
 
   GameSettings::GameSettings() 
-  : menu(ui::LayoutType::VERTICAL, {}, color::COLOR_SCHEME_TYPE(), 20U) {
+  : menu(new xlib::X11_Menu(ui::LayoutType::VERTICAL, {}, color::COLOR_SCHEME_TYPE(), 20U)) {
 
-    auto snake_speed = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
-    auto snake_color = configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR);
-    auto snake_size = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE);
-    auto food_color = configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::FOOD_COLOR);
+    auto snake_speed_shared = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
+    auto snake_speed = snake_speed_shared->get_value().get_restricted_value();
 
-    std::unique_ptr<xlib::X11_TextLabel> text_label(new xlib::X11_TextLabel(std::to_string(snake_speed->get_value().get_restricted_value()), {}, value_color_scheme));
+    auto snake_color_shared = configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR);
+    auto snake_color = snake_color_shared->get_value();
+
+    auto snake_size_shared = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE);
+    auto snake_size = snake_size_shared->get_value().get_restricted_value();
+
+    auto food_color_shared = configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::FOOD_COLOR);
+    auto food_color = food_color_shared->get_value();
+
+    auto setting_builder = [](const std::string&& name, std::unique_ptr<abstractions::ui::Object> value_presenter, const color::COLOR_SCHEME_TYPE& key_color_scheme) -> std::unique_ptr<Setting> {
+      std::unique_ptr<abstractions::ui::TextLabel> key_presenter(new xlib::X11_TextLabel(name, {}, key_color_scheme));
+      auto increase_binder = dynamic_cast<abstractions::ui::ValuePresenterInterface*>(value_presenter.get())->bind_increase_value_trigger();
+      auto decrease_binder = dynamic_cast<abstractions::ui::ValuePresenterInterface*>(value_presenter.get())->bind_decrease_value_trigger();
+      return std::make_unique<Setting>(std::move(key_presenter), std::move(value_presenter), increase_binder, decrease_binder);
+    };
+
+    auto text_label = std::make_unique<xlib::X11_TextLabel>(std::to_string(snake_speed), geometry::Rectangle{}, value_color_scheme);
     auto&& items_height = text_label->get_height();
-    std::unique_ptr<xlib::X11_ColorLabel> color_label(new xlib::X11_ColorLabel(snake_color->get_value(), geometry::Rectangle{.width = 100U, .height = items_height }, value_color_scheme));
 
-    menu.add_item(std::move(construct_menu_item<ui::ObservableRestrictedValuePresenter<decltype(snake_speed->get_value().get_restricted_value())>, decltype(snake_speed), xlib::X11_TextLabel> (
-            "Snake speed: ", snake_speed, key_color_scheme, value_color_scheme, std::move(text_label))));
-
-    menu.add_item(std::move(construct_menu_item<ui::ObservableColorValuePresenter, decltype(snake_color), xlib::X11_ColorLabel>(
-            "Snake color: ", snake_color,  key_color_scheme, value_color_scheme, std::move(color_label))));
-
-    text_label.reset(new xlib::X11_TextLabel(std::to_string(snake_size->get_value().get_restricted_value()), {}, value_color_scheme));
-    menu.add_item(std::move(construct_menu_item<ui::ObservableRestrictedValuePresenter<decltype(snake_size->get_value().get_restricted_value())>, decltype(snake_size), xlib::X11_TextLabel> (
-            "Snake size: ", snake_size, key_color_scheme, value_color_scheme, std::move(text_label))));
-
-    color_label.reset(new xlib::X11_ColorLabel(food_color->get_value(), geometry::Rectangle{.width = 100U, .height = items_height }, value_color_scheme));
-    menu.add_item(std::move(construct_menu_item<ui::ObservableColorValuePresenter, decltype(food_color), xlib::X11_ColorLabel>(
-            "Food color: ", food_color,  key_color_scheme, value_color_scheme, std::move(color_label))));
-  }
-
-  GameSettings::~GameSettings() {
+    menu->add_item(setting_builder(
+          "Snake speed: ", 
+          std::make_unique<ui::ObservableRestrictedValuePresenter<decltype(snake_speed)>>(snake_speed_shared, std::move(text_label)),
+          key_color_scheme));
+    menu->add_item(setting_builder(
+          "Snake color: ", 
+          std::make_unique<ui::ObservableColorValuePresenter>(snake_color_shared, std::make_unique<xlib::X11_ColorLabel>(snake_color, geometry::Rectangle{.width = 100U, .height = items_height }, value_color_scheme)),
+          key_color_scheme));
+    menu->add_item(setting_builder(
+          "Snake size: ", 
+          std::make_unique<ui::ObservableRestrictedValuePresenter<decltype(snake_size)>>(snake_size_shared, std::make_unique<xlib::X11_TextLabel>(std::to_string(snake_size), geometry::Rectangle{}, value_color_scheme)),
+          key_color_scheme));
+    menu->add_item(setting_builder(
+          "Food color: ", 
+          std::make_unique<ui::ObservableColorValuePresenter>(food_color_shared, std::make_unique<xlib::X11_ColorLabel>(food_color, geometry::Rectangle{.width = 100U, .height = items_height }, value_color_scheme)),
+          key_color_scheme));
   }
 
   void GameSettings::activate() {
@@ -85,26 +101,26 @@ namespace views {
   void GameSettings::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     switch(key_sym) {
       case XK_Escape: helpers::Helper::SendChangeViewEvent(views::ViewID::MENU); break;
-      case XK_Down: menu.move_to_next_item(); break;
-      case XK_Up: menu.move_to_prev_item(); break;
+      case XK_Down: menu->move_to_next_item(); break;
+      case XK_Up: menu->move_to_prev_item(); break;
       case XK_equal: if(!(mask & ShiftMask)) break;
       case XK_Right:
-      case XK_KP_Add: current_item_as_setting(menu)->increase(); break;
+      case XK_KP_Add: current_item_as_setting(*menu)->increase(); break;
       case XK_minus: if(mask != 0u) break;
       case XK_Left:
-      case XK_KP_Subtract: current_item_as_setting(menu)->decrease(); break;
+      case XK_KP_Subtract: current_item_as_setting(*menu)->decrease(); break;
     }
 
     update();
   }
 
   void GameSettings::update() {
-    ui::CenterWindowAnchorHandler anchor_handler(&menu);
-    menu.get_current_item()->get()->set_focused(true);
-    menu.show(true);
+    ui::CenterWindowAnchorHandler anchor_handler(menu.get());
+    menu->get_current_item()->get()->set_focused(true);
+    menu->show(true);
   }
 
-  GameSettings::Setting* GameSettings::current_item_as_setting(const xlib::X11_Menu& menu) {
+  GameSettings::Setting* GameSettings::current_item_as_setting(const abstractions::ui::Menu& menu) {
     return static_cast<GameSettings::Setting*>(menu.get_current_item()->get());
   }
 }
