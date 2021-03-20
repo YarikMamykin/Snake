@@ -37,7 +37,6 @@ namespace views {
   void GameOver::activate() {
     ui::CenterWindowAnchorHandler(colorized_text_label.get());
     timer.launch();
-    colorized_text_label->show(true);
   }
 
   void GameOver::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
