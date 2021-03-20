@@ -4,14 +4,13 @@
 #include "Color.hpp"
 #include "ChangeView.hpp"
 #include "ExitApplication.hpp"
+#include "X11_Menu.hpp"
 
 namespace {
   const std::string NewGameItemName = "New Game"; 
   const std::string AboutItemName = "About"; 
   const std::string SettingsItemName = "Settings"; 
   const std::string ExitItemName = "Exit";
-
-  auto empty_key_press_handler = [](const KeySym&& key_sym) {};
 
   color::COLOR_SCHEME_TYPE text_labels_color_scheme = {
     { color::ColorSchemeID::BackgroundColor, 0UL },
@@ -22,49 +21,22 @@ namespace {
 
 namespace views {
 
-  GameMenu::Item::Item(const std::string& name, 
-      KEY_PRESS_HANDLER_TYPE key_press_handler)
+  GameMenu::Item::Item(const std::string& name, std::function<void()> activation_callback)
   : xlib::X11_TextLabel(name, {}, text_labels_color_scheme)
-  , key_press_handler(key_press_handler) { }
+  , activation_callback(activation_callback) { }
 
-  GameMenu::Item::~Item() {
-  }
-
-  void GameMenu::Item::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
+  void GameMenu::Item::activate() {
     if(this->focused()) {
-      this->key_press_handler(std::move(key_sym));
+      this->activation_callback();
     }
   }
 
   GameMenu::GameMenu() 
-  : menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme) {
-    std::unique_ptr<abstractions::ui::Object> menu_item;
-    menu_item.reset(new Item(NewGameItemName, [](const KeySym&& key_sym) {
-          switch(key_sym) {
-            case XK_Return: commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::ACTION)); break;
-          }}));
-    menu.add_item(std::move(menu_item));
-
-    menu_item.reset(new Item(SettingsItemName, [](const KeySym&& key_sym) {
-          switch(key_sym) {
-            case XK_Return: commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::SETTINGS)); break;
-          }}));
-    menu.add_item(std::move(menu_item));
-
-    menu_item.reset(new Item(AboutItemName, [](const KeySym&& key_sym) {
-          switch(key_sym) {
-            case XK_Return: commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::ABOUT)); break;
-          }}));
-    menu.add_item(std::move(menu_item));
-    
-    menu_item.reset(new Item(ExitItemName, [](const KeySym&& key_sym) {
-          switch(key_sym) {
-            case XK_Return: commands::Command::push_xlib_command(new commands::ExitApplication()); break;
-          }}));
-    menu.add_item(std::move(menu_item));
-  }
-
-  GameMenu::~GameMenu() {
+  : menu(new xlib::X11_Menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme)) {
+    menu->add_item(std::make_unique<Item>(NewGameItemName, []() { commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::ACTION)); }));
+    menu->add_item(std::make_unique<Item>(SettingsItemName, []() { commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::SETTINGS)); }));
+    menu->add_item(std::make_unique<Item>(AboutItemName, []() { commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::ABOUT)); }));
+    menu->add_item(std::make_unique<Item>(ExitItemName, []() { commands::Command::push_xlib_command(new commands::ExitApplication()); }));
   }
 
   void GameMenu::activate() {
@@ -72,26 +44,22 @@ namespace views {
   }
 
   void GameMenu::update() {
-    ui::CenterWindowAnchorHandler anchor_handler(&menu);
-    menu.get_current_item()->get()->set_focused(true);
-    menu.show(true);
+    ui::CenterWindowAnchorHandler anchor_handler(menu.get());
+    menu->get_current_item()->get()->set_focused(true);
+    menu->show(true);
   }
 
   void GameMenu::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     switch(key_sym) {
-      case XK_Down: menu.move_to_next_item(); break;
-      case XK_Up: menu.move_to_prev_item(); break;
-      case XK_Return: 
-      {
-        current_item_as_key_press_handler(menu)->handle_key_press(key_sym, mask); 
-        break; 
-      }
+      case XK_Down: menu->move_to_next_item(); break;
+      case XK_Up: menu->move_to_prev_item(); break;
+      case XK_Return: current_item_as_game_menu_item(*menu)->activate(); break; 
     }
 
     update();
   }
 
-  events::KeyPressHandler* GameMenu::current_item_as_key_press_handler(const xlib::X11_Menu& menu) {
+  GameMenu::Item* GameMenu::current_item_as_game_menu_item(const abstractions::ui::Menu& menu) {
     return static_cast<GameMenu::Item*>(menu.get_current_item()->get());
   }
 

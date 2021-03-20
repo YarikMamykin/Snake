@@ -2,32 +2,33 @@
 #define SRC_INCLUDE_VIEWS_GAMEMENU_HPP
 
 #include "View.hpp"
-#include "X11_TextLabel.hpp"
 #include <list>
 #include <functional>
+#include <memory>
 #include "KeyPressHandler.hpp"
-#include "X11_Menu.hpp"
+#include "X11_TextLabel.hpp"
+
+namespace abstractions::ui {
+  class Menu;
+}
 
 namespace views {
 
   class GameMenu final : public View, 
                          public events::KeyPressHandler {
     private:
-      struct Item : public xlib::X11_TextLabel,
-                    public events::KeyPressHandler {
+      class Item : public xlib::X11_TextLabel {
+        std::function<void()> activation_callback;
 
-        typedef std::function<void(const KeySym&& key_sym)> KEY_PRESS_HANDLER_TYPE;
-        Item(const std::string& name, 
-             KEY_PRESS_HANDLER_TYPE key_press_handler);
-        ~Item();
-
-        void handle_key_press(const KeySym& key_sym, const unsigned int& mask);
-         KEY_PRESS_HANDLER_TYPE key_press_handler;
+        public:
+          Item(const std::string& name, std::function<void()> activation_callback);
+          ~Item() = default;
+          void activate();
       };
 
     public:
       explicit GameMenu();
-      ~GameMenu();
+      ~GameMenu() override = default;
 
     public:
       void activate() override;
@@ -39,10 +40,10 @@ namespace views {
       void move_to_next_item();
       void move_to_prev_item();
 
-      static events::KeyPressHandler* current_item_as_key_press_handler(const xlib::X11_Menu& menu);
+      static Item* current_item_as_game_menu_item(const abstractions::ui::Menu& menu);
 
     private:
-      xlib::X11_Menu menu;
+      std::unique_ptr<abstractions::ui::Menu> menu;
   };
 }
 
