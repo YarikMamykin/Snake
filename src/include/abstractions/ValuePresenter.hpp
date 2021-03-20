@@ -8,8 +8,20 @@
 
 namespace abstractions::ui {
 
+  struct ValuePresenterInterface {
+    protected:
+      virtual void update_presenter() = 0;
+
+    public:
+      virtual std::function<void()> bind_increase_value_trigger() = 0;
+      virtual std::function<void()> bind_decrease_value_trigger() = 0;
+      virtual ~ValuePresenterInterface() {}
+  };
+
+
   template <typename ValueType, typename ValuePresentingObject = abstractions::ui::Object>
-    class ValuePresenter : public Object {
+    class ValuePresenter : public Object,
+                           public ValuePresenterInterface {
       protected:
         ValueType value;
         std::unique_ptr<ValuePresentingObject> presenting_object;
@@ -20,8 +32,6 @@ namespace abstractions::ui {
           : abstractions::ui::Object() 
             , value(value)
             , presenting_object(std::move(presenting_object)) { }
-
-        virtual void update_presenter() = 0;
 
       public:
         virtual void increase_value() {
@@ -34,11 +44,11 @@ namespace abstractions::ui {
           update_presenter();
         }
 
-        virtual std::function<void()> bind_increase_value_trigger() {
+        virtual std::function<void()> bind_increase_value_trigger() override {
           return std::bind(&ValuePresenter<ValueType, ValuePresentingObject>::increase_value, this);
         }
 
-        virtual std::function<void()> bind_decrease_value_trigger() {
+        virtual std::function<void()> bind_decrease_value_trigger() override {
           return std::bind(&ValuePresenter<ValueType, ValuePresentingObject>::decrease_value, this);
         }
 
