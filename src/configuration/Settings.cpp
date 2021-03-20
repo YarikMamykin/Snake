@@ -23,6 +23,7 @@ namespace configuration {
     { ConfigID::RANDOM_ENGINE_ALGORITHM, (new abstractions::ObservableValue<RANDOM_ENGINE_ALGORITHM_TYPE>())->wrap() },
     { ConfigID::SIZE_MULTIPLIER, (new abstractions::ObservableValue<const unsigned int>(20u))->wrap() },
     { ConfigID::FOOD_COLOR, (new abstractions::ObservableValue<color::ColorPallete>("#ffff00"))->wrap() },
+    { ConfigID::THREADS_SLEEP_TIMEOUT, (new abstractions::ObservableValue<std::chrono::microseconds>(50u))->wrap() },
   };
   
   std::shared_ptr<abstractions::ObservableValueContainerWrapper> Settings::get(ConfigID id) {

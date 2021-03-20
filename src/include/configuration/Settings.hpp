@@ -23,7 +23,8 @@ namespace configuration {
     GAME_OVER_TIMEOUT,
     RANDOM_ENGINE_ALGORITHM,
     SIZE_MULTIPLIER,
-    FOOD_COLOR
+    FOOD_COLOR,
+    THREADS_SLEEP_TIMEOUT
   };
 
   struct Settings final {

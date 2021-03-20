@@ -25,6 +25,7 @@ namespace threading {
 
     events::EventDispatcher edispatcher;
     XEvent event;
+    auto&& thread_sleep_timeout = configuration::Settings::get_concrete<std::chrono::microseconds>(configuration::ConfigID::THREADS_SLEEP_TIMEOUT);
     for (;run;) {
       for(auto event_type : {Expose, KeyPress, ButtonPress, MotionNotify, ClientMessage}) {
         bool event_is_in_queue = xlib::XlibWrapper::self()->event_in_queue(event_type, &event);
@@ -38,6 +39,8 @@ namespace threading {
       if(!queue_empty) {
         std::unique_ptr<commands::Command> command = commands::Command::pop_xlib_command(); // DON'T USE auto HERE!
         command->execute();
+      } else {
+        std::this_thread::sleep_for(thread_sleep_timeout);
       }
     }
 
