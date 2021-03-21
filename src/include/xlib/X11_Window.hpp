@@ -3,8 +3,6 @@
 
 #include "XHeaders.hpp"
 #include <string>
-#include "X11_Display.hpp"
-#include "X11_Font.hpp"
 #include "MouseMotionHandler.hpp"
 #include "ClientMessageHandler.hpp"
 #include "ExposeEventHandler.hpp"
