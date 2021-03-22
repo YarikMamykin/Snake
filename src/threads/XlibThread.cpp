@@ -14,7 +14,7 @@ namespace threading {
     XInitThreads();
 
       using namespace configuration;
-    xlib::XlibWrapper::self()->create_window(
+    run = xlib::XlibWrapper::self()->create_window(
         Settings::get_concrete<geometry::Rectangle>(ConfigID::WINDOW_FRAME),
         Settings::get_concrete<color::COLOR_SCHEME_TYPE>(ConfigID::WINDOW_COLOR_SCHEME),
         Settings::get_concrete<unsigned int>(ConfigID::WINDOW_BORDER_WIDTH),
