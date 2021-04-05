@@ -4,6 +4,7 @@
 #include <stdexcept> 
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 namespace abstractions {
   template <typename ValueType>
@@ -17,46 +18,15 @@ namespace abstractions {
       public:
         RestrictedValue<ValueType>() = delete;
         RestrictedValue<ValueType>(const RestrictedValue<ValueType>&) = default; 
-        RestrictedValue<ValueType>(const ValueType& value, const ValueType& min, const ValueType& max, const unsigned int& step = 1u) : min_bound(min), value(value), max_bound(max), step(step) { }
+        RestrictedValue<ValueType>(const ValueType& value, const ValueType& min, const ValueType& max, const unsigned int& step = 1u) : min_bound(min), value(std::clamp(value, min_bound, max_bound)), max_bound(max), step(step) { }
 
-        const ValueType get_restricted_value() const { 
-          if(!value_in_bounds()) {
-            std::stringstream error_stream;
-            error_stream << "Value " << value << " is out of bounds <" << min_bound << "..." << max_bound << ">";
-            throw std::out_of_range(error_stream.str());
-          }
-          return value; 
-        }
-
-        const ValueType get_min() const {
-          return min_bound;
-        }
-
-        const ValueType get_max() const {
-          return max_bound;
-        }
-
-        bool value_in_bounds() const {
-          return (min_bound <= value && value <= max_bound); 
-        }
-
-        void set_value(const ValueType& new_value) {
-          if(min_bound > new_value) {
-            value = min_bound;
-          } else if(new_value > max_bound) {
-            value = max_bound;
-          } else { 
-            value = new_value;
-          }
-        }
-
-        void set_min(const ValueType& min_value) {
-          min_bound(min_value);
-        }
-        
-        void set_max(const ValueType& max_value) {
-          max_bound(max_value);
-        }
+        const ValueType get_restricted_value() const { return value; }
+        const ValueType get_min() const { return min_bound; }
+        const ValueType get_max() const { return max_bound; }
+        bool value_in_bounds() const { return (min_bound <= value && value <= max_bound); }
+        void set_value(const ValueType& new_value) { value = std::clamp(new_value, min_bound, max_bound); }
+        void set_min(const ValueType& min_value) { min_bound(min_value); } 
+        void set_max(const ValueType& max_value) { max_bound(max_value); }
         
         RestrictedValue<ValueType>& operator ++() {
           auto new_value = this->value;
