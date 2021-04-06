@@ -22,7 +22,7 @@ namespace views {
         color::Color("#00ffff"),
         color::Color("#ff00ff"),
         }))) 
-  , timer(configuration::Settings::get_concrete<std::chrono::milliseconds>(configuration::ConfigID::GAME_OVER_TIMEOUT)) {
+  , timer(config::get_concrete<std::chrono::milliseconds>(config_id::GAME_OVER_TIMEOUT)) {
     auto colorized_text_label_ptr = colorized_text_label.get();
     timer.callback = [colorized_text_label_ptr]() {
       colorized_text_label_ptr->shift_colors();

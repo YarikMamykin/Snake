@@ -22,8 +22,8 @@ namespace {
 namespace xlib {
 
   X11_Window::X11_Window(views::ViewID viewID) 
-    : abstractions::ui::AWindow(configuration::Settings::get_concrete<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME), 
-        configuration::Settings::get_concrete<color::COLOR_SCHEME_TYPE>(configuration::ConfigID::WINDOW_COLOR_SCHEME)) {
+    : abstractions::ui::AWindow(config::get_concrete<geometry::Rectangle>(config_id::WINDOW_FRAME), 
+        config::get_concrete<color::COLOR_SCHEME_TYPE>(config_id::WINDOW_COLOR_SCHEME)) {
         view = views::ViewFactory::get_view(viewID);
     }
 
@@ -79,7 +79,7 @@ namespace xlib {
       case events::AdditionalEvents::ChangeView: 
         {
           // Wait till additional threads ended their part 
-          std::this_thread::sleep_for(configuration::Settings::get_concrete<std::chrono::microseconds>(configuration::ConfigID::THREADS_SLEEP_TIMEOUT));
+          std::this_thread::sleep_for(config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT));
           redraw_background();
           this->change_view(data[1]);
           this->view->activate();

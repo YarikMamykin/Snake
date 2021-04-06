@@ -8,7 +8,7 @@ namespace game_objects {
   : background_color(background_color) 
   , color(color) 
   , frame(std::move(frame)) {
-    timer.timeout = configuration::Settings::get_concrete<std::chrono::milliseconds>(configuration::ConfigID::SNAKE_TIMEOUT); 
+    timer.timeout = config::get_concrete<std::chrono::milliseconds>(config_id::SNAKE_TIMEOUT); 
     timer.callback = [this]() {
       commands::Command::push_xlib_command(new commands::FillCircle(this->frame, this->color));
     };

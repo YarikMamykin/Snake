@@ -11,7 +11,7 @@ namespace commands {
     auto&& win_attr = xlib::XlibWrapper::self()->get_window_attributes();
     window->set_width(win_attr.width);
     window->set_height(win_attr.height);
-    configuration::Settings::get_concrete_ptr<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME)->change_value(window->get_frame());
+    config::get_concrete_ref<geometry::Rectangle>(config_id::WINDOW_FRAME) = window->get_frame();
     trigger.store(!trigger.load()); 
   }
 

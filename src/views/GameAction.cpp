@@ -20,12 +20,12 @@ namespace views {
     auto&& snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color();
     auto&& snake_head_width = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER);
     auto&& snake_head_height = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u;
-    auto&& snake_timeout = Sets::get_concrete_ptr<std::chrono::milliseconds>(ConfigID::SNAKE_TIMEOUT)->get_value();
-    auto&& snake_speed = Sets::get_concrete_ptr<RESTRICTED_ULONG>(ConfigID::SNAKE_SPEED)->get_value();
-    auto&& snake_speed_multiplier = Sets::get_concrete_ptr<std::chrono::milliseconds>(ConfigID::SNAKE_SPEED_MULTIPLIER)->get_value();
+    auto&& snake_timeout = Sets::get_concrete_ref<std::chrono::milliseconds>(ConfigID::SNAKE_TIMEOUT);
+    auto&& snake_speed = Sets::get_concrete_ref<RESTRICTED_ULONG>(ConfigID::SNAKE_SPEED);
+    auto&& snake_speed_multiplier = Sets::get_concrete_ref<std::chrono::milliseconds>(ConfigID::SNAKE_SPEED_MULTIPLIER);
 
     // windows frame from settings
-    const auto&& win_frame = configuration::Settings::get_concrete<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME);
+    const auto&& win_frame = config::get_concrete<geometry::Rectangle>(config_id::WINDOW_FRAME);
 
     // action_timer settings
     auto&& action_timer_timeout = (snake_speed.get_max() - snake_speed.get_restricted_value()) * snake_speed_multiplier + snake_timeout; 

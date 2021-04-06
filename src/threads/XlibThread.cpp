@@ -17,15 +17,15 @@ namespace threading {
     run = xlib::XlibWrapper::self()->create_window(
         Settings::get_concrete<geometry::Rectangle>(ConfigID::WINDOW_FRAME),
         Settings::get_concrete<color::COLOR_SCHEME_TYPE>(ConfigID::WINDOW_COLOR_SCHEME),
-        Settings::get_concrete<unsigned int>(ConfigID::WINDOW_BORDER_WIDTH),
-        Settings::get_concrete<std::string>(ConfigID::WINDOW_NAME).c_str(),
-        Settings::get_concrete<std::string>(ConfigID::WINDOW_FONT_NAME).c_str());
+        Settings::get_concrete_ref<unsigned int>(ConfigID::WINDOW_BORDER_WIDTH),
+        Settings::get_concrete_ref<std::string>(ConfigID::WINDOW_NAME).c_str(),
+        Settings::get_concrete_ref<std::string>(ConfigID::WINDOW_FONT_NAME).c_str());
 
     xlib::XlibWrapper::self()->select_events_to_process();
 
     events::EventDispatcher edispatcher;
     XEvent event;
-    auto&& thread_sleep_timeout = configuration::Settings::get_concrete<std::chrono::microseconds>(configuration::ConfigID::THREADS_SLEEP_TIMEOUT);
+    auto&& thread_sleep_timeout = config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT);
     for (;run;) {
       for(auto event_type : {Expose, KeyPress, ButtonPress, MotionNotify, ClientMessage}) {
         bool event_is_in_queue = xlib::XlibWrapper::self()->event_in_queue(event_type, &event);

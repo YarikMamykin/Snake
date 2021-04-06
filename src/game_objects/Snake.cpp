@@ -25,7 +25,7 @@ namespace game_objects {
   , head_color(color) { this->old_direction = direction; }
 
   void Snake::SnakeHead::hide() {
-    auto background_color = configuration::Settings::get_concrete<color::COLOR_SCHEME_TYPE>(configuration::ConfigID::WINDOW_COLOR_SCHEME).at(color::ColorSchemeID::BackgroundColor);
+    auto background_color = config::get_concrete_ref<color::COLOR_SCHEME_TYPE>(config_id::WINDOW_COLOR_SCHEME).at(color::ColorSchemeID::BackgroundColor);
     commands::Command::push_xlib_command(new commands::FillRectangle(frame, background_color));
   }
 
@@ -109,7 +109,7 @@ namespace game_objects {
   : current_direction(direction) {
 
     constexpr unsigned int spacing = 10u;
-    const auto&& win_frame = configuration::Settings::get_concrete<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME);
+    const auto&& win_frame = config::get_concrete<geometry::Rectangle>(config_id::WINDOW_FRAME);
 
     parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
     parts.back().frame.set_center(100, win_frame.height/2u);

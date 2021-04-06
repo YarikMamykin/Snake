@@ -3,38 +3,30 @@
 #include <exception>
 
 namespace configuration {
-  std::map<ConfigID, std::shared_ptr<abstractions::ObservableValueContainerWrapper>> Settings::settings_map = {
-    { ConfigID::WINDOW_FRAME, (new abstractions::ObservableValue<geometry::Rectangle>(0, 0, 200U, 200U))->wrap() },
-    { ConfigID::WINDOW_COLOR_SCHEME, (new abstractions::ObservableValue<color::COLOR_SCHEME_TYPE>(color::COLOR_SCHEME_TYPE({ 
-            { color::ColorSchemeID::FrameColor, color::Color("#ff0000") }, 
-            { color::ColorSchemeID::BackgroundColor, color::Color("#000000") }, 
-            { color::ColorSchemeID::FontColor, color::Color("#00ff00") } 
-            })))->wrap()
+  std::map<ConfigID, std::any> Settings::settings_map = {
+    { ConfigID::WINDOW_FRAME, geometry::Rectangle(0, 0, 200U, 200U) },
+    { ConfigID::WINDOW_COLOR_SCHEME, color::COLOR_SCHEME_TYPE({ 
+        { color::ColorSchemeID::FrameColor, color::Color("#ff0000") }, 
+        { color::ColorSchemeID::BackgroundColor, color::Color("#000000") }, 
+        { color::ColorSchemeID::FontColor, color::Color("#00ff00") } 
+        })
     },
-    { ConfigID::WINDOW_BORDER_WIDTH, (new abstractions::ObservableValue<unsigned int>(1u))->wrap() },
-    { ConfigID::WINDOW_NAME, (new abstractions::ObservableValue<std::string>("Snake"))->wrap() },
-    { ConfigID::WINDOW_FONT_NAME, (new abstractions::ObservableValue<std::string>("*-courier-*-24-*"))->wrap() },
-    { ConfigID::SNAKE_SPEED, (new abstractions::ObservableValue<RESTRICTED_ULONG>(10ul, 1ul, 10ul))->wrap() },
-    { ConfigID::SNAKE_SPEED_MULTIPLIER, (new abstractions::ObservableValue<std::chrono::milliseconds>(3u))->wrap() },
-    { ConfigID::SNAKE_COLOR, (new abstractions::ObservableValue<color::ColorPallete>("#00ff00"))->wrap() },
-    { ConfigID::SNAKE_TIMEOUT, (new abstractions::ObservableValue<std::chrono::milliseconds>(25u))->wrap() },
-    { ConfigID::SNAKE_SIZE, (new abstractions::ObservableValue<RESTRICTED_UINT>(1u, 1u, 10u))->wrap() },
-    { ConfigID::GAME_OVER_TIMEOUT, (new abstractions::ObservableValue<std::chrono::milliseconds>(80u))->wrap() },
-    { ConfigID::RANDOM_ENGINE_ALGORITHM, (new abstractions::ObservableValue<RANDOM_ENGINE_ALGORITHM_TYPE>())->wrap() },
-    { ConfigID::SIZE_MULTIPLIER, (new abstractions::ObservableValue<const unsigned int>(20u))->wrap() },
-    { ConfigID::FOOD_COLOR, (new abstractions::ObservableValue<color::ColorPallete>("#ffff00"))->wrap() },
-    { ConfigID::THREADS_SLEEP_TIMEOUT, (new abstractions::ObservableValue<std::chrono::microseconds>(50u))->wrap() },
+    { ConfigID::WINDOW_BORDER_WIDTH, 1u },
+    { ConfigID::WINDOW_NAME, std::string("Snake") },
+    { ConfigID::WINDOW_FONT_NAME, std::string("*-courier-*-24-*") },
+    { ConfigID::SNAKE_SPEED, RESTRICTED_ULONG(10ul, 1ul, 10ul) },
+    { ConfigID::SNAKE_SPEED_MULTIPLIER, std::chrono::milliseconds(3u) },
+    { ConfigID::SNAKE_COLOR, color::ColorPallete("#00ff00") },
+    { ConfigID::SNAKE_TIMEOUT, std::chrono::milliseconds(25u) },
+    { ConfigID::SNAKE_SIZE, RESTRICTED_UINT(1u, 1u, 10u) },
+    { ConfigID::GAME_OVER_TIMEOUT, std::chrono::milliseconds(80u) },
+    { ConfigID::RANDOM_ENGINE_ALGORITHM, RANDOM_ENGINE_ALGORITHM_TYPE() },
+    { ConfigID::SIZE_MULTIPLIER, 20u },
+    { ConfigID::FOOD_COLOR, color::ColorPallete("#ffff00") },
+    { ConfigID::THREADS_SLEEP_TIMEOUT, std::chrono::microseconds(50u) },
   };
-  
-  std::shared_ptr<abstractions::ObservableValueContainerWrapper> Settings::get(ConfigID id) {
-    std::shared_ptr<abstractions::ObservableValueContainerWrapper> result;
 
-    try {
-      result = settings_map.at(id);
-    } catch(const std::out_of_range&) {
-      result = nullptr;
-    }
-
-    return result;
+  std::any Settings::get(ConfigID id) {
+    return settings_map.at(id);
   }
 }

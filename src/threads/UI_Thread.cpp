@@ -5,7 +5,7 @@ namespace threading {
   UI_Thread::UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
   : ui_thread([&ui_event_queue, &run]() {
     try {
-      auto&& thread_sleep_timeout = configuration::Settings::get_concrete<std::chrono::microseconds>(configuration::ConfigID::THREADS_SLEEP_TIMEOUT);
+      auto&& thread_sleep_timeout = config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT);
       for(;run;) {
         if(!ui_event_queue.empty()) {
           ui_event_queue.front()();

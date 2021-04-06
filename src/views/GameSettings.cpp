@@ -54,17 +54,15 @@ namespace views {
   GameSettings::GameSettings() 
   : menu(new xlib::X11_Menu(ui::LayoutType::VERTICAL, {}, color::COLOR_SCHEME_TYPE(), 20U)) {
 
-    auto snake_speed_shared = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_ULONG>(configuration::ConfigID::SNAKE_SPEED);
-    auto snake_speed = snake_speed_shared->get_value().get_restricted_value();
+    auto& snake_speed_shared = config::get_concrete_ref<configuration::RESTRICTED_ULONG>(config_id::SNAKE_SPEED);
+    auto snake_speed = snake_speed_shared.get_restricted_value();
 
-    auto snake_color_shared = configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::SNAKE_COLOR);
-    auto snake_color = snake_color_shared->get_value();
+    auto& snake_color = config::get_concrete_ref<color::ColorPallete>(config_id::SNAKE_COLOR);
 
-    auto snake_size_shared = configuration::Settings::get_concrete_ptr<configuration::RESTRICTED_UINT>(configuration::ConfigID::SNAKE_SIZE);
-    auto snake_size = snake_size_shared->get_value().get_restricted_value();
+    auto& snake_size_shared = config::get_concrete_ref<configuration::RESTRICTED_UINT>(config_id::SNAKE_SIZE);
+    auto snake_size = snake_size_shared.get_restricted_value();
 
-    auto food_color_shared = configuration::Settings::get_concrete_ptr<color::ColorPallete>(configuration::ConfigID::FOOD_COLOR);
-    auto food_color = food_color_shared->get_value();
+    auto food_color = config::get_concrete_ref<color::ColorPallete>(config_id::FOOD_COLOR);
 
     auto setting_builder = [](const std::string&& name, std::unique_ptr<abstractions::ui::Object> value_presenter, const color::COLOR_SCHEME_TYPE& key_color_scheme) -> std::unique_ptr<Setting> {
       std::unique_ptr<abstractions::ui::TextLabel> key_presenter(new xlib::X11_TextLabel(name, {}, key_color_scheme));

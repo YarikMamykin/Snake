@@ -10,6 +10,5 @@ namespace ui {
   
   void ColorValuePresenter::update_presenter() { 
     this->presenting_object->set_color(this->value.get_current_color());
-    // abstractions::ObservableValueContainerWrapper::to_concrete_value<color::Color>(configuration::Settings::get(configuration::ConfigID::SNAKE_COLOR))->change_value(observable_value->get_value().get_current_color());
   }
 }

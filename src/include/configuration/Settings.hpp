@@ -4,6 +4,7 @@
 #include <chrono>
 #include <map>
 #include <random>
+#include <any>
 #include "Rectangle.hpp"
 #include "ObservableValue.hpp"
 #include "RestrictedValue.hpp"
@@ -28,29 +29,21 @@ namespace configuration {
   };
 
   struct Settings final {
-    static std::map<ConfigID, std::shared_ptr<abstractions::ObservableValueContainerWrapper>> settings_map;
-    static std::shared_ptr<abstractions::ObservableValueContainerWrapper> get(ConfigID id);
-    template <typename ValueType>
-    static std::shared_ptr<abstractions::ObservableValue<ValueType>> get_concrete_ptr(ConfigID id);
-    template <typename ValueType>
-    static ValueType get_concrete(ConfigID id);
+    static std::map<ConfigID, std::any> settings_map;
+    static std::any get(ConfigID id);
+    template<typename T> static T get_concrete(ConfigID id) {
+      return std::any_cast<T>(settings_map.at(id));
+    }
+    template<typename T> static T& get_concrete_ref(ConfigID id) {
+      return std::any_cast<T&>(settings_map.at(id));
+    }
   };
-}
-
-namespace configuration {
-  template <typename ValueType>
-  std::shared_ptr<abstractions::ObservableValue<ValueType>> Settings::get_concrete_ptr(ConfigID id) {
-    return abstractions::ObservableValueContainerWrapper::to_concrete_value<ValueType>(settings_map.at(id));
-  }
-
-  template <typename ValueType>
-  ValueType Settings::get_concrete(ConfigID id) {
-    return get_concrete_ptr<ValueType>(id)->get_value();
-  }
 }
 
 namespace configuration {
   typedef std::linear_congruential_engine<std::uint_fast32_t, 1u, 300u, 700u> RANDOM_ENGINE_ALGORITHM_TYPE;
 }
 
+using config = configuration::Settings;
+using config_id = configuration::ConfigID;
 #endif /* SRC_INCLUDE_SETTINGS_SETTINGS_HPP */

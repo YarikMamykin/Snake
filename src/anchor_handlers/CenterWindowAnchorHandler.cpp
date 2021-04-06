@@ -7,7 +7,7 @@ namespace ui {
   }
 
   geometry::Point CenterWindowAnchorHandler::get_window_center() {
-    const auto&& win_frame = configuration::Settings::get_concrete<geometry::Rectangle>(configuration::ConfigID::WINDOW_FRAME);
+    const auto&& win_frame = config::get_concrete<geometry::Rectangle>(config_id::WINDOW_FRAME);
     return { .x = win_frame.width/2u, .y = win_frame.height/2u };
   }
 }
