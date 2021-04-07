@@ -5,7 +5,6 @@
 #include "KeyPressHandler.hpp"
 #include "X11_TextLabel.hpp"
 #include "X11_Menu.hpp"
-#include "ObservableValuePresenter.hpp"
 #include <string>
 #include <memory>
 

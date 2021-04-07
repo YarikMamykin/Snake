@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_ABSTRACTIONS_MENU_HPP
 
 #include "Object.hpp"
-#include "constants/Constants.hpp"
+#include "Constants.hpp"
 #include <list>
 #include <algorithm>
 #include <memory>

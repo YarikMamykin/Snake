@@ -2,11 +2,9 @@
 #include "Helper.hpp"
 #include "Settings.hpp"
 #include "CenterWindowAnchorHandler.hpp"
-#include "ObservableIntValuePresenter.hpp"
-#include "ObservableUlongValuePresenter.hpp"
-#include "ObservableColorValuePresenter.hpp"
-#include "ObservableRestrictedValuePresenter.hpp"
 #include "Rectangle.hpp"
+#include "ColorValuePresenter.hpp"
+#include "RestrictedValuePresenter.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE key_color_scheme = {
@@ -66,8 +64,8 @@ namespace views {
 
     auto setting_builder = [](const std::string&& name, std::unique_ptr<abstractions::ui::Object> value_presenter, const color::COLOR_SCHEME_TYPE& key_color_scheme) -> std::unique_ptr<Setting> {
       std::unique_ptr<abstractions::ui::TextLabel> key_presenter(new xlib::X11_TextLabel(name, {}, key_color_scheme));
-      auto increase_binder = dynamic_cast<abstractions::ui::ValuePresenterInterface*>(value_presenter.get())->bind_increase_value_trigger();
-      auto decrease_binder = dynamic_cast<abstractions::ui::ValuePresenterInterface*>(value_presenter.get())->bind_decrease_value_trigger();
+      auto increase_binder = dynamic_cast<abstractions::ui::ValuePresenter*>(value_presenter.get())->bind_increase_value_trigger();
+      auto decrease_binder = dynamic_cast<abstractions::ui::ValuePresenter*>(value_presenter.get())->bind_decrease_value_trigger();
       return std::make_unique<Setting>(std::move(key_presenter), std::move(value_presenter), increase_binder, decrease_binder);
     };
 
@@ -76,19 +74,19 @@ namespace views {
 
     menu->add_item(setting_builder(
           "Snake speed: ", 
-          std::make_unique<ui::ObservableRestrictedValuePresenter<decltype(snake_speed)>>(snake_speed_shared, std::move(text_label)),
+          std::make_unique<abstractions::ui::RestrictedValuePresenter<decltype(snake_speed)>>(config_id::SNAKE_SPEED, std::move(text_label)),
           key_color_scheme));
     menu->add_item(setting_builder(
           "Snake color: ", 
-          std::make_unique<ui::ObservableColorValuePresenter>(snake_color_shared, std::make_unique<xlib::X11_ColorLabel>(snake_color, geometry::Rectangle{.width = 100U, .height = items_height }, value_color_scheme)),
+          std::make_unique<ui::ColorValuePresenter>(config_id::SNAKE_COLOR, std::make_unique<xlib::X11_ColorLabel>(snake_color, geometry::Rectangle{.width = 100U, .height = items_height }, value_color_scheme)),
           key_color_scheme));
     menu->add_item(setting_builder(
           "Snake size: ", 
-          std::make_unique<ui::ObservableRestrictedValuePresenter<decltype(snake_size)>>(snake_size_shared, std::make_unique<xlib::X11_TextLabel>(std::to_string(snake_size), geometry::Rectangle{}, value_color_scheme)),
+          std::make_unique<abstractions::ui::RestrictedValuePresenter<decltype(snake_size)>>(config_id::SNAKE_SIZE, std::make_unique<xlib::X11_TextLabel>(std::to_string(snake_size), geometry::Rectangle{}, value_color_scheme)),
           key_color_scheme));
     menu->add_item(setting_builder(
           "Food color: ", 
-          std::make_unique<ui::ObservableColorValuePresenter>(food_color_shared, std::make_unique<xlib::X11_ColorLabel>(food_color, geometry::Rectangle{.width = 100U, .height = items_height }, value_color_scheme)),
+          std::make_unique<ui::ColorValuePresenter>(config_id::FOOD_COLOR, std::make_unique<xlib::X11_ColorLabel>(food_color, geometry::Rectangle{.width = 100U, .height = items_height }, value_color_scheme)),
           key_color_scheme));
   }
 

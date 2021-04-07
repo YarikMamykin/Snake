@@ -6,7 +6,6 @@
 #include "Constants.hpp"
 #include "Rectangle.hpp"
 #include "Triangle.hpp"
-#include "ObservableValue.hpp"
 #include "Color.hpp"
 
 namespace game_objects {

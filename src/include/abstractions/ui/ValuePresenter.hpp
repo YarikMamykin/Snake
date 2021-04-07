@@ -1,94 +1,94 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_VALUEPRESENTER_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_VALUEPRESENTER_HPP
+#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP
+#define SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP
 
-#include "abstractions/ui/Object.hpp"
-#include "abstractions/specific_values/ObservableValue.hpp"
-
+#include "Object.hpp"
 #include <memory>
 #include <functional>
+#include <any>
+#include "Settings.hpp"
 
 namespace abstractions::ui {
 
-  struct ValuePresenterInterface {
+  struct ValuePresenter {
+    virtual std::function<void()> bind_increase_value_trigger() = 0;
+    virtual std::function<void()> bind_decrease_value_trigger() = 0;
+    virtual ~ValuePresenter() {}
+
     protected:
       virtual void update_presenter() = 0;
-
-    public:
-      virtual std::function<void()> bind_increase_value_trigger() = 0;
-      virtual std::function<void()> bind_decrease_value_trigger() = 0;
-      virtual ~ValuePresenterInterface() {}
   };
 
-
-  template <typename ValueType, typename ValuePresentingObject = abstractions::ui::Object>
-    class ValuePresenter : public Object,
-                           public ValuePresenterInterface {
+  template <typename ValueType, typename ValuePresentingObject>
+    class ConfigValuePresenter : public Object, public ValuePresenter {
       protected:
-        ValueType value;
-        std::unique_ptr<ValuePresentingObject> presenting_object;
+        config_id config_value_id;
+        std::unique_ptr<ValuePresentingObject> presenter;
 
       protected:
-        ValuePresenter<ValueType, ValuePresentingObject>(const ValueType& value, 
-            std::unique_ptr<ValuePresentingObject> presenting_object)
+        ConfigValuePresenter<ValueType, ValuePresentingObject>(config_id config_value_id, 
+            std::unique_ptr<ValuePresentingObject> presenter)
           : abstractions::ui::Object() 
-            , value(value)
-            , presenting_object(std::move(presenting_object)) { }
+            , config_value_id(config_value_id) 
+            , presenter(std::move(presenter)) { }
+
+        virtual ValueType& get_value() const {
+          return config::get_concrete_ref<ValueType>(config_value_id);
+        }
 
       public:
         virtual void increase_value() {
-          ++value;
+          ++config::get_concrete_ref<ValueType>(config_value_id);
           update_presenter();
         }
 
         virtual void decrease_value() {
-          --value;
+          --config::get_concrete_ref<ValueType>(config_value_id);
           update_presenter();
         }
 
         virtual std::function<void()> bind_increase_value_trigger() override {
-          return std::bind(&ValuePresenter<ValueType, ValuePresentingObject>::increase_value, this);
+          return std::bind(&ConfigValuePresenter<ValueType, ValuePresentingObject>::increase_value, this);
         }
 
         virtual std::function<void()> bind_decrease_value_trigger() override {
-          return std::bind(&ValuePresenter<ValueType, ValuePresentingObject>::decrease_value, this);
+          return std::bind(&ConfigValuePresenter<ValueType, ValuePresentingObject>::decrease_value, this);
         }
 
-        virtual const ValueType get_value() const { return value; }
-
         virtual void show(bool show_flag) override {
-          presenting_object->show(show_flag);
+          presenter->show(show_flag);
         }
 
         virtual void show_frame(bool show_flag) override {
-          presenting_object->show_frame(show_flag);
+          presenter->show_frame(show_flag);
         }
 
         // Frame/Geometry getters
-        virtual const int get_x() const override { return presenting_object->get_x(); }
-        virtual const int get_y() const override { return presenting_object->get_y(); }
-        virtual const unsigned int get_width() const override { return presenting_object->get_frame().width; }
-        virtual const unsigned int get_height() const override  { return presenting_object->get_frame().height; }
-        virtual const geometry::Rectangle get_frame() const override { return presenting_object->get_frame(); }
-        virtual bool hovered_by_mouse(const int& x, const int& y) const override { return presenting_object->get_frame().has_point({x,y}); }
+        virtual const int get_x() const override { return presenter->get_x(); }
+        virtual const int get_y() const override { return presenter->get_y(); }
+        virtual const unsigned int get_width() const override { return presenter->get_frame().width; }
+        virtual const unsigned int get_height() const override  { return presenter->get_frame().height; }
+        virtual const geometry::Rectangle get_frame() const override { return presenter->get_frame(); }
+        virtual bool hovered_by_mouse(const int& x, const int& y) const override { return presenter->get_frame().has_point({x,y}); }
 
         // Frame manipulations
         virtual void move(const int& x, const int& y) override {
-          presenting_object->move(x,y);
+          presenter->move(x,y);
         }
         virtual void set_position(const int& x, const int& y) override {
-          presenting_object->set_position(x,y);
+          presenter->set_position(x,y);
         }
         virtual void set_center(const int& x, const int& y) override {
-          presenting_object->set_center(x,y);
+          presenter->set_center(x,y);
         }
-        virtual void set_width(const unsigned int& width) override { presenting_object->set_width(width); }
-        virtual void set_height(const unsigned int& height) override { presenting_object->set_height(height); }
+        virtual void set_width(const unsigned int& width) override { presenter->set_width(width); }
+        virtual void set_height(const unsigned int& height) override { presenter->set_height(height); }
 
         // Focus setters/getters
-        virtual void set_focused(bool focus) override { presenting_object->set_focused(focus); }
-        virtual bool focused() const override { return presenting_object->focused(); }
+        virtual void set_focused(bool focus) override { presenter->set_focused(focus); }
+        virtual bool focused() const override { return presenter->focused(); }
 
-        virtual ~ValuePresenter<ValueType, ValuePresentingObject>() {}
+        virtual ~ConfigValuePresenter<ValueType, ValuePresentingObject>() {}
     };
 }
-#endif /* SRC_INCLUDE_ABSTRACTIONS_VALUEPRESENTER_HPP */
+
+#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP */

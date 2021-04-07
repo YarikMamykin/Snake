@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_INTERFACES_OBJECT_HPP
 
 #include "Rectangle.hpp"
-#include "constants/Constants.hpp"
+#include "Constants.hpp"
 #include "Color.hpp"
 
 namespace abstractions::ui {

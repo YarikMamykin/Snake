@@ -6,7 +6,6 @@
 #include <random>
 #include <any>
 #include "Rectangle.hpp"
-#include "ObservableValue.hpp"
 #include "RestrictedValue.hpp"
 
 namespace configuration {
