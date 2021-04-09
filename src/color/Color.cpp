@@ -1,16 +1,26 @@
 #include "Color.hpp"
 
+namespace {
+  const auto zero_byte = static_cast<std::byte>(0u);
+  auto convert_to_byte = [](const auto& value) -> std::byte {
+    return static_cast<std::byte>(value);
+  };
+  auto byte_to_ulong = [](const std::byte& byte) -> unsigned long {
+    return static_cast<unsigned long>(byte);
+  };
+}
+
 namespace color {
   Color::Color(const unsigned long& value) 
-      : red(value >> 16)
-        , green(value >> 8)
-        , blue(value) {}
+    : red(convert_to_byte(value >> 16))
+    , green(convert_to_byte(value >> 8))
+    , blue(convert_to_byte(value)) {}
 
     Color::Color(const char* value) : Color(std::string(value)) { }
     Color::Color(const std::string& value) 
-      : red(0u)
-        , green(0u)
-        , blue(0u) {
+      : red(zero_byte)
+      , green(zero_byte)
+      , blue(zero_byte) {
           const bool value_contains_hash_char = (value.find_first_of('#') == 0u);
           const bool value_length_is_enough = (value.size() == 7u);
           if(!value_contains_hash_char || !value_length_is_enough) {
@@ -18,17 +28,17 @@ namespace color {
           }
 
           unsigned short buffer;
-          std::stringstream(value.substr(1u, 2)) >> std::hex >> buffer; red = buffer;
-          std::stringstream(value.substr(3u, 2)) >> std::hex >> buffer; green = buffer;
-          std::stringstream(value.substr(5u, 2)) >> std::hex >> buffer; blue = buffer;
+          std::stringstream(value.substr(1u, 2)) >> std::hex >> buffer; red = convert_to_byte(buffer);
+          std::stringstream(value.substr(3u, 2)) >> std::hex >> buffer; green = convert_to_byte(buffer);
+          std::stringstream(value.substr(5u, 2)) >> std::hex >> buffer; blue = convert_to_byte(buffer);
         }
 
     Color::operator unsigned long () const { 
-      unsigned long result = red; 
+      unsigned long result = byte_to_ulong(red);
       result = result << 8;
-      result |= green;
+      result |= byte_to_ulong(green);
       result = result << 8;
-      result |= blue;
+      result |= byte_to_ulong(blue);
       return result;
     }
 

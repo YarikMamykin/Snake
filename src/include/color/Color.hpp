@@ -3,10 +3,11 @@
 
 #include <sstream>
 #include <map>
+#include <cstddef>
 
 namespace color {
   struct Color {
-    unsigned char red, green, blue;
+    std::byte red, green, blue;
 
     Color() = default;
     Color(const Color&) = default;
