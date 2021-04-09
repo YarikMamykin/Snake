@@ -48,14 +48,6 @@ namespace color {
       return result_stream.str().insert(1u, 7u - result_stream.str().size(), '0');
     }
 
-    const std::string Color::to_string() const { 
-      std::string result;
-      for(auto& color_part : {red, green, blue}) {
-        result += std::to_string(color_part) + " ";
-      }
-      return result;
-    }
-
     bool Color::operator == (const Color& a) const {
       return (a.red   == this->red) &&
              (a.green == this->green) &&

@@ -18,7 +18,6 @@ namespace color {
     Color(const std::string& value);
     operator unsigned long () const; 
     operator std::string() const; 
-    const std::string to_string() const; 
     bool operator == (const Color& a) const;
   };
 
