@@ -23,7 +23,7 @@ namespace color {
           std::stringstream(value.substr(5u, 2)) >> std::hex >> buffer; blue = buffer;
         }
 
-    const unsigned long Color::to_long() const { 
+    Color::operator unsigned long () const { 
       unsigned long result = red; 
       result = result << 8;
       result |= green;
@@ -32,10 +32,10 @@ namespace color {
       return result;
     }
 
-    const std::string Color::to_hex() const {
+    Color::operator std::string () const {
       std::stringstream result_stream;
-      result_stream << "#" << std::hex << std::noshowbase << this->to_long();
-      return result_stream.str().insert(1u, 7u - result_stream.str().size(), '0');    
+      result_stream << "#" << std::hex << std::noshowbase << static_cast<unsigned long>(*this);
+      return result_stream.str().insert(1u, 7u - result_stream.str().size(), '0');
     }
 
     const std::string Color::to_string() const { 

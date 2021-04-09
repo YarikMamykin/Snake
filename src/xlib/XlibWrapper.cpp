@@ -54,8 +54,8 @@ namespace xlib {
 				window_frame.width, 
 				window_frame.height,
 				border_width,
-				color_scheme.at(color::ColorSchemeID::FrameColor).to_long(), 
-				color_scheme.at(color::ColorSchemeID::BackgroundColor).to_long());
+				color_scheme.at(color::ColorSchemeID::FrameColor), 
+				color_scheme.at(color::ColorSchemeID::BackgroundColor));
 
 		XStoreName(display, window, name);
 		XMapWindow(display, window);
@@ -90,27 +90,27 @@ namespace xlib {
 
 	void XlibWrapper::draw_rectangle(geometry::Rectangle&& r, color::Color&& color) { 
 		XSetLineAttributes(display, graphical_context, 3u,0,0,0);
-		XSetForeground(display, graphical_context, color.to_long());
+		XSetForeground(display, graphical_context, color);
 		XDrawRectangle(display, window, graphical_context, r.x, r.y, r.width, r.height);
 	}
 
 	void XlibWrapper::fill_rectangle(geometry::Rectangle&& r, color::Color&& color) {
-		XSetForeground(display, graphical_context, color.to_long());
+		XSetForeground(display, graphical_context, color);
 		XFillRectangle(display, window, graphical_context, r.x, r.y, r.width, r.height);
 	}
 
 	void XlibWrapper::draw_circle(geometry::Rectangle&& r, color::Color&& color) {
-		XSetForeground(display, graphical_context, color.to_long());
+		XSetForeground(display, graphical_context, color);
 		XDrawArc(display, window, graphical_context, r.x, r.y, r.width, r.height, 0, 360*64); // angle is specified as <degrees> * 64
 	}
 
 	void XlibWrapper::fill_circle(geometry::Rectangle&& r, color::Color&& color) {
-		XSetForeground(display, graphical_context, color.to_long());
+		XSetForeground(display, graphical_context, color);
 		XFillArc(display, window, graphical_context, r.x, r.y, r.width, r.height, 0, 360*64); // angle is specified as <degrees> * 64
 	}
 
 	void XlibWrapper::draw_text(geometry::Point&& p, color::Color&& color, const std::string& text) {
-    XSetForeground(display, graphical_context, color.to_long());
+    XSetForeground(display, graphical_context, color);
     XDrawString(display, window, graphical_context, p.x, p.y, text.c_str(), text.length());
 	}
 

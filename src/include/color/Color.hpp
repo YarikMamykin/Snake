@@ -15,8 +15,8 @@ namespace color {
     Color(const unsigned long& value);
     Color(const char* value);
     Color(const std::string& value);
-    const unsigned long to_long() const; 
-    const std::string to_hex() const; 
+    operator unsigned long () const; 
+    operator std::string() const; 
     const std::string to_string() const; 
     bool operator == (const Color& a) const;
   };
