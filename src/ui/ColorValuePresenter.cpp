@@ -1,5 +1,5 @@
-#include "ColorValuePresenter.hpp"
-#include "Settings.hpp"
+#include "ui/ColorValuePresenter.hpp"
+#include "configuration/Settings.hpp"
 
 namespace ui {
   ColorValuePresenter::ColorValuePresenter(config_id config_value_id, 

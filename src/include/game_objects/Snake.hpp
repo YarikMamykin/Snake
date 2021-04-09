@@ -1,12 +1,12 @@
-#ifndef SRC_INCLUDE_GAME_OBJECT_SNAKE_HPP
-#define SRC_INCLUDE_GAME_OBJECT_SNAKE_HPP
+#ifndef SRC_INCLUDE_GAME_OBJECTS_SNAKE_HPP
+#define SRC_INCLUDE_GAME_OBJECTS_SNAKE_HPP
 
 #include <list>
 #include <memory>
-#include "Constants.hpp"
-#include "Rectangle.hpp"
-#include "Triangle.hpp"
-#include "Color.hpp"
+#include "constants/Constants.hpp"
+#include "geometry/Rectangle.hpp"
+#include "geometry/Triangle.hpp"
+#include "color/Color.hpp"
 
 namespace game_objects {
 
@@ -64,4 +64,5 @@ namespace game_objects {
   };
 }
 
-#endif /* SRC_INCLUDE_GAME_OBJECT_SNAKE_HPP */
+
+#endif /* SRC_INCLUDE_GAME_OBJECTS_SNAKE_HPP */

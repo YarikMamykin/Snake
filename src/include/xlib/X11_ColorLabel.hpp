@@ -1,7 +1,6 @@
 #ifndef SRC_INCLUDE_XLIB_X11_COLORLABEL_HPP
 #define SRC_INCLUDE_XLIB_X11_COLORLABEL_HPP
-
-#include "ColorLabel.hpp"
+#include "abstractions/ui/ColorLabel.hpp"
 
 namespace xlib {
 
@@ -16,4 +15,5 @@ namespace xlib {
       void show_frame(bool show_flag) override;
   };
 }
+
 #endif /* SRC_INCLUDE_XLIB_X11_COLORLABEL_HPP */

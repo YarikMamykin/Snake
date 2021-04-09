@@ -1,7 +1,7 @@
-#include "MovementController.hpp"
-#include "Exceptions.hpp"
-#include "Snake.hpp"
-#include "Food.hpp"
+#include "game_objects/MovementController.hpp"
+#include "exceptions/Exceptions.hpp"
+#include "game_objects/Snake.hpp"
+#include "game_objects/Food.hpp"
 
 namespace game_objects {
 

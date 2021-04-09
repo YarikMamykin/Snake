@@ -1,6 +1,6 @@
-#include "Food.hpp"
-#include "FillCircle.hpp"
-#include "Settings.hpp"
+#include "game_objects/Food.hpp"
+#include "commands/graphics_commands/FillCircle.hpp"
+#include "configuration/Settings.hpp"
 
 namespace game_objects {
 

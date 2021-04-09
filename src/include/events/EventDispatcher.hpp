@@ -1,10 +1,10 @@
 #ifndef SRC_INCLUDE_EVENTS_EVENTDISPATCHER_HPP
 #define SRC_INCLUDE_EVENTS_EVENTDISPATCHER_HPP
-#include "Window.hpp"
+
 #include <memory>
 #include <map>
 #include <functional>
-#include "EventHandlingObject.hpp"
+#include "abstractions/ui/Window.hpp"
 
 namespace events {
 
@@ -19,5 +19,6 @@ namespace events {
     std::function<void()> dispatch_event(abstractions::ui::AWindow* window, XEvent& event);
   };
 }
+
 
 #endif /* SRC_INCLUDE_EVENTS_EVENTDISPATCHER_HPP */

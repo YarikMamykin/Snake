@@ -1,8 +1,8 @@
-/*
- * Main Xlib headers.
- * Should be included only in this chain.
- */
+#ifndef SRC_INCLUDE_XLIB_XHEADERS_HPP
+#define SRC_INCLUDE_XLIB_XHEADERS_HPP
+
 #pragma once
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <X11/Xos.h>
+
+#endif /* SRC_INCLUDE_XLIB_XHEADERS_HPP */

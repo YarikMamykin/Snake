@@ -1,9 +1,9 @@
-#ifndef SRC_INCLUDE_INTERFACES_OBJECT_HPP
-#define SRC_INCLUDE_INTERFACES_OBJECT_HPP
+#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_OBJECT_HPP
+#define SRC_INCLUDE_ABSTRACTIONS_UI_OBJECT_HPP
 
-#include "Rectangle.hpp"
-#include "Constants.hpp"
-#include "Color.hpp"
+#include "geometry/Rectangle.hpp"
+#include "constants/Constants.hpp"
+#include "color/Color.hpp"
 
 namespace abstractions::ui {
 
@@ -63,4 +63,5 @@ namespace abstractions::ui {
       virtual ~Object() {};
   };
 }
-#endif /* SRC_INCLUDE_INTERFACES_OBJECT_HPP */
+
+#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_OBJECT_HPP */

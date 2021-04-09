@@ -1,9 +1,9 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_NOEVENTHANDLER_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_NOEVENTHANDLER_HPP
+#ifndef SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_NOEVENTHANDLER_HPP
+#define SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_NOEVENTHANDLER_HPP
 
-#include "XHeaders.hpp"
-#include "Constants.hpp"
-#include "EventHandlingObject.hpp"
+#include "xlib/XHeaders.hpp"
+#include "constants/Constants.hpp"
+#include "abstractions/event_handling/EventHandlingObject.hpp"
 
 namespace events {
 
@@ -15,4 +15,5 @@ namespace events {
 
 }
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_NOEVENTHANDLER_HPP */
+
+#endif /* SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_NOEVENTHANDLER_HPP */

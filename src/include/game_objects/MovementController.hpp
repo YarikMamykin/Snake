@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_GAME_OBJECTS_MOVEMENTCONTROLLER_HPP
 
 #include <memory>
-#include "Rectangle.hpp"
+#include "geometry/Rectangle.hpp"
 
 
 namespace game_objects {
@@ -30,6 +30,7 @@ namespace game_objects {
       void increase_snake();
   };
 }
+
 
 
 #endif /* SRC_INCLUDE_GAME_OBJECTS_MOVEMENTCONTROLLER_HPP */

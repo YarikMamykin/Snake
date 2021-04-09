@@ -1,9 +1,9 @@
 #ifndef SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUEPRESENTER_HPP
 #define SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUEPRESENTER_HPP
 
-#include "RestrictedValue.hpp"
-#include "ValuePresenter.hpp"
-#include "X11_TextLabel.hpp"
+#include "abstractions/ui/RestrictedValue.hpp"
+#include "abstractions/ui/ValuePresenter.hpp"
+#include "xlib/X11_TextLabel.hpp"
 #include <memory>
 
 namespace abstractions::ui {
@@ -20,6 +20,7 @@ namespace abstractions::ui {
       }
   };
 }
+
 
 
 #endif /* SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUEPRESENTER_HPP */

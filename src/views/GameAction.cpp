@@ -1,11 +1,11 @@
-#include "GameAction.hpp"
-#include "Settings.hpp"
-#include "ColorPallete.hpp"
-#include "ChangeView.hpp"
-#include "Snake.hpp"
-#include "FoodGenerator.hpp"
-#include "MovementController.hpp"
-#include "Timer.hpp"
+#include "views/GameAction.hpp"
+#include "configuration/Settings.hpp"
+#include "color/ColorPallete.hpp"
+#include "commands/ChangeView.hpp"
+#include "game_objects/Snake.hpp"
+#include "game_objects/FoodGenerator.hpp"
+#include "game_objects/MovementController.hpp"
+#include "timing/Timer.hpp"
 
 namespace views {
 

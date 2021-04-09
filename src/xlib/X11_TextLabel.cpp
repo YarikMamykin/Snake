@@ -1,9 +1,9 @@
-#include "X11_TextLabel.hpp"
-#include "QueryTextWidth.hpp"
-#include "QueryTextHeight.hpp"
-#include "FillRectangle.hpp"
-#include "DrawRectangle.hpp"
-#include "DrawText.hpp"
+#include "xlib/X11_TextLabel.hpp"
+#include "commands/synchronous_commands/QueryTextWidth.hpp"
+#include "commands/synchronous_commands/QueryTextHeight.hpp"
+#include "commands/graphics_commands/FillRectangle.hpp"
+#include "commands/graphics_commands/DrawRectangle.hpp"
+#include "commands/graphics_commands/DrawText.hpp"
 #include <thread>
 
 namespace xlib {

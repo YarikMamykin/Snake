@@ -1,6 +1,5 @@
 #ifndef SRC_INCLUDE_COLOR_COLOR_HPP
 #define SRC_INCLUDE_COLOR_COLOR_HPP
-
 #include <sstream>
 #include <map>
 #include <cstddef>
@@ -30,4 +29,5 @@ namespace color {
 
   typedef std::map<ColorSchemeID, Color> COLOR_SCHEME_TYPE;
 }
+
 #endif /* SRC_INCLUDE_COLOR_COLOR_HPP */

@@ -1,6 +1,5 @@
-#ifndef SRC_INCLUDE_THREADING_UI_THREAD_HPP
-#define SRC_INCLUDE_THREADING_UI_THREAD_HPP
-
+#ifndef SRC_INCLUDE_THREADS_UI_THREAD_HPP
+#define SRC_INCLUDE_THREADS_UI_THREAD_HPP
 #include <functional>
 #include <thread>
 #include <list>
@@ -16,4 +15,5 @@ namespace threading {
 }
 
 
-#endif /* SRC_INCLUDE_THREADING_UI_THREAD_HPP */
+
+#endif /* SRC_INCLUDE_THREADS_UI_THREAD_HPP */

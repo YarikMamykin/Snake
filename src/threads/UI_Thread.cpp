@@ -1,5 +1,5 @@
-#include "UI_Thread.hpp"
-#include "Settings.hpp"
+#include "threads/UI_Thread.hpp"
+#include "configuration/Settings.hpp"
 
 namespace threading {
   UI_Thread::UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run) 

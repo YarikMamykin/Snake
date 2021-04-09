@@ -1,5 +1,5 @@
-#include "CenterWindowAnchorHandler.hpp"
-#include "Settings.hpp"
+#include "anchor_handlers/CenterWindowAnchorHandler.hpp"
+#include "configuration/Settings.hpp"
 
 namespace ui {
   CenterWindowAnchorHandler::CenterWindowAnchorHandler(abstractions::ui::Object* object) {

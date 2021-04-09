@@ -1,5 +1,5 @@
-#include "QueryTextHeight.hpp"
-#include "XlibWrapper.hpp"
+#include "commands/synchronous_commands/QueryTextHeight.hpp"
+#include "xlib/XlibWrapper.hpp"
 
 namespace commands {
 

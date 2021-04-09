@@ -1,12 +1,11 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMEMENU_HPP
 #define SRC_INCLUDE_VIEWS_GAMEMENU_HPP
-
-#include "View.hpp"
+#include "abstractions/views/View.hpp"
 #include <list>
 #include <functional>
 #include <memory>
-#include "KeyPressHandler.hpp"
-#include "X11_TextLabel.hpp"
+#include "abstractions/event_handling/KeyPressHandler.hpp"
+#include "xlib/X11_TextLabel.hpp"
 
 namespace abstractions::ui {
   class Menu;
@@ -46,5 +45,6 @@ namespace views {
       std::unique_ptr<abstractions::ui::Menu> menu;
   };
 }
+
 
 #endif /* SRC_INCLUDE_VIEWS_GAMEMENU_HPP */

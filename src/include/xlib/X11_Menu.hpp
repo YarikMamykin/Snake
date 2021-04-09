@@ -1,7 +1,6 @@
 #ifndef SRC_INCLUDE_XLIB_X11_MENU_HPP
 #define SRC_INCLUDE_XLIB_X11_MENU_HPP
-
-#include "Menu.hpp"
+#include "abstractions/ui/Menu.hpp"
 
 namespace xlib {
   class X11_Menu : public abstractions::ui::Menu {
@@ -21,4 +20,5 @@ namespace xlib {
       virtual ~X11_Menu();
   };
 }
+
 #endif /* SRC_INCLUDE_XLIB_X11_MENU_HPP */

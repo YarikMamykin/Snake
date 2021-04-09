@@ -1,8 +1,8 @@
 #ifndef SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP
 #define SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP
 
-#include "Point.hpp"
-#include "Constants.hpp"
+#include "geometry/Point.hpp"
+#include "constants/Constants.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -135,4 +135,5 @@ namespace geometry {
     }
   };
 }
+
 #endif /* SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP */

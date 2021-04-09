@@ -1,8 +1,8 @@
-#ifndef SRC_INCLUDE_COMMANDS_QUERYWINDOWFRAME_HPP
-#define SRC_INCLUDE_COMMANDS_QUERYWINDOWFRAME_HPP
+#ifndef SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYWINDOWFRAME_HPP
+#define SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYWINDOWFRAME_HPP
 
-#include "SynchronousCommand.hpp"
-#include "Object.hpp"
+#include "commands/synchronous_commands/SynchronousCommand.hpp"
+#include "abstractions/ui/Object.hpp"
 
 namespace commands {
 
@@ -19,4 +19,5 @@ namespace commands {
 }
 
 
-#endif /* SRC_INCLUDE_COMMANDS_QUERYWINDOWFRAME_HPP */
+
+#endif /* SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYWINDOWFRAME_HPP */

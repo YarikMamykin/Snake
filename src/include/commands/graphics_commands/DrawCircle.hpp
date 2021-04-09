@@ -1,7 +1,7 @@
-#ifndef SRC_INCLUDE_COMMANDS_DRAWCIRCLE_HPP
-#define SRC_INCLUDE_COMMANDS_DRAWCIRCLE_HPP
+#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWCIRCLE_HPP
+#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWCIRCLE_HPP
 
-#include "GraphicsCommand.hpp"
+#include "commands/graphics_commands/GraphicsCommand.hpp"
 
 namespace commands {
   class DrawCircle : public GraphicsCommand {
@@ -11,4 +11,5 @@ namespace commands {
       virtual ~DrawCircle() override = default;
   };
 }
-#endif /* SRC_INCLUDE_COMMANDS_DRAWCIRCLE_HPP */
+
+#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWCIRCLE_HPP */

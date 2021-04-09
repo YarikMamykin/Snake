@@ -5,8 +5,8 @@
 #include <map>
 #include <random>
 #include <any>
-#include "Rectangle.hpp"
-#include "RestrictedValue.hpp"
+#include "geometry/Rectangle.hpp"
+#include "abstractions/ui/RestrictedValue.hpp"
 
 namespace configuration {
   enum class ConfigID {
@@ -45,4 +45,5 @@ namespace configuration {
 
 using config = configuration::Settings;
 using config_id = configuration::ConfigID;
-#endif /* SRC_INCLUDE_SETTINGS_SETTINGS_HPP */
+
+#endif /* SRC_INCLUDE_CONFIGURATION_SETTINGS_HPP */

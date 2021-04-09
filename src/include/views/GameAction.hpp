@@ -1,9 +1,8 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMEACTION_HPP
 #define SRC_INCLUDE_VIEWS_GAMEACTION_HPP
-
-#include "View.hpp"
-#include "KeyPressHandler.hpp"
-#include "Constants.hpp"
+#include "abstractions/views/View.hpp"
+#include "abstractions/event_handling/KeyPressHandler.hpp"
+#include "constants/Constants.hpp"
 #include <memory>
 
 namespace game_objects {
@@ -42,4 +41,5 @@ namespace views {
   };
 
 }
+
 #endif /* SRC_INCLUDE_VIEWS_GAMEACTION_HPP */

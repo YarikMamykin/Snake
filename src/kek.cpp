@@ -1,11 +1,10 @@
 #include <memory>
 #include <functional>
 #include <list>
-#include "Window.hpp"
-#include "X11_Window.hpp"
-#include "ChangeView.hpp"
-#include "XlibThread.hpp"
-#include "UI_Thread.hpp"
+#include "xlib/X11_Window.hpp"
+#include "commands/ChangeView.hpp"
+#include "threads/XlibThread.hpp"
+#include "threads/UI_Thread.hpp"
 
 int main(void)
 {

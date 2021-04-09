@@ -1,8 +1,8 @@
-#include "XlibThread.hpp"
-#include "EventDispatcher.hpp"
-#include "XlibWrapper.hpp"
-#include "Settings.hpp"
-#include "ChangeView.hpp"
+#include "threads/XlibThread.hpp"
+#include "events/EventDispatcher.hpp"
+#include "xlib/XlibWrapper.hpp"
+#include "configuration/Settings.hpp"
+#include "commands/ChangeView.hpp"
 #include <memory>
 #include <thread>
 #include <functional>

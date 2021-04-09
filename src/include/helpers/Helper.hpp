@@ -1,8 +1,8 @@
 #ifndef SRC_INCLUDE_HELPERS_HELPER_HPP
 #define SRC_INCLUDE_HELPERS_HELPER_HPP
 
-#include "XHeaders.hpp"
-#include "Constants.hpp"
+#include "xlib/XHeaders.hpp"
+#include "constants/Constants.hpp"
 
 namespace helpers {
   struct Helper {
@@ -12,4 +12,5 @@ namespace helpers {
     static void SendChangeViewEvent(const views::ViewID& viewID);
   };
 }
+
 #endif /* SRC_INCLUDE_HELPERS_HELPER_HPP */

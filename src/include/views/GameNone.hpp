@@ -1,8 +1,7 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMENONE_HPP
 #define SRC_INCLUDE_VIEWS_GAMENONE_HPP
-
-#include "NoEventHandler.hpp"
-#include "View.hpp"
+#include "abstractions/event_handling/NoEventHandler.hpp"
+#include "abstractions/views/View.hpp"
 
 namespace views {
 
@@ -16,6 +15,7 @@ namespace views {
       virtual void activate() override;
   };
 }
+
 
 
 #endif /* SRC_INCLUDE_VIEWS_GAMENONE_HPP */

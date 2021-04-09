@@ -1,8 +1,8 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_CLIENTMESSAGEHANDLER_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_CLIENTMESSAGEHANDLER_HPP
+#ifndef SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_CLIENTMESSAGEHANDLER_HPP
+#define SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_CLIENTMESSAGEHANDLER_HPP
 
-#include "Constants.hpp"
-#include "EventHandlingObject.hpp"
+#include "constants/Constants.hpp"
+#include "abstractions/event_handling/EventHandlingObject.hpp"
 
 namespace events {
 
@@ -15,4 +15,5 @@ namespace events {
 
 }
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_CLIENTMESSAGEHANDLER_HPP */
+
+#endif /* SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_CLIENTMESSAGEHANDLER_HPP */

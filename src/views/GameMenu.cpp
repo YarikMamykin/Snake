@@ -1,10 +1,10 @@
-#include "GameMenu.hpp"
-#include "Helper.hpp"
-#include "CenterWindowAnchorHandler.hpp"
-#include "Color.hpp"
-#include "ChangeView.hpp"
-#include "ExitApplication.hpp"
-#include "X11_Menu.hpp"
+#include "views/GameMenu.hpp"
+#include "helpers/Helper.hpp"
+#include "anchor_handlers/CenterWindowAnchorHandler.hpp"
+#include "color/Color.hpp"
+#include "commands/ChangeView.hpp"
+#include "commands/ExitApplication.hpp"
+#include "xlib/X11_Menu.hpp"
 
 namespace {
   const std::string NewGameItemName = "New Game"; 

@@ -1,10 +1,10 @@
 #ifndef SRC_INCLUDE_GAME_OBJECTS_FOODGENERATOR_HPP
 #define SRC_INCLUDE_GAME_OBJECTS_FOODGENERATOR_HPP
 
-#include "Food.hpp"
+#include "game_objects/Food.hpp"
 #include <random>
 #include <list>
-#include "Settings.hpp"
+#include "configuration/Settings.hpp"
 
 namespace game_objects {
 
@@ -28,5 +28,6 @@ namespace game_objects {
     Food* generate();
   };
 }
+
 
 #endif /* SRC_INCLUDE_GAME_OBJECTS_FOODGENERATOR_HPP */

@@ -1,9 +1,8 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMEABOUT_HPP
 #define SRC_INCLUDE_VIEWS_GAMEABOUT_HPP
-
-#include "View.hpp"
-#include "TextLabel.hpp"
-#include "KeyPressHandler.hpp"
+#include "abstractions/views/View.hpp"
+#include "abstractions/ui/TextLabel.hpp"
+#include "abstractions/event_handling/KeyPressHandler.hpp"
 #include <string>
 #include <memory>
 
@@ -25,6 +24,7 @@ namespace views {
       std::unique_ptr<TextLabel> text_label;
   };
 }
+
 
 
 #endif /* SRC_INCLUDE_VIEWS_GAMEABOUT_HPP */

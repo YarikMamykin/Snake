@@ -1,8 +1,7 @@
 #ifndef SRC_INCLUDE_COMMANDS_EXITAPPLICATION_HPP
 #define SRC_INCLUDE_COMMANDS_EXITAPPLICATION_HPP
-
-#include "Command.hpp"
-#include "Helper.hpp"
+#include "commands/Command.hpp"
+#include "helpers/Helper.hpp"
 
 namespace commands {
 
@@ -14,6 +13,7 @@ namespace commands {
       virtual void execute() override;
   };
 }
+
 
 
 #endif /* SRC_INCLUDE_COMMANDS_EXITAPPLICATION_HPP */

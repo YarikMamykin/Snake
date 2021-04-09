@@ -1,8 +1,8 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_WINDOW_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_WINDOW_HPP
+#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_WINDOW_HPP
+#define SRC_INCLUDE_ABSTRACTIONS_UI_WINDOW_HPP
 
 #include <memory>
-#include "Object.hpp"
+#include "abstractions/ui/Object.hpp"
 
 namespace abstractions::ui {
 
@@ -16,4 +16,5 @@ namespace abstractions::ui {
       virtual ~AWindow() {};
   };
 }
-#endif /* SRC_INCLUDE_ABSTRACTIONS_WINDOW_HPP */
+
+#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_WINDOW_HPP */

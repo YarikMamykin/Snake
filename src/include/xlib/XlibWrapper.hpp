@@ -1,9 +1,8 @@
 #ifndef SRC_INCLUDE_XLIB_XLIBWRAPPER_HPP
 #define SRC_INCLUDE_XLIB_XLIBWRAPPER_HPP
-
-#include "XHeaders.hpp"
-#include "Rectangle.hpp"
-#include "Color.hpp"
+#include "xlib/XHeaders.hpp"
+#include "geometry/Rectangle.hpp"
+#include "color/Color.hpp"
 #include <string>
 #include <memory>
 
@@ -54,5 +53,6 @@ namespace xlib {
       static std::shared_ptr<XlibWrapper> self();
   };
 }
+
 
 #endif /* SRC_INCLUDE_XLIB_XLIBWRAPPER_HPP */

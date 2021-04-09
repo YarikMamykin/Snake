@@ -1,5 +1,5 @@
-#include "DrawRectangle.hpp"
-#include "XlibWrapper.hpp"
+#include "commands/graphics_commands/DrawRectangle.hpp"
+#include "xlib/XlibWrapper.hpp"
 
 namespace commands {
 

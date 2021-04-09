@@ -22,4 +22,5 @@ namespace exceptions {
       }
     };
 }
+
 #endif /* SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP */

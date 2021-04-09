@@ -1,5 +1,5 @@
-#include "ChangeView.hpp"
-#include "Helper.hpp"
+#include "commands/ChangeView.hpp"
+#include "helpers/Helper.hpp"
 
 namespace commands {
 

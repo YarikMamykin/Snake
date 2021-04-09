@@ -1,18 +1,17 @@
 #ifndef SRC_INCLUDE_XLIB_X11_WINDOW_HPP
 #define SRC_INCLUDE_XLIB_X11_WINDOW_HPP
-
-#include "XHeaders.hpp"
+#include "xlib/XHeaders.hpp"
 #include <string>
-#include "MouseMotionHandler.hpp"
-#include "ClientMessageHandler.hpp"
-#include "ExposeEventHandler.hpp"
-#include "KeyPressHandler.hpp"
+#include "abstractions/event_handling/MouseMotionHandler.hpp"
+#include "abstractions/event_handling/ClientMessageHandler.hpp"
+#include "abstractions/event_handling/ExposeEventHandler.hpp"
+#include "abstractions/event_handling/KeyPressHandler.hpp"
 #include <memory>
-#include "View.hpp"
-#include "Constants.hpp"
-#include "Object.hpp"
-#include "Rectangle.hpp"
-#include "Window.hpp"
+#include "abstractions/views/View.hpp"
+#include "constants/Constants.hpp"
+#include "abstractions/ui/Object.hpp"
+#include "geometry/Rectangle.hpp"
+#include "abstractions/ui/Window.hpp"
 
 namespace xlib {
 
@@ -45,4 +44,5 @@ namespace xlib {
   };
 }
 
-#endif
+
+#endif /* SRC_INCLUDE_XLIB_X11_WINDOW_HPP */

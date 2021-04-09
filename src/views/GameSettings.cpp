@@ -1,10 +1,10 @@
-#include "GameSettings.hpp"
-#include "Helper.hpp"
-#include "Settings.hpp"
-#include "CenterWindowAnchorHandler.hpp"
-#include "Rectangle.hpp"
-#include "ColorValuePresenter.hpp"
-#include "RestrictedValuePresenter.hpp"
+#include "views/GameSettings.hpp"
+#include "helpers/Helper.hpp"
+#include "configuration/Settings.hpp"
+#include "anchor_handlers/CenterWindowAnchorHandler.hpp"
+#include "geometry/Rectangle.hpp"
+#include "ui/ColorValuePresenter.hpp"
+#include "abstractions/ui/RestrictedValuePresenter.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE key_color_scheme = {

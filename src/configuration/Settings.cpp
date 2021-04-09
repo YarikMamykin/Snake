@@ -1,5 +1,5 @@
-#include "Settings.hpp"
-#include "ColorPallete.hpp"
+#include "configuration/Settings.hpp"
+#include "color/ColorPallete.hpp"
 #include <exception>
 
 namespace configuration {

@@ -1,7 +1,7 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_TEXTLABEL_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_TEXTLABEL_HPP
+#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_TEXTLABEL_HPP
+#define SRC_INCLUDE_ABSTRACTIONS_UI_TEXTLABEL_HPP
 
-#include "Object.hpp"
+#include "abstractions/ui/Object.hpp"
 
 namespace abstractions::ui {
 
@@ -23,4 +23,5 @@ namespace abstractions::ui {
       virtual ~TextLabel() {};
   };
 }
-#endif /* SRC_INCLUDE_ABSTRACTIONS_TEXTLABEL_HPP */
+
+#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_TEXTLABEL_HPP */

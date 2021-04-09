@@ -1,4 +1,4 @@
-#include "XlibWrapper.hpp"
+#include "xlib/XlibWrapper.hpp"
 
 namespace xlib {
 

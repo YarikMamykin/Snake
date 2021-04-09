@@ -1,15 +1,15 @@
-#include "X11_Window.hpp"
-#include "X11_TextLabel.hpp"
-#include "ViewFactory.hpp"
-#include "Helper.hpp"
+#include "xlib/X11_Window.hpp"
+#include "xlib/X11_TextLabel.hpp"
+#include "views/ViewFactory.hpp"
+#include "helpers/Helper.hpp"
 #include <iostream>
 #include <utility>
-#include "XlibWrapper.hpp"
-#include "Settings.hpp"
-#include "DrawCircle.hpp"
-#include "DrawRectangle.hpp"
-#include "FillRectangle.hpp"
-#include "QueryWindowFrame.hpp"
+#include "xlib/XlibWrapper.hpp"
+#include "configuration/Settings.hpp"
+#include "commands/graphics_commands/DrawCircle.hpp"
+#include "commands/graphics_commands/DrawRectangle.hpp"
+#include "commands/graphics_commands/FillRectangle.hpp"
+#include "commands/synchronous_commands/QueryWindowFrame.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE text_label_color_scheme = {

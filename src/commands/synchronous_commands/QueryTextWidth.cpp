@@ -1,5 +1,5 @@
-#include "QueryTextWidth.hpp"
-#include "XlibWrapper.hpp"
+#include "commands/synchronous_commands/QueryTextWidth.hpp"
+#include "xlib/XlibWrapper.hpp"
 
 namespace commands {
   QueryTextWidth::QueryTextWidth(const std::string& text, 

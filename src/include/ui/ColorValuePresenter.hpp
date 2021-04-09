@@ -1,8 +1,7 @@
 #ifndef SRC_INCLUDE_UI_COLORVALUEPRESENTER_HPP
 #define SRC_INCLUDE_UI_COLORVALUEPRESENTER_HPP
-
-#include "ValuePresenter.hpp"
-#include "X11_ColorLabel.hpp"
+#include "abstractions/ui/ValuePresenter.hpp"
+#include "xlib/X11_ColorLabel.hpp"
 
 namespace ui {
   class ColorValuePresenter : public abstractions::ui::ConfigValuePresenter<color::ColorPallete, xlib::X11_ColorLabel> {
@@ -12,5 +11,6 @@ namespace ui {
       void update_presenter() override;
   };
 }
+
 
 #endif /* SRC_INCLUDE_UI_COLORVALUEPRESENTER_HPP */

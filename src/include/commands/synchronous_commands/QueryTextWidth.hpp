@@ -1,7 +1,7 @@
-#ifndef SRC_INCLUDE_COMMANDS_QUERYTEXTWIDTH_HPP
-#define SRC_INCLUDE_COMMANDS_QUERYTEXTWIDTH_HPP
+#ifndef SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTWIDTH_HPP
+#define SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTWIDTH_HPP
 
-#include "SynchronousCommand.hpp"
+#include "commands/synchronous_commands/SynchronousCommand.hpp"
 #include <string>
 
 namespace commands {
@@ -21,4 +21,5 @@ namespace commands {
   };
 }
 
-#endif /* SRC_INCLUDE_COMMANDS_QUERYTEXTWIDTH_HPP */
+
+#endif /* SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTWIDTH_HPP */

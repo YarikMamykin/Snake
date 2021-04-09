@@ -1,8 +1,8 @@
 #ifndef SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP
 #define SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP
 
-#include "Command.hpp"
-#include "Constants.hpp"
+#include "commands/Command.hpp"
+#include "constants/Constants.hpp"
 
 namespace commands {
 
@@ -17,5 +17,6 @@ namespace commands {
       virtual void execute() override;
   };
 }
+
 
 #endif /* SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP */

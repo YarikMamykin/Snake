@@ -1,7 +1,6 @@
-#ifndef SRC_INCLUDE_THREADING_XLIBTHREAD_HPP
-#define SRC_INCLUDE_THREADING_XLIBTHREAD_HPP
-
-#include "Window.hpp"
+#ifndef SRC_INCLUDE_THREADS_XLIBTHREAD_HPP
+#define SRC_INCLUDE_THREADS_XLIBTHREAD_HPP
+#include "abstractions/ui/Window.hpp"
 #include <functional>
 #include <thread>
 #include <list>
@@ -18,4 +17,5 @@ namespace threading {
   };
 }
 
-#endif /* SRC_INCLUDE_THREADING_XLIBTHREAD_HPP */
+
+#endif /* SRC_INCLUDE_THREADS_XLIBTHREAD_HPP */

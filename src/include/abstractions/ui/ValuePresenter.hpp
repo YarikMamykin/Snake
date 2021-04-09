@@ -1,11 +1,11 @@
 #ifndef SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP
 #define SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP
 
-#include "Object.hpp"
+#include "abstractions/ui/Object.hpp"
 #include <memory>
 #include <functional>
 #include <any>
-#include "Settings.hpp"
+#include "configuration/Settings.hpp"
 
 namespace abstractions::ui {
 
@@ -90,5 +90,6 @@ namespace abstractions::ui {
         virtual ~ConfigValuePresenter<ValueType, ValuePresentingObject>() {}
     };
 }
+
 
 #endif /* SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP */

@@ -1,8 +1,7 @@
 #ifndef SRC_INCLUDE_XLIB_X11_COLORIZEDTEXTLABEL_HPP
 #define SRC_INCLUDE_XLIB_X11_COLORIZEDTEXTLABEL_HPP
-
-#include "X11_TextLabel.hpp"
-#include "ColorPallete.hpp"
+#include "xlib/X11_TextLabel.hpp"
+#include "color/ColorPallete.hpp"
 #include <list>
 
 namespace xlib {
@@ -26,5 +25,6 @@ namespace xlib {
       void update_char_colors();
   };
 }
+
 
 #endif /* SRC_INCLUDE_XLIB_X11_COLORIZEDTEXTLABEL_HPP */

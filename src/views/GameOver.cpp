@@ -1,7 +1,7 @@
-#include "GameOver.hpp"
-#include "CenterWindowAnchorHandler.hpp"
-#include "Settings.hpp"
-#include "ChangeView.hpp"
+#include "views/GameOver.hpp"
+#include "anchor_handlers/CenterWindowAnchorHandler.hpp"
+#include "configuration/Settings.hpp"
+#include "commands/ChangeView.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE color_scheme = {

@@ -1,4 +1,4 @@
-#include "ColorPallete.hpp"
+#include "color/ColorPallete.hpp"
 #include <algorithm>
 
 namespace color {

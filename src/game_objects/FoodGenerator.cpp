@@ -1,6 +1,6 @@
-#include "FoodGenerator.hpp"
-#include "Point.hpp"
-#include "ColorPallete.hpp"
+#include "game_objects/FoodGenerator.hpp"
+#include "geometry/Point.hpp"
+#include "color/ColorPallete.hpp"
 #include <chrono>
 
 namespace {

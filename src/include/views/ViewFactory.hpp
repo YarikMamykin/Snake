@@ -1,13 +1,12 @@
 #ifndef SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP
 #define SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP
-
-#include "Constants.hpp"
-#include "GameMenu.hpp"
-#include "GameAction.hpp"
-#include "GameAbout.hpp"
-#include "GameOver.hpp"
-#include "GameSettings.hpp"
-#include "GameNone.hpp"
+#include "constants/Constants.hpp"
+#include "views/GameMenu.hpp"
+#include "views/GameAction.hpp"
+#include "views/GameAbout.hpp"
+#include "views/GameOver.hpp"
+#include "views/GameSettings.hpp"
+#include "views/GameNone.hpp"
 
 namespace views {
     class ViewFactory {
@@ -26,4 +25,5 @@ namespace views {
         }
     };
 }
+
 #endif /* SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP */

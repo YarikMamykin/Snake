@@ -1,5 +1,5 @@
-#include "X11_Menu.hpp"
-#include "DrawRectangle.hpp"
+#include "xlib/X11_Menu.hpp"
+#include "commands/graphics_commands/DrawRectangle.hpp"
 
 namespace xlib {
   X11_Menu::X11_Menu(const ::ui::LayoutType& layout, 

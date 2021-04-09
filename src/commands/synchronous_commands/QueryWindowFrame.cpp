@@ -1,6 +1,6 @@
-#include "QueryWindowFrame.hpp"
-#include "XlibWrapper.hpp"
-#include "Settings.hpp"
+#include "commands/synchronous_commands/QueryWindowFrame.hpp"
+#include "xlib/XlibWrapper.hpp"
+#include "configuration/Settings.hpp"
 
 namespace commands {
   QueryWindowFrame::QueryWindowFrame(abstractions::ui::Object* window, std::atomic<bool>& trigger) 

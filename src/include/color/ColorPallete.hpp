@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_COLOR_COLORPALLETE_HPP
 #define SRC_INCLUDE_COLOR_COLORPALLETE_HPP
 
-#include "Color.hpp"
+#include "color/Color.hpp"
 #include <list>
 #include <string>
 
@@ -25,4 +25,5 @@ namespace color {
     std::list<Color>::iterator current_color;
   };
 }
+
 #endif /* SRC_INCLUDE_COLOR_COLORPALLETE_HPP */

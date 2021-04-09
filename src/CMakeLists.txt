@@ -1,28 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions/event_handling)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions/specific_values)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions/ui)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/abstractions/views)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/anchor_handlers)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/constants)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/commands)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/commands/graphics_commands)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/commands/synchronous_commands)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/color)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/configuration)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/events)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/exceptions)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/game_objects)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/geometry)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/helpers)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/timing)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/threads)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/views)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xlib)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/ui)
 
 set(XLIB_UI_SRC 
   ${CMAKE_CURRENT_SOURCE_DIR}/xlib/X11_Window.cpp

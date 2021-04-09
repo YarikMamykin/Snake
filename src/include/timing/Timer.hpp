@@ -1,6 +1,5 @@
 #ifndef SRC_INCLUDE_TIMING_TIMER_HPP
 #define SRC_INCLUDE_TIMING_TIMER_HPP
-
 #include <chrono>
 #include <functional>
 #include <future>
@@ -22,5 +21,6 @@ namespace timing {
     bool running() const;
   };
 }
+
 
 #endif /* SRC_INCLUDE_TIMING_TIMER_HPP */

@@ -1,8 +1,8 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_MENU_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_MENU_HPP
+#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_MENU_HPP
+#define SRC_INCLUDE_ABSTRACTIONS_UI_MENU_HPP
 
-#include "Object.hpp"
-#include "Constants.hpp"
+#include "abstractions/ui/Object.hpp"
+#include "constants/Constants.hpp"
 #include <list>
 #include <algorithm>
 #include <memory>
@@ -189,4 +189,5 @@ namespace abstractions::ui {
   };
 }
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_MENU_HPP */
+
+#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_MENU_HPP */

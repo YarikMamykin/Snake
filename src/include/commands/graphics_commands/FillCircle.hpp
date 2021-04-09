@@ -1,7 +1,7 @@
-#ifndef SRC_INCLUDE_COMMANDS_FILLCIRCLE_HPP
-#define SRC_INCLUDE_COMMANDS_FILLCIRCLE_HPP
+#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLCIRCLE_HPP
+#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLCIRCLE_HPP
 
-#include "GraphicsCommand.hpp"
+#include "commands/graphics_commands/GraphicsCommand.hpp"
 
 namespace commands {
   class FillCircle : public GraphicsCommand {
@@ -11,4 +11,5 @@ namespace commands {
       virtual ~FillCircle() override = default;
   };
 }
-#endif /* SRC_INCLUDE_COMMANDS_FILLCIRCLE_HPP */
+
+#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLCIRCLE_HPP */

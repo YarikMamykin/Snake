@@ -1,9 +1,9 @@
 #ifndef SRC_INCLUDE_GAME_OBJECTS_FOOD_HPP
 #define SRC_INCLUDE_GAME_OBJECTS_FOOD_HPP
 
-#include "Rectangle.hpp"
-#include "Color.hpp"
-#include "Timer.hpp"
+#include "geometry/Rectangle.hpp"
+#include "color/Color.hpp"
+#include "timing/Timer.hpp"
 
 namespace game_objects {
   struct Food final {
@@ -16,4 +16,5 @@ namespace game_objects {
     ~Food();
   };
 }
+
 #endif /* SRC_INCLUDE_GAME_OBJECTS_FOOD_HPP */

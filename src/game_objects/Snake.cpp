@@ -1,10 +1,10 @@
-#include "Snake.hpp"
-#include "Exceptions.hpp"
-#include "Settings.hpp"
+#include "game_objects/Snake.hpp"
+#include "exceptions/Exceptions.hpp"
+#include "configuration/Settings.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "FillRectangle.hpp"
+#include "commands/graphics_commands/FillRectangle.hpp"
 
 namespace game_objects {
   class MovementController;

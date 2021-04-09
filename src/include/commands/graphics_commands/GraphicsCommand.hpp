@@ -1,9 +1,9 @@
-#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMAND_GRAPHICSCOMMAND_HPP
-#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMAND_GRAPHICSCOMMAND_HPP
+#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_GRAPHICSCOMMAND_HPP
+#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_GRAPHICSCOMMAND_HPP
 
-#include "Rectangle.hpp" 
-#include "Color.hpp"
-#include "Command.hpp" 
+#include "geometry/Rectangle.hpp" 
+#include "color/Color.hpp"
+#include "commands/Command.hpp" 
 
 namespace commands {
 
@@ -21,4 +21,5 @@ namespace commands {
 
 
 
-#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMAND_GRAPHICSCOMMAND_HPP */
+
+#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_GRAPHICSCOMMAND_HPP */

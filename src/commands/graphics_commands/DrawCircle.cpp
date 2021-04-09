@@ -1,5 +1,5 @@
-#include "DrawCircle.hpp"
-#include "XlibWrapper.hpp"
+#include "commands/graphics_commands/DrawCircle.hpp"
+#include "xlib/XlibWrapper.hpp"
 
 namespace commands {
 

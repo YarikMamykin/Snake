@@ -1,7 +1,7 @@
-#ifndef SRC_INCLUDE_COMMANDS_FILLRECTANGLE_HPP
-#define SRC_INCLUDE_COMMANDS_FILLRECTANGLE_HPP
+#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLRECTANGLE_HPP
+#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLRECTANGLE_HPP
 
-#include "GraphicsCommand.hpp"
+#include "commands/graphics_commands/GraphicsCommand.hpp"
 
 namespace commands {
   class FillRectangle : public GraphicsCommand {
@@ -11,4 +11,5 @@ namespace commands {
       virtual ~FillRectangle() override = default;
   };
 }
-#endif /* SRC_INCLUDE_COMMANDS_FILLRECTANGLE_HPP */
+
+#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLRECTANGLE_HPP */

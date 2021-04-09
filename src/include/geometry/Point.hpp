@@ -3,7 +3,7 @@
 
 #include <string>
 #include <sstream>
-#include "Constants.hpp"
+#include "constants/Constants.hpp"
 
 namespace geometry {
   struct Point {
@@ -69,6 +69,7 @@ namespace geometry {
     }
   };
 }
+
 
 
 #endif /* SRC_INCLUDE_GEOMETRY_POINT_HPP */

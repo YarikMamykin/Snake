@@ -1,7 +1,7 @@
-#ifndef SRC_INCLUDE_COMMANDS_DRAWRECTANGLE_HPP
-#define SRC_INCLUDE_COMMANDS_DRAWRECTANGLE_HPP
+#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWRECTANGLE_HPP
+#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWRECTANGLE_HPP
 
-#include "GraphicsCommand.hpp"
+#include "commands/graphics_commands/GraphicsCommand.hpp"
 
 namespace commands {
   class DrawRectangle : public GraphicsCommand {
@@ -11,4 +11,5 @@ namespace commands {
       virtual ~DrawRectangle() override = default;
   };
 }
-#endif /* SRC_INCLUDE_COMMANDS_DRAWRECTANGLE_HPP */
+
+#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWRECTANGLE_HPP */

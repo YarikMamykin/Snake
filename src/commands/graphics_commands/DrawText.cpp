@@ -1,5 +1,5 @@
-#include "DrawText.hpp"
-#include "XlibWrapper.hpp"
+#include "commands/graphics_commands/DrawText.hpp"
+#include "xlib/XlibWrapper.hpp"
 
 namespace commands {
   DrawText::DrawText(const std::string& text, const geometry::Point& top_left, const color::Color& color)

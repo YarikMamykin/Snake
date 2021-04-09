@@ -1,8 +1,8 @@
 #ifndef SRC_INCLUDE_ANCHOR_HANDLERS_CENTERWINDOWANCHORHANDLER_HPP
 #define SRC_INCLUDE_ANCHOR_HANDLERS_CENTERWINDOWANCHORHANDLER_HPP
 
-#include "Window.hpp"
-#include "Point.hpp"
+#include "abstractions/ui/Window.hpp"
+#include "geometry/Point.hpp"
 
 namespace ui {
 
@@ -17,6 +17,7 @@ namespace ui {
       geometry::Point get_window_center();
   };
 }
+
 
 
 
