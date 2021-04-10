@@ -9,6 +9,7 @@
 #include <functional>
 #include <string>
 #include <sstream>
+#include <array>
 
 namespace geometry {
   /*
@@ -91,18 +92,15 @@ namespace geometry {
     }
 
     bool belongs_to(const Rectangle& rect) const {
-      const auto&& tr = top_right();
-      const auto&& tl = top_left();
-      const auto&& bl = bottom_left();
-      const auto&& br = bottom_right();
-
-      bool result = true;
-      for(auto& point : { tr, tl, bl, br }) {
-        result &= (point.x >= rect.x && point.x <= rect.x + rect.width 
-            && point.y >= rect.y && point.y <= rect.y + rect.height);
-      }
-
-      return result;
+      std::array<Point, 4> rectangle_points { top_right(), top_left(), bottom_left(), bottom_right() };
+      auto check = [rect](const Point& point) {
+        bool&& check1 = point.x >= rect.x;
+        bool&& check2 = point.x <= rect.x + rect.width;
+        bool&& check3 = point.y >= rect.y; 
+        bool&& check4 = point.y <= rect.y + rect.height; 
+        return check1 && check2 && check3 && check4;
+      };
+      return std::all_of(rectangle_points.begin(), rectangle_points.end(), check);
     }
 
     void rotate(const game_objects::RotationDirection&& rotation_direction, const Point&& rotation_point) {
