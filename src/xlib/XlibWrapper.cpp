@@ -78,8 +78,7 @@ namespace xlib {
 		XFlushGC(display, graphical_context);
 		XFlush(display);
 		auto&& win_attr = get_window_attributes();
-		fill_rectangle({0,0,win_attr.width, win_attr.height}, 
-									 std::forward<color::Color>(window_color_scheme.at(color::ColorSchemeID::BackgroundColor)));
+		fill_rectangle({0,0,win_attr.width, win_attr.height}, window_color_scheme.at(color::ColorSchemeID::BackgroundColor));
 	}
 
 	void XlibWrapper::destroy_window() {
@@ -88,28 +87,28 @@ namespace xlib {
 		close_display();
 	}
 
-	void XlibWrapper::draw_rectangle(geometry::Rectangle&& r, color::Color&& color) { 
+	void XlibWrapper::draw_rectangle(const geometry::Rectangle& r, const color::Color& color) { 
 		XSetLineAttributes(display, graphical_context, 3u,0,0,0);
 		XSetForeground(display, graphical_context, color);
 		XDrawRectangle(display, window, graphical_context, r.x, r.y, r.width, r.height);
 	}
 
-	void XlibWrapper::fill_rectangle(geometry::Rectangle&& r, color::Color&& color) {
+	void XlibWrapper::fill_rectangle(const geometry::Rectangle& r, const color::Color& color) {
 		XSetForeground(display, graphical_context, color);
 		XFillRectangle(display, window, graphical_context, r.x, r.y, r.width, r.height);
 	}
 
-	void XlibWrapper::draw_circle(geometry::Rectangle&& r, color::Color&& color) {
+	void XlibWrapper::draw_circle(const geometry::Rectangle& r, const color::Color& color) {
 		XSetForeground(display, graphical_context, color);
 		XDrawArc(display, window, graphical_context, r.x, r.y, r.width, r.height, 0, 360*64); // angle is specified as <degrees> * 64
 	}
 
-	void XlibWrapper::fill_circle(geometry::Rectangle&& r, color::Color&& color) {
+	void XlibWrapper::fill_circle(const geometry::Rectangle& r, const color::Color& color) {
 		XSetForeground(display, graphical_context, color);
 		XFillArc(display, window, graphical_context, r.x, r.y, r.width, r.height, 0, 360*64); // angle is specified as <degrees> * 64
 	}
 
-	void XlibWrapper::draw_text(geometry::Point&& p, color::Color&& color, const std::string& text) {
+	void XlibWrapper::draw_text(const geometry::Point& p, const color::Color& color, const std::string& text) {
     XSetForeground(display, graphical_context, color);
     XDrawString(display, window, graphical_context, p.x, p.y, text.c_str(), text.length());
 	}

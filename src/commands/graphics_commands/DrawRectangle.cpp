@@ -7,8 +7,6 @@ namespace commands {
   : GraphicsCommand(rectangle, color) { }
 
   void DrawRectangle::execute() {
-    xlib::XlibWrapper::self()->draw_rectangle(std::forward<geometry::Rectangle>(rectangle), 
-                                              std::forward<color::Color>(color));
+    xlib::XlibWrapper::self()->draw_rectangle(rectangle, color);
   }
-
 }

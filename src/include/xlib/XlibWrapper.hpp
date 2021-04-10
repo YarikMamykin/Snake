@@ -33,13 +33,13 @@ namespace xlib {
       void redraw_window_background();
       void destroy_window();
 
-      void draw_rectangle(geometry::Rectangle&& r, color::Color&& color);
-      void fill_rectangle(geometry::Rectangle&& r, color::Color&& color);
+      void draw_rectangle(const geometry::Rectangle& r, const color::Color& color);
+      void fill_rectangle(const geometry::Rectangle& r, const color::Color& color);
 
-      void draw_circle(geometry::Rectangle&& r, color::Color&& color);
-      void fill_circle(geometry::Rectangle&& r, color::Color&& color);
+      void draw_circle(const geometry::Rectangle& r, const color::Color& color);
+      void fill_circle(const geometry::Rectangle& r, const color::Color& color);
 
-      void draw_text(geometry::Point&& p, color::Color&& color, const std::string& text);
+      void draw_text(const geometry::Point& p, const color::Color& color, const std::string& text);
       const unsigned int get_text_width(const std::string& text);
       const unsigned int get_text_height();
 
