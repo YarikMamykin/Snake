@@ -84,3 +84,4 @@ function! Switch()
 endfunction
 
 set wildignore+=*/build/*
+set wildignore+=*/googletest/*
