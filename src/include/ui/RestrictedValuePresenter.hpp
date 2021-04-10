@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUEPRESENTER_HPP
 #define SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUEPRESENTER_HPP
 
-#include "abstractions/ui/RestrictedValue.hpp"
+#include "abstractions/values/RestrictedValue.hpp"
 #include "abstractions/ui/ValuePresenter.hpp"
 #include "xlib/X11_TextLabel.hpp"
 #include <memory>

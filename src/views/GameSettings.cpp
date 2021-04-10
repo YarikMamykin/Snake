@@ -4,7 +4,7 @@
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"
 #include "geometry/Rectangle.hpp"
 #include "ui/ColorValuePresenter.hpp"
-#include "abstractions/ui/RestrictedValuePresenter.hpp"
+#include "ui/RestrictedValuePresenter.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE key_color_scheme = {
