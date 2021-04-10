@@ -108,7 +108,7 @@ namespace geometry {
         return;
       }
 
-      std::vector<Point> points = {top_left(), top_right(), bottom_left(), bottom_right()};
+      std::array points {top_left(), top_right(), bottom_left(), bottom_right()};
       std::for_each(points.begin(), points.end(), [&rotation_direction, &rotation_point](Point& p) -> void { 
           p.rotate(game_objects::RotationDirection(rotation_direction), Point(rotation_point)); 
       });
