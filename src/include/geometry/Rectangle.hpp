@@ -92,7 +92,7 @@ namespace geometry {
     }
 
     bool belongs_to(const Rectangle& rect) const {
-      std::array<Point, 4> rectangle_points { top_right(), top_left(), bottom_left(), bottom_right() };
+      std::array rectangle_points { top_right(), top_left(), bottom_left(), bottom_right() };
       auto check = [rect](const Point& point) {
         bool&& check1 = point.x >= rect.x;
         bool&& check2 = point.x <= rect.x + rect.width;
