@@ -120,25 +120,7 @@ namespace game_objects {
 
   void Snake::move(const game_objects::SnakeDirection& direction) {
     
-    RotationDirection rotation_direction = RotationDirection::NONE;
-    const bool direction_opposite_to_current = is_opposite_to_current(direction);
-
-    if (direction != current_direction && !direction_opposite_to_current) {
-      switch(direction) {
-        case SnakeDirection::Up: 
-          rotation_direction = (current_direction == SnakeDirection::Left ? RotationDirection::Clockwize
-                                                              : RotationDirection::Counterclockwize); break;
-        case SnakeDirection::Down: 
-          rotation_direction = (current_direction == SnakeDirection::Left ? RotationDirection::Counterclockwize
-                                                              : RotationDirection::Clockwize); break;
-        case SnakeDirection::Left: 
-          rotation_direction = (current_direction == SnakeDirection::Up ? RotationDirection::Counterclockwize
-                                                            : RotationDirection::Clockwize); break;
-        case SnakeDirection::Right: 
-          rotation_direction = (current_direction == SnakeDirection::Up ? RotationDirection::Clockwize 
-                                                            : RotationDirection::Counterclockwize); break;
-      }
-    }
+    RotationDirection rotation_direction = define_rotation_direction(direction);
 
     this->hide();
 
@@ -191,6 +173,24 @@ namespace game_objects {
 
 
     return up_down || down_up || left_right || right_left;
+  }
+
+  RotationDirection Snake::define_rotation_direction(const SnakeDirection& direction) const {
+    if(is_opposite_to_current(direction)) return RotationDirection::NONE; 
+    if(direction == current_direction) return RotationDirection::NONE; 
+
+    switch(direction) {
+      case SnakeDirection::Up:
+        return current_direction == SnakeDirection::Left ? RotationDirection::Clockwize : RotationDirection::Counterclockwize; 
+      case SnakeDirection::Down:
+        return current_direction == SnakeDirection::Left ? RotationDirection::Counterclockwize : RotationDirection::Clockwize;
+      case SnakeDirection::Left:
+        return current_direction == SnakeDirection::Up ? RotationDirection::Counterclockwize : RotationDirection::Clockwize;
+      case SnakeDirection::Right:
+        return current_direction == SnakeDirection::Up ? RotationDirection::Clockwize : RotationDirection::Counterclockwize;
+    }
+
+    return RotationDirection::NONE; 
   }
 
   void Snake::increase() {
