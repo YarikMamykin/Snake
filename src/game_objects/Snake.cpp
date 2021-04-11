@@ -135,7 +135,7 @@ namespace game_objects {
 
     this->show();
 
-    if(!direction_opposite_to_current) {
+    if(!is_opposite_to_current(direction)) {
       parts.front().old_direction = current_direction;
       current_direction = direction;
     }
@@ -161,7 +161,7 @@ namespace game_objects {
     }
   }
 
-  bool Snake::is_opposite_to_current(const game_objects::SnakeDirection& direction) {
+  bool Snake::is_opposite_to_current(const game_objects::SnakeDirection& direction) const {
     const auto&& up_down = (current_direction == SnakeDirection::Up && 
                             direction == SnakeDirection::Down);
     const auto&& down_up = (current_direction == SnakeDirection::Down && 
