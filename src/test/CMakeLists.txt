@@ -25,7 +25,7 @@ gtest
 gtest_main
 xlib_ui 
 events 
-game_view
+game_views
 helpers
 timer
 game_objects
