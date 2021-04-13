@@ -3,14 +3,15 @@
 #include "xlib/XlibWrapper.hpp"
 #include "configuration/Settings.hpp"
 #include "commands/ChangeView.hpp"
+#include "xlib/X11_Window.hpp"
 #include <memory>
 #include <thread>
 #include <functional>
 
 namespace threading {
 
-  XlibThread::XlibThread(std::list<std::function<void()>>& ui_event_queue, abstractions::ui::AWindow* x_window_raw, bool& run) 
-  : xlib_thread([&ui_event_queue, x_window_raw, &run]() {
+  XlibThread::XlibThread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
+  : xlib_thread(std::async(std::launch::async, [&ui_event_queue, &run, x_window = std::make_unique<xlib::X11_Window>(views::ViewID::NONE)]() {
     XInitThreads();
 
       using namespace configuration;
@@ -23,6 +24,7 @@ namespace threading {
 
     xlib::XlibWrapper::self()->select_events_to_process();
 
+    auto* x_window_raw = x_window.get();
     events::EventDispatcher edispatcher;
     XEvent event;
     auto&& thread_sleep_timeout = config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT);
@@ -39,15 +41,14 @@ namespace threading {
       if(!queue_empty) {
         std::unique_ptr<commands::Command> command = commands::Command::pop_xlib_command(); // DON'T USE auto HERE!
         command->execute();
-      } else {
-        std::this_thread::sleep_for(thread_sleep_timeout);
-      }
+        continue;
+      } 
+
+      std::this_thread::sleep_for(thread_sleep_timeout);
     }
 
     xlib::XlibWrapper::self()->destroy_window();
-  }) { }
+  })) { }
 
-  XlibThread::~XlibThread() {
-    xlib_thread.join();
-  }
+  XlibThread::~XlibThread() = default;
 }
