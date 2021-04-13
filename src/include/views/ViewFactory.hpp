@@ -7,21 +7,21 @@
 #include "views/GameOver.hpp"
 #include "views/GameSettings.hpp"
 #include "views/GameNone.hpp"
+#include <memory>
 
 namespace views {
     class ViewFactory {
       public:
         static std::unique_ptr<View> get_view(ViewID id) {
-          std::unique_ptr<View> new_view;
           switch(id) {
-            case ViewID::ACTION:  new_view.reset(new GameAction); break;
-            case ViewID::ABOUT:  new_view.reset(new GameAbout); break;
-            case ViewID::MENU:  new_view.reset(new GameMenu); break;
-            case ViewID::OVER:  new_view.reset(new GameOver); break;
-            case ViewID::SETTINGS:  new_view.reset(new GameSettings); break;
-            default:  new_view.reset(new GameNone); break;
+            case ViewID::ACTION:    return std::make_unique<GameAction>(); 
+            case ViewID::ABOUT:     return std::make_unique<GameAbout>(); 
+            case ViewID::MENU:      return std::make_unique<GameMenu>(); 
+            case ViewID::OVER:      return std::make_unique<GameOver>();
+            case ViewID::SETTINGS:  return std::make_unique<GameSettings>();
+            default: break;
           }
-          return new_view;
+          return std::make_unique<GameNone>();
         }
     };
 }
