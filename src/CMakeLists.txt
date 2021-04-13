@@ -75,26 +75,24 @@ set(THREADS_SRC
   ${CMAKE_CURRENT_SOURCE_DIR}/threads/UI_Thread.cpp
  )
 
-add_library(xlib_ui STATIC ${XLIB_UI_SRC})
-add_library(events STATIC ${EVENTS_SRC})
-add_library(game_view STATIC ${GAME_VIEW_SRC})
-add_library(helpers STATIC ${HELPERS_SRC})
-add_library(timer STATIC ${TIMER_SRC})
-add_library(game_objects STATIC ${GAME_OBJECTS_SRC})
-add_library(presenters STATIC ${PRESENTERS_SRC})
-add_library(color STATIC ${COLOR_SRC})
+add_library(xlib_ui SHARED ${XLIB_UI_SRC})
+add_library(events SHARED ${EVENTS_SRC})
+add_library(game_views SHARED ${GAME_VIEW_SRC})
+add_library(helpers SHARED ${HELPERS_SRC})
+add_library(timer SHARED ${TIMER_SRC})
+add_library(game_objects SHARED ${GAME_OBJECTS_SRC})
+add_library(presenters SHARED ${PRESENTERS_SRC})
+add_library(color SHARED ${COLOR_SRC})
+add_library(anchor_handlers SHARED ${ANCHOR_HANDLERS})
+add_library(commands SHARED ${COMMANDS_SRC})
 add_library(settings STATIC ${SETTINGS_SRC})
-add_library(anchor_handlers STATIC ${ANCHOR_HANDLERS})
-add_library(commands STATIC ${COMMANDS_SRC})
 add_library(threads STATIC ${THREADS_SRC})
 
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
-target_link_libraries(events xlib_ui)
-target_link_libraries(threads events)
 target_link_libraries(${PROJECT_NAME} 
 xlib_ui 
 events 
-game_view
+game_views
 helpers
 timer
 game_objects
