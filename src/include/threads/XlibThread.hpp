@@ -5,7 +5,7 @@
 #include <future>
 #include <list>
 
-namespace threading {
+namespace threads {
   class XlibThread { 
     private:
       std::future<void> xlib_thread;

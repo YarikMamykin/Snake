@@ -2,7 +2,7 @@
 #include "configuration/Settings.hpp"
 #include "commands/ChangeView.hpp"
 
-namespace threading {
+namespace threads {
   UI_Thread::UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
   : run(run)
   , ui_thread(std::async(std::launch::async, [&ui_event_queue, &run]() {

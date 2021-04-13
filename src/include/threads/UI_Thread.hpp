@@ -4,7 +4,7 @@
 #include <future>
 #include <list>
 
-namespace threading {
+namespace threads {
   class UI_Thread { 
     private:
       std::future<void> ui_thread;

@@ -8,7 +8,7 @@
 #include <thread>
 #include <functional>
 
-namespace threading {
+namespace threads {
 
   XlibThread::XlibThread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
   : xlib_thread(std::async(std::launch::async, [&ui_event_queue, &run, x_window = std::make_unique<xlib::X11_Window>(views::ViewID::NONE)]() {
