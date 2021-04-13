@@ -73,6 +73,7 @@ set(COMMANDS_SRC
 set(THREADS_SRC
   ${CMAKE_CURRENT_SOURCE_DIR}/threads/XlibThread.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/threads/UI_Thread.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/threads/ThreadDispatcher.cpp
  )
 
 add_library(xlib_ui SHARED ${XLIB_UI_SRC})
