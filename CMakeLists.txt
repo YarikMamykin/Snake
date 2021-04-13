@@ -10,6 +10,3 @@ link_libraries(${X11_LIBRARIES})
 include_directories(${X11_INCLUDE_DIR})
 
 add_subdirectory(src)
-if(${UNIT_TESTS})
-  add_subdirectory(test)
-endif()

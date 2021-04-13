@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Timer.hpp"
+#include "timing/Timer.hpp"
 
 namespace {
     const auto&& test_timeout = std::chrono::milliseconds(10u);

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Rectangle.hpp"
+#include "geometry/Rectangle.hpp"
 #include <utility>
 #include <iostream>
 

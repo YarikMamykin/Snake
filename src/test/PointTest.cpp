@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Point.hpp"
+#include "geometry/Point.hpp"
 #include <utility>
 
 namespace geometry_test {

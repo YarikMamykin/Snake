@@ -105,3 +105,8 @@ anchor_handlers
 commands
 threads
 )
+
+
+if(${UNIT_TESTS})
+  add_subdirectory(test)
+endif()
