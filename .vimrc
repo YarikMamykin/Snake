@@ -2,12 +2,12 @@ let $VIM_BUILD_FOLDER='build'
 let $VIM_SRC_FOLDER='..'
 let $VIM_BIN_NAME='Snake'
 let $VIM_BIN_FOLDER='build/src'
-let $VIM_COMPILE_COMMAND="cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES"
+let $VIM_COMPILE_COMMAND="cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DUNIT_TESTS=YES"
 let $VIM_BUILD_COMMAND='make'
 let $VIM_INSTALL_COMMAND='true'
 let $COMPILE_COMMANDS_JSON='compile_commands.json'
 let $VIM_TESTS_BIN_NAME='runUnitTests'
-let $VIM_TESTS_BIN_FOLDER='build/test'
+let $VIM_TESTS_BIN_FOLDER='build/src/test'
 
 function! TagIt()
   silent !rm -frv tags 
