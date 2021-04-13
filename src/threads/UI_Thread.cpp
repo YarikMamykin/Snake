@@ -1,25 +1,25 @@
 #include "threads/UI_Thread.hpp"
 #include "configuration/Settings.hpp"
+#include "commands/ChangeView.hpp"
 
 namespace threading {
   UI_Thread::UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
-  : ui_thread([&ui_event_queue, &run]() {
-    try {
+  : run(run)
+  , ui_thread(std::async(std::launch::async, [&ui_event_queue, &run]() {
       auto&& thread_sleep_timeout = config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT);
+      commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::MENU));
       for(;run;) {
         if(!ui_event_queue.empty()) {
           ui_event_queue.front()();
           ui_event_queue.pop_front();
-        } else {
-          std::this_thread::sleep_for(thread_sleep_timeout);
-        }
+          continue;
+        } 
+        std::this_thread::sleep_for(thread_sleep_timeout);
       }
-    } catch(...) {
-			run = false;
-    }
-  }) { }
+    })) { }
 
   UI_Thread::~UI_Thread() {
-    ui_thread.join();
+    try { ui_thread.get(); }
+    catch(...) { run = false; }
   }
 }
