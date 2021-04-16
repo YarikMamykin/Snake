@@ -1,7 +1,6 @@
 #include "game_objects/Snake.hpp"
 #include "exceptions/Exceptions.hpp"
 #include "configuration/Settings.hpp"
-#include <iostream>
 #include <vector>
 #include <algorithm>
 #include "commands/graphics_commands/FillRectangle.hpp"
