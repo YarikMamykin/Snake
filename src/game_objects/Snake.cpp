@@ -10,21 +10,13 @@ namespace game_objects {
   class Snake;
   class SnakeHead;
 
-  Snake::SnakeHead::SnakeHead(const color::Color color, 
-                              geometry::Rectangle&& frame, 
-                              SnakeDirection&& direction, 
-                              RotationDirection&& rotation_direction, 
-                              const unsigned int& spacing) 
+  Snake::SnakeHead::SnakeHead(geometry::Rectangle&& frame, SnakeDirection&& direction, RotationDirection&& rotation_direction) 
   : frame(frame) 
   , direction(std::forward<SnakeDirection>(direction))
-  , rotation_direction(std::forward<RotationDirection>(rotation_direction))
-  , spacing(spacing) 
-  , step(std::max(frame.width, frame.height) + spacing) 
-  , shift(std::min(frame.width, frame.height))
-  , head_color(color) { this->old_direction = direction; }
+  , rotation_direction(std::forward<RotationDirection>(rotation_direction)) 
+  , old_direction(direction) {}
 
   void Snake::SnakeHead::hide() {
-    auto background_color = config::get_concrete_ref<color::COLOR_SCHEME_TYPE>(config_id::WINDOW_COLOR_SCHEME).at(color::ColorSchemeID::BackgroundColor);
     commands::Command::push_xlib_command(new commands::FillRectangle(frame, background_color));
   }
 
@@ -112,6 +104,11 @@ namespace game_objects {
 
     parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
     parts.back().frame.set_center(100, win_frame.height/2u);
+    SnakeHead::step = std::max(head_shape.width, head_shape.height) + SnakeHead::spacing;
+    SnakeHead::shift = std::min(head_shape.width, head_shape.height);
+    SnakeHead::head_color = color;
+    SnakeHead::background_color = config::get_concrete_ref<color::COLOR_SCHEME_TYPE>(config_id::WINDOW_COLOR_SCHEME).at(color::ColorSchemeID::BackgroundColor);
+    parts.emplace_back(SnakeHead(std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE));
   }
 
   Snake::~Snake() {
@@ -180,35 +177,33 @@ namespace game_objects {
 
   void Snake::increase() {
     const auto& tail_end = parts.back();
-    const auto& tail_end_color = tail_end.head_color;
     const auto& tail_end_frame = tail_end.frame;
     const auto& tail_end_direction = tail_end.old_direction;
     const auto& tail_end_rotation_direction = tail_end.rotation_direction;
-    const auto& spacing = tail_end.spacing;
     geometry::Rectangle&& new_part_frame {};
 
     switch(tail_end_direction) {
       case SnakeDirection::Down: 
         {
           new_part_frame.x = tail_end_frame.x;
-          new_part_frame.y = tail_end_frame.y - tail_end_frame.height - spacing;
+          new_part_frame.y = tail_end_frame.y - tail_end_frame.height - SnakeHead::spacing;
           break;
         }
       case SnakeDirection::Up:
         {
           new_part_frame.x = tail_end_frame.x;
-          new_part_frame.y = tail_end_frame.y + tail_end_frame.height + spacing;
+          new_part_frame.y = tail_end_frame.y + tail_end_frame.height + SnakeHead::spacing;
           break;
         }
       case SnakeDirection::Left:
         {
-          new_part_frame.x = tail_end_frame.x + tail_end_frame.width + spacing;
+          new_part_frame.x = tail_end_frame.x + tail_end_frame.width + SnakeHead::spacing;
           new_part_frame.y = tail_end_frame.y;
           break;
         }
       case SnakeDirection::Right:
         {
-          new_part_frame.x = tail_end_frame.x - tail_end_frame.width - spacing;
+          new_part_frame.x = tail_end_frame.x - tail_end_frame.width - SnakeHead::spacing;
           new_part_frame.y = tail_end_frame.y;
           break;
         }
@@ -217,12 +212,7 @@ namespace game_objects {
     new_part_frame.width = tail_end_frame.width;
     new_part_frame.height = tail_end_frame.height;
 
-
-    parts.emplace_back(SnakeHead(tail_end_color,
-          std::move(new_part_frame),
-          SnakeDirection(tail_end_direction),
-          RotationDirection::NONE,
-          spacing));
+    parts.emplace_back(SnakeHead(std::move(new_part_frame), SnakeDirection(tail_end_direction), RotationDirection::NONE));
   }
 
   const size_t Snake::size() const {

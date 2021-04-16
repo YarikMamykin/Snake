@@ -27,24 +27,24 @@ namespace game_objects {
 
     private:
       struct SnakeHead {
-        const unsigned int step;
-        const unsigned int shift;
-        const unsigned int spacing;
+        static inline unsigned int step;
+        static inline unsigned int shift;
+        static constexpr inline unsigned int spacing = 10u;
+        static inline color::Color head_color;
+        static inline color::Color background_color;
+
         geometry::Rectangle frame;
-        color::Color head_color;
         SnakeDirection direction;
         SnakeDirection old_direction;
         RotationDirection rotation_direction;
 
-        SnakeHead(const color::Color color, 
-                  geometry::Rectangle&& frame, 
+        SnakeHead(geometry::Rectangle&& frame, 
                   SnakeDirection&& direction,
-                  RotationDirection&& rotation_direction,
-                  const unsigned int& spacing);
         SnakeHead(SnakeHead&&) = default;
         void show();
         void hide();
         void move();
+                  RotationDirection&& rotation_direction);
 
         inline void handle_none_rotation();
         inline geometry::Point get_counter_clockwize_rotation_point();
