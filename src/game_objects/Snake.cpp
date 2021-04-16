@@ -21,7 +21,6 @@ namespace game_objects {
   }
 
   void Snake::SnakeHead::show() {
-    if(frame.x < 0 || frame.y < 0) return;
     commands::Command::push_xlib_command(new commands::FillRectangle(frame, head_color));
   }
 
