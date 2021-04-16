@@ -29,13 +29,13 @@ namespace game_objects {
     switch(rotation_direction) {
       case RotationDirection::Clockwize: 
         {
-          this->frame.rotate(RotationDirection(rotation_direction), std::move(get_clockwize_rotation_point()));
+          this->frame.rotate(rotation_direction, get_clockwize_rotation_point());
           this->handle_shift_after_clockwize_rotation();
           break;
         }
       case RotationDirection::Counterclockwize: 
         {
-          this->frame.rotate(RotationDirection(rotation_direction), std::move(get_counter_clockwize_rotation_point()));
+          this->frame.rotate(rotation_direction, get_counter_clockwize_rotation_point());
           this->handle_shift_after_counter_clockwize_rotation();
           break;
         }
