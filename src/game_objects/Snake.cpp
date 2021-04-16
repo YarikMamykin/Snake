@@ -121,18 +121,16 @@ namespace game_objects {
     
     RotationDirection rotation_direction = define_rotation_direction(direction);
 
-    this->hide();
+    SnakeDirection direction_buffer = SnakeDirection::Down;
+    RotationDirection rotation_direction_buffer = RotationDirection::NONE;
 
     for(auto& part : parts) {
+      part.hide();
       part.move();
+      part.show();
+      std::swap(part.direction, direction_buffer);
+      std::swap(part.rotation_direction, rotation_direction_buffer);
     }
-
-    for(auto parts_iter = std::next(parts.rbegin()); parts_iter != parts.rend(); ++parts_iter) {
-      std::prev(parts_iter)->direction = parts_iter->direction;
-      std::prev(parts_iter)->rotation_direction = parts_iter->rotation_direction;
-    }
-
-    this->show();
 
     if(!is_opposite_to_current(direction)) {
       parts.front().old_direction = current_direction;
