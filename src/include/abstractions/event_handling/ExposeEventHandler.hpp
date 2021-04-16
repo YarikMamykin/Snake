@@ -8,9 +8,10 @@
 namespace events {
 
   class ExposeEventHandler : virtual public EventHandlingObject {
+    protected:
+      ExposeEventHandler() : EventHandlingObject() { mask = make_mask(mask, HandlersMask::ExposeEventHandlerMask); }
     public:
       virtual void handle_expose_event() = 0;
-      virtual const int get_event_handling_mask() const { return HandlersMask::ExposeEventHandlerMask; }
       virtual ~ExposeEventHandler() {};
   };
 

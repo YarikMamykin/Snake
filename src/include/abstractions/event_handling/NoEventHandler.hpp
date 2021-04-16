@@ -8,8 +8,9 @@
 namespace events {
 
   class NoEventHandler : virtual public EventHandlingObject {
+    protected:
+      NoEventHandler() : EventHandlingObject() {}
     public:
-      virtual const int get_event_handling_mask() const { return HandlersMask::NoEventHandlerMask; }
       virtual ~NoEventHandler() {};
   };
 

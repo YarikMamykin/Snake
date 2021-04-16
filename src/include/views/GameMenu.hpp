@@ -32,7 +32,6 @@ namespace views {
     public:
       void activate() override;
       void handle_key_press(const KeySym& key_sym, const unsigned int& mask) override;
-      const int get_event_handling_mask() const override;
 
     private:
       void update();

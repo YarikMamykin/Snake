@@ -1,7 +1,6 @@
 #ifndef SRC_INCLUDE_XLIB_X11_WINDOW_HPP
 #define SRC_INCLUDE_XLIB_X11_WINDOW_HPP
-#include "xlib/XHeaders.hpp"
-#include <string>
+
 #include "abstractions/event_handling/MouseMotionHandler.hpp"
 #include "abstractions/event_handling/ClientMessageHandler.hpp"
 #include "abstractions/event_handling/ExposeEventHandler.hpp"
@@ -38,7 +37,6 @@ namespace xlib {
     void handle_mouse_motion(const int& x, const int& y) override;
     void handle_client_message(const long* data) override;
     void handle_expose_event() override;
-    const int get_event_handling_mask() const override;
 
     std::unique_ptr<views::View> view;
   };

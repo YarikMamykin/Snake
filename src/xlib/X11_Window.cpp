@@ -94,11 +94,4 @@ namespace xlib {
   void X11_Window::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     dynamic_cast<KeyPressHandler*>(this->view.get())->handle_key_press(key_sym, mask);
   }
-
-  const int X11_Window::get_event_handling_mask() const {
-    return dynamic_cast<EventHandlingObject*>(this->view.get())->get_event_handling_mask() 
-           | events::HandlersMask::ClientMessageHandlerMask 
-           | events::HandlersMask::MouseMotionHandlerMask 
-           | events::HandlersMask::ExposeEventHandlerMask;
-  }
 }

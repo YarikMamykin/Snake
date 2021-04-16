@@ -62,8 +62,4 @@ namespace views {
   GameMenu::Item* GameMenu::current_item_as_game_menu_item(const abstractions::ui::Menu& menu) {
     return static_cast<GameMenu::Item*>(menu.get_current_item()->get());
   }
-
-  const int GameMenu::get_event_handling_mask() const {
-    return events::KeyPressHandler::get_event_handling_mask();
-  }
 }
