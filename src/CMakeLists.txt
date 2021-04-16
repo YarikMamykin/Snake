@@ -86,8 +86,8 @@ add_library(presenters SHARED ${PRESENTERS_SRC})
 add_library(color SHARED ${COLOR_SRC})
 add_library(anchor_handlers SHARED ${ANCHOR_HANDLERS})
 add_library(commands SHARED ${COMMANDS_SRC})
-add_library(settings STATIC ${SETTINGS_SRC})
-add_library(threads STATIC ${THREADS_SRC})
+add_library(settings SHARED ${SETTINGS_SRC})
+add_library(threads SHARED ${THREADS_SRC})
 
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 target_link_libraries(${PROJECT_NAME} 
