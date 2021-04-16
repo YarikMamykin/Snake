@@ -40,11 +40,11 @@ namespace game_objects {
 
         SnakeHead(geometry::Rectangle&& frame, 
                   SnakeDirection&& direction,
-        SnakeHead(SnakeHead&&) = default;
-        void show();
-        void hide();
-        void move();
                   RotationDirection&& rotation_direction);
+        SnakeHead(SnakeHead&&) noexcept = default;
+        inline void show();
+        inline void hide();
+        inline void move();
 
         inline void handle_none_rotation();
         inline geometry::Point get_counter_clockwize_rotation_point();
