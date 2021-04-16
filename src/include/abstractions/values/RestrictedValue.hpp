@@ -15,7 +15,7 @@ namespace abstractions::values {
       public:
         RestrictedValue<ValueType>() = delete;
         RestrictedValue<ValueType>(const RestrictedValue<ValueType>&) = default; 
-        RestrictedValue<ValueType>(const ValueType& value, 
+        constexpr RestrictedValue<ValueType>(const ValueType& value, 
                                    const ValueType& min, 
                                    const ValueType& max, 
                                    unsigned int&& iteration_step = 1u) 
