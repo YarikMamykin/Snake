@@ -6,7 +6,6 @@
 #include <random>
 #include <any>
 #include "geometry/Rectangle.hpp"
-#include "abstractions/values/RestrictedValue.hpp"
 
 namespace configuration {
   enum class ConfigID {

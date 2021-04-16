@@ -4,10 +4,10 @@
 
 namespace abstractions_testing {
   
-  using namespace abstractions;
+  using namespace abstractions::values;
 
   TEST(RestrictedValueTest, SetValueInBounds) {
-    auto restricted_value = RestrictedValue<unsigned long>(1u, 1u, 10u);
+    auto restricted_value = RestrictedValue(1u, 1u, 10u);
     EXPECT_EQ(1u, restricted_value.get_restricted_value());
     restricted_value.set_value(5u);
     EXPECT_EQ(5u, restricted_value.get_restricted_value());
@@ -20,7 +20,7 @@ namespace abstractions_testing {
   }
 
   TEST(RestrictedValueTest, SetValueOutOfBounds) {
-    auto restricted_value = RestrictedValue<unsigned long>(1u, 1u, 10u);
+    auto restricted_value = RestrictedValue(1u, 1u, 10u);
     ASSERT_EQ(1u, restricted_value.get_restricted_value());
     restricted_value.set_value(11u);
     EXPECT_EQ(10u, restricted_value.get_restricted_value());

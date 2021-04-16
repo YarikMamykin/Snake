@@ -1,5 +1,6 @@
 #include "configuration/Settings.hpp"
 #include "color/ColorPallete.hpp"
+#include "abstractions/values/RestrictedValue.hpp"
 #include <exception>
 
 namespace configuration {
@@ -15,11 +16,11 @@ namespace configuration {
       { ConfigID::WINDOW_BORDER_WIDTH, 1u },
       { ConfigID::WINDOW_NAME, std::string("Snake") },
       { ConfigID::WINDOW_FONT_NAME, std::string("*-courier-*-24-*") },
-      { ConfigID::SNAKE_SPEED, RESTRICTED_ULONG(10ul, 1ul, 10ul) },
+      { ConfigID::SNAKE_SPEED, abstractions::values::RestrictedValue(10ul, 1ul, 10ul) },
       { ConfigID::SNAKE_SPEED_MULTIPLIER, std::chrono::milliseconds(3u) },
       { ConfigID::SNAKE_COLOR, color::ColorPallete("#00ff00") },
       { ConfigID::SNAKE_TIMEOUT, std::chrono::milliseconds(20u) },
-      { ConfigID::SNAKE_SIZE, RESTRICTED_UINT(1u, 1u, 10u) },
+      { ConfigID::SNAKE_SIZE, abstractions::values::RestrictedValue(1u, 1u, 10u) },
       { ConfigID::GAME_OVER_TIMEOUT, std::chrono::milliseconds(80u) },
       { ConfigID::RANDOM_ENGINE_ALGORITHM, RANDOM_ENGINE_ALGORITHM_TYPE() },
       { ConfigID::SIZE_MULTIPLIER, 20u },

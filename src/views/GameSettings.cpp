@@ -49,15 +49,18 @@ namespace views {
 
 namespace views {
 
+  using RESTRICTED_UINT = abstractions::values::RestrictedValue<unsigned int>;
+  using RESTRICTED_ULONG = abstractions::values::RestrictedValue<unsigned long>;
+
   GameSettings::GameSettings() 
   : menu(new xlib::X11_Menu(ui::LayoutType::VERTICAL, {}, color::COLOR_SCHEME_TYPE(), 20U)) {
 
-    auto& snake_speed_shared = config::get_concrete_ref<configuration::RESTRICTED_ULONG>(config_id::SNAKE_SPEED);
+    auto& snake_speed_shared = config::get_concrete_ref<RESTRICTED_ULONG>(config_id::SNAKE_SPEED);
     auto snake_speed = snake_speed_shared.get_restricted_value();
 
     auto& snake_color = config::get_concrete_ref<color::ColorPallete>(config_id::SNAKE_COLOR);
 
-    auto& snake_size_shared = config::get_concrete_ref<configuration::RESTRICTED_UINT>(config_id::SNAKE_SIZE);
+    auto& snake_size_shared = config::get_concrete_ref<RESTRICTED_UINT>(config_id::SNAKE_SIZE);
     auto snake_size = snake_size_shared.get_restricted_value();
 
     auto food_color = config::get_concrete_ref<color::ColorPallete>(config_id::FOOD_COLOR);

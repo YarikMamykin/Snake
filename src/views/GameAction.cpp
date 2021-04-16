@@ -6,11 +6,14 @@
 #include "game_objects/FoodGenerator.hpp"
 #include "game_objects/MovementController.hpp"
 #include "timing/Timer.hpp"
+#include "abstractions/values/RestrictedValue.hpp"
 
 namespace views {
 
-  using namespace configuration;
+  using ConfigID = configuration::ConfigID;
   using Sets = configuration::Settings;
+  using RESTRICTED_UINT = abstractions::values::RestrictedValue<unsigned int>;
+  using RESTRICTED_ULONG = abstractions::values::RestrictedValue<unsigned long>;
 
   GameAction::GameAction() 
   : snake_direction(game_objects::SnakeDirection::Right) 
