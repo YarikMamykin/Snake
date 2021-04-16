@@ -28,14 +28,16 @@ namespace configuration {
   };
 
   struct Settings final {
-    static std::map<ConfigID, std::any> settings_map;
     static std::any get(ConfigID id);
     template<typename T> static T get_concrete(ConfigID id) {
-      return std::any_cast<T>(settings_map.at(id));
+      return std::any_cast<T>(settings_map().at(id));
     }
     template<typename T> static T& get_concrete_ref(ConfigID id) {
-      return std::any_cast<T&>(settings_map.at(id));
+      return std::any_cast<T&>(settings_map().at(id));
     }
+
+    private:
+      static std::map<ConfigID, std::any>& settings_map();
   };
 }
 
