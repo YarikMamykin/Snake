@@ -99,11 +99,6 @@ namespace game_objects {
                const SnakeDirection&& direction) 
   : current_direction(direction) {
 
-    constexpr unsigned int spacing = 10u;
-    const auto&& win_frame = config::get_concrete<geometry::Rectangle>(config_id::WINDOW_FRAME);
-
-    parts.emplace_back(SnakeHead(color, std::move(head_shape), SnakeDirection(current_direction), RotationDirection::NONE, spacing));
-    parts.back().frame.set_center(100, win_frame.height/2u);
     SnakeHead::step = std::max(head_shape.width, head_shape.height) + SnakeHead::spacing;
     SnakeHead::shift = std::min(head_shape.width, head_shape.height);
     SnakeHead::head_color = color;
