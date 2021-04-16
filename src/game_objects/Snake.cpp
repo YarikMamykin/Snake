@@ -146,18 +146,6 @@ namespace game_objects {
   }
 
 
-  void Snake::hide() {
-    for(auto& part : parts) {
-      part.hide();
-    }
-  }
-
-  void Snake::show() {
-    for(auto& part : parts) {
-      part.show();
-    }
-  }
-
   bool Snake::is_opposite_to_current(const game_objects::SnakeDirection& direction) const {
     const auto&& up_down = (current_direction == SnakeDirection::Up && 
                             direction == SnakeDirection::Down);

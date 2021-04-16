@@ -54,8 +54,6 @@ namespace game_objects {
         inline void handle_shift_after_counter_clockwize_rotation();
       };
 
-      void show();
-      void hide();
       inline bool is_opposite_to_current(const SnakeDirection& direction) const;
       RotationDirection define_rotation_direction(const SnakeDirection& direction) const;
       void increase();
