@@ -19,7 +19,7 @@ namespace game_objects {
                    const SnakeDirection&& direction = SnakeDirection::Right);
     ~Snake();
 
-    void move(const SnakeDirection& direction);
+    void move(SnakeDirection direction);
     geometry::Rectangle head_frame() const;
     const size_t size() const;
 

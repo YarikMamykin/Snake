@@ -108,7 +108,7 @@ namespace game_objects {
   Snake::~Snake() {
   }
 
-  void Snake::move(const game_objects::SnakeDirection& direction) {
+  void Snake::move(game_objects::SnakeDirection direction) {
     
     RotationDirection rotation_direction = define_rotation_direction(direction);
 
