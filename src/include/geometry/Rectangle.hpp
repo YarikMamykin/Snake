@@ -103,7 +103,7 @@ namespace geometry {
       return std::all_of(rectangle_points.begin(), rectangle_points.end(), check);
     }
 
-    void rotate(const game_objects::RotationDirection&& rotation_direction, const Point&& rotation_point) {
+    void rotate(const game_objects::RotationDirection& rotation_direction, Point&& rotation_point) {
       if(rotation_direction == game_objects::RotationDirection::NONE) {
         return;
       }
