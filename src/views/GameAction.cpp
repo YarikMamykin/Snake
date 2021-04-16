@@ -25,7 +25,7 @@ namespace views {
     auto&& snake_speed_multiplier = Sets::get_concrete_ref<std::chrono::milliseconds>(ConfigID::SNAKE_SPEED_MULTIPLIER);
 
     // windows frame from settings
-    const auto&& win_frame = config::get_concrete<geometry::Rectangle>(config_id::WINDOW_FRAME);
+    const auto& win_frame = config::get_concrete_ref<geometry::Rectangle>(config_id::WINDOW_FRAME);
 
     // action_timer settings
     auto&& action_timer_timeout = (snake_speed.get_max() - snake_speed.get_restricted_value()) * snake_speed_multiplier + snake_timeout; 
@@ -41,7 +41,7 @@ namespace views {
     };
 
     action_timer.reset(new timing::Timer(action_timer_timeout, action_timer_callback));
-    snake.reset(new game_objects::Snake(snake_color, geometry::Rectangle { .x = 10u, .y = 100u, .width = snake_head_width, .height = snake_head_height}));
+    snake.reset(new game_objects::Snake(snake_color, geometry::Rectangle { .x = 1, .y = 1, .width = snake_head_width, .height = snake_head_height}));
     mcontroller.reset(new game_objects::MovementController(*snake.get(), win_frame.width, win_frame.height));
     food_generator.reset(new game_objects::FoodGenerator(win_frame.width, win_frame.height));
   }
