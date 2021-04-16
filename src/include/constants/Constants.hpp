@@ -2,6 +2,7 @@
 #define SRC_INCLUDE_CONSTANTS_CONSTANTS_HPP
 
 #include "xlib/XHeaders.hpp"
+#include <cstddef>
 
 namespace constants {
   enum class HandlerKeys {
@@ -16,14 +17,6 @@ namespace events {
     ChangeView = LASTEvent + 2,
   };
 
-  enum HandlersMask {
-    NoEventHandlerMask = 0,
-    KeyPressHandlerMask = 1,
-    MouseMotionHandlerMask = 1 << 1,
-    MouseButtonPressHandlerMask = 1 << 2,
-    ClientMessageHandlerMask = 1 << 3,
-    ExposeEventHandlerMask = 1 << 4
-  };
 }
 
 namespace views {

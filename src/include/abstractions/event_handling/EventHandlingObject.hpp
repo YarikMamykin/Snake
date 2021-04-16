@@ -4,6 +4,14 @@
 #include <type_traits>
 
 namespace events {
+  enum class HandlersMask : unsigned char {
+    NoEventHandlerMask = 0,
+    KeyPressHandlerMask = 1,
+    MouseMotionHandlerMask = 1 << 1,
+    MouseButtonPressHandlerMask = 1 << 2,
+    ClientMessageHandlerMask = 1 << 3,
+    ExposeEventHandlerMask = 1 << 4
+  };
 
   class EventHandlingObject {
     protected:
