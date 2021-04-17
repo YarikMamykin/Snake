@@ -206,7 +206,7 @@ namespace game_objects {
     new_part_frame.width = tail_end_frame.width;
     new_part_frame.height = tail_end_frame.height;
 
-    parts.emplace_back(SnakeHead(std::move(new_part_frame), SnakeDirection(tail_end_direction), RotationDirection::NONE));
+    parts.emplace_back(std::move(new_part_frame), SnakeDirection(tail_end_direction), RotationDirection::NONE);
   }
 
   const size_t Snake::size() const {
