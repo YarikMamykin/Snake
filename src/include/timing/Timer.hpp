@@ -16,6 +16,7 @@ namespace timing {
     explicit Timer();
     explicit Timer(const std::chrono::milliseconds&& timeout, 
                    std::function<void()> callback = [](){});
+    ~Timer();
     void launch(); 
     void stop();
     bool running() const;

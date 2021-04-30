@@ -10,6 +10,10 @@ namespace timing {
   , callback(callback)
   , do_stop(true) { }
 
+  Timer::~Timer() {
+    this->stop();
+  }
+
   void Timer::launch() {
     if(running()) return;
 
@@ -30,8 +34,10 @@ namespace timing {
   }
 
   void Timer::stop() {
-    do_stop.store(true);
-    timer_thread.wait();
+    if(running()) {
+      do_stop.store(true);
+      timer_thread.wait();
+    }
   }
 
   bool Timer::running() const {

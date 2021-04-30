@@ -49,9 +49,7 @@ namespace views {
     food_generator.reset(new game_objects::FoodGenerator(win_frame.width, win_frame.height));
   }
 
-  GameAction::~GameAction() {
-    action_timer->stop();
-  }
+  GameAction::~GameAction() = default;
 
   void GameAction::activate() {
     if(!paused) {
