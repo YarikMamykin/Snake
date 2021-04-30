@@ -5,6 +5,7 @@
 #include <random>
 #include <list>
 #include "configuration/Settings.hpp"
+#include <memory>
 
 namespace game_objects {
 
@@ -25,7 +26,7 @@ namespace game_objects {
     explicit FoodGenerator(const unsigned int& window_width, const unsigned int& window_height);
     ~FoodGenerator() = default;
 
-    Food* generate();
+    std::unique_ptr<Food> generate();
   };
 }
 

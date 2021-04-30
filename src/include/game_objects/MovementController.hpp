@@ -24,7 +24,7 @@ namespace game_objects {
       bool validate_snake_head_with_snake_tail() const;
       bool food_eaten() const;
 
-      void set_current_food(Food* food);
+      void set_current_food(std::unique_ptr<Food> food);
 
       void increase_snake();
   };

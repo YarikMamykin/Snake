@@ -35,7 +35,7 @@ namespace game_objects {
   , prev_point(geometry::Point{}) {
   }
 
-  Food* FoodGenerator::generate() {
+  std::unique_ptr<Food> FoodGenerator::generate() {
     using namespace configuration;
     using RESTRICTED_UINT = abstractions::values::RestrictedValue<unsigned int>;
 
@@ -49,6 +49,6 @@ namespace game_objects {
     prev_point = generated_point;
     auto&& food_frame = geometry::Rectangle{ generated_point.x, generated_point.y, food_size, food_size };
 
-    return new Food(color::Color(background_color), color::Color(food_color), std::move(food_frame));
+    return std::make_unique<Food>(color::Color(background_color), color::Color(food_color), std::move(food_frame));
   }
 }

@@ -34,10 +34,8 @@ namespace game_objects {
     return !snake.parts.front().frame.do_not_cross(current_food->frame);
   }
 
-  void MovementController::set_current_food(Food* food) {
-    current_food.reset(food);
-  }
-
+  void MovementController::set_current_food(std::unique_ptr<Food> food) {
+    current_food = std::move(food);
   }
 
   void MovementController::increase_snake() {
