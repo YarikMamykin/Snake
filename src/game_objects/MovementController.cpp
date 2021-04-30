@@ -38,8 +38,6 @@ namespace game_objects {
     current_food.reset(food);
   }
 
-  Food& MovementController::get_current_food() {
-    return *this->current_food;
   }
 
   void MovementController::increase_snake() {

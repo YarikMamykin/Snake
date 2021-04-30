@@ -25,7 +25,6 @@ namespace game_objects {
       bool food_eaten() const;
 
       void set_current_food(Food* food);
-      Food& get_current_food();
 
       void increase_snake();
   };
