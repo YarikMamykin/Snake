@@ -5,8 +5,15 @@
 #include "game_objects/Snake.hpp"
 #include "game_objects/FoodGenerator.hpp"
 #include "game_objects/MovementController.hpp"
+#include "game_objects/Info.hpp"
 #include "timing/Timer.hpp"
 #include "abstractions/values/RestrictedValue.hpp"
+
+namespace {
+  std::chrono::milliseconds time_count {0u};
+  constexpr std::chrono::milliseconds time_count_step {25u};
+  unsigned long int score_count {0ul};
+}
 
 namespace views {
 
@@ -40,13 +47,17 @@ namespace views {
       if(mcontroller->food_eaten()) {
         mcontroller->set_current_food(food_generator->generate());
         mcontroller->increase_snake();
+        ++score_count;
       }
+      time_count += time_count_step;
+      info->update(score_count, time_count);
     };
 
-    action_timer.reset(new timing::Timer(action_timer_timeout, action_timer_callback));
-    snake.reset(new game_objects::Snake(snake_color, geometry::Rectangle { .x = 1, .y = 1, .width = snake_head_width, .height = snake_head_height}));
-    mcontroller.reset(new game_objects::MovementController(*snake.get(), win_frame.width, win_frame.height));
-    food_generator.reset(new game_objects::FoodGenerator(win_frame.width, win_frame.height));
+    action_timer = std::make_unique<timing::Timer>(action_timer_timeout, action_timer_callback);
+    snake = std::make_unique<game_objects::Snake>(snake_color, geometry::Rectangle { .x = 1, .y = 1, .width = snake_head_width, .height = snake_head_height});
+    mcontroller = std::make_unique<game_objects::MovementController>(*snake.get(), win_frame.width, win_frame.height);
+    food_generator = std::make_unique<game_objects::FoodGenerator>(win_frame.width, win_frame.height);
+    info = std::make_unique<game_objects::Info>();
   }
 
   GameAction::~GameAction() = default;

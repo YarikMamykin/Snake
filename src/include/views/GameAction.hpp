@@ -9,6 +9,7 @@ namespace game_objects {
   class Snake;
   class FoodGenerator;
   class MovementController;
+  class Info;
 }
 
 namespace timing {
@@ -35,6 +36,7 @@ namespace views {
       std::unique_ptr<game_objects::Snake> snake;
       std::unique_ptr<game_objects::MovementController> mcontroller;
       std::unique_ptr<game_objects::FoodGenerator> food_generator;
+      std::unique_ptr<game_objects::Info> info;
       std::unique_ptr<timing::Timer> action_timer;
       bool paused;
       game_objects::SnakeDirection snake_direction;
