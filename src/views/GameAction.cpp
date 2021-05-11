@@ -58,6 +58,9 @@ namespace views {
     mcontroller = std::make_unique<game_objects::MovementController>(*snake.get(), win_frame.width, win_frame.height);
     food_generator = std::make_unique<game_objects::FoodGenerator>(win_frame.width, win_frame.height);
     info = std::make_unique<game_objects::Info>();
+
+    time_count = std::chrono::milliseconds(0u);
+    score_count = 0u;
   }
 
   GameAction::~GameAction() = default;
