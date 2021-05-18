@@ -10,13 +10,13 @@ namespace game_objects {
   , frame(std::move(frame)) {
     timer.timeout = config::get_concrete<std::chrono::milliseconds>(config_id::SNAKE_TIMEOUT); 
     timer.callback = [this]() {
-      commands::Command::push_xlib_command(new commands::FillCircle(this->frame, this->color));
+      commands::Command::push_xlib_command(std::make_unique<commands::FillCircle>(this->frame, this->color));
     };
     timer.launch();
   }
 
   Food::~Food() {
     timer.stop();
-    commands::Command::push_xlib_command(new commands::FillCircle(frame, background_color));
+    commands::Command::push_xlib_command(std::make_unique<commands::FillCircle>(frame, background_color));
   }
 }

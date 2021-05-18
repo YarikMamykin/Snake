@@ -33,10 +33,10 @@ namespace views {
 
   GameMenu::GameMenu() 
   : menu(new xlib::X11_Menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme)) {
-    menu->add_item(std::make_unique<Item>(NewGameItemName, []() { commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::ACTION)); }));
-    menu->add_item(std::make_unique<Item>(SettingsItemName, []() { commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::SETTINGS)); }));
-    menu->add_item(std::make_unique<Item>(AboutItemName, []() { commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::ABOUT)); }));
-    menu->add_item(std::make_unique<Item>(ExitItemName, []() { commands::Command::push_xlib_command(new commands::ExitApplication()); }));
+    menu->add_item(std::make_unique<Item>(NewGameItemName, []() { commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::ACTION)); }));
+    menu->add_item(std::make_unique<Item>(SettingsItemName, []() { commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::SETTINGS)); }));
+    menu->add_item(std::make_unique<Item>(AboutItemName, []() { commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::ABOUT)); }));
+    menu->add_item(std::make_unique<Item>(ExitItemName, []() { commands::Command::push_xlib_command(std::make_unique<commands::ExitApplication>()); }));
   }
 
   void GameMenu::activate() {

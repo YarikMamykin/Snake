@@ -12,11 +12,6 @@ namespace commands {
     commands_to_xlib_queue.emplace_back(std::move(command));
   }
 
-  void Command::push_xlib_command(Command* command) {
-    std::lock_guard<std::mutex> xlib_guard(xlib_queue_mutex);
-    commands_to_xlib_queue.emplace_back(command);
-  }
-
   std::unique_ptr<Command> Command::pop_xlib_command() {
     std::lock_guard<std::mutex> xlib_guard(xlib_queue_mutex);
     std::unique_ptr<Command> command = std::move(commands_to_xlib_queue.front());

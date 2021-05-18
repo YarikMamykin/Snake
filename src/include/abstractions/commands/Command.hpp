@@ -17,9 +17,7 @@ namespace commands {
 
     public:
       static void push_xlib_command(std::unique_ptr<Command> command);
-      static void push_xlib_command(Command* command);
       static std::unique_ptr<Command> pop_xlib_command();
-      static void put_command_with_result(std::unique_ptr<Command> command);
       static bool xlib_queue_empty();
   };
 }

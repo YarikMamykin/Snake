@@ -1,5 +1,6 @@
 #include "xlib/X11_Menu.hpp"
 #include "commands/graphics_commands/DrawRectangle.hpp"
+#include <memory>
 
 namespace xlib {
   X11_Menu::X11_Menu(const ::ui::LayoutType& layout, 
@@ -19,8 +20,8 @@ namespace xlib {
     update_menu_frame();
     if(show_flag) {
 
-      commands::Command::push_xlib_command(new commands::DrawRectangle(prev_frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
-      commands::Command::push_xlib_command(new commands::DrawRectangle({
+      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(prev_frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(geometry::Rectangle{
         frame.x - margin,
         frame.y - margin,
         frame.width + margin * 2,
@@ -29,7 +30,7 @@ namespace xlib {
     }
 
     if(!show_flag) {
-      commands::Command::push_xlib_command(new commands::DrawRectangle({
+      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(geometry::Rectangle{
         frame.x - margin,
         frame.y - margin,
         frame.width + margin * 2,

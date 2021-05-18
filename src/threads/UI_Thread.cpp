@@ -7,7 +7,7 @@ namespace threads {
   : run(run)
   , ui_thread(std::async(std::launch::async, [&ui_event_queue, &run]() {
       auto&& thread_sleep_timeout = config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT);
-      commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::MENU));
+      commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU));
       for(;run;) {
         if(!ui_event_queue.empty()) {
           ui_event_queue.front()();

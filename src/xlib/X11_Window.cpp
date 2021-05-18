@@ -39,7 +39,7 @@ namespace xlib {
 
   void X11_Window::update_window_frame() {
     std::atomic<bool> trigger(false);
-    commands::Command::push_xlib_command(new commands::QueryWindowFrame(this, trigger));
+    commands::Command::push_xlib_command(std::make_unique<commands::QueryWindowFrame>(this, trigger));
     while(!trigger.load());
   }
 
@@ -52,7 +52,7 @@ namespace xlib {
   }
 
   void X11_Window::redraw_background() const {
-    commands::Command::push_xlib_command(new commands::FillRectangle(frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
+    commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
   }
 
   void X11_Window::change_view(const int viewID) {

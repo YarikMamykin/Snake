@@ -17,11 +17,11 @@ namespace game_objects {
   , old_direction(direction) {}
 
   void Snake::SnakeHead::hide() {
-    commands::Command::push_xlib_command(new commands::FillRectangle(frame, background_color));
+    commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(frame, background_color));
   }
 
   void Snake::SnakeHead::show() {
-    commands::Command::push_xlib_command(new commands::FillRectangle(frame, head_color));
+    commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(frame, head_color));
   }
 
   void Snake::SnakeHead::move() {

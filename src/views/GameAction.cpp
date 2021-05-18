@@ -73,7 +73,7 @@ namespace views {
   }
 
   void GameAction::deactivate() {
-    commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::OVER));
+    commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::OVER));
   }
 
   void GameAction::set_paused(const bool pause_flag) {
@@ -120,7 +120,7 @@ namespace views {
         }
       case XK_Escape:
         {
-          commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::MENU));
+          commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU));
           return;
         }
     }

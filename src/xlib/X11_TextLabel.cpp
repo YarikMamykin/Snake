@@ -26,17 +26,17 @@ namespace xlib {
     }
 
     if(!show_flag) { 
-      commands::Command::push_xlib_command(new commands::FillRectangle(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+      commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
     }
   }
 
   void X11_TextLabel::show_frame(bool show_flag) {
     if(show_flag) {
-      commands::Command::push_xlib_command(new commands::DrawRectangle(frame, color_scheme[color::ColorSchemeID::FrameColor]));
+      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme[color::ColorSchemeID::FrameColor]));
     }
 
     if(!show_flag) {
-      commands::Command::push_xlib_command(new commands::DrawRectangle(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
     }
   }
 
@@ -44,8 +44,8 @@ namespace xlib {
     update_frame();
     hide_prev_frame();
 
-    commands::Command::push_xlib_command(new commands::DrawRectangle(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
-    commands::Command::push_xlib_command(new commands::DrawText( text, geometry::Point{ frame.x + left_text_margin, frame.y + (get_text_graphical_height() + top_text_margin / 2)}, color_scheme[color::ColorSchemeID::TextColor]));
+    commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+    commands::Command::push_xlib_command(std::make_unique<commands::DrawText>( text, geometry::Point{ frame.x + left_text_margin, frame.y + (get_text_graphical_height() + top_text_margin / 2)}, color_scheme[color::ColorSchemeID::TextColor]));
 
     this->show_frame(focused());
   }
@@ -53,7 +53,7 @@ namespace xlib {
   const unsigned int X11_TextLabel::get_text_graphical_width() const {
     std::atomic<bool> trigger(false);
     unsigned int width = 0u;
-    commands::Command::push_xlib_command(new commands::QueryTextWidth(text, width, trigger));
+    commands::Command::push_xlib_command(std::make_unique<commands::QueryTextWidth>(text, width, trigger));
     while(!trigger.load());
     return width;
   }
@@ -61,7 +61,7 @@ namespace xlib {
   const unsigned int X11_TextLabel::get_text_graphical_height() const {
     std::atomic<bool> trigger(false);
     unsigned int height = 0u;
-    commands::Command::push_xlib_command(new commands::QueryTextHeight(height, trigger));
+    commands::Command::push_xlib_command(std::make_unique<commands::QueryTextHeight>(height, trigger));
     while(!trigger.load());
     return height;
   }
@@ -73,6 +73,6 @@ namespace xlib {
   }
 
   void X11_TextLabel::hide_prev_frame() {
-    commands::Command::push_xlib_command(new commands::FillRectangle(prev_frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+    commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(prev_frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
   }
 }

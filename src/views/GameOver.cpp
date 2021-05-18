@@ -43,7 +43,7 @@ namespace views {
     switch(key_sym) {
       case XK_Escape: 
         {
-          commands::Command::push_xlib_command(new commands::ChangeView(views::ViewID::MENU));
+          commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU));
         }
     }
   }
