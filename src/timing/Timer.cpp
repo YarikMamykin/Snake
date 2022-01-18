@@ -1,4 +1,11 @@
 #include "timing/Timer.hpp"
+#include <mutex>
+#include <condition_variable>
+
+namespace {
+  std::mutex mutex;
+  std::condition_variable cv;
+}
 
 namespace timing {
   Timer::Timer()
@@ -28,7 +35,8 @@ namespace timing {
           callback(); 
           start_point = steady_clock::now();
         }
-        std::this_thread::sleep_for(decltype(timeout)(1u)); // if it sleeps, CPU works less
+        std::unique_lock<std::mutex> lock(mutex);
+        cv.wait_for(lock, decltype(timeout)(1u), [](){return true;});
       } 
     });
   }
