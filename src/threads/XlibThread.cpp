@@ -8,6 +8,11 @@
 #include <thread>
 #include <functional>
 
+namespace {
+  std::mutex mutex;
+  std::condition_variable cv;
+}
+
 namespace threads {
 
   XlibThread::XlibThread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
@@ -44,7 +49,8 @@ namespace threads {
         continue;
       } 
 
-      std::this_thread::sleep_for(thread_sleep_timeout);
+      std::unique_lock<std::mutex> lock(mutex);
+      cv.wait_for(lock, thread_sleep_timeout, [](){return true;});
     }
 
     xlib::XlibWrapper::self()->destroy_window();

@@ -1,6 +1,13 @@
 #include "threads/UI_Thread.hpp"
 #include "configuration/Settings.hpp"
 #include "commands/ChangeView.hpp"
+#include <mutex>
+#include <condition_variable>
+
+namespace {
+  std::mutex mutex;
+  std::condition_variable cv;
+}
 
 namespace threads {
   UI_Thread::UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
@@ -14,7 +21,8 @@ namespace threads {
           ui_event_queue.pop_front();
           continue;
         } 
-        std::this_thread::sleep_for(thread_sleep_timeout);
+        std::unique_lock<std::mutex> lock(mutex);
+        cv.wait_for(lock, thread_sleep_timeout, [](){return true;});
       }
     })) { }
 
