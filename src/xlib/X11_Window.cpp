@@ -10,6 +10,13 @@
 #include "commands/graphics_commands/DrawRectangle.hpp"
 #include "commands/graphics_commands/FillRectangle.hpp"
 #include "commands/synchronous_commands/QueryWindowFrame.hpp"
+#include <mutex>
+#include <condition_variable>
+
+namespace {
+  std::mutex mutex;
+  std::condition_variable cv;
+}
 
 namespace {
   color::COLOR_SCHEME_TYPE text_label_color_scheme = {
@@ -79,7 +86,8 @@ namespace xlib {
       case events::AdditionalEvents::ChangeView: 
         {
           // Wait till additional threads ended their part 
-          std::this_thread::sleep_for(config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT));
+          std::unique_lock<std::mutex> lock(mutex);
+          cv.wait_for(lock, config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT), [](){return true;});
           redraw_background();
           this->change_view(data[1]);
           this->view->activate();
