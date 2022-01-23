@@ -15,8 +15,8 @@ namespace {
 
 namespace threads {
 
-  XlibThread::XlibThread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
-  : xlib_thread(std::async(std::launch::async, [&ui_event_queue, &run, x_window = std::make_unique<xlib::X11_Window>(views::ViewID::NONE)]() {
+  XlibThread::XlibThread(std::list<std::function<void()>>& ui_event_queue, bool& run, std::condition_variable& ui_events_available) 
+  : xlib_thread(std::async(std::launch::async, [&ui_event_queue, &ui_events_available, &run, x_window = std::make_unique<xlib::X11_Window>(views::ViewID::NONE)]() {
     XInitThreads();
 
       using namespace configuration;
@@ -41,6 +41,8 @@ namespace threads {
 				}
         ui_event_queue.emplace_back(edispatcher.dispatch_event(x_window_raw, event));
       }
+
+      ui_events_available.notify_all();
 
       bool queue_empty = commands::Command::xlib_queue_empty();
       if(!queue_empty) {

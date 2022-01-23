@@ -11,7 +11,10 @@ namespace threads {
       bool& run;
 
     public:
-      explicit UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run);
+      explicit UI_Thread(
+          std::list<std::function<void()>>& ui_event_queue, 
+          bool& run, 
+          std::condition_variable& ui_events_available);
       ~UI_Thread();
   };
 }

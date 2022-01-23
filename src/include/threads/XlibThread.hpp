@@ -11,7 +11,10 @@ namespace threads {
       std::future<void> xlib_thread;
 
     public:
-      explicit XlibThread(std::list<std::function<void()>>& ui_event_queue, bool& run);
+      explicit XlibThread(
+          std::list<std::function<void()>>& ui_event_queue, 
+          bool& run,
+          std::condition_variable& ui_events_available);
       ~XlibThread();
   };
 }

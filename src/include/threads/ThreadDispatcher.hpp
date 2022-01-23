@@ -11,6 +11,7 @@ namespace threads {
   class ThreadDispatcher {
     std::list<std::function<void()>> ui_event_queue;
     bool run;
+    std::condition_variable ui_events_available;
     threads::XlibThread xlib_thread;
     threads::UI_Thread ui_thread;
 

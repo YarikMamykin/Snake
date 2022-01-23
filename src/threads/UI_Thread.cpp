@@ -10,19 +10,17 @@ namespace {
 }
 
 namespace threads {
-  UI_Thread::UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run) 
+  UI_Thread::UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run, std::condition_variable& ui_events_available) 
   : run(run)
   , ui_thread(std::async(std::launch::async, [&ui_event_queue, &run]() {
       auto&& thread_sleep_timeout = config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT);
       commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU));
       for(;run;) {
-        if(!ui_event_queue.empty()) {
+        std::unique_lock<std::mutex> lock(mutex);
+        if(cv.wait_for(lock, thread_sleep_timeout, [&ui_event_queue](){return !ui_event_queue.empty();})) {
           ui_event_queue.front()();
           ui_event_queue.pop_front();
-          continue;
         } 
-        std::unique_lock<std::mutex> lock(mutex);
-        cv.wait_for(lock, thread_sleep_timeout, [](){return true;});
       }
     })) { }
 
