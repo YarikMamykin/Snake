@@ -14,4 +14,10 @@ find_package(X11 REQUIRED)
 link_libraries(${X11_LIBRARIES})
 include_directories(${X11_INCLUDE_DIR})
 
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
 add_subdirectory(src)
+
+if(${UNIT_TESTS})
+  add_subdirectory(test)
+endif()
