@@ -90,6 +90,21 @@ add_library(commands SHARED ${COMMANDS_SRC})
 add_library(settings SHARED ${SETTINGS_SRC})
 add_library(threads SHARED ${THREADS_SRC})
 
+target_link_libraries(threads 
+xlib_ui 
+events 
+game_views
+helpers
+timer
+game_objects
+presenters
+color
+settings
+anchor_handlers
+commands
+)
+
+
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/kek.cpp)
 target_link_libraries(${PROJECT_NAME} 
 xlib_ui 
