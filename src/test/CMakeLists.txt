@@ -1,9 +1,8 @@
 ################################
 # GTest
 ################################
-add_subdirectory (${CMAKE_SOURCE_DIR}/googletest build)
-enable_testing()
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+include("${CMAKE_CURRENT_SOURCE_DIR}/Gtest.cmake")
+
 include_directories(${CMAKE_SOURCE_DIR}/src/include)
 
 ################################
