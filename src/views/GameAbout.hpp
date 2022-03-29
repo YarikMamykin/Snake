@@ -10,8 +10,8 @@ namespace views {
 
   using namespace abstractions::ui;
 
-  class GameAbout final : public View, 
-                          public events::KeyPressHandler {
+  class GameAbout : public View, 
+                    public events::KeyPressHandler {
     public:
       explicit GameAbout();
       ~GameAbout() = default;

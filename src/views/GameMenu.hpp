@@ -13,8 +13,8 @@ namespace abstractions::ui {
 
 namespace views {
 
-  class GameMenu final : public View, 
-                         public events::KeyPressHandler {
+  class GameMenu : public View, 
+                   public events::KeyPressHandler {
     private:
       class Item : public xlib::X11_TextLabel {
         std::function<void()> activation_callback;

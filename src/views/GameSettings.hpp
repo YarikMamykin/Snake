@@ -9,8 +9,8 @@
 
 namespace views {
 
-  class GameSettings final : public View, 
-                             public events::KeyPressHandler {
+  class GameSettings : public View, 
+                       public events::KeyPressHandler {
 
     private:
       struct Setting : public xlib::X11_Menu {

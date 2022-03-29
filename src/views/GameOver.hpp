@@ -8,8 +8,8 @@
 
 namespace views {
 
-  class GameOver final : public View, 
-                         public events::KeyPressHandler {
+  class GameOver : public View, 
+                   public events::KeyPressHandler {
     public:
       explicit GameOver();
       ~GameOver();

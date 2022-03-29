@@ -18,8 +18,8 @@ namespace timing {
 
 namespace views {
 
-  class GameAction final : public View, 
-                           public events::KeyPressHandler {
+  class GameAction : public View, 
+                     public events::KeyPressHandler {
     public:
       explicit GameAction();
       ~GameAction();

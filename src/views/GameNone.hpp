@@ -5,8 +5,8 @@
 
 namespace views {
 
-  class GameNone final :  public View,
-                          public events::NoEventHandler {
+  class GameNone :  public View,
+                    public events::NoEventHandler {
     public:
       explicit GameNone();
       virtual ~GameNone();
