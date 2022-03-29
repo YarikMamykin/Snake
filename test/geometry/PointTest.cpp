@@ -46,4 +46,9 @@ TEST(Point, greater) {
   EXPECT_TRUE(p4 > p1);
 }
 
+TEST(Point, to_string) {
+  geometry::Point p {10,20};
+  EXPECT_EQ(p.to_string(), std::string("Point(10:20)\n"));
+}
+
 }
