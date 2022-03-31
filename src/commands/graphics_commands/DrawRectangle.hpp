@@ -7,7 +7,7 @@ namespace commands {
   class DrawRectangle : public GraphicsCommand {
     public:
       explicit DrawRectangle(const geometry::Rectangle& rectangle, const color::Color& color);
-      virtual void execute() override;
+      virtual void execute(xlib::XProxy& proxy) override;
       virtual ~DrawRectangle() override = default;
   };
 }

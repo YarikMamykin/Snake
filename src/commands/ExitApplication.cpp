@@ -3,7 +3,7 @@
 
 namespace commands {
 
-  void ExitApplication::execute() {
+  void ExitApplication::execute(xlib::XProxy&) {
     helpers::Helper::SendExitApplicationEvent();
   }
 

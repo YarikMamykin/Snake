@@ -1,5 +1,4 @@
 #include "commands/synchronous_commands/QueryTextHeight.hpp"
-#include "xlib/XlibWrapper.hpp"
 
 namespace commands {
 
@@ -7,8 +6,8 @@ namespace commands {
   : SynchronousCommand(trigger)
   , height(result) { }
 
-  void QueryTextHeight::execute() {
-    height = xlib::XlibWrapper::self()->get_text_height();
+  void QueryTextHeight::execute(xlib::XProxy& proxy) {
+    height = proxy.get_text_height();
     trigger.store(!trigger.load());
   }
 

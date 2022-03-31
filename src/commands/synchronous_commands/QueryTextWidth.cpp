@@ -1,5 +1,4 @@
 #include "commands/synchronous_commands/QueryTextWidth.hpp"
-#include "xlib/XlibWrapper.hpp"
 
 namespace commands {
   QueryTextWidth::QueryTextWidth(const std::string& text, 
@@ -9,8 +8,8 @@ namespace commands {
   , text(text) 
   , width(result) { }
 
-  void QueryTextWidth::execute() {
-    width = xlib::XlibWrapper::self()->get_text_width(text);
+  void QueryTextWidth::execute(xlib::XProxy& proxy) {
+    width = proxy.get_text_width(text);
     trigger.store(!trigger.load());
   }
 
