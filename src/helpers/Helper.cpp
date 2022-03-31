@@ -1,5 +1,5 @@
-#include "helpers/Helper.hpp"
-#include "xlib/XlibWrapper.hpp"
+#include "Helper.hpp"
+#include <xlib/XProxy.hpp>
 
 namespace helpers {
   XEvent Helper::ConstructExitApplicationEvent() {
