@@ -5,6 +5,7 @@
 #include "geometry/Rectangle.hpp"
 #include "ui/ColorValuePresenter.hpp"
 #include "ui/RestrictedValuePresenter.hpp"
+#include "commands/ChangeView.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE key_color_scheme = {
@@ -99,7 +100,7 @@ namespace views {
 
   void GameSettings::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     switch(key_sym) {
-      case XK_Escape: helpers::Helper::SendChangeViewEvent(views::ViewID::MENU); break;
+      case XK_Escape: commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU)); break;
       case XK_Down: menu->move_to_next_item(); break;
       case XK_Up: menu->move_to_prev_item(); break;
       case XK_equal: if(!(mask & ShiftMask)) break;

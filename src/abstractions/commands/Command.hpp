@@ -3,12 +3,13 @@
 #include <list>
 #include <memory>
 #include <mutex>
+#include <xlib/XProxy.hpp>
 
 namespace commands {
 
   class Command {
     public:
-      virtual void execute() = 0;
+      virtual void execute(xlib::XProxy&) = 0;
       virtual ~Command() = default;
       
     private:

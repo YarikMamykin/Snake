@@ -11,7 +11,7 @@ namespace commands {
 
     public:
       explicit DrawText(const std::string& text, const geometry::Point& top_left, const color::Color& color);
-      virtual void execute() override;
+      virtual void execute(xlib::XProxy&) override;
       virtual ~DrawText() override = default;
   };
 }

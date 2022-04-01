@@ -1,5 +1,4 @@
 #include "events/EventDispatcher.hpp"
-#include "xlib/XlibWrapper.hpp"
 #include "abstractions/event_handling/ClientMessageHandler.hpp"
 #include "abstractions/event_handling/ExposeEventHandler.hpp"
 #include "abstractions/event_handling/KeyPressHandler.hpp"

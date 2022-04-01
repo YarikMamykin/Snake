@@ -14,7 +14,7 @@ namespace commands {
       explicit QueryWindowFrame(abstractions::ui::Object* window, std::atomic<bool>& trigger);
       ~QueryWindowFrame() override = default;
 
-      virtual void execute() override;
+      virtual void execute(xlib::XProxy& proxy) override;
   };
 }
 

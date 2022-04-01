@@ -4,7 +4,6 @@
 #include "helpers/Helper.hpp"
 #include <iostream>
 #include <utility>
-#include "xlib/XlibWrapper.hpp"
 #include "configuration/Settings.hpp"
 #include "commands/graphics_commands/DrawCircle.hpp"
 #include "commands/graphics_commands/DrawRectangle.hpp"

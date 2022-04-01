@@ -10,7 +10,7 @@ namespace commands {
       explicit ExitApplication() = default;
       ~ExitApplication () override = default;
 
-      virtual void execute() override;
+      virtual void execute(xlib::XProxy&) override;
   };
 }
 

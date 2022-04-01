@@ -17,7 +17,7 @@ namespace commands {
                               std::atomic<bool>& trigger);
       ~QueryTextWidth() override = default;
 
-      virtual void execute() override;
+      virtual void execute(xlib::XProxy&) override;
   };
 }
 

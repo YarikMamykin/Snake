@@ -2,6 +2,7 @@
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"
 #include "helpers/Helper.hpp"
 #include "xlib/X11_TextLabel.hpp"
+#include <commands/ChangeView.hpp>
 
 namespace {
   const std::string about = "Classic 'Snake' game designed by Yaroslav Mamykin. Enjoy!";
@@ -24,7 +25,7 @@ namespace views {
 
   void GameAbout::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     switch(key_sym) {
-      case XK_Escape: helpers::Helper::SendChangeViewEvent(views::ViewID::MENU); 
+      case XK_Escape: commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU));
     }
   }
 

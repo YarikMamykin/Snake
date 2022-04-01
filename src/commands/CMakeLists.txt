@@ -15,3 +15,5 @@ set(COMMANDS_SRC
 )
 
 add_library(commands SHARED ${COMMANDS_SRC})
+add_dependencies(commands helpers)
+target_link_libraries(commands helpers)

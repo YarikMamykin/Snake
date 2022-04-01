@@ -14,7 +14,7 @@ namespace commands {
       explicit QueryTextHeight(unsigned int& result, std::atomic<bool>& trigger);
       ~QueryTextHeight() override = default;
 
-      virtual void execute() override;
+      virtual void execute(xlib::XProxy&) override;
   };
 }
 

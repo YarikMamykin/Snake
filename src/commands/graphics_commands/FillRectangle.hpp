@@ -7,7 +7,7 @@ namespace commands {
   class FillRectangle : public GraphicsCommand {
     public:
       explicit FillRectangle(const geometry::Rectangle& rectangle, const color::Color& color);
-      virtual void execute() override;
+      virtual void execute(xlib::XProxy&) override;
       virtual ~FillRectangle() override = default;
   };
 }

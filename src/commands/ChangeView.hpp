@@ -14,7 +14,7 @@ namespace commands {
       explicit ChangeView(views::ViewID&& viewID);
       ~ChangeView() override = default;
 
-      virtual void execute() override;
+      virtual void execute(xlib::XProxy&) override;
   };
 }
 
