@@ -46,6 +46,7 @@ namespace xlib {
 
       void next_event(XEvent* event);
       void send_event(long event_mask, XEvent* event);
+      void send_client_event(long event_mask, XEvent* event);
       bool event_in_queue(int event_type, XEvent* event);
   };
 }

@@ -145,6 +145,12 @@ namespace xlib {
 		XNextEvent(m_handlers.display, event);
 	}
 
+	void XProxy::send_client_event(long event_mask, XEvent* event) {
+    event->xclient.window = m_handlers.window;
+    event->xclient.display = m_handlers.display;
+		send_event(event_mask, event);
+	}
+
 	void XProxy::send_event(long event_mask, XEvent* event) {
 		XSendEvent(m_handlers.display, m_handlers.window, true, event_mask, event);
 	}
