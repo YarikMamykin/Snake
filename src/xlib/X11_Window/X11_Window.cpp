@@ -1,5 +1,5 @@
-#include "xlib/X11_Window.hpp"
-#include "xlib/X11_TextLabel.hpp"
+#include "X11_Window.hpp"
+#include "xlib/X11_TextLabel/X11_TextLabel.hpp"
 #include "views/ViewFactory.hpp"
 #include "helpers/Helper.hpp"
 #include <iostream>

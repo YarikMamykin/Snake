@@ -2,8 +2,8 @@
 #define SRC_INCLUDE_VIEWS_GAMESETTINGS_HPP
 #include "abstractions/views/View.hpp"
 #include "abstractions/event_handling/KeyPressHandler.hpp"
-#include "xlib/X11_TextLabel.hpp"
-#include "xlib/X11_Menu.hpp"
+#include "xlib/X11_TextLabel/X11_TextLabel.hpp"
+#include "xlib/X11_Menu/X11_Menu.hpp"
 #include <string>
 #include <memory>
 

@@ -3,7 +3,7 @@
 #include <list>
 #include <memory>
 #include <mutex>
-#include <xlib/XProxy.hpp>
+#include <xlib/XProxy/XProxy.hpp>
 
 namespace commands {
 

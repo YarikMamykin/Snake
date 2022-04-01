@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_HELPERS_HELPER_HPP
 
 #include "xlib/XHeaders.hpp"
-#include <xlib/XProxy.hpp>
+#include <xlib/XProxy/XProxy.hpp>
 #include "constants/Constants.hpp"
 
 namespace helpers {

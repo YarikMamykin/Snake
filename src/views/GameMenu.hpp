@@ -5,7 +5,7 @@
 #include <functional>
 #include <memory>
 #include "abstractions/event_handling/KeyPressHandler.hpp"
-#include "xlib/X11_TextLabel.hpp"
+#include <xlib/X11_TextLabel/X11_TextLabel.hpp>
 
 namespace abstractions::ui {
   class Menu;

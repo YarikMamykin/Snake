@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMEOVER_HPP
 #define SRC_INCLUDE_VIEWS_GAMEOVER_HPP
 #include "abstractions/views/View.hpp"
-#include "xlib/X11_ColorizedTextLabel.hpp"
+#include <xlib/X11_ColorizedTextLabel/X11_ColorizedTextLabel.hpp>
 #include "timing/Timer.hpp"
 #include "abstractions/event_handling/KeyPressHandler.hpp"
 #include <string>

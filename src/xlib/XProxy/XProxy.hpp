@@ -1,9 +1,8 @@
 #pragma once
 
-#include "XHeaders.hpp"
-#include "XHandlers.hpp"
-#include "XSettings.hpp"
-#include "XError.hpp"
+#include <xlib/XHandlers.hpp>
+#include <xlib/XSettings.hpp>
+#include <xlib/XError.hpp>
 #include <geometry/Rectangle.hpp>
 #include <color/Color.hpp>
 #include <string>

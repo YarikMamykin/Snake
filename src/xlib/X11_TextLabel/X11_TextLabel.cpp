@@ -1,4 +1,4 @@
-#include "xlib/X11_TextLabel.hpp"
+#include "X11_TextLabel.hpp"
 #include "commands/synchronous_commands/QueryTextWidth.hpp"
 #include "commands/synchronous_commands/QueryTextHeight.hpp"
 #include "commands/graphics_commands/FillRectangle.hpp"

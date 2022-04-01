@@ -4,7 +4,7 @@
 #include "color/Color.hpp"
 #include "commands/ChangeView.hpp"
 #include "commands/ExitApplication.hpp"
-#include "xlib/X11_Menu.hpp"
+#include "xlib/X11_Menu/X11_Menu.hpp"
 
 namespace {
   const std::string NewGameItemName = "New Game"; 

@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <chrono>
-#include "xlib/X11_TextLabel.hpp"
+#include <xlib/X11_TextLabel/X11_TextLabel.hpp>
 
 namespace game_objects {
 
