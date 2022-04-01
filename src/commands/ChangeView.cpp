@@ -7,8 +7,8 @@ namespace commands {
   : viewID(viewID) {
   }
 
-  void ChangeView::execute(xlib::XProxy&) {
-    helpers::Helper::SendChangeViewEvent(viewID);
+  void ChangeView::execute(xlib::XProxy& proxy) {
+    helpers::Helper::SendChangeViewEvent(proxy, viewID);
   }
 
 }
