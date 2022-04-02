@@ -21,6 +21,7 @@ add_library(commands SHARED
 
 set(DEPS 
   xproxy
+  helpers
 )
 
 add_dependencies(commands ${DEPS})
