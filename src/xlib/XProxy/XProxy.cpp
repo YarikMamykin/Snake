@@ -1,4 +1,5 @@
 #include "XProxy.hpp"
+#include <color/Color/Color.hpp>
 
 namespace {
 	color::Color background { 0ul };

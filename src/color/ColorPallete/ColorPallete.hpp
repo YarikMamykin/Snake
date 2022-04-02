@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_COLOR_COLORPALLETE_HPP
 #define SRC_INCLUDE_COLOR_COLORPALLETE_HPP
 
-#include "color/Color.hpp"
+#include "color/Color/Color.hpp"
 #include <list>
 #include <string>
 

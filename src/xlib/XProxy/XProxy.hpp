@@ -4,11 +4,14 @@
 #include <xlib/XSettings.hpp>
 #include <xlib/XError.hpp>
 #include <geometry/Rectangle.hpp>
-#include <color/Color.hpp>
 #include <string>
 #include <memory>
 #include <variant>
 #include <utility>
+
+namespace color {
+  class Color;
+}
 
 namespace xlib {
   class XProxy {

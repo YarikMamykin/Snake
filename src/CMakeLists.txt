@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
+add_subdirectory(color)
+
 add_subdirectory(xlib)
 
 add_subdirectory(helpers)
@@ -15,8 +17,6 @@ add_subdirectory(timing)
 add_subdirectory(game_objects)
 
 add_subdirectory(ui)
-
-add_subdirectory(color)
 
 add_subdirectory(configuration)
 

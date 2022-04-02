@@ -1,6 +1,6 @@
 #include "Info.hpp"
 
-#include "color/Color.hpp"
+#include "color/Color/Color.hpp"
 #include "geometry/Rectangle.hpp"
 #include "configuration/Settings.hpp"
 

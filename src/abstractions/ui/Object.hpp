@@ -3,7 +3,7 @@
 
 #include "geometry/Rectangle.hpp"
 #include "constants/Constants.hpp"
-#include "color/Color.hpp"
+#include "color/Color/Color.hpp"
 
 namespace abstractions::ui {
 

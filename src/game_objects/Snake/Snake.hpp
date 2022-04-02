@@ -6,7 +6,7 @@
 #include "constants/Constants.hpp"
 #include "geometry/Rectangle.hpp"
 #include "geometry/Triangle.hpp"
-#include "color/Color.hpp"
+#include "color/Color/Color.hpp"
 
 namespace game_objects {
 

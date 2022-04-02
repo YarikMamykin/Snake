@@ -1,6 +1,6 @@
 #include "GameAction.hpp"
 #include "configuration/Settings.hpp"
-#include "color/ColorPallete.hpp"
+#include "color/ColorPallete/ColorPallete.hpp"
 #include "commands/ChangeView/ChangeView.hpp"
 #include "game_objects/Snake/Snake.hpp"
 #include "game_objects/FoodGenerator/FoodGenerator.hpp"

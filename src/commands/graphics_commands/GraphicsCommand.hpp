@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_GRAPHICSCOMMAND_HPP
 
 #include "geometry/Rectangle.hpp" 
-#include "color/Color.hpp"
+#include "color/Color/Color.hpp"
 #include "commands/Command/Command.hpp" 
 
 namespace commands {

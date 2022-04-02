@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_GAME_OBJECTS_FOOD_HPP
 
 #include "geometry/Rectangle.hpp"
-#include "color/Color.hpp"
+#include "color/Color/Color.hpp"
 #include "timing/Timer.hpp"
 
 namespace game_objects {

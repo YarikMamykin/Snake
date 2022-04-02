@@ -1,4 +1,4 @@
-#include "color/Color.hpp"
+#include "Color.hpp"
 
 namespace {
   const auto zero_byte = static_cast<std::byte>(0u);
