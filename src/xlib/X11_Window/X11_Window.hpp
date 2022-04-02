@@ -1,10 +1,10 @@
 #ifndef SRC_INCLUDE_XLIB_X11_WINDOW_HPP
 #define SRC_INCLUDE_XLIB_X11_WINDOW_HPP
 
-#include "abstractions/event_handling/MouseMotionHandler.hpp"
-#include "abstractions/event_handling/ClientMessageHandler.hpp"
-#include "abstractions/event_handling/ExposeEventHandler.hpp"
-#include "abstractions/event_handling/KeyPressHandler.hpp"
+#include "events/event_handlers/MouseMotionHandler.hpp"
+#include "events/event_handlers/ClientMessageHandler.hpp"
+#include "events/event_handlers/ExposeEventHandler.hpp"
+#include "events/event_handlers/KeyPressHandler.hpp"
 #include <memory>
 #include "abstractions/views/View.hpp"
 #include "constants/Constants.hpp"

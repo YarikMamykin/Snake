@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <events/EventDispatcher.hpp>
+#include <events/EventDispatcher/EventDispatcher.hpp>
 #include "mocks/WindowExposeEventHandlerMock.hpp"
 
 namespace events::tests {

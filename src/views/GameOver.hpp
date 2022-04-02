@@ -3,7 +3,7 @@
 #include "abstractions/views/View.hpp"
 #include <xlib/X11_ColorizedTextLabel/X11_ColorizedTextLabel.hpp>
 #include "timing/Timer.hpp"
-#include "abstractions/event_handling/KeyPressHandler.hpp"
+#include "events/event_handlers/KeyPressHandler.hpp"
 #include <string>
 
 namespace views {

@@ -1,5 +1,5 @@
 #include "threads/XlibThread.hpp"
-#include "events/EventDispatcher.hpp"
+#include "events/EventDispatcher/EventDispatcher.hpp"
 #include <xlib/XProxy/XProxy.hpp>
 #include <xlib/XSettings.hpp>
 #include <xlib/XError.hpp>

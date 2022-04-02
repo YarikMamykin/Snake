@@ -1,6 +1,6 @@
 #pragma once
 #include <gmock/gmock.h>
-#include <abstractions/event_handling/ClientMessageHandler.hpp>
+#include <events/event_handlers/ClientMessageHandler.hpp>
 #include "AWindowMock.hpp"
 
 struct WindowClientMessageHandlerMock : public AWindowMock, public events::ClientMessageHandler {

@@ -1,10 +1,10 @@
-#include "events/EventDispatcher.hpp"
-#include "abstractions/event_handling/ClientMessageHandler.hpp"
-#include "abstractions/event_handling/ExposeEventHandler.hpp"
-#include "abstractions/event_handling/KeyPressHandler.hpp"
-#include "abstractions/event_handling/MouseButtonPressHandler.hpp"
-#include "abstractions/event_handling/MouseMotionHandler.hpp"
-#include "abstractions/event_handling/NoEventHandler.hpp"
+#include "EventDispatcher.hpp"
+#include "events/event_handlers/ClientMessageHandler.hpp"
+#include "events/event_handlers/ExposeEventHandler.hpp"
+#include "events/event_handlers/KeyPressHandler.hpp"
+#include "events/event_handlers/MouseButtonPressHandler.hpp"
+#include "events/event_handlers/MouseMotionHandler.hpp"
+#include "events/event_handlers/NoEventHandler.hpp"
 
 namespace events {
 

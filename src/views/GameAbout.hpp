@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_VIEWS_GAMEABOUT_HPP
 #include "abstractions/views/View.hpp"
 #include "abstractions/ui/TextLabel.hpp"
-#include "abstractions/event_handling/KeyPressHandler.hpp"
+#include "events/event_handlers/KeyPressHandler.hpp"
 #include <string>
 #include <memory>
 

@@ -1,6 +1,6 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMENONE_HPP
 #define SRC_INCLUDE_VIEWS_GAMENONE_HPP
-#include "abstractions/event_handling/NoEventHandler.hpp"
+#include "events/event_handlers/NoEventHandler.hpp"
 #include "abstractions/views/View.hpp"
 
 namespace views {

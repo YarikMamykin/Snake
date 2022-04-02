@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_MOUSEMOTIONHANDLER_HPP
 
 #include "constants/Constants.hpp"
-#include "abstractions/event_handling/EventHandlingObject.hpp"
+#include "EventHandlingObject.hpp"
 
 namespace events {
 

@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMESETTINGS_HPP
 #define SRC_INCLUDE_VIEWS_GAMESETTINGS_HPP
 #include "abstractions/views/View.hpp"
-#include "abstractions/event_handling/KeyPressHandler.hpp"
+#include "events/event_handlers/KeyPressHandler.hpp"
 #include "xlib/X11_TextLabel/X11_TextLabel.hpp"
 #include "xlib/X11_Menu/X11_Menu.hpp"
 #include <string>

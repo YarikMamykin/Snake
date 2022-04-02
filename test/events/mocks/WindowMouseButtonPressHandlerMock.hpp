@@ -1,6 +1,6 @@
 #pragma once
 #include <gmock/gmock.h>
-#include <abstractions/event_handling/MouseButtonPressHandler.hpp>
+#include <events/event_handlers/MouseButtonPressHandler.hpp>
 #include "AWindowMock.hpp"
 
 struct WindowMouseButtonPressHandlerMock : public AWindowMock, public events::MouseButtonPressHandler {

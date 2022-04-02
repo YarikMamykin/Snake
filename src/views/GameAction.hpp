@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_VIEWS_GAMEACTION_HPP
 #define SRC_INCLUDE_VIEWS_GAMEACTION_HPP
 #include "abstractions/views/View.hpp"
-#include "abstractions/event_handling/KeyPressHandler.hpp"
+#include "events/event_handlers/KeyPressHandler.hpp"
 #include "constants/Constants.hpp"
 #include <memory>
 
