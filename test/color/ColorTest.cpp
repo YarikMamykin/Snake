@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "color/Color.hpp"
+#include "color/Color/Color.hpp"
 #include <cstddef>
 
 namespace colors_test {

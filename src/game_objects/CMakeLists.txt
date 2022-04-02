@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.0)
 
-set(GAME_OBJECTS_SRC 
-  ${CMAKE_CURRENT_SOURCE_DIR}/Snake.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/MovementController.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/Food.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/FoodGenerator.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/Info.cpp
-)
+add_subdirectory(Food)
+add_subdirectory(FoodGenerator)
+add_subdirectory(Info)
+add_subdirectory(MovementController)
+add_subdirectory(Snake)
 
-add_library(game_objects SHARED ${GAME_OBJECTS_SRC})
+add_library(game_objects SHARED 
+  $<TARGET_OBJECTS:game_object_food>
+  $<TARGET_OBJECTS:game_object_food_generator>
+  $<TARGET_OBJECTS:game_object_info>
+  $<TARGET_OBJECTS:game_object_movement_controller>
+  $<TARGET_OBJECTS:game_object_snake>
+)

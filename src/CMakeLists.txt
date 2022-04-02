@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 3.0)
 
+add_subdirectory(color)
+
 add_subdirectory(xlib)
 
-add_subdirectory(events)
-
 add_subdirectory(helpers)
+
+add_subdirectory(commands)
+
+add_subdirectory(events)
 
 add_subdirectory(views)
 
@@ -14,13 +18,9 @@ add_subdirectory(game_objects)
 
 add_subdirectory(ui)
 
-add_subdirectory(color)
-
 add_subdirectory(configuration)
 
 add_subdirectory(anchor_handlers)
-
-add_subdirectory(commands)
 
 add_subdirectory(threads)
 
@@ -29,7 +29,6 @@ target_link_libraries(${PROJECT_NAME}
 xlib_ui 
 events 
 game_views
-helpers
 timer
 game_objects
 presenters

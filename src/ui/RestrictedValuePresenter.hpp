@@ -3,7 +3,7 @@
 
 #include "abstractions/values/RestrictedValue.hpp"
 #include "abstractions/ui/ValuePresenter.hpp"
-#include "xlib/X11_TextLabel.hpp"
+#include <xlib/X11_TextLabel/X11_TextLabel.hpp>
 #include <memory>
 
 namespace abstractions::ui {

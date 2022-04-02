@@ -1,11 +1,11 @@
 #include "threads/XlibThread.hpp"
-#include "events/EventDispatcher.hpp"
-#include <xlib/XProxy.hpp>
+#include "events/EventDispatcher/EventDispatcher.hpp"
+#include <xlib/XProxy/XProxy.hpp>
 #include <xlib/XSettings.hpp>
 #include <xlib/XError.hpp>
 #include "configuration/Settings.hpp"
-#include "commands/ChangeView.hpp"
-#include "xlib/X11_Window.hpp"
+#include "commands/ChangeView/ChangeView.hpp"
+#include "xlib/X11_Window/X11_Window.hpp"
 #include <memory>
 #include <thread>
 #include <functional>

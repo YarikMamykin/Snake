@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "views/GameSettings.hpp"
+#include "views/GameSettings/GameSettings.hpp"
 
 namespace color {
   Color::Color(const unsigned long&) {}

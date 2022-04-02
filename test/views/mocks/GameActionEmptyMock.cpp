@@ -1,4 +1,4 @@
-#include "views/GameAction.hpp"
+#include "views/GameAction/GameAction.hpp"
 
 namespace game_objects {
 	class Snake {

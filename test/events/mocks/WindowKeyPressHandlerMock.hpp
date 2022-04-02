@@ -1,6 +1,6 @@
 #pragma once
 #include <gmock/gmock.h>
-#include <abstractions/event_handling/KeyPressHandler.hpp>
+#include <events/event_handlers/KeyPressHandler.hpp>
 #include "AWindowMock.hpp"
 
 struct WindowKeyPressHandlerMock : public AWindowMock, public events::KeyPressHandler {

@@ -1,12 +1,12 @@
 #ifndef SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP
 #define SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP
 #include "constants/Constants.hpp"
-#include "views/GameMenu.hpp"
-#include "views/GameAction.hpp"
-#include "views/GameAbout.hpp"
-#include "views/GameOver.hpp"
-#include "views/GameSettings.hpp"
-#include "views/GameNone.hpp"
+#include "views/GameMenu/GameMenu.hpp"
+#include "views/GameAction/GameAction.hpp"
+#include "views/GameAbout/GameAbout.hpp"
+#include "views/GameOver/GameOver.hpp"
+#include "views/GameSettings/GameSettings.hpp"
+#include "views/GameNone/GameNone.hpp"
 #include <memory>
 
 namespace views {

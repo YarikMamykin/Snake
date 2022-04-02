@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 
-set(COLOR_SRC 
-  ${CMAKE_CURRENT_SOURCE_DIR}/Color.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/ColorPallete.cpp
-)
+add_subdirectory(Color)
+add_subdirectory(ColorPallete)
 
-add_library(color SHARED ${COLOR_SRC})
+add_library(color SHARED
+  $<TARGET_OBJECTS:color_impl>
+  $<TARGET_OBJECTS:color_pallete>
+)

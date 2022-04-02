@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_ABSTRACTIONS_UI_COLORLABEL_HPP
 
 #include "abstractions/ui/Object.hpp"
-#include "color/ColorPallete.hpp"
+#include "color/ColorPallete/ColorPallete.hpp"
 
 namespace abstractions::ui {
   class ColorLabel : public Object {

@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "views/GameMenu.hpp"
+#include "views/GameMenu/GameMenu.hpp"
 
 namespace abstractions::ui {
   class Menu {

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "color/ColorPallete.hpp"
+#include "color/ColorPallete/ColorPallete.hpp"
 #include <vector>
 #include <algorithm>
 
