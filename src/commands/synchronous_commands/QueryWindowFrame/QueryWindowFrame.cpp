@@ -1,5 +1,6 @@
-#include "commands/synchronous_commands/QueryWindowFrame.hpp"
+#include "QueryWindowFrame.hpp"
 #include "configuration/Settings.hpp"
+#include <xlib/XProxy/XProxy.hpp>
 
 namespace commands {
   QueryWindowFrame::QueryWindowFrame(abstractions::ui::Object* window, std::atomic<bool>& trigger) 

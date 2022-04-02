@@ -1,4 +1,5 @@
-#include "commands/synchronous_commands/QueryTextHeight.hpp"
+#include "QueryTextHeight.hpp"
+#include <xlib/XProxy/XProxy.hpp>
 
 namespace commands {
 

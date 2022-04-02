@@ -2,8 +2,8 @@
 #include "helpers/Helper.hpp"
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"
 #include "color/Color.hpp"
-#include "commands/ChangeView.hpp"
-#include "commands/ExitApplication.hpp"
+#include "commands/ChangeView/ChangeView.hpp"
+#include "commands/ExitApplication/ExitApplication.hpp"
 #include "xlib/X11_Menu/X11_Menu.hpp"
 
 namespace {

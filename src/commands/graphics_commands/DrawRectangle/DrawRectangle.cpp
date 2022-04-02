@@ -1,4 +1,5 @@
-#include "commands/graphics_commands/DrawRectangle.hpp"
+#include "DrawRectangle.hpp"
+#include <xlib/XProxy/XProxy.hpp>
 
 namespace commands {
 

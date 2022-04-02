@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP
 #define SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP
 
-#include "abstractions/commands/Command.hpp"
+#include "commands/Command/Command.hpp"
 #include "constants/Constants.hpp"
 
 namespace commands {

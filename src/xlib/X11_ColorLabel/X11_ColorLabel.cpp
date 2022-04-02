@@ -1,7 +1,7 @@
 #include "X11_ColorLabel.hpp"
 #include "constants/Constants.hpp"
-#include "commands/graphics_commands/DrawRectangle.hpp"
-#include "commands/graphics_commands/FillRectangle.hpp"
+#include "commands/graphics_commands/DrawRectangle/DrawRectangle.hpp"
+#include "commands/graphics_commands/FillRectangle/FillRectangle.hpp"
 #include <memory>
 
 namespace {

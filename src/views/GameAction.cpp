@@ -1,7 +1,7 @@
 #include "views/GameAction.hpp"
 #include "configuration/Settings.hpp"
 #include "color/ColorPallete.hpp"
-#include "commands/ChangeView.hpp"
+#include "commands/ChangeView/ChangeView.hpp"
 #include "game_objects/Snake.hpp"
 #include "game_objects/FoodGenerator.hpp"
 #include "game_objects/MovementController.hpp"

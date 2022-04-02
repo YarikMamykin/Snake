@@ -5,10 +5,10 @@
 #include <iostream>
 #include <utility>
 #include "configuration/Settings.hpp"
-#include "commands/graphics_commands/DrawCircle.hpp"
-#include "commands/graphics_commands/DrawRectangle.hpp"
-#include "commands/graphics_commands/FillRectangle.hpp"
-#include "commands/synchronous_commands/QueryWindowFrame.hpp"
+#include "commands/graphics_commands/DrawCircle/DrawCircle.hpp"
+#include "commands/graphics_commands/DrawRectangle/DrawRectangle.hpp"
+#include "commands/graphics_commands/FillRectangle/FillRectangle.hpp"
+#include "commands/synchronous_commands/QueryWindowFrame/QueryWindowFrame.hpp"
 #include <mutex>
 #include <condition_variable>
 

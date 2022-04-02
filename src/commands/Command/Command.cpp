@@ -1,6 +1,4 @@
-#include "abstractions/commands/Command.hpp"
-#include <thread>
-#include <iostream>
+#include "Command.hpp"
 
 namespace commands {
 

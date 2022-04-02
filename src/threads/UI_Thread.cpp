@@ -1,6 +1,6 @@
 #include "threads/UI_Thread.hpp"
 #include "configuration/Settings.hpp"
-#include "commands/ChangeView.hpp"
+#include "commands/ChangeView/ChangeView.hpp"
 #include <mutex>
 #include <condition_variable>
 

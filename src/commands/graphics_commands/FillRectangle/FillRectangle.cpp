@@ -1,4 +1,5 @@
-#include "commands/graphics_commands/FillRectangle.hpp"
+#include "FillRectangle.hpp"
+#include <xlib/XProxy/XProxy.hpp>
 
 namespace commands {
 

@@ -1,6 +1,6 @@
 #ifndef SRC_INCLUDE_COMMANDS_EXITAPPLICATION_HPP
 #define SRC_INCLUDE_COMMANDS_EXITAPPLICATION_HPP
-#include "abstractions/commands/Command.hpp"
+#include "commands/Command/Command.hpp"
 #include "helpers/Helper.hpp"
 
 namespace commands {

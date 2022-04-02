@@ -1,4 +1,5 @@
-#include "commands/graphics_commands/DrawCircle.hpp"
+#include "DrawCircle.hpp"
+#include <xlib/XProxy/XProxy.hpp>
 
 namespace commands {
 

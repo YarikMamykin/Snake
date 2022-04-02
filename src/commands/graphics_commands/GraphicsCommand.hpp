@@ -3,7 +3,7 @@
 
 #include "geometry/Rectangle.hpp" 
 #include "color/Color.hpp"
-#include "abstractions/commands/Command.hpp" 
+#include "commands/Command/Command.hpp" 
 
 namespace commands {
 

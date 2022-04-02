@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_SYNCHRONOUSCOMMAND_HPP
 #define SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_SYNCHRONOUSCOMMAND_HPP
 
-#include "abstractions/commands/Command.hpp" 
+#include "commands/Command/Command.hpp" 
 #include <atomic>
 
 namespace commands {

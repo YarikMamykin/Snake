@@ -3,7 +3,7 @@
 #include "configuration/Settings.hpp"
 #include <vector>
 #include <algorithm>
-#include "commands/graphics_commands/FillRectangle.hpp"
+#include "commands/graphics_commands/FillRectangle/FillRectangle.hpp"
 
 namespace game_objects {
   class MovementController;

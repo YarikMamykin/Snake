@@ -4,7 +4,7 @@
 #include <xlib/XSettings.hpp>
 #include <xlib/XError.hpp>
 #include "configuration/Settings.hpp"
-#include "commands/ChangeView.hpp"
+#include "commands/ChangeView/ChangeView.hpp"
 #include "xlib/X11_Window/X11_Window.hpp"
 #include <memory>
 #include <thread>

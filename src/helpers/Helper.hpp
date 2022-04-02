@@ -1,9 +1,11 @@
 #ifndef SRC_INCLUDE_HELPERS_HELPER_HPP
 #define SRC_INCLUDE_HELPERS_HELPER_HPP
 
-#include "xlib/XHeaders.hpp"
-#include <xlib/XProxy/XProxy.hpp>
 #include "constants/Constants.hpp"
+
+namespace xlib {
+  class XProxy;
+}
 
 namespace helpers {
   struct Helper {

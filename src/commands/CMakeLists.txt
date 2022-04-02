@@ -1,19 +1,27 @@
 cmake_minimum_required(VERSION 3.0)
 
-set(COMMANDS_SRC
-  ${CMAKE_CURRENT_SOURCE_DIR}/Command.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/graphics_commands/DrawCircle.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/graphics_commands/DrawRectangle.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/graphics_commands/DrawText.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/graphics_commands/FillCircle.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/graphics_commands/FillRectangle.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/synchronous_commands/QueryTextWidth.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/synchronous_commands/QueryTextHeight.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/synchronous_commands/QueryWindowFrame.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/ChangeView.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/ExitApplication.cpp
+add_subdirectory(Command)
+
+add_subdirectory(ChangeView)
+
+add_subdirectory(ExitApplication)
+
+add_subdirectory(graphics_commands)
+
+add_subdirectory(synchronous_commands)
+
+
+add_library(commands SHARED 
+  $<TARGET_OBJECTS:command>
+  $<TARGET_OBJECTS:command_change_view>
+  $<TARGET_OBJECTS:command_exit_application>
+  $<TARGET_OBJECTS:graphics_commands>
+  $<TARGET_OBJECTS:synchronous_commands>
 )
 
-add_library(commands SHARED ${COMMANDS_SRC})
-add_dependencies(commands helpers)
-target_link_libraries(commands helpers)
+set(DEPS 
+  xproxy
+)
+
+add_dependencies(commands ${DEPS})
+target_link_libraries(commands ${DEPS})

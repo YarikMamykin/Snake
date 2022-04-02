@@ -5,7 +5,7 @@
 #include "geometry/Rectangle.hpp"
 #include "ui/ColorValuePresenter.hpp"
 #include "ui/RestrictedValuePresenter.hpp"
-#include "commands/ChangeView.hpp"
+#include "commands/ChangeView/ChangeView.hpp"
 
 namespace {
   color::COLOR_SCHEME_TYPE key_color_scheme = {

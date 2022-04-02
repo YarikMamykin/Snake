@@ -1,4 +1,5 @@
-#include "commands/synchronous_commands/QueryTextWidth.hpp"
+#include "QueryTextWidth.hpp"
+#include <xlib/XProxy/XProxy.hpp>
 
 namespace commands {
   QueryTextWidth::QueryTextWidth(const std::string& text, 

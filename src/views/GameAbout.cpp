@@ -2,7 +2,7 @@
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"
 #include "helpers/Helper.hpp"
 #include "xlib/X11_TextLabel/X11_TextLabel.hpp"
-#include <commands/ChangeView.hpp>
+#include <commands/ChangeView/ChangeView.hpp>
 
 namespace {
   const std::string about = "Classic 'Snake' game designed by Yaroslav Mamykin. Enjoy!";

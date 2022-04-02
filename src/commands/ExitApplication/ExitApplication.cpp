@@ -1,4 +1,4 @@
-#include "commands/ExitApplication.hpp"
+#include "ExitApplication.hpp"
 #include "helpers/Helper.hpp"
 
 namespace commands {

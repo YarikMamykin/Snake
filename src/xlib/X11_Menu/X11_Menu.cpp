@@ -1,5 +1,5 @@
 #include "X11_Menu.hpp"
-#include "commands/graphics_commands/DrawRectangle.hpp"
+#include "commands/graphics_commands/DrawRectangle/DrawRectangle.hpp"
 #include <memory>
 
 namespace xlib {
