@@ -1,4 +1,4 @@
-#include "views/GameAction.hpp"
+#include "GameAction.hpp"
 #include "configuration/Settings.hpp"
 #include "color/ColorPallete.hpp"
 #include "commands/ChangeView/ChangeView.hpp"

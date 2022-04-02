@@ -1,4 +1,4 @@
-#include "views/GameMenu.hpp"
+#include "GameMenu.hpp"
 #include "helpers/Helper.hpp"
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"
 #include "color/Color.hpp"

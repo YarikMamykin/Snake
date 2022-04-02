@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "views/GameOver.hpp"
+#include "views/GameOver/GameOver.hpp"
 
 namespace color {
 	ColorPallete::ColorPallete() = default;

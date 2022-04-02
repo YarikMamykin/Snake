@@ -1,4 +1,4 @@
-#include "views/GameSettings.hpp"
+#include "GameSettings.hpp"
 #include "helpers/Helper.hpp"
 #include "configuration/Settings.hpp"
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"

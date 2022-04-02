@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "views/GameAbout.hpp"
+#include "views/GameAbout/GameAbout.hpp"
 
 namespace views {
 

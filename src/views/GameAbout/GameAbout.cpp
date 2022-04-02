@@ -1,4 +1,4 @@
-#include "views/GameAbout.hpp"
+#include "GameAbout.hpp"
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"
 #include "helpers/Helper.hpp"
 #include "xlib/X11_TextLabel/X11_TextLabel.hpp"

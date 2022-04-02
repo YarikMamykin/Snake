@@ -1,4 +1,4 @@
-#include "views/GameNone.hpp"
+#include "GameNone.hpp"
 
 namespace views {
   GameNone::GameNone() { }

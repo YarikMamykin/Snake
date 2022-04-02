@@ -1,4 +1,4 @@
-#include "views/GameOver.hpp"
+#include "GameOver.hpp"
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"
 #include "configuration/Settings.hpp"
 #include "commands/ChangeView/ChangeView.hpp"
