@@ -1,4 +1,4 @@
-#include "game_objects/Food.hpp"
+#include "Food.hpp"
 #include "commands/graphics_commands/FillCircle/FillCircle.hpp"
 #include "configuration/Settings.hpp"
 

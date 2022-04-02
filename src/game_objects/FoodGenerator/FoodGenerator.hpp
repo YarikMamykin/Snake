@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_GAME_OBJECTS_FOODGENERATOR_HPP
 #define SRC_INCLUDE_GAME_OBJECTS_FOODGENERATOR_HPP
 
-#include "game_objects/Food.hpp"
+#include "game_objects/Food/Food.hpp"
 #include <random>
 #include <list>
 #include "configuration/Settings.hpp"

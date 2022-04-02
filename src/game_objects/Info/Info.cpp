@@ -1,4 +1,4 @@
-#include "game_objects/Info.hpp"
+#include "Info.hpp"
 
 #include "color/Color.hpp"
 #include "geometry/Rectangle.hpp"

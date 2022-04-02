@@ -1,4 +1,4 @@
-#include "game_objects/FoodGenerator.hpp"
+#include "FoodGenerator.hpp"
 #include "geometry/Point.hpp"
 #include "color/ColorPallete.hpp"
 #include "abstractions/values/RestrictedValue.hpp"

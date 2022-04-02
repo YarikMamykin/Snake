@@ -1,4 +1,4 @@
-#include "game_objects/Snake.hpp"
+#include "Snake.hpp"
 #include "exceptions/Exceptions.hpp"
 #include "configuration/Settings.hpp"
 #include <vector>
