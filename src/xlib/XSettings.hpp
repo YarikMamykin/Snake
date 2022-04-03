@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <color/Color/Color.hpp>
+#include <color/ColorScheme.hpp>
 
 namespace xlib {
   struct XSettings {

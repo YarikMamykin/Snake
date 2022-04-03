@@ -1,5 +1,7 @@
 #include "configuration/Settings.hpp"
 #include "color/ColorPallete/ColorPallete.hpp"
+#include <color/ColorSchemeID.hpp>
+#include <color/ColorScheme.hpp>
 #include "abstractions/values/RestrictedValue.hpp"
 #include <exception>
 

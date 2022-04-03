@@ -1,7 +1,6 @@
-#ifndef SRC_INCLUDE_COLOR_COLOR_HPP
-#define SRC_INCLUDE_COLOR_COLOR_HPP
+#pragma once
+
 #include <sstream>
-#include <map>
 #include <cstddef>
 
 namespace color {
@@ -20,14 +19,4 @@ namespace color {
     bool operator == (const Color& a) const;
   };
 
-  enum class ColorSchemeID : unsigned char { 
-    BackgroundColor,
-    TextColor,
-    FrameColor,
-    FontColor
-  };
-
-  typedef std::map<ColorSchemeID, Color> COLOR_SCHEME_TYPE;
 }
-
-#endif /* SRC_INCLUDE_COLOR_COLOR_HPP */

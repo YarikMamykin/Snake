@@ -1,8 +1,7 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_MENU_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_UI_MENU_HPP
+#pragma once
 
 #include "abstractions/ui/Object.hpp"
-#include "constants/Constants.hpp"
+#include "types/enums/LayoutType.hpp"
 #include <list>
 #include <algorithm>
 #include <memory>
@@ -188,6 +187,3 @@ namespace abstractions::ui {
       virtual ~Menu() {};
   };
 }
-
-
-#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_MENU_HPP */

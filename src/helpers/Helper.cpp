@@ -1,5 +1,6 @@
 #include "Helper.hpp"
 #include <xlib/XProxy/XProxy.hpp>
+#include <types/enums/AdditionalEvents.hpp>
 
 namespace helpers {
   XEvent Helper::ConstructExitApplicationEvent() {
