@@ -1,9 +1,8 @@
-#ifndef SRC_INCLUDE_GEOMETRY_POINT_HPP
-#define SRC_INCLUDE_GEOMETRY_POINT_HPP
+#pragma once
 
 #include <string>
 #include <sstream>
-#include "constants/Constants.hpp"
+#include "types/enums/RotationDirection.hpp"
 
 namespace geometry {
   struct Point {
@@ -69,7 +68,3 @@ namespace geometry {
     }
   };
 }
-
-
-
-#endif /* SRC_INCLUDE_GEOMETRY_POINT_HPP */

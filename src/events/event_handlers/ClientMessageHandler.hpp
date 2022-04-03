@@ -1,7 +1,6 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_CLIENTMESSAGEHANDLER_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_CLIENTMESSAGEHANDLER_HPP
+#pragma once
 
-#include "constants/Constants.hpp"
+#include "types/enums/HandlerKeys.hpp"
 #include "EventHandlingObject.hpp"
 
 namespace events {
@@ -15,6 +14,3 @@ namespace events {
   };
 
 }
-
-
-#endif /* SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_CLIENTMESSAGEHANDLER_HPP */

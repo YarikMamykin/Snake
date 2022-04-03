@@ -1,7 +1,5 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_MOUSEBUTTONPRESSHANDLER_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_MOUSEBUTTONPRESSHANDLER_HPP
+#pragma once
 
-#include "constants/Constants.hpp"
 #include "EventHandlingObject.hpp"
 
 namespace events {
@@ -15,5 +13,3 @@ namespace events {
   };
 
 }
-
-#endif /* SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_MOUSEBUTTONPRESSHANDLER_HPP */

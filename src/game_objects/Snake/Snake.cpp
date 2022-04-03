@@ -1,6 +1,8 @@
 #include "Snake.hpp"
 #include "exceptions/Exceptions.hpp"
 #include "configuration/Settings.hpp"
+#include <color/ColorScheme.hpp>
+#include <color/ColorSchemeID.hpp>
 #include <vector>
 #include <algorithm>
 #include "commands/graphics_commands/FillRectangle/FillRectangle.hpp"

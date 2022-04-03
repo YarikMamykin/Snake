@@ -1,9 +1,8 @@
-#ifndef SRC_INCLUDE_GAME_OBJECTS_SNAKE_HPP
-#define SRC_INCLUDE_GAME_OBJECTS_SNAKE_HPP
+#pragma once
 
 #include <list>
 #include <memory>
-#include "constants/Constants.hpp"
+#include "types/enums/SnakeDirection.hpp"
 #include "geometry/Rectangle.hpp"
 #include "geometry/Triangle.hpp"
 #include "color/Color/Color.hpp"
@@ -62,6 +61,3 @@ namespace game_objects {
       SnakeDirection current_direction;
   };
 }
-
-
-#endif /* SRC_INCLUDE_GAME_OBJECTS_SNAKE_HPP */

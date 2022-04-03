@@ -1,8 +1,7 @@
-#ifndef SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP
-#define SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP
+#pragma once
 
 #include "geometry/Point.hpp"
-#include "constants/Constants.hpp"
+#include "types/enums/RotationDirection.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -133,5 +132,3 @@ namespace geometry {
     }
   };
 }
-
-#endif /* SRC_INCLUDE_GEOMETRY_RECTANGLE_HPP */

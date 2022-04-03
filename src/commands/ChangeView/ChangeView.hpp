@@ -1,8 +1,7 @@
-#ifndef SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP
-#define SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP
+#pragma once
 
 #include "commands/Command/Command.hpp"
-#include "constants/Constants.hpp"
+#include "types/enums/ViewID.hpp"
 
 namespace commands {
 
@@ -17,6 +16,3 @@ namespace commands {
       virtual void execute(xlib::XProxy&) override;
   };
 }
-
-
-#endif /* SRC_INCLUDE_COMMANDS_CHANGEVIEW_HPP */

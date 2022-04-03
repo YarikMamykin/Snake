@@ -1,7 +1,7 @@
-#ifndef SRC_INCLUDE_HELPERS_HELPER_HPP
-#define SRC_INCLUDE_HELPERS_HELPER_HPP
+#pragma once
 
-#include "constants/Constants.hpp"
+#include "types/enums/ViewID.hpp"
+#include <xlib/XHeaders.hpp>
 
 namespace xlib {
   class XProxy;
@@ -15,5 +15,3 @@ namespace helpers {
     static void SendChangeViewEvent(xlib::XProxy& proxy, const views::ViewID& viewID);
   };
 }
-
-#endif /* SRC_INCLUDE_HELPERS_HELPER_HPP */

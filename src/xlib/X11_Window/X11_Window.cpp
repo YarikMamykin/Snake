@@ -9,6 +9,7 @@
 #include "commands/graphics_commands/DrawRectangle/DrawRectangle.hpp"
 #include "commands/graphics_commands/FillRectangle/FillRectangle.hpp"
 #include "commands/synchronous_commands/QueryWindowFrame/QueryWindowFrame.hpp"
+#include <types/enums/AdditionalEvents.hpp>
 #include <mutex>
 #include <condition_variable>
 

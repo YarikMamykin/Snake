@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_ABSTRACTIONS_UI_OBJECT_HPP
 
 #include "geometry/Rectangle.hpp"
-#include "constants/Constants.hpp"
+#include <color/ColorScheme.hpp>
 #include "color/Color/Color.hpp"
 
 namespace abstractions::ui {
