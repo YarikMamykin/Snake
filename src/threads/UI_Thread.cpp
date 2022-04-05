@@ -13,6 +13,9 @@ namespace threads {
   UI_Thread::UI_Thread(std::list<std::function<void()>>& ui_event_queue, bool& run, std::condition_variable& ui_events_available) 
   : run(run)
   , ui_thread(std::async(std::launch::async, [&ui_event_queue, &run]() {
+
+        while(!run);
+
       auto&& thread_sleep_timeout = config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT);
       commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU));
       for(;run;) {

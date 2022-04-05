@@ -42,6 +42,8 @@ namespace threads {
 
         auto& xproxy = std::get<std::reference_wrapper<xlib::XProxy>>(xproxy_variant).get();
 
+        run = true;
+
     auto* x_window_raw = x_window.get();
     events::EventDispatcher edispatcher;
     XEvent event;
