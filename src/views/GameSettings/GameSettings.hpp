@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_VIEWS_GAMESETTINGS_HPP
-#define SRC_INCLUDE_VIEWS_GAMESETTINGS_HPP
+#pragma once 
+
 #include "abstractions/views/View.hpp"
 #include "events/event_handlers/KeyPressHandler.hpp"
 #include "xlib/X11_TextLabel/X11_TextLabel.hpp"
@@ -41,7 +41,3 @@ namespace views {
       std::unique_ptr<abstractions::ui::Menu> menu;
   };
 }
-
-
-
-#endif /* SRC_INCLUDE_VIEWS_GAMESETTINGS_HPP */
