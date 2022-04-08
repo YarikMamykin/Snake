@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_VIEWS_GAMEMENU_HPP
-#define SRC_INCLUDE_VIEWS_GAMEMENU_HPP
+#pragma once
+
 #include "abstractions/views/View.hpp"
 #include <list>
 #include <functional>
@@ -41,6 +41,3 @@ namespace views {
       std::unique_ptr<abstractions::ui::Menu> menu;
   };
 }
-
-
-#endif /* SRC_INCLUDE_VIEWS_GAMEMENU_HPP */
