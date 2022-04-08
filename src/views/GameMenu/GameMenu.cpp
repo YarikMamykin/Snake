@@ -1,17 +1,16 @@
 #include "GameMenu.hpp"
-#include "helpers/Helper.hpp"
-#include "anchor_handlers/CenterWindowAnchorHandler.hpp"
-#include "color/Color/Color.hpp"
-#include "commands/ChangeView/ChangeView.hpp"
-#include "commands/ExitApplication/ExitApplication.hpp"
-#include "xlib/X11_Menu/X11_Menu.hpp"
 #include "Item.hpp"
+#include <anchor_handlers/CenterWindowAnchorHandler.hpp>
+#include <color/ColorSchemeID.hpp>
+#include <commands/ChangeView/ChangeView.hpp>
+#include <commands/ExitApplication/ExitApplication.hpp>
+#include <xlib/X11_Menu/X11_Menu.hpp>
 
 namespace {
-  const std::string NewGameItemName = "New Game"; 
-  const std::string AboutItemName = "About"; 
-  const std::string SettingsItemName = "Settings"; 
-  const std::string ExitItemName = "Exit";
+  constexpr char NewGameItemName[] { "New Game" }; 
+  constexpr char AboutItemName[] { "About" }; 
+  constexpr char SettingsItemName[] { "Settings" }; 
+  constexpr char ExitItemName[] { "Exit" };
 
   color::COLOR_SCHEME_TYPE text_labels_color_scheme = {
     { color::ColorSchemeID::BackgroundColor, 0UL },
@@ -34,12 +33,6 @@ namespace views {
     update();
   }
 
-  void GameMenu::update() {
-    ui::CenterWindowAnchorHandler anchor_handler(menu.get());
-    menu->get_current_item()->get()->set_focused(true);
-    menu->show(true);
-  }
-
   void GameMenu::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {
     switch(key_sym) {
       case XK_Down: menu->move_to_next_item(); break;
@@ -48,6 +41,12 @@ namespace views {
     }
 
     update();
+  }
+
+  void GameMenu::update() {
+    ui::CenterWindowAnchorHandler anchor_handler(menu.get());
+    menu->get_current_item()->get()->set_focused(true);
+    menu->show(true);
   }
 
   Item* GameMenu::current_item_as_game_menu_item(const abstractions::ui::Menu& menu) {
