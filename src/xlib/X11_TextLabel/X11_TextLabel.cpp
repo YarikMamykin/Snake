@@ -4,6 +4,8 @@
 #include "commands/graphics_commands/FillRectangle/FillRectangle.hpp"
 #include "commands/graphics_commands/DrawRectangle/DrawRectangle.hpp"
 #include "commands/graphics_commands/DrawText/DrawText.hpp"
+#include <condition_variable>
+#include <mutex>
 #include <thread>
 
 namespace xlib {

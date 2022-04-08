@@ -5,6 +5,7 @@
 #include <iostream>
 #include <utility>
 #include "configuration/Settings.hpp"
+#include "commands/ChangeView/ChangeView.hpp"
 #include "commands/graphics_commands/DrawCircle/DrawCircle.hpp"
 #include "commands/graphics_commands/DrawRectangle/DrawRectangle.hpp"
 #include "commands/graphics_commands/FillRectangle/FillRectangle.hpp"
@@ -12,11 +13,6 @@
 #include <types/enums/AdditionalEvents.hpp>
 #include <mutex>
 #include <condition_variable>
-
-namespace {
-  std::mutex mutex;
-  std::condition_variable cv;
-}
 
 namespace {
   color::COLOR_SCHEME_TYPE text_label_color_scheme = {
@@ -30,11 +26,16 @@ namespace xlib {
 
   X11_Window::X11_Window(views::ViewID viewID) 
     : abstractions::ui::AWindow(config::get_concrete<geometry::Rectangle>(config_id::WINDOW_FRAME), 
-        config::get_concrete<color::COLOR_SCHEME_TYPE>(config_id::WINDOW_COLOR_SCHEME)) {
+        config::get_concrete<color::COLOR_SCHEME_TYPE>(config_id::WINDOW_COLOR_SCHEME)) 
+    , m_closing(false) {
         view = views::ViewFactory::get_view(viewID);
     }
 
-  X11_Window::~X11_Window() { }
+  X11_Window::~X11_Window() = default;
+
+  bool X11_Window::closing() const noexcept {
+    return m_closing;
+  }
 
   void X11_Window::show(bool) {
     if (view) {
@@ -63,6 +64,7 @@ namespace xlib {
 
   void X11_Window::change_view(const int viewID) {
     this->view = views::ViewFactory::get_view(static_cast<views::ViewID>(viewID));
+    // commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(static_cast<views::ViewID>(viewID)));
   }
 
   void X11_Window::handle_mouse_motion(const int& x, const int& y) {
@@ -79,14 +81,14 @@ namespace xlib {
       case events::AdditionalEvents::ExitApplication: 
         {
           this->change_view(views::ViewID::NONE);
-          throw -1;
+          m_closing = true;
           break;
         }
       case events::AdditionalEvents::ChangeView: 
         {
           // Wait till additional threads ended their part 
-          std::unique_lock<std::mutex> lock(mutex);
-          cv.wait_for(lock, config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT), [](){return true;});
+          // std::unique_lock<std::mutex> lock(mutex);
+          // cv.wait_for(lock, config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT), [](){return true;});
           redraw_background();
           this->change_view(data[1]);
           this->view->activate();

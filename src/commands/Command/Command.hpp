@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_COMMANDS_COMMAND_HPP
-#define SRC_INCLUDE_COMMANDS_COMMAND_HPP
+#pragma once
+
 #include <list>
 #include <memory>
 #include <mutex>
@@ -25,7 +25,3 @@ namespace commands {
       static bool xlib_queue_empty();
   };
 }
-
-
-
-#endif /* SRC_INCLUDE_COMMANDS_COMMAND_HPP */

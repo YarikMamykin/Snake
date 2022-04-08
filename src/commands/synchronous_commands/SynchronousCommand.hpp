@@ -2,7 +2,6 @@
 
 #include "commands/Command/Command.hpp" 
 #include <commands/synchronous_commands/QueryLock/QueryLock.hpp>
-#include <atomic>
 
 namespace commands {
 

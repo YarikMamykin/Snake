@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_WINDOW_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_UI_WINDOW_HPP
+#pragma once
 
 #include <memory>
 #include "abstractions/ui/Object.hpp"
@@ -13,8 +12,7 @@ namespace abstractions::ui {
         : Object(frame, color_scheme) {}
 
     public:
+      virtual bool closing() const noexcept = 0;
       virtual ~AWindow() {};
   };
 }
-
-#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_WINDOW_HPP */

@@ -1,24 +1,32 @@
-#ifndef SRC_INCLUDE_THREADS_UI_THREAD_HPP
-#define SRC_INCLUDE_THREADS_UI_THREAD_HPP
+#pragma once 
+
 #include <functional>
 #include <future>
 #include <list>
 
-namespace threads {
-  class UI_Thread { 
-    private:
-      std::future<void> ui_thread;
-      bool& run;
-
-    public:
-      explicit UI_Thread(
-          std::list<std::function<void()>>& ui_event_queue, 
-          bool& run, 
-          std::condition_variable& ui_events_available);
-      ~UI_Thread();
-  };
+namespace abstractions::ui {
+  class AWindow;
 }
 
+namespace threads {
+  class UI_EventQueue;
+}
 
+namespace threads {
 
-#endif /* SRC_INCLUDE_THREADS_UI_THREAD_HPP */
+  class UI_Thread { 
+
+    private:
+      std::future<void> m_handler;
+
+    public:
+      explicit UI_Thread();
+      ~UI_Thread();
+
+      void run(
+          UI_EventQueue& ui_event_queue, 
+          std::mutex& sync_mutex,
+          std::shared_ptr<abstractions::ui::AWindow> x_window,
+          std::condition_variable& ui_events_available) noexcept;
+  };
+}
