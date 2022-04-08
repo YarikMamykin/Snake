@@ -5,6 +5,7 @@
 #include "commands/ChangeView/ChangeView.hpp"
 #include "commands/ExitApplication/ExitApplication.hpp"
 #include "xlib/X11_Menu/X11_Menu.hpp"
+#include "Item.hpp"
 
 namespace {
   const std::string NewGameItemName = "New Game"; 
@@ -20,16 +21,6 @@ namespace {
 }
 
 namespace views {
-
-  GameMenu::Item::Item(const std::string& name, std::function<void()> activation_callback)
-  : xlib::X11_TextLabel(name, {}, text_labels_color_scheme)
-  , activation_callback(activation_callback) { }
-
-  void GameMenu::Item::activate() {
-    if(this->focused()) {
-      this->activation_callback();
-    }
-  }
 
   GameMenu::GameMenu() 
   : menu(new xlib::X11_Menu(::ui::LayoutType::VERTICAL, {}, text_labels_color_scheme)) {
@@ -59,7 +50,7 @@ namespace views {
     update();
   }
 
-  GameMenu::Item* GameMenu::current_item_as_game_menu_item(const abstractions::ui::Menu& menu) {
-    return static_cast<GameMenu::Item*>(menu.get_current_item()->get());
+  Item* GameMenu::current_item_as_game_menu_item(const abstractions::ui::Menu& menu) {
+    return static_cast<Item*>(menu.get_current_item()->get());
   }
 }
