@@ -27,12 +27,18 @@ namespace views {
   , paused(false) {
 
     // snake params from settings
-    auto&& snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color();
-    auto&& snake_head_width = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER);
-    auto&& snake_head_height = Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u;
-    auto&& snake_timeout = Sets::get_concrete_ref<std::chrono::milliseconds>(ConfigID::SNAKE_TIMEOUT);
-    auto&& snake_speed = Sets::get_concrete_ref<RESTRICTED_ULONG>(ConfigID::SNAKE_SPEED);
-    auto&& snake_speed_multiplier = Sets::get_concrete_ref<std::chrono::milliseconds>(ConfigID::SNAKE_SPEED_MULTIPLIER);
+    auto snake_head_width = 
+      Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * 
+      Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER);
+
+    auto snake_head_height = 
+      Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * 
+      Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u;
+
+    auto snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color();
+    auto snake_timeout = Sets::get_concrete<std::chrono::milliseconds>(ConfigID::SNAKE_TIMEOUT);
+    auto snake_speed = Sets::get_concrete<RESTRICTED_ULONG>(ConfigID::SNAKE_SPEED);
+    auto snake_speed_multiplier = Sets::get_concrete<std::chrono::milliseconds>(ConfigID::SNAKE_SPEED_MULTIPLIER);
 
     // windows frame from settings
     const auto& win_frame = config::get_concrete_ref<geometry::Rectangle>(config_id::WINDOW_FRAME);
