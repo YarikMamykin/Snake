@@ -17,7 +17,7 @@ namespace xlib {
       X11_TextLabel(const std::string& text, 
                     const geometry::Rectangle& frame, 
                     const color::COLOR_SCHEME_TYPE& color_scheme);
-      ~X11_TextLabel();
+      virtual ~X11_TextLabel();
 
       void show(bool show_flag) override;
       void show_frame(bool show_flag) override;

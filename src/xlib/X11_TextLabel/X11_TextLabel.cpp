@@ -18,7 +18,7 @@ namespace xlib {
     this->prev_frame = this->frame;
   }
 
-  X11_TextLabel::~X11_TextLabel() { }
+  X11_TextLabel::~X11_TextLabel() = default;
 
   void X11_TextLabel::show(bool show_flag) {
     if(show_flag) { 

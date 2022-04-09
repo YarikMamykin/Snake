@@ -22,4 +22,5 @@ namespace views {
     }
   }
 
+  Item::~Item() = default;
 }
