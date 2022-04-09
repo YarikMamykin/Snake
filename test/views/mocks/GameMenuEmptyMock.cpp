@@ -19,8 +19,8 @@ namespace xlib {
 }
 
 namespace views {
-  GameMenu::Item::Item(const std::string& name, std::function<void()> activation_callback){}
-  void GameMenu::Item::activate(){}
+  class Item {
+  };
 }
 
 namespace views {
@@ -29,10 +29,8 @@ namespace views {
   void GameMenu::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {}
 
   void GameMenu::update() {}
-  void GameMenu::move_to_next_item() {}
-  void GameMenu::move_to_prev_item() {}
 
-  GameMenu::Item* GameMenu::current_item_as_game_menu_item(const abstractions::ui::Menu& menu) {
+  Item* GameMenu::current_item_as_game_menu_item(const abstractions::ui::Menu& menu) {
     return nullptr;
   }
 }
