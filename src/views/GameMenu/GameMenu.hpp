@@ -6,10 +6,7 @@
 #include <memory>
 #include "events/event_handlers/KeyPressHandler.hpp"
 #include <xlib/X11_TextLabel/X11_TextLabel.hpp>
-
-namespace abstractions::ui {
-  class Menu;
-}
+#include <abstractions/ui/Menu.hpp>
 
 namespace views {
 
