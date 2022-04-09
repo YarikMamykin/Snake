@@ -1,14 +1,6 @@
 #include "gmock/gmock.h"
 #include "views/GameMenu/GameMenu.hpp"
 
-namespace abstractions::ui {
-  class Menu {
-    public:
-      Menu() = default;
-      ~Menu() = default;
-  };
-}
-
 namespace xlib {
   X11_TextLabel::X11_TextLabel() = default;
   X11_TextLabel::X11_TextLabel(const std::string& text, 

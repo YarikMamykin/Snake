@@ -1,11 +1,13 @@
 #include "GameSettings.hpp"
-#include "helpers/Helper.hpp"
-#include "configuration/Settings.hpp"
-#include "anchor_handlers/CenterWindowAnchorHandler.hpp"
-#include "geometry/Rectangle.hpp"
-#include "ui/ColorValuePresenter.hpp"
-#include "ui/RestrictedValuePresenter.hpp"
-#include "commands/ChangeView/ChangeView.hpp"
+#include "Setting.hpp"
+
+#include <anchor_handlers/CenterWindowAnchorHandler.hpp>
+#include <commands/ChangeView/ChangeView.hpp>
+#include <configuration/Settings.hpp>
+#include <geometry/Rectangle.hpp>
+#include <ui/ColorValuePresenter.hpp>
+#include <ui/RestrictedValuePresenter.hpp>
+#include <xlib/X11_Menu/X11_Menu.hpp>
 
 namespace {
   color::COLOR_SCHEME_TYPE key_color_scheme = {
@@ -24,28 +26,6 @@ namespace {
     { color::ColorSchemeID::BackgroundColor, 0UL },
     { color::ColorSchemeID::FrameColor, ~0UL }
   };
-}
-
-namespace views {
-  GameSettings::Setting::Setting(std::unique_ptr<abstractions::ui::TextLabel> key_presenter, 
-                                 std::unique_ptr<abstractions::ui::Object> value_presenter, 
-                                 std::function<void()> increase_binder, 
-                                 std::function<void()> decrease_binder)
-  : xlib::X11_Menu(::ui::LayoutType::HORIZONTAL, {}, menu_color_scheme, 30U) 
-  , increase_binder(increase_binder)
-  , decrease_binder(decrease_binder) {
-    add_item(std::move(key_presenter));
-    add_item(std::move(value_presenter));
-    margin = 0U;
-  }
-
-  void GameSettings::Setting::increase() {
-    increase_binder();
-  }
-
-  void GameSettings::Setting::decrease() {
-    decrease_binder();
-  }
 }
 
 namespace views {
@@ -120,7 +100,7 @@ namespace views {
     menu->show(true);
   }
 
-  GameSettings::Setting* GameSettings::current_item_as_setting(const abstractions::ui::Menu& menu) {
-    return static_cast<GameSettings::Setting*>(menu.get_current_item()->get());
+  Setting* GameSettings::current_item_as_setting(const abstractions::ui::Menu& menu) {
+    return static_cast<Setting*>(menu.get_current_item()->get());
   }
 }
