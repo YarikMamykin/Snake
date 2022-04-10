@@ -64,7 +64,6 @@ namespace xlib {
 
   void X11_Window::change_view(const int viewID) {
     this->view = views::ViewFactory::get_view(static_cast<views::ViewID>(viewID));
-    // commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(static_cast<views::ViewID>(viewID)));
   }
 
   void X11_Window::handle_mouse_motion(const int& x, const int& y) {
@@ -80,15 +79,12 @@ namespace xlib {
     switch(data[0]) {
       case events::AdditionalEvents::ExitApplication: 
         {
-          this->change_view(views::ViewID::NONE);
           m_closing = true;
           break;
         }
       case events::AdditionalEvents::ChangeView: 
         {
           // Wait till additional threads ended their part 
-          // std::unique_lock<std::mutex> lock(mutex);
-          // cv.wait_for(lock, config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT), [](){return true;});
           redraw_background();
           this->change_view(data[1]);
           this->view->activate();
