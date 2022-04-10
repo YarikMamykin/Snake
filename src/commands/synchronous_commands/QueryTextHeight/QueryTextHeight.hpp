@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTHEIGHT_HPP
-#define SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTHEIGHT_HPP
+#pragma once
 
 #include "commands/synchronous_commands/SynchronousCommand.hpp"
 #include <string>
@@ -11,13 +10,9 @@ namespace commands {
       unsigned int& height;
 
     public:
-      explicit QueryTextHeight(unsigned int& result, std::atomic<bool>& trigger);
+      explicit QueryTextHeight(unsigned int& result, QueryLock& ql);
       ~QueryTextHeight() override = default;
 
       virtual void execute(xlib::XProxy&) override;
   };
 }
-
-
-
-#endif /* SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTHEIGHT_HPP */

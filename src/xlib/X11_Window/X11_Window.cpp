@@ -45,9 +45,8 @@ namespace xlib {
   void X11_Window::show_frame(bool) { }
 
   void X11_Window::update_window_frame() {
-    std::atomic<bool> trigger(false);
-    commands::Command::push_xlib_command(std::make_unique<commands::QueryWindowFrame>(this, trigger));
-    while(!trigger.load());
+    commands::QueryLock ql;
+    commands::Command::push_xlib_command(std::make_unique<commands::QueryWindowFrame>(this, ql));
   }
 
   void X11_Window::expose() {

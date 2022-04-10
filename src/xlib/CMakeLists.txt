@@ -25,6 +25,7 @@ set(DEPS
   command_fill_circle
   command_draw_rectangle
   command_draw_text
+  query_lock
 )
 
 add_dependencies(xlib_ui ${DEPS})

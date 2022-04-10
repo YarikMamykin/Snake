@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTWIDTH_HPP
-#define SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTWIDTH_HPP
+#pragma once
 
 #include "commands/synchronous_commands/SynchronousCommand.hpp"
 #include <string>
@@ -14,12 +13,9 @@ namespace commands {
     public:
       explicit QueryTextWidth(const std::string& text, 
                               unsigned int& result,
-                              std::atomic<bool>& trigger);
+                              QueryLock& ql);
       ~QueryTextWidth() override = default;
 
       virtual void execute(xlib::XProxy&) override;
   };
 }
-
-
-#endif /* SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYTEXTWIDTH_HPP */
