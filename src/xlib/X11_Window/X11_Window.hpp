@@ -39,6 +39,11 @@ namespace xlib {
     void handle_expose_event() override;
 
     std::unique_ptr<views::View> view;
+
+    bool closing() const noexcept override;
+
+    private:
+    bool m_closing;
   };
 }
 

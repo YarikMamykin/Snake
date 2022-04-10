@@ -5,17 +5,17 @@
 #include <functional>
 #include <xlib/XHeaders.hpp>
 #include "abstractions/ui/Window.hpp"
+#include <threads/UI_Event.hpp>
 
 namespace events {
 
-  struct EventDispatcher {
+  class EventDispatcher {
 
-    explicit EventDispatcher() = default;
-    ~EventDispatcher() = default;
+    public:
 
-    /*
-     * event ref is non-const because of XCheckMaskEvent
-     */
-    std::function<void()> dispatch_event(abstractions::ui::AWindow* window, XEvent& event);
+      EventDispatcher() = default;
+      ~EventDispatcher() = default;
+
+      threads::UI_Event dispatch_event(std::shared_ptr<abstractions::ui::AWindow> window, XEvent& event);
   };
 }

@@ -4,6 +4,7 @@ set(THREADS_SRC
   ${CMAKE_CURRENT_SOURCE_DIR}/XlibThread.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/UI_Thread.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/ThreadDispatcher.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/UI_EventQueue.cpp
 )
 
 add_library(threads SHARED ${THREADS_SRC})

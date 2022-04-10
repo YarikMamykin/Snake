@@ -7,7 +7,7 @@ namespace commands {
 
   class QueryTextWidth : public SynchronousCommand {
     protected:
-      const std::string text;
+      const std::string& text;
       unsigned int& width;
 
     public:

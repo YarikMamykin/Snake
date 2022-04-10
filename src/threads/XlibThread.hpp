@@ -1,23 +1,30 @@
-#ifndef SRC_INCLUDE_THREADS_XLIBTHREAD_HPP
-#define SRC_INCLUDE_THREADS_XLIBTHREAD_HPP
-#include "abstractions/ui/Window.hpp"
+#pragma once 
+
 #include <functional>
-#include <future>
 #include <list>
+#include <future>
+
+namespace std {
+  class mutex;
+}
+
+namespace abstractions::ui {
+  class AWindow;
+}
 
 namespace threads {
   class XlibThread { 
+
     private:
-      std::future<void> xlib_thread;
+      std::future<void> m_handler;
 
     public:
-      explicit XlibThread(
-          std::list<std::function<void()>>& ui_event_queue, 
-          bool& run,
-          std::condition_variable& ui_events_available);
+      explicit XlibThread();
       ~XlibThread();
+
+      bool init() const noexcept;
+
+      void run(std::shared_ptr<abstractions::ui::AWindow> x_window) noexcept;
   };
 }
 
-
-#endif /* SRC_INCLUDE_THREADS_XLIBTHREAD_HPP */
