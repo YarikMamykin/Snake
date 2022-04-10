@@ -51,18 +51,20 @@ namespace xlib {
   }
 
   const unsigned int X11_TextLabel::get_text_graphical_width() const {
-    std::atomic<bool> trigger(false);
     unsigned int width = 0u;
-    commands::Command::push_xlib_command(std::make_unique<commands::QueryTextWidth>(text, width, trigger));
-    while(!trigger.load());
+    {
+      commands::QueryLock ql;
+      commands::Command::push_xlib_command(std::make_unique<commands::QueryTextWidth>(text, width, ql));
+    }
     return width;
   }
 
   const unsigned int X11_TextLabel::get_text_graphical_height() const {
-    std::atomic<bool> trigger(false);
     unsigned int height = 0u;
-    commands::Command::push_xlib_command(std::make_unique<commands::QueryTextHeight>(height, trigger));
-    while(!trigger.load());
+    {
+      commands::QueryLock ql;
+      commands::Command::push_xlib_command(std::make_unique<commands::QueryTextHeight>(height, ql));
+    }
     return height;
   }
 
