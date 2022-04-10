@@ -12,24 +12,19 @@ namespace threads {
   UI_Thread::~UI_Thread() = default;
 
       
-  void UI_Thread::run(
-      UI_EventQueue& ui_event_queue, 
-      std::mutex& sync_mutex, 
-      std::shared_ptr<abstractions::ui::AWindow> x_window,
-      std::condition_variable& ui_events_available) noexcept {
+  void UI_Thread::run(std::shared_ptr<abstractions::ui::AWindow> x_window) noexcept {
 
-    auto runner = [ &ui_event_queue, x_window, &ui_events_available ]() mutable noexcept {
+    auto runner = [ x_window ]() mutable noexcept {
 
       commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU));
-      while(true);
 
-      // while(!x_window->closing()) {
-        // ui_event_queue.pop();
-      // }
+      while(!x_window->closing()) {
+        auto event = UI_EventQueue::wait_and_pop();
+        event();
+      }
     };
 
-    m_handler = std::async(std::launch::deferred, runner);
-    m_handler.wait();
+    m_handler = std::async(std::launch::async, runner);
   }
 
 }

@@ -44,17 +44,12 @@ namespace threads {
     return !std::holds_alternative<xlib::XError>(xproxy_variant);
   }
 
-  void XlibThread::run(
-      UI_EventQueue& ui_event_queue, 
-      std::mutex& sync_mutex, 
-      std::shared_ptr<abstractions::ui::AWindow> x_window,
-      std::condition_variable& ui_events_available) noexcept {
+  void XlibThread::run(std::shared_ptr<abstractions::ui::AWindow> x_window) noexcept {
 
-    auto runner = [ &ui_event_queue, &sync_mutex, x_window, &ui_events_available ]() mutable noexcept {
+    auto runner = [ x_window ]() mutable noexcept {
 
       auto& xproxy = std::get<std::reference_wrapper<xlib::XProxy>>(xproxy_variant).get();
 
-      commands::Command::push_xlib_command(std::make_unique<commands::ChangeView>(views::ViewID::MENU));
       events::EventDispatcher edispatcher;
 
       auto thread_sleep_timeout = config::get_concrete<std::chrono::microseconds>(config_id::THREADS_SLEEP_TIMEOUT);
@@ -69,8 +64,7 @@ namespace threads {
             continue;
           }
 
-          // ui_event_queue.push(edispatcher.dispatch_event(x_window, event));
-          edispatcher.dispatch_event(x_window, event)();
+          UI_EventQueue::push(edispatcher.dispatch_event(x_window, event));
         }
 
         bool queue_empty = commands::Command::xlib_queue_empty();
@@ -83,8 +77,7 @@ namespace threads {
 
     };
 
-    m_handler = std::async(std::launch::deferred, runner);
-    m_handler.wait();
+    runner();
   }
 
 }

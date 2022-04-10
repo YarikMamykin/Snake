@@ -9,10 +9,6 @@ namespace abstractions::ui {
 }
 
 namespace threads {
-  class UI_EventQueue;
-}
-
-namespace threads {
 
   class UI_Thread { 
 
@@ -23,10 +19,6 @@ namespace threads {
       explicit UI_Thread();
       ~UI_Thread();
 
-      void run(
-          UI_EventQueue& ui_event_queue, 
-          std::mutex& sync_mutex,
-          std::shared_ptr<abstractions::ui::AWindow> x_window,
-          std::condition_variable& ui_events_available) noexcept;
+      void run(std::shared_ptr<abstractions::ui::AWindow> x_window) noexcept;
   };
 }
