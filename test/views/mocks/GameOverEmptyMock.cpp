@@ -22,17 +22,16 @@ namespace xlib {
 }
 
 namespace timing {
-	Timer::Timer() = default;
-	Timer::Timer(const std::chrono::milliseconds&& timeout, 
+	Timer::Timer(const std::chrono::milliseconds timeout, 
                    std::function<void()> callback) {}
 	Timer::~Timer() = default;
-	void Timer::launch() {}
-	void Timer::stop() {}
-	bool Timer::running() const { return true; }
+	void Timer::launch() noexcept {}
+	void Timer::stop() noexcept {}
+	bool Timer::running() const noexcept { return true; }
 }
 
 namespace views {
-	GameOver::GameOver() = default;
+	GameOver::GameOver() : timer(std::chrono::milliseconds(0u), []{}) {}
 	GameOver::~GameOver() = default;
 
 	void GameOver::activate() {}
