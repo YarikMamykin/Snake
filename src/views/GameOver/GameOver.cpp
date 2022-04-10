@@ -22,17 +22,14 @@ namespace views {
         "#00ffff",
         "#ff00ff",
         }))) 
-  , timer(config::get_concrete<std::chrono::milliseconds>(config_id::GAME_OVER_TIMEOUT)) {
-    auto colorized_text_label_ptr = colorized_text_label.get();
-    timer.callback = [colorized_text_label_ptr]() {
-      colorized_text_label_ptr->shift_colors();
-      colorized_text_label_ptr->show(true);
-    };
-  }
+  , timer(
+      config::get_concrete<std::chrono::milliseconds>(config_id::GAME_OVER_TIMEOUT),
+      [colorized_text_label_ptr = this->colorized_text_label.get()]() {
+        colorized_text_label_ptr->shift_colors();
+        colorized_text_label_ptr->show(true);
+      }) { }
 
-  GameOver::~GameOver() {
-    timer.stop();
-  }
+  GameOver::~GameOver() = default;
 
   void GameOver::activate() {
     ui::CenterWindowAnchorHandler(colorized_text_label.get());
