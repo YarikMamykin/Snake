@@ -1,27 +1,25 @@
-#ifndef SRC_INCLUDE_TIMING_TIMER_HPP
-#define SRC_INCLUDE_TIMING_TIMER_HPP
+#pragma once
+
 #include <chrono>
-#include <functional>
 #include <future>
-#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 namespace timing {
-  struct Timer {
-    std::atomic<bool> do_stop;
-    std::function<void()> callback;
-    std::chrono::milliseconds timeout;
-    std::future<void> timer_thread;
+  class Timer {
+    std::chrono::milliseconds m_timeout;
+    std::function<void()> m_callback;
+    std::future<void> m_timer_thread;
+
+    std::mutex m;
+    std::condition_variable cv;
 
     public:
-    explicit Timer();
-    explicit Timer(const std::chrono::milliseconds&& timeout, 
-                   std::function<void()> callback = [](){});
-    ~Timer();
-    void launch(); 
-    void stop();
-    bool running() const;
+      explicit Timer(std::chrono::milliseconds timeout, std::function<void()> callback);
+      ~Timer();
+
+      void launch() noexcept; 
+      void stop() noexcept;
+      bool running() const noexcept;
   };
 }
-
-
-#endif /* SRC_INCLUDE_TIMING_TIMER_HPP */
