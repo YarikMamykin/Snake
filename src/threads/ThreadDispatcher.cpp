@@ -25,9 +25,9 @@ namespace threads {
 
     auto window = std::make_shared<xlib::X11_Window>(views::ViewID::NONE);
 
-    xlib_thread.run(ui_event_queue, sync_mutex, window, ui_events_available);
+    ui_thread.run(window);
 
-    // ui_thread.run(ui_event_queue, sync_mutex, window, ui_events_available);
+    xlib_thread.run(window);
   } 
 
   ThreadDispatcher::~ThreadDispatcher() = default;
