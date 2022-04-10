@@ -8,18 +8,6 @@ namespace {
 
 namespace timing_test {
 
-TEST(TimerTest, CreationWithoutParams)
-{
-    timing::Timer t;
-    EXPECT_TRUE(t.do_stop.load());
-}
-
-TEST(TimerTest, CreateWithParams)
-{
-    timing::Timer t(std::move(test_timeout), empty_test_callback);
-    EXPECT_TRUE(t.do_stop.load());
-}
-
 TEST(TimerTest, LaunchSimple)
 {
     auto test_value = 10;
@@ -28,12 +16,18 @@ TEST(TimerTest, LaunchSimple)
     };
 
     timing::Timer t(std::move(test_timeout), test_callback);
-    ASSERT_TRUE(t.do_stop.load());
+
+    ASSERT_FALSE(t.running());
     ASSERT_EQ(test_value, 10);
+
     t.launch();
+    
     ASSERT_TRUE(t.running());
+
     std::this_thread::sleep_for(test_timeout + test_timeout * 0.1); // wait a little bit more than timer timeout
+
     t.stop();
+
     EXPECT_FALSE(t.running());
     EXPECT_EQ(test_value, 20);
 }

@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_GAME_OBJECTS_FOOD_HPP
-#define SRC_INCLUDE_GAME_OBJECTS_FOOD_HPP
+#pragma once
 
 #include "geometry/Rectangle.hpp"
 #include "color/Color/Color.hpp"
@@ -16,5 +15,3 @@ namespace game_objects {
     ~Food();
   };
 }
-
-#endif /* SRC_INCLUDE_GAME_OBJECTS_FOOD_HPP */

@@ -1,55 +1,63 @@
 #include "timing/Timer.hpp"
-#include <mutex>
-#include <condition_variable>
 
 namespace {
-  std::mutex mutex;
-  std::condition_variable cv;
+  constexpr std::chrono::milliseconds no_wait(0u);
 }
 
 namespace timing {
-  Timer::Timer()
-  : do_stop(true) { }
-
-  Timer::Timer(const std::chrono::milliseconds&& timeout, 
-               std::function<void()> callback)
-  : timeout(timeout)
-  , callback(callback)
-  , do_stop(true) { }
+  Timer::Timer(std::chrono::milliseconds timeout, std::function<void()> callback) 
+  : m_timeout(timeout) 
+  , m_callback(callback) { }
 
   Timer::~Timer() {
     this->stop();
   }
 
-  void Timer::launch() {
-    if(running()) return;
+  void Timer::launch() noexcept {
+    if(running()) 
+      return;
 
-    do_stop.store(false);
+    m_timer_thread = std::async(std::launch::async, 
+        [
+          timeout = this->m_timeout, 
+          callback = this->m_callback,
+          &cv = this->cv,
+          &m = this->m
+        ]() {
 
-    timer_thread = std::async(std::launch::async, [this]() {
-      using namespace std::chrono;
-      auto start_point = steady_clock::now();
+        std::unique_lock<std::mutex> lock(m);
+        
+        while(std::cv_status::timeout == cv.wait_for(lock, timeout)) { 
 
-      while(!do_stop.load()) { 
-        if(duration_cast<milliseconds>(steady_clock::now() - start_point) >= timeout) {
           callback(); 
-          start_point = steady_clock::now();
-        }
-        std::unique_lock<std::mutex> lock(mutex);
-        cv.wait_for(lock, decltype(timeout)(1u), [](){return true;});
-      } 
+
+        } 
     });
   }
 
-  void Timer::stop() {
-    if(running()) {
-      do_stop.store(true);
-      timer_thread.wait();
+  void Timer::stop() noexcept {
+    if(!running())
+      return;
+
+    {
+      std::lock_guard<std::mutex> lk(m);
     }
+    cv.notify_one();
+
+    m_timer_thread.wait();
   }
 
-  bool Timer::running() const {
-    return !do_stop.load();
+  bool Timer::running() const noexcept {
+
+    try {
+
+      return std::future_status::timeout == m_timer_thread.wait_for(no_wait);
+
+    } catch(const std::future_error& err) {
+
+      return false;
+
+    }
   }
 }
 
