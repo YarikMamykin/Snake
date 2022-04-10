@@ -1,24 +1,21 @@
-#ifndef SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_SYNCHRONOUSCOMMAND_HPP
-#define SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_SYNCHRONOUSCOMMAND_HPP
+#pragma once
 
 #include "commands/Command/Command.hpp" 
+#include <commands/synchronous_commands/QueryLock/QueryLock.hpp>
 #include <atomic>
 
 namespace commands {
 
   class SynchronousCommand : public Command {
     protected:
-      std::atomic<bool>& trigger;
+      QueryLock& m_ql;
 
-      explicit SynchronousCommand(std::atomic<bool>& trigger) 
-      : trigger(trigger) { }
+      explicit SynchronousCommand(QueryLock& ql) 
+      : m_ql(ql) { }
 
     public:
-      virtual ~SynchronousCommand() override = default;
+      virtual ~SynchronousCommand() override {
+        m_ql.unlock();
+      }
   };
 }
-
-
-
-
-#endif /* SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_SYNCHRONOUSCOMMAND_HPP */

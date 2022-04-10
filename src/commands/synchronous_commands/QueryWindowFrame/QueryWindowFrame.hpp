@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYWINDOWFRAME_HPP
-#define SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYWINDOWFRAME_HPP
+#pragma once
 
 #include "commands/synchronous_commands/SynchronousCommand.hpp"
 #include "abstractions/ui/Object.hpp"
@@ -11,13 +10,11 @@ namespace commands {
       abstractions::ui::Object* window;
 
     public:
-      explicit QueryWindowFrame(abstractions::ui::Object* window, std::atomic<bool>& trigger);
+      explicit QueryWindowFrame(
+          abstractions::ui::Object* window, 
+          QueryLock& ql);
       ~QueryWindowFrame() override = default;
 
       virtual void execute(xlib::XProxy& proxy) override;
   };
 }
-
-
-
-#endif /* SRC_INCLUDE_COMMANDS_SYNCHRONOUS_COMMANDS_QUERYWINDOWFRAME_HPP */
