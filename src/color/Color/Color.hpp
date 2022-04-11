@@ -1,22 +1,31 @@
 #pragma once
 
-#include <sstream>
-#include <cstddef>
+#include <bitset>
+#include <string_view>
 
 namespace color {
-  struct Color {
-    std::byte red, green, blue;
 
-    Color() = default;
-    Color(const Color&) = default;
-    Color(Color&&) = default;
-    Color& operator=(const Color&) = default;
-    Color(const unsigned long& value);
-    Color(const char* value);
-    Color(const std::string& value);
-    operator unsigned long () const; 
-    operator std::string() const; 
-    bool operator == (const Color& a) const;
+  class Color {
+    std::bitset<24> m_self;
+
+    public:
+
+      Color(const Color&) = default;
+      Color& operator=(const Color&) = default;
+      Color(unsigned long value) noexcept;
+      Color(std::string_view value);
+
+      Color() = delete;
+      Color(Color&&) = delete;
+      Color& operator=(Color&&) = delete;
+
+      operator unsigned long () const; 
+
+      bool operator == (const Color& a) const;
+
+      unsigned char red() const noexcept;
+      unsigned char green() const noexcept;
+      unsigned char blue() const noexcept;
   };
 
 }
