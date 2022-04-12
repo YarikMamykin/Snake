@@ -5,7 +5,9 @@
 namespace {
   color::COLOR_SCHEME_TYPE menu_color_scheme = {
     { color::ColorSchemeID::BackgroundColor, 0UL },
-    { color::ColorSchemeID::FrameColor, ~0UL }
+    { color::ColorSchemeID::FrameColor, ~0UL },
+    { color::ColorSchemeID::TextColor, 255UL << 8 },
+    { color::ColorSchemeID::FontColor, 255UL << 8 }
   };
 }
 

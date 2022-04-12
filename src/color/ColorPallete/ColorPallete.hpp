@@ -1,15 +1,16 @@
-#ifndef SRC_INCLUDE_COLOR_COLORPALLETE_HPP
-#define SRC_INCLUDE_COLOR_COLORPALLETE_HPP
+#pragma once
 
 #include "color/Color/Color.hpp"
 #include <list>
 #include <string>
 
 namespace color {
-  struct ColorPallete {
+  class ColorPallete {
+    std::list<Color> m_colors;
+    std::list<Color>::iterator m_current_color;
+
+    public:
     ColorPallete();
-    ColorPallete(const char* hex_color);
-    ColorPallete(const std::string& hex_color);
     ColorPallete(const Color& color);
     ColorPallete(const ColorPallete& color_pallete);
     ColorPallete(ColorPallete&& color_pallete);
@@ -17,13 +18,8 @@ namespace color {
     ColorPallete& operator ++();
     ColorPallete& operator --();
     ColorPallete& operator = (const ColorPallete& color_pallete);
-    void set_current_color(const Color& color);
-    Color get_current_color() const;
 
-    private:
-    std::list<Color> colors;
-    std::list<Color>::iterator current_color;
+    Color current_color() const noexcept;
+    void set_color(const Color& color) noexcept;
   };
 }
-
-#endif /* SRC_INCLUDE_COLOR_COLORPALLETE_HPP */

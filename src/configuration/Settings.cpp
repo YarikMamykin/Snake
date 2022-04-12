@@ -20,13 +20,13 @@ namespace configuration {
       { ConfigID::WINDOW_FONT_NAME, std::string("*-courier-*-24-*") },
       { ConfigID::SNAKE_SPEED, abstractions::values::RestrictedValue(10ul, 1ul, 10ul) },
       { ConfigID::SNAKE_SPEED_MULTIPLIER, std::chrono::milliseconds(3u) },
-      { ConfigID::SNAKE_COLOR, color::ColorPallete("#00ff00") },
+      { ConfigID::SNAKE_COLOR, color::ColorPallete(color::Color("#00ff00")) },
       { ConfigID::SNAKE_TIMEOUT, std::chrono::milliseconds(20u) },
       { ConfigID::SNAKE_SIZE, abstractions::values::RestrictedValue(1u, 1u, 10u) },
       { ConfigID::GAME_OVER_TIMEOUT, std::chrono::milliseconds(80u) },
       { ConfigID::RANDOM_ENGINE_ALGORITHM, RANDOM_ENGINE_ALGORITHM_TYPE() },
       { ConfigID::SIZE_MULTIPLIER, 20u },
-      { ConfigID::FOOD_COLOR, color::ColorPallete("#ffff00") },
+      { ConfigID::FOOD_COLOR, color::ColorPallete(color::Color("#ffff00")) },
       { ConfigID::THREADS_SLEEP_TIMEOUT, std::chrono::microseconds(50u) },
     };
     return sets_map;

@@ -9,6 +9,6 @@ namespace ui {
   }
   
   void ColorValuePresenter::update_presenter() { 
-    this->presenter->set_color(this->get_value().get_current_color());
+    this->presenter->set_color(this->get_value().current_color());
   }
 }

@@ -56,7 +56,7 @@ namespace xlib {
 
 	void X11_ColorizedTextLabel::update_char_colors() {
 		for(auto& char_label : char_labels) {
-			char_label.update_color_scheme(color::ColorSchemeID::TextColor, char_color_sequence.get_current_color());
+			char_label.update_color_scheme(color::ColorSchemeID::TextColor, char_color_sequence.current_color());
 			char_label.show(true);
 			++char_color_sequence;
 		}

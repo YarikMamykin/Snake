@@ -24,7 +24,9 @@ namespace {
 
   color::COLOR_SCHEME_TYPE menu_color_scheme = {
     { color::ColorSchemeID::BackgroundColor, 0UL },
-    { color::ColorSchemeID::FrameColor, ~0UL }
+    { color::ColorSchemeID::FrameColor, ~0UL },
+    { color::ColorSchemeID::TextColor, 255UL << 8 },
+    { color::ColorSchemeID::FontColor, 255UL << 8 }
   };
 }
 
@@ -34,7 +36,7 @@ namespace views {
   using RESTRICTED_ULONG = abstractions::values::RestrictedValue<unsigned long>;
 
   GameSettings::GameSettings() 
-  : menu(new xlib::X11_Menu(ui::LayoutType::VERTICAL, {}, color::COLOR_SCHEME_TYPE(), 20U)) {
+  : menu(new xlib::X11_Menu(ui::LayoutType::VERTICAL, {}, menu_color_scheme, 20U)) {
 
     auto& snake_speed_shared = config::get_concrete_ref<RESTRICTED_ULONG>(config_id::SNAKE_SPEED);
     auto snake_speed = snake_speed_shared.get_restricted_value();

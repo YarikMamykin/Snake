@@ -28,17 +28,17 @@ namespace xlib {
     }
 
     if(!show_flag) { 
-      commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+      commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
     }
   }
 
   void X11_TextLabel::show_frame(bool show_flag) {
     if(show_flag) {
-      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme[color::ColorSchemeID::FrameColor]));
+      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme.at(color::ColorSchemeID::FrameColor)));
     }
 
     if(!show_flag) {
-      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
     }
   }
 
@@ -46,8 +46,8 @@ namespace xlib {
     update_frame();
     hide_prev_frame();
 
-    commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
-    commands::Command::push_xlib_command(std::make_unique<commands::DrawText>( text, geometry::Point{ frame.x + left_text_margin, frame.y + (get_text_graphical_height() + top_text_margin / 2)}, color_scheme[color::ColorSchemeID::TextColor]));
+    commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
+    commands::Command::push_xlib_command(std::make_unique<commands::DrawText>( text, geometry::Point{ frame.x + left_text_margin, frame.y + (get_text_graphical_height() + top_text_margin / 2)}, color_scheme.at(color::ColorSchemeID::TextColor)));
 
     this->show_frame(focused());
   }
@@ -77,6 +77,6 @@ namespace xlib {
   }
 
   void X11_TextLabel::hide_prev_frame() {
-    commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(prev_frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+    commands::Command::push_xlib_command(std::make_unique<commands::FillRectangle>(prev_frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
   }
 }
