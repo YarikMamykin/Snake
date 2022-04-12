@@ -18,7 +18,7 @@ namespace colors_test {
 TEST(ColorPalleteTest, CreateColorPalleteFromColor) {
   for(const auto& color : { red,green,blue,cyan,white }) {
     ColorPallete color_pallete(color);
-    EXPECT_EQ(color, color_pallete.get_current_color());
+    EXPECT_EQ(color, color_pallete.current_color());
   }
 }
 
@@ -27,13 +27,13 @@ TEST(ColorPalleteTest, IterateColorsInPallete) {
   std::vector<color::Color> colors = { red,green,blue,cyan };
 
   for(const auto& color : colors) {
-    auto found_color = std::find(colors.begin(), colors.end(), color_pallete.get_current_color());
+    auto found_color = std::find(colors.begin(), colors.end(), color_pallete.current_color());
     EXPECT_NE(found_color, colors.end());
     ++color_pallete;
   }
 
   for(const auto& color : colors) {
-    auto found_color = std::find(colors.begin(), colors.end(), color_pallete.get_current_color());
+    auto found_color = std::find(colors.begin(), colors.end(), color_pallete.current_color());
     EXPECT_NE(found_color, colors.end());
     --color_pallete;
   }
