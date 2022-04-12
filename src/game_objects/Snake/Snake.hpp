@@ -29,8 +29,8 @@ namespace game_objects {
         static inline unsigned int step;
         static inline unsigned int shift;
         static constexpr inline unsigned int spacing = 10u;
-        static inline color::Color head_color;
-        static inline color::Color background_color;
+        static inline color::Color head_color{ 255ul << 8 };
+        static inline color::Color background_color{ 255ul << 8 };
 
         geometry::Rectangle frame;
         SnakeDirection direction;

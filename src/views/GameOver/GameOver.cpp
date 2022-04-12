@@ -14,13 +14,15 @@ namespace {
 namespace views {
 
   GameOver::GameOver() 
-  : colorized_text_label(new xlib::X11_ColorizedTextLabel("GAME OVER", {}, color_scheme, color::ColorPallete({
-        "#ff0000",
-        "#00ff00",
-        "#0000ff",
-        "#ffff00",
-        "#00ffff",
-        "#ff00ff",
+  : colorized_text_label(new xlib::X11_ColorizedTextLabel(
+        "GAME OVER", {}, color_scheme, 
+        color::ColorPallete(std::list<color::Color>{
+          color::Color("#ff0000"),
+          color::Color("#00ff00"),
+          color::Color("#0000ff"),
+          color::Color("#ffff00"),
+          color::Color("#00ffff"),
+          color::Color("#ff00ff"),
         }))) 
   , timer(
       config::get_concrete<std::chrono::milliseconds>(config_id::GAME_OVER_TIMEOUT),

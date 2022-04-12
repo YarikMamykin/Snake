@@ -20,9 +20,9 @@ namespace abstractions::ui {
         : Object(frame, color_scheme) 
           , color_pallete(color) {}
 
-      virtual void set_color(const color::Color& color) { this->color_pallete.set_current_color(color); }
+      virtual void set_color(const color::Color& color) { this->color_pallete.set_color(color); }
       virtual void set_color_pallete(const color::ColorPallete& color_pallete) { this->color_pallete = color_pallete; }
-      virtual const color::Color get_color() const { return this->color_pallete.get_current_color(); }
+      virtual const color::Color get_color() const { return this->color_pallete.current_color(); }
 
       virtual ~ColorLabel() {};
 

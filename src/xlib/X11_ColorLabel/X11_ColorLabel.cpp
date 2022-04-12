@@ -26,7 +26,7 @@ namespace xlib {
           frame.x + margin,
           frame.y + margin,
           frame.width - margin * 2,
-          frame.height - margin * 2}, color_pallete.get_current_color()));
+          frame.height - margin * 2}, color_pallete.current_color()));
     }
   }
 

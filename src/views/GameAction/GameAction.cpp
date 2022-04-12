@@ -35,7 +35,7 @@ namespace views {
       Sets::get_concrete<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * 
       Sets::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) / 2u;
 
-    auto snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).get_current_color();
+    auto snake_color = Sets::get_concrete<color::ColorPallete>(ConfigID::SNAKE_COLOR).current_color();
     auto snake_timeout = Sets::get_concrete<std::chrono::milliseconds>(ConfigID::SNAKE_TIMEOUT);
     auto snake_speed = Sets::get_concrete<RESTRICTED_ULONG>(ConfigID::SNAKE_SPEED);
     auto snake_speed_multiplier = Sets::get_concrete<std::chrono::milliseconds>(ConfigID::SNAKE_SPEED_MULTIPLIER);

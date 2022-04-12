@@ -20,13 +20,13 @@ namespace xlib {
     update_menu_frame();
     if(show_flag) {
 
-      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(prev_frame, color_scheme[color::ColorSchemeID::BackgroundColor]));
+      commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(prev_frame, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
       commands::Command::push_xlib_command(std::make_unique<commands::DrawRectangle>(geometry::Rectangle{
         frame.x - margin,
         frame.y - margin,
         frame.width + margin * 2,
         frame.height + margin * 2
-      }, color_scheme[color::ColorSchemeID::FrameColor]));
+      }, color_scheme.at(color::ColorSchemeID::FrameColor)));
     }
 
     if(!show_flag) {
@@ -35,7 +35,7 @@ namespace xlib {
         frame.y - margin,
         frame.width + margin * 2,
         frame.height + margin * 2
-      }, color_scheme[color::ColorSchemeID::BackgroundColor]));
+      }, color_scheme.at(color::ColorSchemeID::BackgroundColor)));
     }
   }
 

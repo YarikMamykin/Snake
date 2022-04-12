@@ -42,7 +42,7 @@ namespace game_objects {
     using RESTRICTED_UINT = abstractions::values::RestrictedValue<unsigned int>;
 
     auto& background_color = config::get_concrete_ref<color::COLOR_SCHEME_TYPE>(config_id::WINDOW_COLOR_SCHEME).at(color::ColorSchemeID::BackgroundColor);
-    auto&& food_color = Settings::get_concrete_ref<color::ColorPallete>(ConfigID::FOOD_COLOR).get_current_color();
+    auto&& food_color = Settings::get_concrete_ref<color::ColorPallete>(ConfigID::FOOD_COLOR).current_color();
     auto&& food_size = Settings::get_concrete_ref<RESTRICTED_UINT>(ConfigID::SNAKE_SIZE).get_restricted_value() * Settings::get_concrete<const unsigned int>(ConfigID::SIZE_MULTIPLIER) + 5u;
     auto&& region = geometry::Rectangle{200,200,window_width - 300u,window_height - 300u};
 
