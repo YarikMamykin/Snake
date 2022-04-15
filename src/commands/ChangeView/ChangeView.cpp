@@ -1,6 +1,5 @@
 #include "ChangeView.hpp"
 #include "helpers/Helper.hpp"
-#include <xlib/XProxy/XProxy.hpp>
 
 namespace commands {
 
