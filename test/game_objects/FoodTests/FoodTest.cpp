@@ -37,9 +37,34 @@ TEST_F(FoodTest, CreateFood)
 	ASSERT_EQ(MockFillCircle::commands_collector.size(), 2ul);
 
 	xlib::MockXProxy xmock;
-	EXPECT_CALL(xmock, fill_circle(testing::_, testing::_)).Times(2);
-	for(auto& command: MockFillCircle::commands_collector) {
-		command->execute(xmock);
+
+	{
+		geometry::Rectangle actual_frame;
+		color::Color actual_color { 0ul };
+
+		EXPECT_CALL(xmock, fill_circle).WillOnce(
+				testing::DoAll(
+					testing::SaveArg<0>(&actual_frame), 
+					testing::SaveArg<1>(&actual_color)));
+		MockFillCircle::commands_collector.front()->execute(xmock);
+
+		EXPECT_EQ(actual_frame, expected_frame);
+		EXPECT_EQ(actual_color, expected_color);
+	}
+
+	{
+		geometry::Rectangle actual_frame;
+		color::Color actual_background_color { 255ul };
+
+		EXPECT_CALL(xmock, fill_circle).WillOnce(
+				testing::DoAll(
+					testing::SaveArg<0>(&actual_frame), 
+					testing::SaveArg<1>(&actual_background_color)));
+		MockFillCircle::commands_collector.back()->execute(xmock);
+
+		EXPECT_EQ(actual_frame, expected_frame);
+		EXPECT_EQ(actual_background_color, expected_background_color);
 	}
 }
+
 }
