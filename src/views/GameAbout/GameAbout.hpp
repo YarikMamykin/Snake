@@ -12,15 +12,16 @@ namespace views {
 
   class GameAbout : public View, 
                     public events::KeyPressHandler {
+
+      std::unique_ptr<TextLabel> text_label;
+
     public:
-      explicit GameAbout();
+
+      // For testing
+      explicit GameAbout(TextLabel* tlabel = nullptr);
       ~GameAbout() = default;
 
-    public:
       void activate() override;
       void handle_key_press(const KeySym& key_sym, const unsigned int& mask) override;
-
-    private:
-      std::unique_ptr<TextLabel> text_label;
   };
 }
