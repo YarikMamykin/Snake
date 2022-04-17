@@ -3,7 +3,7 @@
 
 namespace views {
 
-	GameAbout::GameAbout() = default;
+  GameAbout::GameAbout(TextLabel* tlabel) {}
 
 	void GameAbout::activate() {}
 	void GameAbout::handle_key_press(const KeySym& key_sym, const unsigned int& mask) {}
