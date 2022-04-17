@@ -16,3 +16,5 @@ target_link_libraries(ViewsTest
   gmock
 )
 add_test(NAME ViewsTest COMMAND ViewsTest)
+
+add_subdirectory(GameAbout)

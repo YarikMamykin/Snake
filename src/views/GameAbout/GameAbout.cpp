@@ -1,7 +1,6 @@
 #include "GameAbout.hpp"
 #include "anchor_handlers/CenterWindowAnchorHandler.hpp"
-#include "helpers/Helper.hpp"
-#include "xlib/X11_TextLabel/X11_TextLabel.hpp"
+#include <xlib/X11_TextLabel/X11_TextLabel.hpp>
 #include <commands/ChangeView/ChangeView.hpp>
 
 namespace {
@@ -11,12 +10,21 @@ namespace {
     { color::ColorSchemeID::TextColor, (255UL << 8) },
     { color::ColorSchemeID::FrameColor, (255UL << 16) }
   };
+
+  std::unique_ptr<abstractions::ui::TextLabel>
+    define_label(abstractions::ui::TextLabel* tlabel) {
+      if(tlabel) {
+        return std::unique_ptr<abstractions::ui::TextLabel>(tlabel);
+      }
+
+      return std::unique_ptr<abstractions::ui::TextLabel>(new xlib::X11_TextLabel(about, {}, text_label_color_scheme));
+    }
 }
 
 namespace views {
 
-  GameAbout::GameAbout() 
-  : text_label(new xlib::X11_TextLabel(about, {}, text_label_color_scheme)) { }
+  GameAbout::GameAbout(TextLabel* tlabel) 
+  : text_label(define_label(tlabel)) { }
   
   void GameAbout::activate() {
     ui::CenterWindowAnchorHandler(text_label.get());
