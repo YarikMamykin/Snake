@@ -18,3 +18,4 @@ target_link_libraries(ViewsTest
 add_test(NAME ViewsTest COMMAND ViewsTest)
 
 add_subdirectory(GameAbout)
+add_subdirectory(GameOver)
