@@ -1,5 +1,6 @@
 #include "gmock/gmock.h"
 #include "views/GameMenu/GameMenu.hpp"
+#include <xlib/X11_TextLabel/X11_TextLabel.hpp>
 
 namespace xlib {
   X11_TextLabel::X11_TextLabel() = default;

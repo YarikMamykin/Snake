@@ -1,11 +1,10 @@
 #pragma once
 
-#include "abstractions/views/View.hpp"
-#include "events/event_handlers/KeyPressHandler.hpp"
 #include <list>
 #include <memory>
+
+#include "abstractions/views/View.hpp"
 #include "events/event_handlers/KeyPressHandler.hpp"
-#include <xlib/X11_TextLabel/X11_TextLabel.hpp>
 #include <abstractions/ui/Menu.hpp>
 
 namespace views {
@@ -17,6 +16,7 @@ namespace views {
   class GameMenu : public View, 
                    public events::KeyPressHandler {
 
+  private:
     std::unique_ptr<abstractions::ui::Menu> menu;
 
     void update();
