@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_XLIB_X11_TEXTLABEL_HPP
-#define SRC_INCLUDE_XLIB_X11_TEXTLABEL_HPP
+#pragma once
 #include "geometry/Rectangle.hpp"
 #include "abstractions/ui/TextLabel.hpp"
 #include <string>
@@ -33,6 +32,3 @@ namespace xlib {
       geometry::Rectangle prev_frame;
   };
 }
-
-
-#endif /* SRC_INCLUDE_XLIB_X11_TEXTLABEL_HPP */

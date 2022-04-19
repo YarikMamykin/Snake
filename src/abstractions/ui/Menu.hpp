@@ -151,7 +151,7 @@ namespace abstractions::ui {
         return;
       }
 
-      decltype(current_item) get_current_item() const { return current_item; }
+      virtual decltype(current_item) get_current_item() const { return current_item; }
 
     public:
       struct ObjectsLayoutPositioner {
