@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_VIEWS_VIEW_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_VIEWS_VIEW_HPP
+#pragma once
 #include <memory>
 
 namespace views {
@@ -12,4 +11,3 @@ namespace views {
 }
 
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_VIEWS_VIEW_HPP */

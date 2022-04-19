@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUEPRESENTER_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUEPRESENTER_HPP
+#pragma once
 
 #include "abstractions/values/RestrictedValue.hpp"
 #include "abstractions/ui/ValuePresenter.hpp"
@@ -23,4 +22,3 @@ namespace abstractions::ui {
 
 
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUEPRESENTER_HPP */

@@ -1,6 +1,4 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_TEXTLABEL_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_UI_TEXTLABEL_HPP
-
+#pragma once
 #include "abstractions/ui/Object.hpp"
 
 namespace abstractions::ui {
@@ -24,4 +22,3 @@ namespace abstractions::ui {
   };
 }
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_TEXTLABEL_HPP */

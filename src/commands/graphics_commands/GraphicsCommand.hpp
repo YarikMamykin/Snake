@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_GRAPHICSCOMMAND_HPP
-#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_GRAPHICSCOMMAND_HPP
+#pragma once
 
 #include "geometry/Rectangle.hpp" 
 #include "color/Color/Color.hpp"
@@ -22,4 +21,3 @@ namespace commands {
 
 
 
-#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_GRAPHICSCOMMAND_HPP */

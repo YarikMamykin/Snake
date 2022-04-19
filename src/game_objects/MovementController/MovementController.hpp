@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_GAME_OBJECTS_MOVEMENTCONTROLLER_HPP
-#define SRC_INCLUDE_GAME_OBJECTS_MOVEMENTCONTROLLER_HPP
+#pragma once
 
 #include <memory>
 #include "geometry/Rectangle.hpp"
@@ -32,4 +31,3 @@ namespace game_objects {
 
 
 
-#endif /* SRC_INCLUDE_GAME_OBJECTS_MOVEMENTCONTROLLER_HPP */

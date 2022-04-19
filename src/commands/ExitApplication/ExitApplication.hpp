@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_COMMANDS_EXITAPPLICATION_HPP
-#define SRC_INCLUDE_COMMANDS_EXITAPPLICATION_HPP
+#pragma once
 #include "commands/Command/Command.hpp"
 #include "helpers/Helper.hpp"
 
@@ -16,4 +15,3 @@ namespace commands {
 
 
 
-#endif /* SRC_INCLUDE_COMMANDS_EXITAPPLICATION_HPP */

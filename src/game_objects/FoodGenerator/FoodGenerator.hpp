@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_GAME_OBJECTS_FOODGENERATOR_HPP
-#define SRC_INCLUDE_GAME_OBJECTS_FOODGENERATOR_HPP
+#pragma once
 
 #include "game_objects/Food/Food.hpp"
 #include <random>
@@ -31,4 +30,3 @@ namespace game_objects {
 }
 
 
-#endif /* SRC_INCLUDE_GAME_OBJECTS_FOODGENERATOR_HPP */

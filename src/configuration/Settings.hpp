@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_CONFIGURATION_SETTINGS_HPP
-#define SRC_INCLUDE_CONFIGURATION_SETTINGS_HPP
+#pragma once
 
 #include <chrono>
 #include <map>
@@ -47,4 +46,3 @@ namespace configuration {
 using config = configuration::Settings;
 using config_id = configuration::ConfigID;
 
-#endif /* SRC_INCLUDE_CONFIGURATION_SETTINGS_HPP */

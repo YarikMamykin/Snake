@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWTEXT_HPP
-#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWTEXT_HPP
+#pragma once
 
 #include "commands/graphics_commands/GraphicsCommand.hpp"
 #include <string>
@@ -17,4 +16,3 @@ namespace commands {
 }
 
 
-#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_DRAWTEXT_HPP */

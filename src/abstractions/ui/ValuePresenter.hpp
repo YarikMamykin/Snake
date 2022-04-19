@@ -1,6 +1,4 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP
-
+#pragma once
 #include "abstractions/ui/Object.hpp"
 #include <memory>
 #include <functional>
@@ -92,4 +90,3 @@ namespace abstractions::ui {
 }
 
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_VALUEPRESENTER_HPP */

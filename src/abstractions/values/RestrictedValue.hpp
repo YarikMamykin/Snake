@@ -1,6 +1,4 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUE_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUE_HPP
-
+#pragma once
 #include <algorithm>
 
 namespace abstractions::values {
@@ -59,4 +57,3 @@ namespace abstractions::values {
         unsigned int&& iteration_step = 1u) -> RestrictedValue<ValueType>;
 }
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_RESTRICTEDVALUE_HPP */

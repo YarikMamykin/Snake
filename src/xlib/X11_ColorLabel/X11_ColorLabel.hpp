@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_XLIB_X11_COLORLABEL_HPP
-#define SRC_INCLUDE_XLIB_X11_COLORLABEL_HPP
+#pragma once
 #include "abstractions/ui/ColorLabel.hpp"
 
 namespace xlib {
@@ -16,4 +15,3 @@ namespace xlib {
   };
 }
 
-#endif /* SRC_INCLUDE_XLIB_X11_COLORLABEL_HPP */
