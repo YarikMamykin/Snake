@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLCIRCLE_HPP
-#define SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLCIRCLE_HPP
+#pragma once
 
 #include "commands/graphics_commands/GraphicsCommand.hpp"
 
@@ -12,4 +11,3 @@ namespace commands {
   };
 }
 
-#endif /* SRC_INCLUDE_COMMANDS_GRAPHICS_COMMANDS_FILLCIRCLE_HPP */

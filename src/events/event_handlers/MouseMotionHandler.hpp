@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_MOUSEMOTIONHANDLER_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_MOUSEMOTIONHANDLER_HPP
+#pragma once
 
 #include "types/enums/HandlerKeys.hpp"
 #include "EventHandlingObject.hpp"
@@ -16,4 +15,3 @@ namespace events {
 
 }
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_EVENT_HANDLING_MOUSEMOTIONHANDLER_HPP */

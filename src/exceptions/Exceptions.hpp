@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP
-#define SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP
+#pragma once
 
 #include <exception>
 
@@ -23,4 +22,3 @@ namespace exceptions {
     };
 }
 
-#endif /* SRC_INCLUDE_EXCEPTIONS_EXCEPTIONS_HPP */

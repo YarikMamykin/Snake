@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP
-#define SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP
+#pragma once
 #include "types/enums/ViewID.hpp"
 #include "views/GameMenu/GameMenu.hpp"
 #include "views/GameAction/GameAction.hpp"
@@ -26,4 +25,3 @@ namespace views {
     };
 }
 
-#endif /* SRC_INCLUDE_VIEWS_VIEWFACTORY_HPP */

@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_GAME_OBJECTS_INFO_HPP
-#define SRC_INCLUDE_GAME_OBJECTS_INFO_HPP
+#pragma once
 
 #include <memory>
 #include <chrono>
@@ -20,4 +19,3 @@ namespace game_objects {
   };
 }
 
-#endif /* SRC_INCLUDE_GAME_OBJECTS_INFO_HPP */

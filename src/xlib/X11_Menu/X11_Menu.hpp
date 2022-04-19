@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_XLIB_X11_MENU_HPP
-#define SRC_INCLUDE_XLIB_X11_MENU_HPP
+#pragma once
 #include "abstractions/ui/Menu.hpp"
 
 namespace xlib {
@@ -21,4 +20,3 @@ namespace xlib {
   };
 }
 
-#endif /* SRC_INCLUDE_XLIB_X11_MENU_HPP */

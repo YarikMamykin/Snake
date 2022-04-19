@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_XLIB_X11_WINDOW_HPP
-#define SRC_INCLUDE_XLIB_X11_WINDOW_HPP
+#pragma once
 
 #include "events/event_handlers/MouseMotionHandler.hpp"
 #include "events/event_handlers/ClientMessageHandler.hpp"
@@ -48,4 +47,3 @@ namespace xlib {
 }
 
 
-#endif /* SRC_INCLUDE_XLIB_X11_WINDOW_HPP */

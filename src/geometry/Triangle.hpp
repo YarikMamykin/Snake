@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_GEOMETRY_TRIANGLE_HPP
-#define SRC_INCLUDE_GEOMETRY_TRIANGLE_HPP
+#pragma once
 
 #include "geometry/Point.hpp"
 
@@ -10,4 +9,3 @@ namespace geometry {
 }
 
 
-#endif /* SRC_INCLUDE_GEOMETRY_TRIANGLE_HPP */

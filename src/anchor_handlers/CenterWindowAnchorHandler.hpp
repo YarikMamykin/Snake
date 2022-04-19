@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_ANCHOR_HANDLERS_CENTERWINDOWANCHORHANDLER_HPP
-#define SRC_INCLUDE_ANCHOR_HANDLERS_CENTERWINDOWANCHORHANDLER_HPP
+#pragma once
 
 #include "abstractions/ui/Window.hpp"
 #include "geometry/Point.hpp"
@@ -22,4 +21,3 @@ namespace ui {
 
 
 
-#endif /* SRC_INCLUDE_ANCHOR_HANDLERS_CENTERWINDOWANCHORHANDLER_HPP */

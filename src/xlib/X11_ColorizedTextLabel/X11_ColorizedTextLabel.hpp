@@ -1,5 +1,4 @@
-#ifndef SRC_INCLUDE_XLIB_X11_COLORIZEDTEXTLABEL_HPP
-#define SRC_INCLUDE_XLIB_X11_COLORIZEDTEXTLABEL_HPP
+#pragma once
 #include <xlib/X11_TextLabel/X11_TextLabel.hpp>
 #include "color/ColorPallete/ColorPallete.hpp"
 #include <list>
@@ -27,4 +26,3 @@ namespace xlib {
 }
 
 
-#endif /* SRC_INCLUDE_XLIB_X11_COLORIZEDTEXTLABEL_HPP */

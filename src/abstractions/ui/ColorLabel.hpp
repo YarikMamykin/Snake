@@ -1,6 +1,4 @@
-#ifndef SRC_INCLUDE_ABSTRACTIONS_UI_COLORLABEL_HPP
-#define SRC_INCLUDE_ABSTRACTIONS_UI_COLORLABEL_HPP
-
+#pragma once
 #include "abstractions/ui/Object.hpp"
 #include "color/ColorPallete/ColorPallete.hpp"
 
@@ -32,4 +30,3 @@ namespace abstractions::ui {
 }
 
 
-#endif /* SRC_INCLUDE_ABSTRACTIONS_UI_COLORLABEL_HPP */
