@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.0)
+
+add_compile_options(
+  -Wall
+  -g
+  -fPIC
+  -rdynamic
+)
+
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/${PROJECT_NAME}")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)

@@ -38,3 +38,21 @@ anchor_handlers
 commands
 threads
 )
+
+install(TARGETS 
+  xlib_ui 
+  events 
+  game_views
+  timer
+  game_objects
+  presenters
+  color
+  settings
+  anchor_handlers
+  commands
+  threads
+ 
+  RUNTIME DESTINATION
+  lib
+)
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
