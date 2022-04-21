@@ -7,3 +7,4 @@ set(HELPERS_SRC
 add_library(helpers SHARED ${HELPERS_SRC})
 add_dependencies(helpers xproxy)
 target_link_libraries(helpers xproxy)
+install(TARGETS helpers RUNTIME DESTINATION lib)

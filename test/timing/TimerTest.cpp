@@ -1,8 +1,12 @@
 #include "gtest/gtest.h"
 #include "timing/Timer.hpp"
+#include <mutex>
+#include <condition_variable>
+#include <chrono>
 
 namespace {
     const auto&& test_timeout = std::chrono::milliseconds(10u);
+    const std::chrono::milliseconds time_to_wait (std::chrono::duration_cast<std::chrono::milliseconds>(test_timeout + test_timeout * 0.1));
     auto empty_test_callback = [](){};
 }
 
@@ -24,7 +28,10 @@ TEST(TimerTest, LaunchSimple)
     
     ASSERT_TRUE(t.running());
 
-    std::this_thread::sleep_for(test_timeout + test_timeout * 0.1); // wait a little bit more than timer timeout
+    std::mutex m;
+    std::unique_lock<std::mutex> lk(m);
+    std::condition_variable cv;
+    cv.wait_for(lk, time_to_wait); // wait a little bit more than timer timeout
 
     t.stop();
 

@@ -31,3 +31,4 @@ set(DEPS
 add_dependencies(xlib_ui ${DEPS})
 
 target_link_libraries(xlib_ui ${DEPS})
+install(TARGETS xlib_ui RUNTIME DESTINATION lib)

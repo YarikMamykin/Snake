@@ -19,4 +19,3 @@ target_link_libraries(ColorPalleteTest
   color
 )
 add_test(NAME ColorPalleteTest COMMAND ColorPalleteTest)
-
