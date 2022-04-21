@@ -8,7 +8,7 @@
 namespace configuration {
   std::map<ConfigID, std::any>& Settings::settings_map() {
     static std::map<ConfigID, std::any> sets_map = {
-      { ConfigID::WINDOW_FRAME, geometry::Rectangle(0, 0, 200U, 200U) },
+      { ConfigID::WINDOW_FRAME, geometry::Rectangle{ 0, 0, 200U, 200U } },
       { ConfigID::WINDOW_COLOR_SCHEME, color::COLOR_SCHEME_TYPE({ 
           { color::ColorSchemeID::FrameColor, color::Color("#ff0000") }, 
           { color::ColorSchemeID::BackgroundColor, color::Color("#000000") }, 
