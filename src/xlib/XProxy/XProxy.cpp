@@ -51,8 +51,13 @@ namespace xlib {
 		graphical_context = DefaultGC(display, screen);
 
 		font_info = XLoadQueryFont(display, font_name.c_str());
-		if(!font_info)
-			return XError::FONT_LOAD_ERROR;
+		if(!font_info) {
+			// "fixed is a built-ins font for X server.
+			// It must always be present.
+			font_info = XLoadQueryFont(display, "fixed");
+			if(!font_info)
+				return XError::FONT_LOAD_ERROR;
+		}
 
 		XSetFont(display, graphical_context, font_info->fid);
 
