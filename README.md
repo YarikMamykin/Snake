@@ -5,7 +5,7 @@ Classic Snake implementation in C++
 
 ## Demo
 
-![](./demo.gif)
+![](./demo.webp)
 
 ## Dependencies
 - C++17 - C++ standard used
